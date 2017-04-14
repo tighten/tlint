@@ -4,7 +4,6 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// parse target file w/ appropriate linter and log lint messages
 use Symfony\Component\Console\Application;
 use Tighten\Commands\LintCommand;
 
