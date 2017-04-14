@@ -5,7 +5,7 @@ namespace Tighten;
 use PhpParser\Node;
 use PhpParser\ParserFactory;
 
-class Tighten
+class TLint
 {
     private $parser;
 

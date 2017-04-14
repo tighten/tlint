@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Tighten;
+use Tighten\TLint;
 use Tighten\Linters\ViewWithOverArrayParamaters;
 
 class ViewWithOverArrayParamatersTest extends TestCase
@@ -23,7 +23,7 @@ class Controller
 }
 file;
 
-        $lints = (new Tighten)->lint(
+        $lints = (new TLint)->lint(
             new ViewWithOverArrayParamaters($file)
         );
 
@@ -41,7 +41,7 @@ file;
 });
 file;
 
-        $lints = (new Tighten)->lint(
+        $lints = (new TLint)->lint(
             new ViewWithOverArrayParamaters($file)
         );
 

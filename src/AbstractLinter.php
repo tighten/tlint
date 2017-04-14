@@ -22,4 +22,12 @@ class AbstractLinter implements LinterInterface
     {
         return 'No Description for Linter.';
     }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
 }

@@ -8,16 +8,17 @@ composer global install tighten/tlint
 
 ## Usage
 ```
-tlint lint routes/web.php
+tlint lint routes/ViewWithOverArrayParamatersExample.php
 ```
 
 > output
 ```
-Linting TestLaravelApp/routes/web.php
+Linting TestLaravelApp/routes/ViewWithOverArrayParamatersExample.php
 ============
 Lints: 
 ============
-4: Prefer `view(...)->with(...)` over `view(..., [...])`.
+! Prefer `view(...)->with(...)` over `view(..., [...])`.
+5 : `    return view('test', ['test' => 'test']);``
 ```
 
 ## Implemented lints

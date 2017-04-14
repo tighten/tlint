@@ -17,7 +17,8 @@ class Lint
 
     public function __toString()
     {
-        return $this->node->getLine() . ': ' . $this->linter->lintDescription();
+        return '! ' . $this->linter->lintDescription() . PHP_EOL
+            . $this->node->getLine() . ' : `' . explode(PHP_EOL, $this->linter->getCode())[$this->node->getLine() - 1] . '``';
     }
 
     /**
