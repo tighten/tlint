@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tighten\Linters\FQCNOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
 use Tighten\Linters\ViewWithOverArrayParamaters;
 use Tighten\TLint;
@@ -57,6 +58,7 @@ class LintCommand extends Command
     {
         $linters = [
             RemoveLeadingSlashNamespaces::class,
+            FQCNOnlyForClassName::class,
         ];
 
         if (strpos($path, 'routes') !== false
