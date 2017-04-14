@@ -6,10 +6,10 @@
 
 @endforeach
 
-@section('sidebar')
+@section ('sidebar')
     This is the master sidebar.
 @show
 
 <div class="container">
-    @yield('content')
+    @yield ('content')
 </div>

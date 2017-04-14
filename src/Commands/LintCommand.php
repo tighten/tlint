@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\SpaceAfterBladeDirectives;
 use Tighten\Linters\FQCNOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
@@ -69,6 +70,7 @@ class LintCommand extends Command
 
         if (strpos($path, '.blade.php') !== false) {
             $linters[] = SpaceAfterBladeDirectives::class;
+            $linters[] = NoSpaceAfterBladeDirectives::class;
         }
 
         return $linters;
