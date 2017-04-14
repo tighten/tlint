@@ -23,9 +23,9 @@ Lints:
 
 ## Implemented lints
 - use with over array parameters in view() `ViewWithOverArrayParamaters`
+- no leading slashes in namespaces or static calls `RemoveLeadingSlashNamespaces`
 
 ## Todo Lints
-- no leading slashes in namespaces
 - import facades
 - use ->input() over ->get()
 - alphabetize use statements
