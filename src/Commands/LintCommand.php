@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tighten\Linters\SpaceAfterBladeDirectives;
 use Tighten\Linters\FQCNOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
 use Tighten\Linters\ViewWithOverArrayParamaters;
@@ -44,12 +45,12 @@ class LintCommand extends Command
             $lints = array_merge($lints, $tighten->lint(new $linter(file_get_contents($input->getArgument('file')))));
         }
 
-        foreach ($lints as $lint) {
-            $output->writeln([
-                'Lints: ',
-                '============',
-            ]);
+        $output->writeln([
+            'Lints: ',
+            '============',
+        ]);
 
+        foreach ($lints as $lint) {
             $output->writeln((string) $lint);
         }
     }
@@ -64,6 +65,10 @@ class LintCommand extends Command
         if (strpos($path, 'routes') !== false
             || strpos($path, 'app/Http/Controllers') !== false) {
             $linters[] = ViewWithOverArrayParamaters::class;
+        }
+
+        if (strpos($path, '.blade.php') !== false) {
+            $linters[] = SpaceAfterBladeDirectives::class;
         }
 
         return $linters;

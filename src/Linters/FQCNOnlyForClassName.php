@@ -10,7 +10,6 @@ use Tighten\AbstractLinter;
 
 class FQCNOnlyForClassName extends AbstractLinter
 {
-    const ok = 'sdf';
     public function lintDescription()
     {
         return 'Fully Qualified Class Names should only be used for accessing class names';

@@ -25,13 +25,13 @@ Lints:
 - use with over array parameters in view() `ViewWithOverArrayParamaters`
 - no leading slashes in namespaces or static calls `RemoveLeadingSlashNamespaces`
 - fully qualified class name only when it's being used a string (class name)
+- blade directive spacing conventions
 
 ## Todo Lints
 - import facades
 - use ->input() over ->get()
 - alphabetize use statements
 - remove method docblocks in stubs
-- blade conventions
 - controller method order (rest methods follow docs, otherwise alphabetize)
 - Model method order (props, relationships, scopes, accessors, mutators, custom, boot) 
 - no leading slashes on route paths
