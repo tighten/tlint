@@ -3,4 +3,4 @@
 use \Tighten\TLint;
 use \Exception;
 
-echo 'test';
+echo \Auth::user()->name;

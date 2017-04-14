@@ -30,4 +30,9 @@ class AbstractLinter implements LinterInterface
     {
         return $this->code;
     }
+
+    public function getCodeLine(int $line)
+    {
+        return explode(PHP_EOL, $this->code)[$line - 1];
+    }
 }

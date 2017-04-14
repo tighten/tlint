@@ -25,15 +25,21 @@ class RemoveLeadingSlashNamespaces extends AbstractLinter
     {
         $traverser = new NodeTraverser();
 
-        $visitor = new FindingVisitor(function (Node $node) {
+        $useStatementsVisitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Stmt\UseUse
-                && strpos($this->code, "\\" . $node->name->toString()) !== false;
+                && strpos($this->getCodeLine($node->getLine()), "\\" . $node->name->toString()) !== false;
         });
 
-        $traverser->addVisitor($visitor);
+        $staticCallVisitor = new FindingVisitor(function (Node $node) {
+            return $node instanceof Node\Expr\StaticCall
+                && strpos($this->getCodeLine($node->getLine()), "\\" . $node->class->toString()) !== false;
+        });
+
+        $traverser->addVisitor($useStatementsVisitor);
+        $traverser->addVisitor($staticCallVisitor);
 
         $traverser->traverse($parser->parse($this->code));
 
-        return $visitor->getFoundNodes();
+        return array_merge($useStatementsVisitor->getFoundNodes(), $staticCallVisitor->getFoundNodes());
     }
 }

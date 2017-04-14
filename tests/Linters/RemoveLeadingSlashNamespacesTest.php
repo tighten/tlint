@@ -25,4 +25,20 @@ file;
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
         $this->assertEquals(4, $lints[1]->getNode()->getLine());
     }
+
+    /** @test */
+    public function catches_leading_slashes_in_static_calls()
+    {
+        $file = <<<file
+<?php
+
+echo \Auth::user()->name;
+file;
+
+        $lints = (new TLint)->lint(
+            new RemoveLeadingSlashNamespaces($file)
+        );
+
+        $this->assertEquals(3, $lints[0]->getNode()->getLine());
+    }
 }

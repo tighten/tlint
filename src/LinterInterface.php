@@ -13,9 +13,10 @@ interface LinterInterface
     public function lint(Parser $parser);
 
     /**
+     * @param int $line
      * @return string
      */
-    public function getCode();
+    public function getCodeLine(int $line);
 
     /**
      * @return string
