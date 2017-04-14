@@ -13,5 +13,3 @@ $application = new Application();
 $application->add(new LintCommand);
 
 $application->run();
-
-// todo: lint a directory recursively w/ all available linters
