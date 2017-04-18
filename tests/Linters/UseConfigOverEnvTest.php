@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\FQCNOnlyForClassName;
+use Tighten\Linters\UseConfigOverEnv;
 use Tighten\TLint;
 
 class UseConfigOverEnvTest extends TestCase
@@ -16,7 +17,7 @@ echo env('thing');
 file;
 
         $lints = (new TLint)->lint(
-            new Tighten\Linters\UseConfigOverEnv($file)
+            new UseConfigOverEnv($file)
         );
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());

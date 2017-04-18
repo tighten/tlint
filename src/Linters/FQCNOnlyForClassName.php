@@ -28,6 +28,7 @@ class FQCNOnlyForClassName extends AbstractLinter
                 && ($node instanceof Node\Expr\StaticPropertyFetch
                     || $node instanceof Node\Expr\StaticCall
                     || $node instanceof Node\Expr\ClassConstFetch
+                    || $node instanceof Node\Expr\New_
                 )
                 && $node->class->isQualified();
         });

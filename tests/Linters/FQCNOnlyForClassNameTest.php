@@ -70,4 +70,20 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function catches_fully_qualified_instantiations()
+    {
+        $file = <<<file
+<?php
+
+echo new Thing\Thing();
+file;
+
+        $lints = (new TLint)->lint(
+            new FQCNOnlyForClassName($file)
+        );
+
+        $this->assertEquals(3, $lints[0]->getNode()->getLine());
+    }
 }
