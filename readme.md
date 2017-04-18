@@ -23,7 +23,7 @@ Lints:
 
 ## Implemented lints
 - use with over array parameters in view() `ViewWithOverArrayParamaters`
-- no leading slashes in namespaces or static calls `RemoveLeadingSlashNamespaces`
+- no leading slashes in namespaces or static calls or instantiations `RemoveLeadingSlashNamespaces`
 - fully qualified class name only when it's being used a string (class name)
 - blade directive spacing conventions
 

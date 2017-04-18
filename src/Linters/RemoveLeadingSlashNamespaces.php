@@ -3,8 +3,6 @@
 namespace Tighten\Linters;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\FuncCall;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
@@ -25,6 +23,12 @@ class RemoveLeadingSlashNamespaces extends AbstractLinter
     {
         $traverser = new NodeTraverser();
 
+        $instantiationsVisitor = new FindingVisitor(function (Node $node) {
+            return $node instanceof Node\Expr\New_
+                && $node->class instanceof Node\Name
+                && strpos($this->getCodeLine($node->getLine()), "\\" . $node->class->toString()) !== false;
+        });
+
         $useStatementsVisitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Stmt\UseUse
                 && strpos($this->getCodeLine($node->getLine()), "\\" . $node->name->toString()) !== false;
@@ -35,11 +39,16 @@ class RemoveLeadingSlashNamespaces extends AbstractLinter
                 && strpos($this->getCodeLine($node->getLine()), "\\" . $node->class->toString()) !== false;
         });
 
+        $traverser->addVisitor($instantiationsVisitor);
         $traverser->addVisitor($useStatementsVisitor);
         $traverser->addVisitor($staticCallVisitor);
 
         $traverser->traverse($parser->parse($this->code));
 
-        return array_merge($useStatementsVisitor->getFoundNodes(), $staticCallVisitor->getFoundNodes());
+        return array_merge(
+            $instantiationsVisitor->getFoundNodes(),
+            $useStatementsVisitor->getFoundNodes(),
+            $staticCallVisitor->getFoundNodes()
+        );
     }
 }

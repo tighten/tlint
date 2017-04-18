@@ -41,4 +41,20 @@ file;
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
+
+    /** @test */
+    public function catches_leading_slashes_in_instantiations()
+    {
+        $file = <<<file
+<?php
+
+echo new \User();
+file;
+
+        $lints = (new TLint)->lint(
+            new RemoveLeadingSlashNamespaces($file)
+        );
+
+        $this->assertEquals(3, $lints[0]->getNode()->getLine());
+    }
 }
