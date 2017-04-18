@@ -26,9 +26,9 @@ Lints:
 - no leading slashes in namespaces or static calls or instantiations `RemoveLeadingSlashNamespaces`
 - fully qualified class name only when it's being used a string (class name)
 - blade directive spacing conventions
+- don’t use environment variables directly in code; instead, use them in config files and call config vars from code
 
 ## Todo Lints
-- don’t use environment variables directly in our code; instead, use them in config files and call config vars from our code
 - mailable values (from and subject etc) should be set in build() not constructor
 - import facades
 - use ->input() over ->get()
