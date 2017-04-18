@@ -28,6 +28,8 @@ Lints:
 - blade directive spacing conventions
 
 ## Todo Lints
+- we don’t use environment variables directly in our code; instead, use them in config files and call config vars from our code
+- mailable values (from and subject etc) should be set in build() not constructor
 - import facades
 - use ->input() over ->get()
 - alphabetize use statements
