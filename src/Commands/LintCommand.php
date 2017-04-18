@@ -63,8 +63,10 @@ class LintCommand extends Command
             /** @var \SplFileObject $file */
             $filepath = $file->getRealPath();
 
+            // TODO: blacklist needs to be nicer
             if (strpos($filepath, 'vendor') !== false
-            || strpos($filepath, 'public/index.php')) {
+            || strpos($filepath, 'public/index.php')
+            || strpos($filepath, 'bootstrap/app.php')) {
                 continue;
             }
 
