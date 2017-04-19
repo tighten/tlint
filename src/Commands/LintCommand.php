@@ -52,6 +52,14 @@ class LintCommand extends Command
         }
     }
 
+    private function isBlacklisted($filepath)
+    {
+        return strpos($filepath, 'vendor') !== false
+            || strpos($filepath, 'public/index.php') !== false
+            || strpos($filepath, 'bootstrap/app.php') !== false
+            || strpos($filepath, 'storage/framework/views') !== false;
+    }
+
     private function filesInDir($directory, $fileExtension)
     {
         $directory = realpath($directory);
@@ -63,10 +71,7 @@ class LintCommand extends Command
             /** @var \SplFileObject $file */
             $filepath = $file->getRealPath();
 
-            // TODO: blacklist needs to be nicer
-            if (strpos($filepath, 'vendor') !== false
-            || strpos($filepath, 'public/index.php')
-            || strpos($filepath, 'bootstrap/app.php')) {
+            if ($this->isBlacklisted($file)) {
                 continue;
             }
 
@@ -91,23 +96,48 @@ class LintCommand extends Command
         return 0;
     }
 
+    private function getRoutesFilesLinters($path)
+    {
+        if (strpos($path, 'routes') !== false) {
+            return [ViewWithOverArrayParamaters::class];
+        }
+
+        return [];
+    }
+
+    private function getControllerFilesLinters($path)
+    {
+        if (strpos($path, 'app/Http/Controllers') !== false) {
+            return [ViewWithOverArrayParamaters::class];
+        }
+
+        return [];
+    }
+
+    private function getBladeTemplatesLinters($path)
+    {
+        if (strpos($path, '.blade.php') !== false) {
+            return [
+                SpaceAfterBladeDirectives::class,
+                NoSpaceAfterBladeDirectives::class,
+            ];
+        }
+
+        return [];
+    }
+
     private function getLinters($path)
     {
-        $linters = [
-            RemoveLeadingSlashNamespaces::class,
-            FQCNOnlyForClassName::class,
-        ];
-
-        if (strpos($path, 'routes') !== false
-            || strpos($path, 'app/Http/Controllers') !== false) {
-            $linters[] = ViewWithOverArrayParamaters::class;
-        }
-
-        if (strpos($path, '.blade.php') !== false) {
-            $linters[] = SpaceAfterBladeDirectives::class;
-            $linters[] = NoSpaceAfterBladeDirectives::class;
-        }
-
-        return $linters;
+        return array_unique(
+            array_merge(
+                [
+                    RemoveLeadingSlashNamespaces::class,
+                    FQCNOnlyForClassName::class,
+                ],
+                $this->getRoutesFilesLinters($path),
+                $this->getControllerFilesLinters($path),
+                $this->getBladeTemplatesLinters($path)
+            )
+        );
     }
 }
