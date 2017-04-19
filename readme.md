@@ -27,6 +27,7 @@ Lints:
 - fully qualified class name only when it's being used a string (class name)
 - blade directive spacing conventions
 - don’t use environment variables directly in code; instead, use them in config files and call config vars from code
+- there should only be rest methods in an otherwise purely restful controller
 
 ## Todo Lints
 - mailable values (from and subject etc) should be set in build() not constructor
@@ -37,3 +38,4 @@ Lints:
 - controller method order (rest methods follow docs, otherwise alphabetize)
 - Model method order (props, relationships, scopes, accessors, mutators, custom, boot) 
 - no leading slashes on route paths
+- minimize number of public methods on controllers (8?)

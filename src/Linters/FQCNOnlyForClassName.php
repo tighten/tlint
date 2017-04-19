@@ -30,6 +30,10 @@ class FQCNOnlyForClassName extends AbstractLinter
                     || $node instanceof Node\Expr\ClassConstFetch
                     || $node instanceof Node\Expr\New_
                 )
+                // new $variable used to instantiate
+                && !($node instanceof Node\Expr\New_ && $node->class instanceof Node\Expr\Variable)
+                // anonymous class
+                && !($node instanceof Node\Expr\New_ && $node->class instanceof Node\Stmt\Class_)
                 && $node->class->isQualified();
         });
 

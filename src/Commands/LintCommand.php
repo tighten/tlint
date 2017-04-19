@@ -10,6 +10,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
+use Tighten\Linters\PureRestControllers;
+use Tighten\Linters\RestControllersMethodOrder;
 use Tighten\Linters\SpaceAfterBladeDirectives;
 use Tighten\Linters\FQCNOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
@@ -108,7 +110,11 @@ class LintCommand extends Command
     private function getControllerFilesLinters($path)
     {
         if (strpos($path, 'app/Http/Controllers') !== false) {
-            return [ViewWithOverArrayParamaters::class];
+            return [
+                ViewWithOverArrayParamaters::class,
+                PureRestControllers::class,
+                RestControllersMethodOrder::class,
+            ];
         }
 
         return [];

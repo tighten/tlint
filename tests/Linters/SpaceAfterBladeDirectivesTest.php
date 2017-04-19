@@ -2,8 +2,6 @@
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\SpaceAfterBladeDirectives;
-use Tighten\Linters\FQCNOnlyForClassName;
-use Tighten\Linters\RemoveLeadingSlashNamespaces;
 use Tighten\TLint;
 
 class SpaceAfterBladeDirectivesTest extends TestCase

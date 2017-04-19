@@ -1,7 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\FQCNOnlyForClassName;
 use Tighten\Linters\UseConfigOverEnv;
 use Tighten\TLint;
 
