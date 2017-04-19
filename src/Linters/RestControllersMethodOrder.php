@@ -53,7 +53,7 @@ class RestControllersMethodOrder extends AbstractLinter
                         }
                     );
 
-                    return $correctlyOrderedPresentMethods !== $methodNames;
+                    return array_values($correctlyOrderedPresentMethods) !== array_values($methodNames);
                 }
             }
 
