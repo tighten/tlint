@@ -28,6 +28,7 @@ Lints:
 - blade directive spacing conventions
 - don’t use environment variables directly in code; instead, use them in config files and call config vars from code
 - there should only be rest methods in an otherwise purely restful controller
+- controller method order (rest methods follow docs, otherwise alphabetize)
 
 ## Todo Lints
 - mailable values (from and subject etc) should be set in build() not constructor
@@ -35,7 +36,6 @@ Lints:
 - use ->input() over ->get()
 - alphabetize use statements
 - remove method docblocks in stubs
-- controller method order (rest methods follow docs, otherwise alphabetize)
 - Model method order (props, relationships, scopes, accessors, mutators, custom, boot) 
 - no leading slashes on route paths
 - minimize number of public methods on controllers (8?)
