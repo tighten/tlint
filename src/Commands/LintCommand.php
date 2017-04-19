@@ -9,12 +9,15 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tighten\Lint;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\PureRestControllers;
+use Tighten\Linters\RequestHelperFunctionWherePossible;
 use Tighten\Linters\RestControllersMethodOrder;
 use Tighten\Linters\SpaceAfterBladeDirectives;
 use Tighten\Linters\FQCNOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
+use Tighten\Linters\UseAuthHelperOverFacade;
 use Tighten\Linters\ViewWithOverArrayParamaters;
 use Tighten\TLint;
 
@@ -38,17 +41,22 @@ class LintCommand extends Command
         $tighten = new TLint;
 
         $lints = [];
-        foreach ($linters as $linter) {
-            $lints = array_merge($lints, $tighten->lint(new $linter(file_get_contents($file))));
+        foreach ($linters as $linter => $parseAs) {
+            $lints = array_merge($lints, $tighten->lint(new $linter(
+                file_get_contents($file),
+                $parseAs
+            )));
         }
 
         if (!empty($lints)) {
             $output->writeln([
+                PHP_EOL,
                 "Lints for $file: ",
                 '============',
             ]);
 
             foreach ($lints as $lint) {
+                /** @var Lint $lint */
                 $output->writeln((string) $lint);
             }
         }
@@ -101,7 +109,9 @@ class LintCommand extends Command
     private function getRoutesFilesLinters($path)
     {
         if (strpos($path, 'routes') !== false) {
-            return [ViewWithOverArrayParamaters::class];
+            return [
+                ViewWithOverArrayParamaters::class => '.php'
+            ];
         }
 
         return [];
@@ -111,9 +121,10 @@ class LintCommand extends Command
     {
         if (strpos($path, 'app/Http/Controllers') !== false) {
             return [
-                ViewWithOverArrayParamaters::class,
-                PureRestControllers::class,
-                RestControllersMethodOrder::class,
+                ViewWithOverArrayParamaters::class => '.php',
+                PureRestControllers::class => '.php',
+                RestControllersMethodOrder::class => '.php',
+                RequestHelperFunctionWherePossible::class => '.php',
             ];
         }
 
@@ -124,8 +135,9 @@ class LintCommand extends Command
     {
         if (strpos($path, '.blade.php') !== false) {
             return [
-                SpaceAfterBladeDirectives::class,
-                NoSpaceAfterBladeDirectives::class,
+                SpaceAfterBladeDirectives::class => '.php',
+                NoSpaceAfterBladeDirectives::class => '.php',
+                UseAuthHelperOverFacade::class => '.blade.php',
             ];
         }
 
@@ -137,8 +149,8 @@ class LintCommand extends Command
         return array_unique(
             array_merge(
                 [
-                    RemoveLeadingSlashNamespaces::class,
-                    FQCNOnlyForClassName::class,
+                    RemoveLeadingSlashNamespaces::class => '.php',
+                    FQCNOnlyForClassName::class => '.php',
                 ],
                 $this->getRoutesFilesLinters($path),
                 $this->getControllerFilesLinters($path),

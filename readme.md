@@ -29,11 +29,12 @@ Lints:
 - don’t use environment variables directly in code; instead, use them in config files and call config vars from code
 - there should only be rest methods in an otherwise purely restful controller
 - controller method order (rest methods follow docs, otherwise alphabetize)
+- use the simplest `request(...)` wherever possible
+- use auth() helper over the Auth facade
 
 ## Todo Lints
 - mailable values (from and subject etc) should be set in build() not constructor
 - import facades
-- use ->input() over ->get()
 - alphabetize use statements
 - remove method docblocks in stubs
 - Model method order (props, relationships, scopes, accessors, mutators, custom, boot) 

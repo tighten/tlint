@@ -17,8 +17,16 @@ class Lint
 
     public function __toString()
     {
-        return '! ' . $this->linter->lintDescription() . PHP_EOL
-            . $this->node->getLine() . ' : `' . $this->linter->getCodeLine($this->node->getLine()) . '`';
+        if ($this->linter->getExtension() === '.php') {
+            return '! ' . $this->linter->lintDescription() . PHP_EOL
+                . $this->node->getLine() . ' : `' . $this->linter->getCodeLine($this->node->getLine()) . '`';
+        }
+
+        if ($this->linter->getExtension() === '.blade.php') {
+            return '! ' . $this->linter->lintDescription();
+        }
+
+        return 'Something is wrong.';
     }
 
     /**

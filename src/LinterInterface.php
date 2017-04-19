@@ -22,4 +22,9 @@ interface LinterInterface
      * @return string
      */
     public function lintDescription();
+
+    /**
+     * @return string
+     */
+    public function getExtension();
 }
