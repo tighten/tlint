@@ -42,6 +42,10 @@ class LintCommand extends Command
 
     private function lintFile(InputInterface $input, OutputInterface $output, $file)
     {
+        if ($this->isBlacklisted($file)) {
+            return 0;
+        }
+
         $linters = $this->getLinters($file);
 
         $tighten = new TLint;
@@ -66,11 +70,19 @@ class LintCommand extends Command
                 $output->writeln((string) $lint);
             }
         }
+
+        /**
+         * CI error codes
+         * 0: no lints
+         * 1: lints found
+         */
+        return empty($lints) ? 0 : 1;
     }
 
     private function isBlacklisted($filepath)
     {
         return strpos($filepath, 'vendor') !== false
+            || strpos($filepath, 'app/Http/Middleware/RedirectIfAuthenticated.php') !== false
             || strpos($filepath, 'public/index.php') !== false
             || strpos($filepath, 'bootstrap/app.php') !== false
             || strpos($filepath, 'storage/framework/views') !== false;
@@ -87,10 +99,6 @@ class LintCommand extends Command
             /** @var \SplFileObject $file */
             $filepath = $file->getRealPath();
 
-            if ($this->isBlacklisted($file)) {
-                continue;
-            }
-
             yield $filepath;
         }
     }
@@ -99,19 +107,28 @@ class LintCommand extends Command
     {
         $fileOrDirectory = $input->getArgument('file or directory');
 
-        if (is_file($input->getArgument('file or directory'))) {
-            $this->lintFile($input, $output, $input->getArgument('file or directory'));
-        } elseif (is_dir($input->getArgument('file or directory'))) {
-            foreach ($this->filesInDir($input->getArgument('file or directory'), 'php') as $file) {
-                $this->lintFile($input, $output, $file);
-            }
-        } else {
-            $output->writeln('No file or directory found at ' . $input->getArgument('file or directory'));
-
-            return 1;
+        if ($this->isBlacklisted($fileOrDirectory)) {
+            return 0;
         }
 
-        return 0;
+        if (is_file($fileOrDirectory)) {
+            return $this->lintFile($input, $output, $fileOrDirectory);
+        }
+
+        if (is_dir($fileOrDirectory)) {
+            $finalResponseCode = 0;
+
+            foreach ($this->filesInDir($fileOrDirectory, 'php') as $file) {
+                if ($this->lintFile($input, $output, $file) === 1) {
+                    $finalResponseCode = 1;
+                }
+            }
+
+            return $finalResponseCode;
+        }
+
+        $output->writeln('No file or directory found at ' . $fileOrDirectory);
+        return 1;
     }
 
     private function getRoutesFilesLinters($path)
