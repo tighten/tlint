@@ -26,4 +26,19 @@ file;
 
         $this->assertNotNull($lints[0]);
     }
+
+    /** @test */
+    public function catches_auth_facade_usage_in_code()
+    {
+        $file = <<<file
+<?php
+echo Auth::user()->name;
+file;
+
+        $lints = (new TLint)->lint(
+            new UseAuthHelperOverFacade($file, '.php')
+        );
+
+        $this->assertEquals(2, $lints[0]->getNode()->getLine());
+    }
 }

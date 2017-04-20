@@ -28,7 +28,7 @@ class UseAuthHelperOverFacade extends AbstractLinter
 
         $visitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Expr\StaticCall
-                && $node->class->toString() === 'Illuminate\Support\Facades\Auth';
+                && in_array($node->class->toString(), ['Auth', 'Illuminate\Support\Facades\Auth']);
         });
 
         $traverser->addVisitor($visitor);

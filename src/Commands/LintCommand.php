@@ -169,6 +169,7 @@ class LintCommand extends Command
             [
                 RemoveLeadingSlashNamespaces::class => '.php',
                 FQCNOnlyForClassName::class => '.php',
+                UseAuthHelperOverFacade::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
