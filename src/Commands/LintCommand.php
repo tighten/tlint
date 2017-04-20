@@ -32,7 +32,12 @@ class LintCommand extends Command
             ->setHelp('This command allows you to lint a laravel file.');
 
         $this
-            ->addArgument('file or directory', InputArgument::REQUIRED, 'The file or directory to lint');
+            ->addArgument(
+                'file or directory',
+                InputArgument::OPTIONAL,
+                'The file or directory to lint',
+                getcwd()
+            );
     }
 
     private function lintFile(InputInterface $input, OutputInterface $output, $file)
@@ -92,6 +97,8 @@ class LintCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $fileOrDirectory = $input->getArgument('file or directory');
+
         if (is_file($input->getArgument('file or directory'))) {
             $this->lintFile($input, $output, $input->getArgument('file or directory'));
         } elseif (is_dir($input->getArgument('file or directory'))) {

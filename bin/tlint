@@ -9,6 +9,10 @@ use Tighten\Commands\LintCommand;
 
 $application = new Application();
 
-$application->add(new LintCommand);
+$lintCommand = new LintCommand();
+
+$application->add($lintCommand);
+
+$application->setDefaultCommand($lintCommand->getName());
 
 $application->run();
