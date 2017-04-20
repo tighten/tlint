@@ -31,12 +31,13 @@ Lints:
 - controller method order (rest methods follow docs, otherwise alphabetize)
 - use the simplest `request(...)` wherever possible
 - use auth() helper over the Auth facade
+- remove method docblocks in migrations
 
 ## Todo Lints
 - mailable values (from and subject etc) should be set in build() not constructor
 - import facades
 - alphabetize use statements
-- remove method docblocks in stubs
 - Model method order (props, relationships, scopes, accessors, mutators, custom, boot) 
 - no leading slashes on route paths
 - minimize number of public methods on controllers (8?)
+- apply middleware in routes (not controllers)

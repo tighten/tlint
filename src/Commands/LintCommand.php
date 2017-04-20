@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tighten\Lint;
+use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\PureRestControllers;
 use Tighten\Linters\RequestHelperFunctionWherePossible;
@@ -117,6 +118,17 @@ class LintCommand extends Command
         return [];
     }
 
+    private function getMigrationsLinters($path)
+    {
+        if (strpos($path, 'migrations') !== false) {
+            return [
+                NoDocBlocksForMigrationUpDown::class => '.php'
+            ];
+        }
+
+        return [];
+    }
+
     private function getControllerFilesLinters($path)
     {
         if (strpos($path, 'app/Http/Controllers') !== false) {
@@ -146,16 +158,15 @@ class LintCommand extends Command
 
     private function getLinters($path)
     {
-        return array_unique(
-            array_merge(
-                [
-                    RemoveLeadingSlashNamespaces::class => '.php',
-                    FQCNOnlyForClassName::class => '.php',
-                ],
-                $this->getRoutesFilesLinters($path),
-                $this->getControllerFilesLinters($path),
-                $this->getBladeTemplatesLinters($path)
-            )
+        return array_merge(
+            [
+                RemoveLeadingSlashNamespaces::class => '.php',
+                FQCNOnlyForClassName::class => '.php',
+            ],
+            $this->getRoutesFilesLinters($path),
+            $this->getControllerFilesLinters($path),
+            $this->getBladeTemplatesLinters($path),
+            $this->getMigrationsLinters($path)
         );
     }
 }
