@@ -1,11 +1,5 @@
 {
     "name": "loganhenson/tlint",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/loganhenson/PHP-Parser"
-        }
-    ],
     "require": {
         "php": ">=7.1",
         "loganhenson/php-parser": "^4.0",
