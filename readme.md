@@ -3,7 +3,7 @@
 
 ## Install
 ```
-composer global require loganhenson/tlint:dev-master
+composer global require loganhenson/tlint
 ```
 > You will need to add `"minimum-stability": "dev"` to your `~/.composer.json` if it is not present for this dev version.
 

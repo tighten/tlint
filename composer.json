@@ -1,5 +1,11 @@
 {
     "name": "loganhenson/tlint",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/nikic/PHP-Parser"
+        }
+    ],
     "require": {
         "php": ">=7.0",
         "nikic/php-parser": "dev-master",
