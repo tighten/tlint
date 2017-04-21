@@ -3,7 +3,7 @@
 
 ## Install
 ```
-composer global install tighten/tlint
+composer global install loganhenson/tlint
 ```
 
 ## Usage
@@ -24,6 +24,12 @@ Lints:
 ============
 ! Prefer `view(...)->with(...)` over `view(..., [...])`.
 5 : `    return view('test', ['test' => 'test']);``
+```
+
+## Lint this project
+```
+tlint lint src
+tlint lint tests
 ```
 
 ## Implemented lints
