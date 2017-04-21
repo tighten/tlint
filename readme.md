@@ -11,7 +11,7 @@ For entire project
 ```
 tlint
 ```
-OR for individual files
+OR for individual files and specific directories
 ```
 tlint lint routes/ViewWithOverArrayParamatersExample.php
 ```
@@ -39,11 +39,10 @@ Lints:
 - Remove method docblocks in migrations. `NoDocBlocksForMigrationUpDown`
 - Import facades (don't use aliases). `ImportFacades`
 - Mailable values (from and subject etc) should be set in build(). `MailableMethodsInBuild`
+- No leading slashes on route paths. `NoLeadingSlashesOnRoutePaths`
 
 ## Todo Lints
-- alphabetize use statements.
-- Model method order (props, relationships, scopes, accessors, mutators, custom, boot).
+- Model method order (relationships, scopes, accessors, mutators, custom, boot).
 - Class "things" order (consts, statics, props, traits, methods).
-- no leading slashes on route paths.
 - minimize number of public methods on controllers (8?).
 - apply middleware in routes (not controllers).
