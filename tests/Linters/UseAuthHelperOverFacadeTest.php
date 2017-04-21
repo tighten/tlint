@@ -59,4 +59,22 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function does_not_trigger_on_when_calling_routes()
+    {
+        $file = <<<file
+<?php
+
+use Illuminate\Support\Facades\Auth;
+
+Auth::routes();
+file;
+
+        $lints = (new TLint)->lint(
+            new UseAuthHelperOverFacade($file, '.php')
+        );
+
+        $this->assertEmpty($lints);
+    }
 }

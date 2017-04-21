@@ -40,7 +40,8 @@ class UseAuthHelperOverFacade extends AbstractLinter
                 // use Illuminate\Support\Facades\Auth and calling Auth::
                 && (($usesAuthFacade && $node->class->toString() === 'Auth')
                 // FQCN usage
-                || $node->class->toString() === 'Illuminate\Support\Facades\Auth');
+                || $node->class->toString() === 'Illuminate\Support\Facades\Auth')
+                && $node->name !== 'routes';
         });
 
         $traverser->addVisitor($visitor);
