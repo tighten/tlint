@@ -3,12 +3,12 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/nikic/PHP-Parser"
+            "url": "https://github.com/loganhenson/PHP-Parser"
         }
     ],
     "require": {
         "php": ">=7.1",
-        "nikic/php-parser": "dev-master",
+        "nikic/php-parser": "^4.0",
         "symfony/console": "^3.2",
         "illuminate/view": "^5.4"
     },

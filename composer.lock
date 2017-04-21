@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a06c2d1642cd816a34fd5ff8b6117ac4",
+    "content-hash": "e4f73d96a3b9960a1129abf7b824ee98",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -360,15 +360,15 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "dev-master",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
+                "url": "https://github.com/loganhenson/PHP-Parser.git",
                 "reference": "ba85da88a0bf8780d06ed3886a1b285cdad49482"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/ba85da88a0bf8780d06ed3886a1b285cdad49482",
+                "url": "https://api.github.com/repos/loganhenson/PHP-Parser/zipball/ba85da88a0bf8780d06ed3886a1b285cdad49482",
                 "reference": "ba85da88a0bf8780d06ed3886a1b285cdad49482",
                 "shasum": ""
             },
@@ -393,7 +393,6 @@
                     "PhpParser\\": "lib/PhpParser"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -407,7 +406,10 @@
                 "parser",
                 "php"
             ],
-            "time": "2017-04-19 09:20:32"
+            "support": {
+                "source": "https://github.com/loganhenson/PHP-Parser/tree/v4.0.0"
+            },
+            "time": "2017-04-19T09:20:32+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2186,9 +2188,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "nikic/php-parser": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

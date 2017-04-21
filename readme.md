@@ -5,10 +5,8 @@
 ```
 composer global require loganhenson/tlint
 ```
-> You will need to add `"minimum-stability": "dev"` to your `~/.composer/composer.json` if it is not present for this dev version.
-> Also, if you have other global packages depending on nikic/PHP-Parser or core laravel files you will have to remove them to test this package.
-> - an old laravel/installer
-> - psy/psysh
+> If you have other globally installed core laravel files you may need to update them to test this package.
+> - laravel/valet
 
 ## Usage
 For entire project
