@@ -32,10 +32,10 @@ Lints:
 - Use the simplest `request(...)` wherever possible. `RequestHelperFunctionWherePossible`
 - Use auth() helper over the Auth facade. `UseAuthHelperOverFacade`
 - Remove method docblocks in migrations. `NoDocBlocksForMigrationUpDown`
+- import facades (don't use aliases). `ImportFacades`
 
 ## Todo Lints
 - Mailable values (from and subject etc) should be set in build() not constructor.
-- import facades (don't use aliases). `ImportFacades`
 - alphabetize use statements.
 - Model method order (props, relationships, scopes, accessors, mutators, custom, boot).
 - Class "things" order (consts, statics, props, traits, methods).
