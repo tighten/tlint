@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tighten\Lint;
 use Tighten\Linters\ImportFacades;
+use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\PureRestControllers;
@@ -181,6 +182,13 @@ class LintCommand extends Command
         return [];
     }
 
+    private function getMailableLinters($path)
+    {
+        return [
+            MailableMethodsInBuild::class => '.php',
+        ];
+    }
+
     private function getLinters($path)
     {
         return array_merge(
@@ -193,7 +201,8 @@ class LintCommand extends Command
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
             $this->getBladeTemplatesLinters($path),
-            $this->getMigrationsLinters($path)
+            $this->getMigrationsLinters($path),
+            $this->getMailableLinters($path)
         );
     }
 }
