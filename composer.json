@@ -7,7 +7,7 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.1",
         "nikic/php-parser": "dev-master",
         "phpunit/phpunit": "^6.1",
         "symfony/console": "^3.2",

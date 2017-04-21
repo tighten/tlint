@@ -1,7 +1,7 @@
 ## Tighten linter
 > not psr stuff, these are conventions and agreed upon best practices
 
-## Install
+## Install (Requires php7.1+)
 ```
 composer global require loganhenson/tlint
 ```
