@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\FQCNOnlyForClassName;
+use Tighten\Linters\QualifiedNamesOnlyForClassName;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\TLint;
 

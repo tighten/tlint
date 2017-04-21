@@ -22,23 +22,23 @@ Lints:
 ```
 
 ## Implemented lints
-- use with over array parameters in view() `ViewWithOverArrayParamaters`
-- no leading slashes in namespaces or static calls or instantiations `RemoveLeadingSlashNamespaces`
-- fully qualified class name only when it's being used a string (class name)
-- blade directive spacing conventions
-- don’t use environment variables directly in code; instead, use them in config files and call config vars from code
-- there should only be rest methods in an otherwise purely restful controller
-- controller method order (rest methods follow docs, otherwise alphabetize)
-- use the simplest `request(...)` wherever possible
-- use auth() helper over the Auth facade
-- remove method docblocks in migrations
+- Use with over array parameters in view(). `ViewWithOverArrayParamaters`
+- No leading slashes in namespaces or static calls or instantiations. `RemoveLeadingSlashNamespaces`
+- Fully qualified class name only when it's being used a string (class name). `QualifiedNamesOnlyForClassName`
+- Blade directive spacing conventions. `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
+- Don’t use environment variables directly in code; instead, use them in config files and call config vars from code. `UseConfigOverEnv`
+- There should only be rest methods in an otherwise purely restful controller. `PureRestControllers`
+- Controller method order (rest methods follow docs). `RestControllersMethodOrder`
+- Use the simplest `request(...)` wherever possible. `RequestHelperFunctionWherePossible`
+- Use auth() helper over the Auth facade. `UseAuthHelperOverFacade`
+- Remove method docblocks in migrations. `NoDocBlocksForMigrationUpDown`
 
 ## Todo Lints
-- mailable values (from and subject etc) should be set in build() not constructor
-- import facades
-- alphabetize use statements
-- Model method order (props, relationships, scopes, accessors, mutators, custom, boot) 
-- Class "things" order (consts, statics, props, traits, methods)
-- no leading slashes on route paths
-- minimize number of public methods on controllers (8?)
-- apply middleware in routes (not controllers)
+- Mailable values (from and subject etc) should be set in build() not constructor.
+- import facades (don't use aliases). `ImportFacades`
+- alphabetize use statements.
+- Model method order (props, relationships, scopes, accessors, mutators, custom, boot).
+- Class "things" order (consts, statics, props, traits, methods).
+- no leading slashes on route paths.
+- minimize number of public methods on controllers (8?).
+- apply middleware in routes (not controllers).

@@ -8,7 +8,7 @@ use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\AbstractLinter;
 
-class FQCNOnlyForClassName extends AbstractLinter
+class QualifiedNamesOnlyForClassName extends AbstractLinter
 {
     public function lintDescription()
     {
@@ -22,6 +22,12 @@ class FQCNOnlyForClassName extends AbstractLinter
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();
+
+        $fqcnExtends = new FindingVisitor(function (Node $node) {
+            return $node instanceof Node\Stmt\Class_
+                && !empty($node->extends)
+                && ($node->extends->isFullyQualified() || $node->extends->isQualified());
+        });
 
         $fqcnNonClassName = new FindingVisitor(function (Node $node) {
             return ($node->name ?? null) !== 'class'
@@ -37,10 +43,11 @@ class FQCNOnlyForClassName extends AbstractLinter
                 && $node->class->isQualified();
         });
 
+        $traverser->addVisitor($fqcnExtends);
         $traverser->addVisitor($fqcnNonClassName);
 
         $traverser->traverse($parser->parse($this->code));
 
-        return $fqcnNonClassName->getFoundNodes();
+        return array_merge($fqcnExtends->getFoundNodes(), $fqcnNonClassName->getFoundNodes());
     }
 }

@@ -16,7 +16,7 @@ use Tighten\Linters\PureRestControllers;
 use Tighten\Linters\RequestHelperFunctionWherePossible;
 use Tighten\Linters\RestControllersMethodOrder;
 use Tighten\Linters\SpaceAfterBladeDirectives;
-use Tighten\Linters\FQCNOnlyForClassName;
+use Tighten\Linters\QualifiedNamesOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
 use Tighten\Linters\UseAuthHelperOverFacade;
 use Tighten\Linters\ViewWithOverArrayParamaters;
@@ -185,7 +185,7 @@ class LintCommand extends Command
         return array_merge(
             [
                 RemoveLeadingSlashNamespaces::class => '.php',
-                FQCNOnlyForClassName::class => '.php',
+                QualifiedNamesOnlyForClassName::class => '.php',
                 UseAuthHelperOverFacade::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
