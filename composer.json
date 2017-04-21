@@ -8,7 +8,7 @@
     ],
     "require": {
         "php": ">=7.1",
-        "nikic/php-parser": "^4.0",
+        "loganhenson/php-parser": "^4.0",
         "symfony/console": "^3.2",
         "illuminate/view": "^5.4"
     },
