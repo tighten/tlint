@@ -29,4 +29,21 @@ file;
 
         $this->assertEquals(9, $lints[0]->getNode()->getLine());
     }
+
+    /** @test */
+    public function does_not_trigger_on_new_instance_method_calls()
+    {
+        $file = <<<file
+<?php
+
+(new TableBuilder(new TablePresenter()))
+        ->column();
+file;
+
+        $lints = (new TLint)->lint(
+            new RequestHelperFunctionWherePossible($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }

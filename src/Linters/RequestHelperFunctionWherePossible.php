@@ -25,8 +25,9 @@ class RequestHelperFunctionWherePossible extends AbstractLinter
 
         $visitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Expr\MethodCall
-                && (is_string($node->var->name) ? $node->var->name : $node->var->name->toString()) === 'request'
-                && $node->name === 'get';
+                && $node->name === 'get'
+                && $node->var instanceof Node\Expr\FuncCall
+                && $node->var->name->toString() === 'request';
         });
 
         $traverser->addVisitor($visitor);
