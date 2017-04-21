@@ -7,6 +7,11 @@ composer global install tighten/tlint
 ```
 
 ## Usage
+For entire project
+```
+tlint
+```
+OR for individual files
 ```
 tlint lint routes/ViewWithOverArrayParamatersExample.php
 ```
