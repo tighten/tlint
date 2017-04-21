@@ -40,7 +40,7 @@ class QualifiedNamesOnlyForClassName extends AbstractLinter
                 && !($node instanceof Node\Expr\New_ && $node->class instanceof Node\Expr\Variable)
                 // anonymous class
                 && !($node instanceof Node\Expr\New_ && $node->class instanceof Node\Stmt\Class_)
-                && $node->class->isQualified();
+                && ($node->class instanceof Node\Name && $node->class->isQualified());
         });
 
         $traverser->addVisitor($fqcnExtends);

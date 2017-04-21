@@ -192,4 +192,28 @@ file;
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
+
+    /** @test */
+    public function does_not_throw_on_dynamic_class_instantiation()
+    {
+        $file = <<<file
+<?php
+
+namespace App\Http\Controllers\Webhooks;
+
+class Stripe extends Controller
+{
+    public function dispatchStripeEvent(Request \$request)
+    {
+        return (new \$this->dispatchers[\$eventType])->dispatch(\$request);
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new QualifiedNamesOnlyForClassName($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
