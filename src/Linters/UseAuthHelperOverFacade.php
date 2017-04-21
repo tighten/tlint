@@ -30,7 +30,7 @@ class UseAuthHelperOverFacade extends AbstractLinter
         $visitor = new FindingVisitor(function (Node $node) {
             static $usesAuthFacade = false;
 
-            if ($node instanceof Node\Stmt\UseUse) {
+            if ($node instanceof Node\Stmt\UseUse && $node->name instanceof Node\Name) {
                 if ($node->name->toString() === 'Illuminate\Support\Facades\Auth') {
                     $usesAuthFacade = true;
                 }
@@ -39,9 +39,12 @@ class UseAuthHelperOverFacade extends AbstractLinter
             return $node instanceof Node\Expr\StaticCall
                 // use Illuminate\Support\Facades\Auth and calling Auth::
                 && (($usesAuthFacade && $node->class->toString() === 'Auth')
-                // FQCN usage
-                || $node->class->toString() === 'Illuminate\Support\Facades\Auth')
-                && $node->name !== 'routes';
+                    // FQCN usage
+                    || (
+                        $node->class instanceof Node\Name
+                        && $node->class->toString() === 'Illuminate\Support\Facades\Auth'
+                    ))
+                && ($node->class instanceof Node\Name && $node->name !== 'routes');
         });
 
         $traverser->addVisitor($visitor);

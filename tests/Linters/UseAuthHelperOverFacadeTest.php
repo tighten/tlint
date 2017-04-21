@@ -77,4 +77,33 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+
+    /** @test */
+    public function does_not_throw_when_file_contains_dynamic_class_variables()
+    {
+        $file = <<<file
+<?php
+
+namespace App\Newsboard\Factory;
+
+class Relationships
+{
+    static function randomOrCreate(\$className)
+    {
+        if (\$className::all()->count() > 0) {
+            return \$className::all()->random();
+        }
+
+        return factory(\$className)->create();
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new UseAuthHelperOverFacade($file, '.php')
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
