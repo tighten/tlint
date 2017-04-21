@@ -40,9 +40,9 @@ Lints:
 - Import facades (don't use aliases). `ImportFacades`
 - Mailable values (from and subject etc) should be set in build(). `MailableMethodsInBuild`
 - No leading slashes on route paths. `NoLeadingSlashesOnRoutePaths`
+- Apply middleware in routes (not controllers). `ApplyMiddlewareInRoutes`
 
 ## Todo Lints
 - Model method order (relationships, scopes, accessors, mutators, custom, boot).
 - Class "things" order (consts, statics, props, traits, methods).
-- minimize number of public methods on controllers (8?).
-- apply middleware in routes (not controllers).
+- Minimize number of public methods on controllers (8?).

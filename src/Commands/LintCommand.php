@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tighten\Lint;
+use Tighten\Linters\ApplyMiddlewareInRoutes;
 use Tighten\Linters\ImportFacades;
 use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
@@ -86,6 +87,7 @@ class LintCommand extends Command
     {
         return strpos($filepath, 'vendor') !== false
             || strpos($filepath, 'app/Http/Middleware/RedirectIfAuthenticated.php') !== false
+            || strpos($filepath, 'app/Http/Controllers/Auth') !== false
             || strpos($filepath, 'public/index.php') !== false
             || strpos($filepath, 'bootstrap/app.php') !== false
             || strpos($filepath, 'storage/framework/views') !== false;
@@ -165,6 +167,7 @@ class LintCommand extends Command
                 PureRestControllers::class => '.php',
                 RestControllersMethodOrder::class => '.php',
                 RequestHelperFunctionWherePossible::class => '.php',
+                ApplyMiddlewareInRoutes::class => '.php',
             ];
         }
 

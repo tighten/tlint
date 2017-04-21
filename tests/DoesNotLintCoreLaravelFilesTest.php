@@ -23,4 +23,21 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
 
         $this->assertEquals(0, $commandTester->getStatusCode());
     }
+
+    /** @test */
+    public function does_not_lint_auth_scaffolding()
+    {
+        $application = new Application();
+
+        $command = new LintCommand();
+        $application->add($command);
+        $commandTester = new CommandTester($command);
+
+        $commandTester->execute([
+            'command'  => $command->getName(),
+            'file or directory' => 'app/Http/Controllers/Auth',
+        ]);
+
+        $this->assertEquals(0, $commandTester->getStatusCode());
+    }
 }
