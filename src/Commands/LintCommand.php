@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tighten\Lint;
+use Tighten\Linters\ImportFacades;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\PureRestControllers;
@@ -187,6 +188,7 @@ class LintCommand extends Command
                 RemoveLeadingSlashNamespaces::class => '.php',
                 QualifiedNamesOnlyForClassName::class => '.php',
                 UseAuthHelperOverFacade::class => '.php',
+                ImportFacades::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),

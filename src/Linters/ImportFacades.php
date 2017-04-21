@@ -12,9 +12,9 @@ class ImportFacades extends AbstractLinter
 {
     private static $aliases = [
         'App' => 'Illuminate\Support\Facades\App',
-        'Artisan' => 'Illuminate\Support\Facades\Artisan::class',
-        'Auth' => 'Illuminate\Support\Facades\Auth::class',
-        'Blade' => 'Illuminate\Support\Facades\Blade::class',
+        'Artisan' => 'Illuminate\Support\Facades\Artisan',
+        'Auth' => 'Illuminate\Support\Facades\Auth',
+        'Blade' => 'Illuminate\Support\Facades\Blade',
         'Broadcast' => 'Illuminate\Support\Facades\Broadcast',
         'Bus' => 'Illuminate\Support\Facades\Bus',
         'Cache' => 'Illuminate\Support\Facades\Cache',
