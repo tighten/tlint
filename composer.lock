@@ -360,16 +360,16 @@
         },
         {
             "name": "loganhenson/php-parser",
-            "version": "v4.0.2",
+            "version": "4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/loganhenson/PHP-Parser.git",
-                "reference": "606517b01a121470d7bd339d08875a6ead9ccfad"
+                "reference": "49985a969986d3852d935221b408dc194e7404c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loganhenson/PHP-Parser/zipball/606517b01a121470d7bd339d08875a6ead9ccfad",
-                "reference": "606517b01a121470d7bd339d08875a6ead9ccfad",
+                "url": "https://api.github.com/repos/loganhenson/PHP-Parser/zipball/49985a969986d3852d935221b408dc194e7404c3",
+                "reference": "49985a969986d3852d935221b408dc194e7404c3",
                 "shasum": ""
             },
             "require": {
@@ -402,9 +402,9 @@
                 "php"
             ],
             "support": {
-                "source": "https://github.com/loganhenson/PHP-Parser/tree/v4.0.2"
+                "source": "https://github.com/loganhenson/PHP-Parser/tree/v4.0.3"
             },
-            "time": "2017-04-21T20:37:39+00:00"
+            "time": "2017-04-21T20:41:48+00:00"
         },
         {
             "name": "paragonie/random_compat",
