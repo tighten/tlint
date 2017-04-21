@@ -198,16 +198,16 @@ class LintCommand extends Command
     {
         return array_merge(
             [
-//                RemoveLeadingSlashNamespaces::class => '.php',
+                RemoveLeadingSlashNamespaces::class => '.php',
                 QualifiedNamesOnlyForClassName::class => '.php',
-//                UseAuthHelperOverFacade::class => '.php',
-//                ImportFacades::class => '.php',
-            ]
-//            $this->getRoutesFilesLinters($path),
-//            $this->getControllerFilesLinters($path),
-//            $this->getBladeTemplatesLinters($path),
-//            $this->getMigrationsLinters($path),
-//            $this->getMailableLinters($path)
+                UseAuthHelperOverFacade::class => '.php',
+                ImportFacades::class => '.php',
+            ],
+            $this->getRoutesFilesLinters($path),
+            $this->getControllerFilesLinters($path),
+            $this->getBladeTemplatesLinters($path),
+            $this->getMigrationsLinters($path),
+            $this->getMailableLinters($path)
         );
     }
 }
