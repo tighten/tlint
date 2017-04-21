@@ -11,6 +11,7 @@ use Tighten\AbstractLinter;
 
 class UseAuthHelperOverFacade extends AbstractLinter
 {
+
     use CompilesConditionals;
 
     public function lintDescription()
@@ -27,8 +28,19 @@ class UseAuthHelperOverFacade extends AbstractLinter
         $traverser = new NodeTraverser();
 
         $visitor = new FindingVisitor(function (Node $node) {
+            static $usesAuthFacade = false;
+
+            if ($node instanceof Node\Stmt\UseUse) {
+                if ($node->name->toString() === 'Illuminate\Support\Facades\Auth') {
+                    $usesAuthFacade = true;
+                }
+            }
+
             return $node instanceof Node\Expr\StaticCall
-                && in_array($node->class->toString(), ['Auth', 'Illuminate\Support\Facades\Auth']);
+                // use Illuminate\Support\Facades\Auth and calling Auth::
+                && (($usesAuthFacade && $node->class->toString() === 'Auth')
+                // FQCN usage
+                || $node->class->toString() === 'Illuminate\Support\Facades\Auth');
         });
 
         $traverser->addVisitor($visitor);

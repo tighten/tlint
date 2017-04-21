@@ -32,6 +32,8 @@ file;
     {
         $file = <<<file
 <?php
+use Illuminate\Support\Facades\Auth;
+
 echo Auth::user()->name;
 file;
 
@@ -39,6 +41,22 @@ file;
             new UseAuthHelperOverFacade($file, '.php')
         );
 
-        $this->assertEquals(2, $lints[0]->getNode()->getLine());
+        $this->assertEquals(4, $lints[0]->getNode()->getLine());
+    }
+
+    /** @test */
+    public function does_not_trigger_on_non_facade_call()
+    {
+        $file = <<<file
+<?php
+
+echo Auth::nonFacadeMethod()->value;
+file;
+
+        $lints = (new TLint)->lint(
+            new UseAuthHelperOverFacade($file, '.php')
+        );
+
+        $this->assertEmpty($lints);
     }
 }

@@ -38,6 +38,7 @@ Lints:
 - import facades
 - alphabetize use statements
 - Model method order (props, relationships, scopes, accessors, mutators, custom, boot) 
+- Class "things" order (consts, statics, props, traits, methods)
 - no leading slashes on route paths
 - minimize number of public methods on controllers (8?)
 - apply middleware in routes (not controllers)
