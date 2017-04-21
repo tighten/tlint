@@ -47,4 +47,20 @@ file;
 
         $this->assertEquals(4, $lints[0]->getNode()->getLine());
     }
+
+    /** @test */
+    public function does_not_trigger_on_variable_function_call()
+    {
+        $file = <<<file
+<?php
+
+\$thing();
+file;
+
+        $lints = (new TLint)->lint(
+            new ViewWithOverArrayParamaters($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }

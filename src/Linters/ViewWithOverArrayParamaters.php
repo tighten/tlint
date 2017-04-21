@@ -27,6 +27,7 @@ class ViewWithOverArrayParamaters extends AbstractLinter
 
         $visitor = new FindingVisitor(function (Node $node) {
             return $node instanceof FuncCall
+                && $node->name instanceof Node\Name
                 && $node->name->toString() === 'view'
                 && ($node->args[1]->value ?? null) instanceof Array_;
         });
