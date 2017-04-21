@@ -68,7 +68,8 @@ class ImportFacades extends AbstractLinter
 
             return $node instanceof Node\Expr\StaticCall
                 && (
-                    in_array($node->class->toString(), array_keys(static::$aliases))
+                    $node->class instanceof Node\Name
+                    && in_array($node->class->toString(), array_keys(static::$aliases))
                     && !in_array(static::$aliases[$node->class->toString()], $useNames)
                 );
         });

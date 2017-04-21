@@ -31,11 +31,13 @@ class RemoveLeadingSlashNamespaces extends AbstractLinter
 
         $useStatementsVisitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Stmt\UseUse
+                && $node->name instanceof Node\Name
                 && strpos($this->getCodeLine($node->getLine()), "\\" . $node->name->toString()) !== false;
         });
 
         $staticCallVisitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Expr\StaticCall
+                && $node->class instanceof Node\Name
                 && strpos($this->getCodeLine($node->getLine()), "\\" . $node->class->toString()) !== false;
         });
 
