@@ -27,13 +27,14 @@ class ApplyMiddlewareInRoutes extends AbstractLinter
             static $extendsController = false;
 
             if ($node instanceof Node\Stmt\Class_
-                && !empty($node->extends)
+                && $node->extends instanceof Node\Name
                 && $node->extends->toString() === 'Controller') {
                 $extendsController = true;
             }
 
             if ($extendsController) {
                 return $node instanceof Node\Expr\MethodCall
+                    && $node->var instanceof Node\Expr\Variable
                     && $node->var->name === 'this'
                     && $node->name === 'middleware';
             }

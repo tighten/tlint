@@ -30,4 +30,29 @@ file;
 
         $this->assertEquals(9, $lints[0]->getNode()->getLine());
     }
+
+    /** @test */
+    public function does_not_throw_on_methods_calls_on_instantiations()
+    {
+        $file = <<<file
+<?php
+
+namespace App\Http\Controllers;
+
+class BuyRequestController extends Controller
+{
+    public function __construct()
+    {
+        return (new TableBuilder(new EmptyTablePresenter()))->column();
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new ApplyMiddlewareInRoutes($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
