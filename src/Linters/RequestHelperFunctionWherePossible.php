@@ -6,19 +6,12 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class RequestHelperFunctionWherePossible extends AbstractLinter
+class RequestHelperFunctionWherePossible extends BaseLinter
 {
-    public function lintDescription()
-    {
-        return 'Use the request(...) helper function directly to access request values wherever possible';
-    }
+    protected $description = 'Use the request(...) helper function directly to access request values wherever possible';
 
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();

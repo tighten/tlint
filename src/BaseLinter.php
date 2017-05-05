@@ -6,8 +6,9 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
 use PhpParser\Parser;
 
-class AbstractLinter implements LinterInterface
+class BaseLinter implements LinterInterface
 {
+    protected $description = 'No Description for Linter.';
     protected $extension;
     protected $code;
     protected $codeLines;
@@ -31,9 +32,14 @@ class AbstractLinter implements LinterInterface
         return [];
     }
 
-    public function lintDescription()
+    public function getLintDescription()
     {
-        return 'No Description for Linter.';
+        return $this->description;
+    }
+
+    public function setLintDescription(string $description)
+    {
+        return $this->description = $description;
     }
 
     /**
@@ -46,12 +52,6 @@ class AbstractLinter implements LinterInterface
         return $this->code;
     }
 
-    /**
-     * Get the line of code from the original source
-     *
-     * @param int $line
-     * @return string
-     */
     public function getCodeLine(int $line)
     {
         return $this->getCodeLines()[$line - 1];
@@ -62,10 +62,7 @@ class AbstractLinter implements LinterInterface
         return $this->codeLines;
     }
 
-    /**
-     * @return string
-     */
-    public function getExtension(): string
+    public function getExtension()
     {
         return $this->extension;
     }

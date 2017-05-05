@@ -7,9 +7,9 @@ use PhpParser\NodeAbstract;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class SpaceAfterBladeDirectives extends AbstractLinter
+class SpaceAfterBladeDirectives extends BaseLinter
 {
     private const SPACE_AFTER = [
         'if',
@@ -19,16 +19,9 @@ class SpaceAfterBladeDirectives extends AbstractLinter
         'unless',
         'forelse',
     ];
+    protected $description = 'Put a space between blade control structure names and the opening paren:'
+        . '`@if(` -> `@if (`';
 
-    public function lintDescription()
-    {
-        return 'Put a space between blade control structure names and the opening paren: `@if(` -> `@if (`';
-    }
-
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $foundNodes = [];

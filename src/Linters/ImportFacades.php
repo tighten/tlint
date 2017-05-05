@@ -6,9 +6,9 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class ImportFacades extends AbstractLinter
+class ImportFacades extends BaseLinter
 {
     private static $aliases = [
         'App' => 'Illuminate\Support\Facades\App',
@@ -45,16 +45,8 @@ class ImportFacades extends AbstractLinter
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View' => 'Illuminate\Support\Facades\View',
     ];
+    protected $description = "Import facades (don't use aliases).";
 
-    public function lintDescription()
-    {
-        return "Import facades (don't use aliases).";
-    }
-
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();
@@ -73,7 +65,6 @@ class ImportFacades extends AbstractLinter
                     && !in_array(static::$aliases[$node->class->toString()], $useNames)
                 );
         });
-
 
         $traverser->addVisitor($visitor);
 

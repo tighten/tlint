@@ -6,9 +6,9 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class PureRestControllers extends AbstractLinter
+class PureRestControllers extends BaseLinter
 {
     private const RESTFUL_METHOD_NAMES = [
         'index',
@@ -19,21 +19,12 @@ class PureRestControllers extends AbstractLinter
         'update',
         'destroy',
     ];
-
     private const IGNORED_METHOD_NAMES = [
         'validator',
         '__construct',
     ];
+    protected $description = 'You should not mix restful and non-restful methods in a controller';
 
-    public function lintDescription()
-    {
-        return 'You should not mix restful and non-restful methods in a controller';
-    }
-
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();

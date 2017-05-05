@@ -6,16 +6,14 @@ use Closure;
 use Exception;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 use Tighten\Concerns\IdentifiesClassThings;
 use Tighten\Concerns\IdentifiesExtends;
-use Tighten\Concerns\IdentifiesModelMethodTypes;
 
-class ClassThingsOrder extends AbstractLinter
+class ClassThingsOrder extends BaseLinter
 {
     use IdentifiesClassThings;
     use IdentifiesExtends;
@@ -44,6 +42,8 @@ class ClassThingsOrder extends AbstractLinter
     {
         parent::__construct($code, $extension);
 
+        $this->setLintDescription('Class "things" should be ordered ' . implode(', ', self::THINGS_ORDER));
+
         $this->tests = [
             'trait use' => Closure::fromCallable([$this, 'isTraitUse']),
             'public static property' => Closure::fromCallable([$this, 'isPublicStaticProperty']),
@@ -61,11 +61,6 @@ class ClassThingsOrder extends AbstractLinter
             'private method' => Closure::fromCallable([$this, 'isPrivateMethod']),
             'magic method' => Closure::fromCallable([$this, 'isMagicMethod']),
         ];
-    }
-
-    public function lintDescription()
-    {
-        return 'Class "things" should be ordered ' . implode(', ', self::THINGS_ORDER);
     }
 
     public function lint(Parser $parser)

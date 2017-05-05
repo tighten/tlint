@@ -8,19 +8,12 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class ViewWithOverArrayParamaters extends AbstractLinter
+class ViewWithOverArrayParamaters extends BaseLinter
 {
-    public function lintDescription()
-    {
-        return 'Prefer `view(...)->with(...)` over `view(..., [...])`.';
-    }
+    protected $description = 'Prefer `view(...)->with(...)` over `view(..., [...])`.';
 
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();

@@ -125,7 +125,7 @@ file;
         $file = <<<file
 <?php
 
-        class ImportFacades extends \Tighten\AbstractLinter
+        class ImportFacades extends \Tighten\BaseLinter
         {
             
         }
@@ -144,7 +144,7 @@ file;
         $file = <<<file
 <?php
 
-        class ImportFacades extends Tighten\AbstractLinter
+        class ImportFacades extends Tighten\BaseLinter
         {
             
         }
@@ -164,7 +164,7 @@ file;
 
         class ImportFacades
         {
-            use Tighten\AbstractLinter;
+            use Tighten\BaseLinter;
         }
 file;
 
@@ -182,7 +182,7 @@ file;
 
         class ImportFacades
         {
-            use \Tighten\AbstractLinter;
+            use \Tighten\BaseLinter;
         }
 file;
 

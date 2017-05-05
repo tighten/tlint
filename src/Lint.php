@@ -18,12 +18,12 @@ class Lint
     public function __toString()
     {
         if ($this->linter->getExtension() === '.php') {
-            return '! ' . $this->linter->lintDescription() . PHP_EOL
+            return '! ' . $this->linter->getLintDescription() . PHP_EOL
                 . $this->node->getLine() . ' : `' . $this->linter->getCodeLine($this->node->getLine()) . '`';
         }
 
         if ($this->linter->getExtension() === '.blade.php') {
-            return '! ' . $this->linter->lintDescription();
+            return '! ' . $this->linter->getLintDescription();
         }
 
         return 'Something is wrong.';

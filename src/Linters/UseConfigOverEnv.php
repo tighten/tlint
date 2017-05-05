@@ -6,20 +6,13 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class UseConfigOverEnv extends AbstractLinter
+class UseConfigOverEnv extends BaseLinter
 {
-    public function lintDescription()
-    {
-        return 'Don’t use environment variables directly; instead,'
-            . ' use them in config files and call config vars from code';
-    }
+    protected $description = 'Don’t use environment variables directly; instead,'
+        . ' use them in config files and call config vars from code';
 
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();

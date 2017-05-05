@@ -7,22 +7,14 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class UseAuthHelperOverFacade extends AbstractLinter
+class UseAuthHelperOverFacade extends BaseLinter
 {
-
     use CompilesConditionals;
 
-    public function lintDescription()
-    {
-        return 'Prefer the `auth()` helper function over the `Auth` Facade.';
-    }
+    protected $description = 'Prefer the `auth()` helper function over the `Auth` Facade.';
 
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();

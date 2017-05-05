@@ -7,9 +7,9 @@ use PhpParser\NodeAbstract;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class NoSpaceAfterBladeDirectives extends AbstractLinter
+class NoSpaceAfterBladeDirectives extends BaseLinter
 {
     private const NO_SPACE_AFTER = [
         'endif',
@@ -30,16 +30,9 @@ class NoSpaceAfterBladeDirectives extends AbstractLinter
         'push',
         'stack',
     ];
+    protected $description = 'No space between blade template directive names and the opening paren:'
+        . '`@section (` -> `@section(`';
 
-    public function lintDescription()
-    {
-        return 'No space between blade template directive names and the opening paren: `@section (` -> `@section(`';
-    }
-
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $foundNodes = [];

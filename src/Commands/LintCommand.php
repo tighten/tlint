@@ -2,6 +2,8 @@
 
 namespace Tighten\Commands;
 
+use PhpParser\Error;
+use PhpParser\NodeAbstract;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
@@ -10,6 +12,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tighten\Lint;
+use Tighten\LinterInterface;
 use Tighten\Linters\ApplyMiddlewareInRoutes;
 use Tighten\Linters\ClassThingsOrder;
 use Tighten\Linters\ImportFacades;
@@ -58,13 +61,39 @@ class LintCommand extends Command
         $tighten = new TLint;
 
         $lints = [];
-        foreach ($linters as $linter => $parseAs) {
-            $lints = array_merge($lints, $tighten->lint(new $linter(
+
+        foreach ($linters as $linterClass => $parseAs) {
+            /** @var LinterInterface $linterInstance */
+            $linterInstance = new $linterClass(
                 file_get_contents($file),
                 $parseAs
-            )));
+            );
+
+            try {
+                $lints = array_merge($lints, $tighten->lint($linterInstance));
+            } catch (Error $e) {
+                $linterInstance->setLintDescription($e->getRawMessage());
+
+                return $this->outputLints($output, $file, [
+                    new Lint(
+                        $linterInstance,
+                        new class(['startLine' => $e->getStartLine()]) extends NodeAbstract
+                        {
+                            public function getSubNodeNames()
+                            {
+                                return [];
+                            }
+                        }
+                    )
+                ]);
+            }
         }
 
+        return $this->outputLints($output, $file, $lints);
+    }
+
+    private function outputLints(OutputInterface $output, $file, $lints)
+    {
         if (!empty($lints)) {
             $output->writeln([
                 PHP_EOL,
@@ -74,7 +103,7 @@ class LintCommand extends Command
 
             foreach ($lints as $lint) {
                 /** @var Lint $lint */
-                $output->writeln((string) $lint);
+                $output->writeln((string)$lint);
             }
         }
 

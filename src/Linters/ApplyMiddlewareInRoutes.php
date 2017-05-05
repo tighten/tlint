@@ -6,19 +6,12 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class ApplyMiddlewareInRoutes extends AbstractLinter
+class ApplyMiddlewareInRoutes extends BaseLinter
 {
-    public function lintDescription()
-    {
-        return 'Apply middleware in routes (not controllers).';
-    }
+    protected $description ='Apply middleware in routes (not controllers).';
 
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();

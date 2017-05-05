@@ -6,19 +6,12 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class QualifiedNamesOnlyForClassName extends AbstractLinter
+class QualifiedNamesOnlyForClassName extends BaseLinter
 {
-    public function lintDescription()
-    {
-        return 'Fully Qualified Class Names should only be used for accessing class names';
-    }
+    protected $description = 'Fully Qualified Class Names should only be used for accessing class names';
 
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();

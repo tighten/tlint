@@ -6,19 +6,12 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class RemoveLeadingSlashNamespaces extends AbstractLinter
+class RemoveLeadingSlashNamespaces extends BaseLinter
 {
-    public function lintDescription()
-    {
-        return 'Prefer `Namespace\...` over `\Namespace\...`.';
-    }
+    protected $description = 'Prefer `Namespace\...` over `\Namespace\...`.';
 
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();

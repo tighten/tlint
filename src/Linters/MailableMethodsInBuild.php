@@ -6,19 +6,12 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class MailableMethodsInBuild extends AbstractLinter
+class MailableMethodsInBuild extends BaseLinter
 {
-    public function lintDescription()
-    {
-        return 'Mailable values (from and subject etc) should be set in build().';
-    }
+    protected $description = 'Mailable values (from and subject etc) should be set in build().';
 
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();

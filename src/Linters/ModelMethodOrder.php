@@ -9,11 +9,11 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 use Tighten\Concerns\IdentifiesExtends;
 use Tighten\Concerns\IdentifiesModelMethodTypes;
 
-class ModelMethodOrder extends AbstractLinter
+class ModelMethodOrder extends BaseLinter
 {
     use IdentifiesModelMethodTypes;
     use IdentifiesExtends;
@@ -25,7 +25,7 @@ class ModelMethodOrder extends AbstractLinter
         3 => 'mutator',
         4 => 'boot',
     ];
-
+    protected $description = 'Model method order should be relationships > scopes > accessors > mutators > boot';
     private $tests;
 
     public function __construct($code, $extension = '.php')
@@ -38,11 +38,6 @@ class ModelMethodOrder extends AbstractLinter
             'mutator' => Closure::fromCallable([$this, 'isMutatorMethod']),
             'boot' => Closure::fromCallable([$this, 'isBootMethod']),
         ];
-    }
-
-    public function lintDescription()
-    {
-        return 'Model method order should be relationships > scopes > accessors > mutators > boot';
     }
 
     public function lint(Parser $parser)

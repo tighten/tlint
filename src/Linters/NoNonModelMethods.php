@@ -8,19 +8,17 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 use Tighten\Concerns\IdentifiesExtends;
 use Tighten\Concerns\IdentifiesModelMethodTypes;
 
-class NoNonModelMethods extends AbstractLinter
+class NoNonModelMethods extends BaseLinter
 {
     use IdentifiesModelMethodTypes;
     use IdentifiesExtends;
 
-    public function lintDescription()
-    {
-        return 'No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot)';
-    }
+    protected $description = 'No non-model-specific methods in models'
+        . ' (only relationships, scopes, accessors, mutators, boot)';
 
     public function lint(Parser $parser)
     {

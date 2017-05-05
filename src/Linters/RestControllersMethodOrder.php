@@ -6,9 +6,9 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\AbstractLinter;
+use Tighten\BaseLinter;
 
-class RestControllersMethodOrder extends AbstractLinter
+class RestControllersMethodOrder extends BaseLinter
 {
     private const RESTFUL_METHOD_NAMES = [
         'index',
@@ -19,17 +19,9 @@ class RestControllersMethodOrder extends AbstractLinter
         'update',
         'destroy',
     ];
+    protected $description = 'REST methods in controllers should match the ordering here:'
+        . ' https://laravel.com/docs/5.4/controllers#restful-partial-resource-routes';
 
-    public function lintDescription()
-    {
-        return 'REST methods in controllers should match the ordering here:'
-            . ' https://laravel.com/docs/5.4/controllers#restful-partial-resource-routes';
-    }
-
-    /**
-     * @param Parser $parser
-     * @return Node[]
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser();

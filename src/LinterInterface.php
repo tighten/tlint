@@ -11,20 +11,8 @@ interface LinterInterface
      * @return @return Lint[]
      */
     public function lint(Parser $parser);
-
-    /**
-     * @param int $line
-     * @return string
-     */
     public function getCodeLine(int $line);
-
-    /**
-     * @return string
-     */
-    public function lintDescription();
-
-    /**
-     * @return string
-     */
+    public function getLintDescription();
+    public function setLintDescription(string $description);
     public function getExtension();
 }
