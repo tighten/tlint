@@ -49,7 +49,8 @@ tlint lint tests
 - Mailable values (from and subject etc) should be set in build(). `MailableMethodsInBuild`
 - No leading slashes on route paths. `NoLeadingSlashesOnRoutePaths`
 - Apply middleware in routes (not controllers). `ApplyMiddlewareInRoutes`
-- Model method order (relationships, scopes, accessors, mutators, boot).
+- Model method order (relationships > scopes > accessors > mutators > boot). `ModelMethodOrder`
+- No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`
 
 ## Todo Lints
 - Class "things" order (consts, statics, props, traits, methods).

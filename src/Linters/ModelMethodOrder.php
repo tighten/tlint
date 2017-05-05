@@ -2,15 +2,22 @@
 
 namespace Tighten\Linters;
 
+use Closure;
 use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\AbstractLinter;
+use Tighten\Concerns\IdentifiesExtends;
+use Tighten\Concerns\IdentifiesModelMethodTypes;
 
 class ModelMethodOrder extends AbstractLinter
 {
+    use IdentifiesModelMethodTypes;
+    use IdentifiesExtends;
+
     private const METHOD_ORDER = [
         0 => 'relationship',
         1 => 'scope',
@@ -18,6 +25,20 @@ class ModelMethodOrder extends AbstractLinter
         3 => 'mutator',
         4 => 'boot',
     ];
+
+    private $tests;
+
+    public function __construct($code, $extension = '.php')
+    {
+        parent::__construct($code, $extension);
+
+        $this->tests = [
+            'scope' => Closure::fromCallable([$this, 'isScopeMethod']),
+            'accessor' => Closure::fromCallable([$this, 'isAccessorMethod']),
+            'mutator' => Closure::fromCallable([$this, 'isMutatorMethod']),
+            'boot' => Closure::fromCallable([$this, 'isBootMethod']),
+        ];
+    }
 
     public function lintDescription()
     {
@@ -29,26 +50,11 @@ class ModelMethodOrder extends AbstractLinter
         $traverser = new NodeTraverser();
 
         $visitor = new FindingVisitor(function (Node $node) {
-            if ($node instanceof Node\Stmt\Class_ && $node->extends->toString() === 'Model') {
-                $methodTypes = array_map(function (ClassMethod $stmt) {
-                    $tests = [
-                        'scope' => function (ClassMethod $stmt) {
-                            return strpos($stmt->name, 'scope') === 0;
-                        },
-                        'accessor' => function (ClassMethod $stmt) {
-                            return strpos($stmt->name, 'get') === 0
-                                && strpos($stmt->name, 'Attribute') === strlen($stmt->name) - 9;
-                        },
-                        'mutator' => function (ClassMethod $stmt) {
-                            return strpos($stmt->name, 'set') === 0
-                                && strpos($stmt->name, 'Attribute') === strlen($stmt->name) - 9;
-                        },
-                        'boot' => function (ClassMethod $stmt) {
-                            return $stmt->name === 'boot';
-                        },
-                    ];
+            if ($this->extends($node, 'Model')) {
+                /** @var Class_ $node */
 
-                    foreach ($tests as $label => $test) {
+                $methodTypes = array_map(function (ClassMethod $stmt) {
+                    foreach ($this->tests as $label => $test) {
                         if ($test($stmt)) {
                             return $label;
                         }

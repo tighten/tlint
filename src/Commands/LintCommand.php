@@ -16,6 +16,7 @@ use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\Linters\ModelMethodOrder;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoLeadingShashesOnRoutePaths;
+use Tighten\Linters\NoNonModelMethods;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\PureRestControllers;
 use Tighten\Linters\RequestHelperFunctionWherePossible;
@@ -204,6 +205,7 @@ class LintCommand extends Command
                 UseAuthHelperOverFacade::class => '.php',
                 ImportFacades::class => '.php',
                 ModelMethodOrder::class => '.php',
+                NoNonModelMethods::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
