@@ -13,6 +13,7 @@ use Tighten\Lint;
 use Tighten\Linters\ApplyMiddlewareInRoutes;
 use Tighten\Linters\ImportFacades;
 use Tighten\Linters\MailableMethodsInBuild;
+use Tighten\Linters\ModelMethodOrder;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoLeadingShashesOnRoutePaths;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
@@ -202,6 +203,7 @@ class LintCommand extends Command
                 QualifiedNamesOnlyForClassName::class => '.php',
                 UseAuthHelperOverFacade::class => '.php',
                 ImportFacades::class => '.php',
+                ModelMethodOrder::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
