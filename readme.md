@@ -51,7 +51,6 @@ tlint lint tests
 - Apply middleware in routes (not controllers). `ApplyMiddlewareInRoutes`
 - Model method order (relationships > scopes > accessors > mutators > boot). `ModelMethodOrder`
 - No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`
+- Class "things" should be ordered traits, static constants, statics, constants, public properties, protected properties, private properties, constructor, public methods, protected methods, private methods, other magic methods.
 
 ## Todo Lints
-- Class "things" order (consts, statics, props, traits, methods).
-- Minimize number of public methods on controllers (8?).
