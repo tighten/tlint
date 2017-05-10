@@ -50,7 +50,13 @@ tlint lint tests
 - No leading slashes on route paths. `NoLeadingSlashesOnRoutePaths`
 - Apply middleware in routes (not controllers). `ApplyMiddlewareInRoutes`
 - Model method order (relationships > scopes > accessors > mutators > boot). `ModelMethodOrder`
+- Class "things" should be ordered traits, static constants, statics, constants, public properties, protected properties, private properties, constructor, public methods, protected methods, private methods, other magic methods. `ClassThingsOrder`
+
+## Disabled Lints
 - No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`
-- Class "things" should be ordered traits, static constants, statics, constants, public properties, protected properties, private properties, constructor, public methods, protected methods, private methods, other magic methods.
 
 ## Todo Lints
+- Trailing commas on arrays
+- Sort imports alphabetically
+- Space after sole not operator
+- No parenthesis on empty instantiations

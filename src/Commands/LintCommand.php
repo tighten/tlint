@@ -235,7 +235,6 @@ class LintCommand extends Command
                 UseAuthHelperOverFacade::class => '.php',
                 ImportFacades::class => '.php',
                 ModelMethodOrder::class => '.php',
-                NoNonModelMethods::class => '.php',
                 ClassThingsOrder::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
