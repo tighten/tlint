@@ -16,8 +16,12 @@ class RemoveLeadingSlashNamespaces extends BaseLinter
     {
         $traverser = new NodeTraverser();
 
-        $instantiationsVisitor = new FindingVisitor(function (Node $node) {
-            return $node instanceof Node\Expr\New_
+        $classVisitor = new FindingVisitor(function (Node $node) {
+            return (
+                $node instanceof Node\Expr\New_
+                || $node instanceof Node\Expr\StaticCall
+                || $node instanceof Node\Expr\ClassConstFetch
+            )
                 && $node->class instanceof Node\Name
                 && strpos($this->getCodeLine($node->getLine()), "\\" . $node->class->toString()) !== false;
         });
@@ -28,22 +32,14 @@ class RemoveLeadingSlashNamespaces extends BaseLinter
                 && strpos($this->getCodeLine($node->getLine()), "\\" . $node->name->toString()) !== false;
         });
 
-        $staticCallVisitor = new FindingVisitor(function (Node $node) {
-            return $node instanceof Node\Expr\StaticCall
-                && $node->class instanceof Node\Name
-                && strpos($this->getCodeLine($node->getLine()), "\\" . $node->class->toString()) !== false;
-        });
-
-        $traverser->addVisitor($instantiationsVisitor);
+        $traverser->addVisitor($classVisitor);
         $traverser->addVisitor($useStatementsVisitor);
-        $traverser->addVisitor($staticCallVisitor);
 
         $traverser->traverse($parser->parse($this->code));
 
         return array_merge(
-            $instantiationsVisitor->getFoundNodes(),
-            $useStatementsVisitor->getFoundNodes(),
-            $staticCallVisitor->getFoundNodes()
+            $classVisitor->getFoundNodes(),
+            $useStatementsVisitor->getFoundNodes()
         );
     }
 }

@@ -85,4 +85,25 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function catches_leading_slash_in_factories()
+    {
+        $file = <<<file
+<?php
+
+\$factory->define(App\S::class, function (Faker\Generator \$faker) {
+    return [
+        'user_id' => factory(App\User::class),
+        'version_id' => factory(\App\J\V::class),
+    ];
+});
+file;
+
+        $lints = (new TLint)->lint(
+            new RemoveLeadingSlashNamespaces($file)
+        );
+
+        $this->assertEquals(6, $lints[0]->getNode()->getLine());
+    }
 }
