@@ -28,6 +28,7 @@ use Tighten\Linters\RestControllersMethodOrder;
 use Tighten\Linters\SpaceAfterBladeDirectives;
 use Tighten\Linters\QualifiedNamesOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
+use Tighten\Linters\TrailingCommasOnArrays;
 use Tighten\Linters\UseAuthHelperOverFacade;
 use Tighten\Linters\ViewWithOverArrayParamaters;
 use Tighten\TLint;
@@ -84,7 +85,7 @@ class LintCommand extends Command
                                 return [];
                             }
                         }
-                    )
+                    ),
                 ]);
             }
         }
@@ -186,7 +187,7 @@ class LintCommand extends Command
     {
         if (strpos($path, 'migrations') !== false) {
             return [
-                NoDocBlocksForMigrationUpDown::class => '.php'
+                NoDocBlocksForMigrationUpDown::class => '.php',
             ];
         }
 
@@ -239,6 +240,7 @@ class LintCommand extends Command
                 ModelMethodOrder::class => '.php',
                 ClassThingsOrder::class => '.php',
                 AlphabeticalImports::class => '.php',
+                TrailingCommasOnArrays::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
