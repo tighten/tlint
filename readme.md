@@ -30,8 +30,7 @@ Lints:
 
 ## Lint this project
 ```
-tlint lint src
-tlint lint tests
+./bin/tlint
 ```
 
 ## Implemented lints
@@ -51,12 +50,12 @@ tlint lint tests
 - Apply middleware in routes (not controllers). `ApplyMiddlewareInRoutes`
 - Model method order (relationships > scopes > accessors > mutators > boot). `ModelMethodOrder`
 - Class "things" should be ordered traits, static constants, statics, constants, public properties, protected properties, private properties, constructor, public methods, protected methods, private methods, other magic methods. `ClassThingsOrder`
+- Sort imports alphabetically `AlphabeticalImports`
 
 ## Disabled Lints
 - No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`
 
 ## Todo Lints
 - Trailing commas on arrays
-- Sort imports alphabetically
 - Space after sole not operator
 - No parenthesis on empty instantiations

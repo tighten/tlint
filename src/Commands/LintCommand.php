@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tighten\Lint;
 use Tighten\LinterInterface;
+use Tighten\Linters\AlphabeticalImports;
 use Tighten\Linters\ApplyMiddlewareInRoutes;
 use Tighten\Linters\ClassThingsOrder;
 use Tighten\Linters\ImportFacades;
@@ -20,7 +21,6 @@ use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\Linters\ModelMethodOrder;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoLeadingShashesOnRoutePaths;
-use Tighten\Linters\NoNonModelMethods;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\PureRestControllers;
 use Tighten\Linters\RequestHelperFunctionWherePossible;
@@ -236,6 +236,7 @@ class LintCommand extends Command
                 ImportFacades::class => '.php',
                 ModelMethodOrder::class => '.php',
                 ClassThingsOrder::class => '.php',
+                AlphabeticalImports::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
