@@ -33,11 +33,11 @@ class NoNonModelMethods extends BaseLinter
                 });
 
                 foreach ($methods as $stmt) {
-                    if (!$this->isAccessorMethod($stmt)
-                        && !$this->isMutatorMethod($stmt)
-                        && !$this->isBootMethod($stmt)
-                        && !$this->isScopeMethod($stmt)
-                        && !$this->isRelationshipMethod($stmt)
+                    if (! $this->isAccessorMethod($stmt)
+                        && ! $this->isMutatorMethod($stmt)
+                        && ! $this->isBootMethod($stmt)
+                        && ! $this->isScopeMethod($stmt)
+                        && ! $this->isRelationshipMethod($stmt)
                     ) {
                         return true;
                     }

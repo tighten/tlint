@@ -53,9 +53,9 @@ Lints:
 - Sort imports alphabetically `AlphabeticalImports`
 - Trailing commas on arrays `TrailingCommasOnArrays`
 - No parenthesis on empty instantiations `NoParensEmptyInstantiations`
+- Space after sole not operator `SpaceAfterSoleNotOperator`
 
 ## Disabled Lints
 - No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`
 
 ## Todo Lints
-- Space after sole not operator

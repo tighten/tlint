@@ -18,7 +18,7 @@ class QualifiedNamesOnlyForClassName extends BaseLinter
 
         $fqcnExtends = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Stmt\Class_
-                && !empty($node->extends)
+                && ! empty($node->extends)
                 && ($node->extends->isFullyQualified() || $node->extends->isQualified());
         });
 
@@ -30,9 +30,9 @@ class QualifiedNamesOnlyForClassName extends BaseLinter
                     || $node instanceof Node\Expr\New_
                 )
                 // new $variable used to instantiate
-                && !($node instanceof Node\Expr\New_ && $node->class instanceof Node\Expr\Variable)
+                && ! ($node instanceof Node\Expr\New_ && $node->class instanceof Node\Expr\Variable)
                 // anonymous class
-                && !($node instanceof Node\Expr\New_ && $node->class instanceof Node\Stmt\Class_)
+                && ! ($node instanceof Node\Expr\New_ && $node->class instanceof Node\Stmt\Class_)
                 && ($node->class instanceof Node\Name && $node->class->isQualified());
         });
 

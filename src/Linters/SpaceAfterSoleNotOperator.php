@@ -8,21 +8,17 @@ use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 
-class NoParensEmptyInstantiations extends BaseLinter
+class SpaceAfterSoleNotOperator extends BaseLinter
 {
-    protected $description = 'No parenthesis on empty instantiations';
+    protected $description = 'There should be a space after sole `!` operators';
 
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser;
 
         $visitor = new FindingVisitor(function (Node $node) {
-            return $node instanceof Node\Expr\New_
-                && empty($node->args)
-                && strpos(
-                    $this->getCodeLine($node->getAttributes()['startLine']),
-                    "new " . $node->class->toString() . '()'
-                ) !== false;
+            return $node instanceof Node\Expr\BooleanNot
+                && strpos($this->getCodeLine($node->getLine()), '! ') === false;
         });
 
         $traverser->addVisitor($visitor);

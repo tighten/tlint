@@ -20,7 +20,7 @@ class MailableMethodsInBuild extends BaseLinter
             static $extendsMailable = false;
 
             if ($node instanceof Node\Stmt\Class_
-                && !empty($node->extends)
+                && ! empty($node->extends)
                 && $node->extends->toString() === 'Mailable') {
                 $extendsMailable = true;
             }

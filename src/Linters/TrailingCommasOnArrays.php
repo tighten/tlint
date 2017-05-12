@@ -20,7 +20,7 @@ class TrailingCommasOnArrays extends BaseLinter
 
         $visitor = new FindingVisitor(function (Node $node) use (&$missingTrailingCommas) {
             if ($node instanceof Node\Expr\Array_
-                && !empty($node->items)
+                && ! empty($node->items)
                 && ($node->getAttributes()['endLine'] - $node->getAttributes()['startLine'] > 0)) {
                 $numberOfItems = count($node->items);
 
@@ -60,7 +60,7 @@ class TrailingCommasOnArrays extends BaseLinter
 
         $traverser->traverse($parser->parse($this->code));
 
-        if (!empty($missingTrailingCommas)) {
+        if (! empty($missingTrailingCommas)) {
             return array_map(function (Node $node) {
                 /** Set the reported line to the end of the array */
                 $node->setLine($node->getAttributes()['endLine']);

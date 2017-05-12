@@ -31,7 +31,7 @@ class AlphabeticalImports extends BaseLinter
 
         $traverser->traverse($parser->parse($this->code));
 
-        if (!empty($useStatements)) {
+        if (! empty($useStatements)) {
             $importStrings = array_map(function (UseUse $useStatement) {
                 return explode('\\', $useStatement->name->toString())[0] ?? $useStatement->name->toString();
             }, $useStatements);

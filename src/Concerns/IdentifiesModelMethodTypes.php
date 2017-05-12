@@ -23,14 +23,14 @@ trait IdentifiesModelMethodTypes
     {
         if (property_exists($node, 'expr')
             && property_exists($node->expr, 'name')
-            && !in_array($node->expr->name, self::$relationshipMethods)
+            && ! in_array($node->expr->name, self::$relationshipMethods)
         ) {
             return $this->getFirstCall($node->expr);
         }
 
         if (property_exists($node, 'var')
             && property_exists($node->var, 'name')
-            && !in_array($node->var->name, self::$relationshipMethods)
+            && ! in_array($node->var->name, self::$relationshipMethods)
         ) {
             return $this->getFirstCall($node->var);
         }

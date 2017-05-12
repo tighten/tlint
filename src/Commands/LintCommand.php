@@ -29,6 +29,7 @@ use Tighten\Linters\RestControllersMethodOrder;
 use Tighten\Linters\SpaceAfterBladeDirectives;
 use Tighten\Linters\QualifiedNamesOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
+use Tighten\Linters\SpaceAfterSoleNotOperator;
 use Tighten\Linters\TrailingCommasOnArrays;
 use Tighten\Linters\UseAuthHelperOverFacade;
 use Tighten\Linters\ViewWithOverArrayParamaters;
@@ -96,7 +97,7 @@ class LintCommand extends Command
 
     private function outputLints(OutputInterface $output, $file, $lints)
     {
-        if (!empty($lints)) {
+        if (! empty($lints)) {
             $output->writeln([
                 PHP_EOL,
                 "Lints for $file: ",
@@ -243,6 +244,7 @@ class LintCommand extends Command
                 AlphabeticalImports::class => '.php',
                 TrailingCommasOnArrays::class => '.php',
                 NoParensEmptyInstantiations::class => '.php',
+                SpaceAfterSoleNotOperator::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),

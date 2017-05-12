@@ -62,7 +62,7 @@ class ImportFacades extends BaseLinter
                 && (
                     $node->class instanceof Node\Name
                     && in_array($node->class->toString(), array_keys(static::$aliases))
-                    && !in_array(static::$aliases[$node->class->toString()], $useNames)
+                    && ! in_array(static::$aliases[$node->class->toString()], $useNames)
                 );
         });
 

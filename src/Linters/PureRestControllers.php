@@ -36,7 +36,7 @@ class PureRestControllers extends BaseLinter
                 }, array_filter($node->stmts, function ($stmt) {
                     return $stmt instanceof Node\Stmt\ClassMethod;
                 })), function ($methodName) {
-                    return !in_array($methodName, self::IGNORED_METHOD_NAMES);
+                    return ! in_array($methodName, self::IGNORED_METHOD_NAMES);
                 });
 
                 $restfulMethods = array_intersect(self::RESTFUL_METHOD_NAMES, $methodNames);
