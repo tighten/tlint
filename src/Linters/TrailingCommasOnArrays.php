@@ -14,7 +14,7 @@ class TrailingCommasOnArrays extends BaseLinter
 
     public function lint(Parser $parser)
     {
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
 
         $missingTrailingCommas = [];
 

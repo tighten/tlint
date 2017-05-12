@@ -10,9 +10,9 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
     /** @test */
     public function app_Http_Middleware_RedirectIfAuthenticated()
     {
-        $application = new Application();
+        $application = new Application;
 
-        $command = new LintCommand();
+        $command = new LintCommand;
         $application->add($command);
         $commandTester = new CommandTester($command);
 
@@ -27,9 +27,9 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
     /** @test */
     public function app_Exceptions_Handler()
     {
-        $application = new Application();
+        $application = new Application;
 
-        $command = new LintCommand();
+        $command = new LintCommand;
         $application->add($command);
         $commandTester = new CommandTester($command);
 
@@ -44,9 +44,9 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
     /** @test */
     public function app_Http_Kernel()
     {
-        $application = new Application();
+        $application = new Application;
 
-        $command = new LintCommand();
+        $command = new LintCommand;
         $application->add($command);
         $commandTester = new CommandTester($command);
 
@@ -61,9 +61,9 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
     /** @test */
     public function does_not_lint_auth_scaffolding()
     {
-        $application = new Application();
+        $application = new Application;
 
-        $command = new LintCommand();
+        $command = new LintCommand;
         $application->add($command);
         $commandTester = new CommandTester($command);
 

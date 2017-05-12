@@ -14,7 +14,7 @@ class RequestHelperFunctionWherePossible extends BaseLinter
 
     public function lint(Parser $parser)
     {
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
 
         $visitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Expr\MethodCall

@@ -18,7 +18,7 @@ class BaseLinter implements LinterInterface
         $this->extension = $extension;
 
         if ($extension === '.blade.php') {
-            $bladeCompiler = new BladeCompiler(new Filesystem(), sys_get_temp_dir());
+            $bladeCompiler = new BladeCompiler(new Filesystem, sys_get_temp_dir());
             $this->code = $bladeCompiler->compileString($code);
         } else {
             $this->code = $code;

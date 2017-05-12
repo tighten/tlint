@@ -52,10 +52,10 @@ Lints:
 - Class "things" should be ordered traits, static constants, statics, constants, public properties, protected properties, private properties, constructor, public methods, protected methods, private methods, other magic methods. `ClassThingsOrder`
 - Sort imports alphabetically `AlphabeticalImports`
 - Trailing commas on arrays `TrailingCommasOnArrays`
+- No parenthesis on empty instantiations `NoParensEmptyInstantiations`
 
 ## Disabled Lints
 - No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`
 
 ## Todo Lints
 - Space after sole not operator
-- No parenthesis on empty instantiations

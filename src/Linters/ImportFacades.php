@@ -49,7 +49,7 @@ class ImportFacades extends BaseLinter
 
     public function lint(Parser $parser)
     {
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
 
         $visitor = new FindingVisitor(function (Node $node) {
             static $useNames = [];

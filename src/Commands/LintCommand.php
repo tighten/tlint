@@ -21,6 +21,7 @@ use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\Linters\ModelMethodOrder;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoLeadingShashesOnRoutePaths;
+use Tighten\Linters\NoParensEmptyInstantiations;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\PureRestControllers;
 use Tighten\Linters\RequestHelperFunctionWherePossible;
@@ -241,6 +242,7 @@ class LintCommand extends Command
                 ClassThingsOrder::class => '.php',
                 AlphabeticalImports::class => '.php',
                 TrailingCommasOnArrays::class => '.php',
+                NoParensEmptyInstantiations::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
