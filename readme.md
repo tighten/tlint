@@ -1,5 +1,6 @@
 ## Tighten linter
-> not psr stuff, these are conventions and agreed upon best practices
+> not psr stuff, these are conventions agreed upon by Tighten developers
+> intended for use alongside default php-cs-fixer (to cover aforementioned psr stuff)
 
 ## Install (Requires php7.1+)
 ```
