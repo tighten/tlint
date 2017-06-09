@@ -9,13 +9,22 @@ composer global require loganhenson/tlint
 > - laravel/valet
 
 ## Usage
-For entire project
+For entire project (you must pass the lint command to use other options)
 ```
 tlint
 ```
-OR for individual files and specific directories
+For individual files and specific directories
 ```
 tlint lint routes/ViewWithOverArrayParamatersExample.php
+```
+
+You can also lint only diff files by
+```
+tlint lint --diff
+```
+OR
+```
+tlint lint src --diff
 ```
 
 > output

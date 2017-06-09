@@ -9,8 +9,12 @@ use RecursiveIteratorIterator;
 use RegexIterator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 use Tighten\Lint;
 use Tighten\LinterInterface;
 use Tighten\Linters\AlphabeticalImports;
@@ -37,26 +41,32 @@ use Tighten\TLint;
 
 class LintCommand extends Command
 {
+    private const NO_LINTS_FOUND_OR_SUCCESS = 0;
+    private const LINTS_FOUND_OR_ERROR = 1;
+
     protected function configure()
     {
         $this
             ->setName('lint')
             ->setDescription('Lints a file.')
+            ->setDefinition(new InputDefinition([
+                new InputArgument(
+                    'file or directory',
+                    InputArgument::OPTIONAL,
+                    'The file or directory to lint',
+                    getcwd()
+                ),
+                new InputOption(
+                    'diff'
+                ),
+            ]))
             ->setHelp('This command allows you to lint a laravel file.');
-
-        $this
-            ->addArgument(
-                'file or directory',
-                InputArgument::OPTIONAL,
-                'The file or directory to lint',
-                getcwd()
-            );
     }
 
     private function lintFile(InputInterface $input, OutputInterface $output, $file)
     {
         if ($this->isBlacklisted($file)) {
-            return 0;
+            return self::NO_LINTS_FOUND_OR_SUCCESS;
         }
 
         $linters = $this->getLinters($file);
@@ -110,12 +120,9 @@ class LintCommand extends Command
             }
         }
 
-        /**
-         * CI error codes
-         * 0: no lints
-         * 1: lints found
-         */
-        return empty($lints) ? 0 : 1;
+        return empty($lints)
+            ? self::NO_LINTS_FOUND_OR_SUCCESS
+            : self::LINTS_FOUND_OR_ERROR;
     }
 
     private function isBlacklisted($filepath)
@@ -130,7 +137,32 @@ class LintCommand extends Command
             || strpos($filepath, 'storage/framework/views') !== false;
     }
 
-    private function filesInDir($directory, $fileExtension)
+    private function filesInDir($directory, $fileExtension, $diff)
+    {
+        if ($diff) {
+            return $this->getDiffedFilesInDir($directory, $fileExtension);
+        }
+
+        return $this->getAllFilesInDir($directory, $fileExtension);
+    }
+
+    private function getDiffedFilesInDir($directory, $fileExtension)
+    {
+        $process = new Process('git diff --name-only');
+        $process->run();
+
+        if (! $process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        foreach (explode(PHP_EOL, trim($process->getOutput())) as $relativeFilePath) {
+            $filepath = getcwd() . '/' . $relativeFilePath;
+
+            yield $filepath;
+        }
+    }
+
+    private function getAllFilesInDir($directory, $fileExtension)
     {
         $directory = realpath($directory);
         $it = new RecursiveDirectoryIterator($directory);
@@ -150,7 +182,7 @@ class LintCommand extends Command
         $fileOrDirectory = $input->getArgument('file or directory');
 
         if ($this->isBlacklisted($fileOrDirectory)) {
-            return 0;
+            return self::NO_LINTS_FOUND_OR_SUCCESS;
         }
 
         if (is_file($fileOrDirectory)) {
@@ -158,19 +190,24 @@ class LintCommand extends Command
         }
 
         if (is_dir($fileOrDirectory)) {
-            $finalResponseCode = 0;
+            $finalResponseCode = self::NO_LINTS_FOUND_OR_SUCCESS;
 
-            foreach ($this->filesInDir($fileOrDirectory, 'php') as $file) {
-                if ($this->lintFile($input, $output, $file) === 1) {
-                    $finalResponseCode = 1;
+            try {
+                foreach ($this->filesInDir($fileOrDirectory, 'php', $input->getOption('diff')) as $file) {
+                    if ($this->lintFile($input, $output, $file) === 1) {
+                        $finalResponseCode = self::LINTS_FOUND_OR_ERROR;
+                    }
                 }
+            } catch (ProcessFailedException $e) {
+                $output->writeln('Not a git repository (or any of the parent directories)');
+                return self::LINTS_FOUND_OR_ERROR;
             }
 
             return $finalResponseCode;
         }
 
         $output->writeln('No file or directory found at ' . $fileOrDirectory);
-        return 1;
+        return self::LINTS_FOUND_OR_ERROR;
     }
 
     private function getRoutesFilesLinters($path)
