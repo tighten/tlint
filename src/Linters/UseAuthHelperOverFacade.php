@@ -36,7 +36,7 @@ class UseAuthHelperOverFacade extends BaseLinter
                         $node->class instanceof Node\Name
                         && $node->class->toString() === 'Illuminate\Support\Facades\Auth'
                     ))
-                && ($node->class instanceof Node\Name && $node->name !== 'routes');
+                && ($node->class instanceof Node\Name && $node->name->name !== 'routes');
         });
 
         $traverser->addVisitor($visitor);

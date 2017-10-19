@@ -63,7 +63,7 @@ class TrailingCommasOnArrays extends BaseLinter
         if (! empty($missingTrailingCommas)) {
             return array_map(function (Node $node) {
                 /** Set the reported line to the end of the array */
-                $node->setLine($node->getAttributes()['endLine']);
+                $node->setAttribute('startLine', $node->getAttributes()['endLine']);
 
                 return $node;
             }, $missingTrailingCommas);

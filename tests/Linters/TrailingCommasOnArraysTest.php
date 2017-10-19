@@ -6,6 +6,7 @@ use Tighten\TLint;
 
 class TrailingCommasOnArraysTest extends TestCase
 {
+    /** @test */
     public function catches_missing_trailing_comma()
     {
         $file = <<<file
@@ -24,6 +25,7 @@ file;
         $this->assertEquals(5, $lints[0]->getNode()->getLine());
     }
 
+    /** @test */
     public function ignores_single_line_array()
     {
         $file = <<<file
@@ -57,6 +59,7 @@ file;
         $this->assertEmpty($lints);
     }
 
+    /** @test */
     public function handles_trailing_comments()
     {
         $file = <<<file
@@ -75,6 +78,7 @@ file;
         $this->assertEmpty($lints);
     }
 
+    /** @test */
     public function handles_trailing_comments_with_comment_characters_in_values()
     {
         $file = <<<file
@@ -93,6 +97,7 @@ file;
         $this->assertEmpty($lints);
     }
 
+    /** @test */
     public function catches_multidimensional_arrays()
     {
         $file = <<<file

@@ -255,7 +255,7 @@ class LintCommand extends Command
             return [
                 SpaceAfterBladeDirectives::class => '.php',
                 NoSpaceAfterBladeDirectives::class => '.php',
-//                UseAuthHelperOverFacade::class => '.blade.php',
+                UseAuthHelperOverFacade::class => '.blade.php',
             ];
         }
 
@@ -280,7 +280,7 @@ class LintCommand extends Command
                 ModelMethodOrder::class => '.php',
                 ClassThingsOrder::class => '.php',
                 AlphabeticalImports::class => '.php',
-//                TrailingCommasOnArrays::class => '.php',
+                TrailingCommasOnArrays::class => '.php',
                 NoParensEmptyInstantiations::class => '.php',
                 SpaceAfterSoleNotOperator::class => '.php',
             ],
