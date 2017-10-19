@@ -6,6 +6,7 @@ use Tighten\TLint;
 
 class RequestHelperFunctionWherePossibleTest extends TestCase
 {
+    /** @test */
     public function catches_get_method_usage()
     {
         $file = <<<file
@@ -29,6 +30,7 @@ file;
         $this->assertEquals(9, $lints[0]->getNode()->getLine());
     }
 
+    /** @test */
     public function does_not_trigger_on_new_instance_method_calls()
     {
         $file = <<<file

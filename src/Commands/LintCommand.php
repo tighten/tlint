@@ -241,7 +241,7 @@ class LintCommand extends Command
                 ViewWithOverArrayParamaters::class => '.php',
                 PureRestControllers::class => '.php',
 //                RestControllersMethodOrder::class => '.php',
-//                RequestHelperFunctionWherePossible::class => '.php',
+                RequestHelperFunctionWherePossible::class => '.php',
                 ApplyMiddlewareInRoutes::class => '.php',
             ];
         }
