@@ -6,6 +6,7 @@ use Tighten\TLint;
 
 class SpaceAfterBladeDirectivesTest extends TestCase
 {
+    /** @test */
     public function catches_missing_space_after_directives()
     {
         $file = <<<file
