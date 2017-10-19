@@ -265,7 +265,7 @@ class LintCommand extends Command
     private function getMailableLinters($path)
     {
         return [
-//            MailableMethodsInBuild::class => '.php',
+            MailableMethodsInBuild::class => '.php',
         ];
     }
 

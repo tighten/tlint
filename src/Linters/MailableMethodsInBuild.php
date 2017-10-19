@@ -25,7 +25,7 @@ class MailableMethodsInBuild extends BaseLinter
                 $extendsMailable = true;
             }
 
-            if ($extendsMailable && $node instanceof Node\Stmt\ClassMethod && $node->name === '__construct') {
+            if ($extendsMailable && $node instanceof Node\Stmt\ClassMethod && $node->name->name === '__construct') {
                 foreach ($node->getStmts() as $stmt) {
                     if ($stmt->expr && $stmt->expr instanceof Node\Expr\MethodCall
                         && $stmt->expr->var->name === 'this') {
