@@ -29,7 +29,8 @@ class ApplyMiddlewareInRoutes extends BaseLinter
                 return $node instanceof Node\Expr\MethodCall
                     && $node->var instanceof Node\Expr\Variable
                     && $node->var->name === 'this'
-                    && $node->name === 'middleware';
+                    && $node->name instanceof Node\Identifier
+                    && $node->name->name === 'middleware';
             }
 
             return false;

@@ -242,7 +242,7 @@ class LintCommand extends Command
                 PureRestControllers::class => '.php',
 //                RestControllersMethodOrder::class => '.php',
 //                RequestHelperFunctionWherePossible::class => '.php',
-//                ApplyMiddlewareInRoutes::class => '.php',
+                ApplyMiddlewareInRoutes::class => '.php',
             ];
         }
 
