@@ -254,7 +254,7 @@ class LintCommand extends Command
         if (strpos($path, '.blade.php') !== false) {
             return [
 //                SpaceAfterBladeDirectives::class => '.php',
-//                NoSpaceAfterBladeDirectives::class => '.php',
+                NoSpaceAfterBladeDirectives::class => '.php',
 //                UseAuthHelperOverFacade::class => '.blade.php',
             ];
         }
