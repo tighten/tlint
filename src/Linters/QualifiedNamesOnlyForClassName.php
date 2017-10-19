@@ -23,7 +23,7 @@ class QualifiedNamesOnlyForClassName extends BaseLinter
         });
 
         $fqcnNonClassName = new FindingVisitor(function (Node $node) {
-            return ($node->name ?? null) !== 'class'
+            return ($node->name->name ?? null) !== 'class'
                 && ($node instanceof Node\Expr\StaticPropertyFetch
                     || $node instanceof Node\Expr\StaticCall
                     || $node instanceof Node\Expr\ClassConstFetch
@@ -36,11 +36,28 @@ class QualifiedNamesOnlyForClassName extends BaseLinter
                 && ($node->class instanceof Node\Name && $node->class->isQualified());
         });
 
+        $fqcnTrait = new FindingVisitor(function (Node $node) {
+            if ($node instanceof Node\Stmt\TraitUse) {
+                foreach ($node->traits as $trait) {
+                    if ($trait->isQualified() || $trait->isFullyQualified()) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        });
+
         $traverser->addVisitor($fqcnExtends);
         $traverser->addVisitor($fqcnNonClassName);
+        $traverser->addVisitor($fqcnTrait);
 
         $traverser->traverse($parser->parse($this->code));
 
-        return array_merge($fqcnExtends->getFoundNodes(), $fqcnNonClassName->getFoundNodes());
+        return array_merge(
+            $fqcnExtends->getFoundNodes(),
+            $fqcnNonClassName->getFoundNodes(),
+            $fqcnTrait->getFoundNodes()
+        );
     }
 }

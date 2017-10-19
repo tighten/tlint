@@ -274,7 +274,7 @@ class LintCommand extends Command
         return array_merge(
             [
                 RemoveLeadingSlashNamespaces::class => '.php',
-//                QualifiedNamesOnlyForClassName::class => '.php',
+                QualifiedNamesOnlyForClassName::class => '.php',
                 UseAuthHelperOverFacade::class => '.php',
                 ImportFacades::class => '.php',
                 ModelMethodOrder::class => '.php',
