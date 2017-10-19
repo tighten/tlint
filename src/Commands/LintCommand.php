@@ -91,7 +91,7 @@ class LintCommand extends Command
                     new Lint(
                         $linterInstance,
                         new class(['startLine' => $e->getStartLine()]) extends NodeAbstract {
-                            public function getSubNodeNames()
+                            public function getSubNodeNames() : array
                             {
                                 return [];
                             }
@@ -240,9 +240,9 @@ class LintCommand extends Command
             return [
                 ViewWithOverArrayParamaters::class => '.php',
                 PureRestControllers::class => '.php',
-                RestControllersMethodOrder::class => '.php',
-                RequestHelperFunctionWherePossible::class => '.php',
-                ApplyMiddlewareInRoutes::class => '.php',
+//                RestControllersMethodOrder::class => '.php',
+//                RequestHelperFunctionWherePossible::class => '.php',
+//                ApplyMiddlewareInRoutes::class => '.php',
             ];
         }
 
@@ -253,9 +253,9 @@ class LintCommand extends Command
     {
         if (strpos($path, '.blade.php') !== false) {
             return [
-                SpaceAfterBladeDirectives::class => '.php',
-                NoSpaceAfterBladeDirectives::class => '.php',
-                UseAuthHelperOverFacade::class => '.blade.php',
+//                SpaceAfterBladeDirectives::class => '.php',
+//                NoSpaceAfterBladeDirectives::class => '.php',
+//                UseAuthHelperOverFacade::class => '.blade.php',
             ];
         }
 
@@ -265,7 +265,7 @@ class LintCommand extends Command
     private function getMailableLinters($path)
     {
         return [
-            MailableMethodsInBuild::class => '.php',
+//            MailableMethodsInBuild::class => '.php',
         ];
     }
 
@@ -274,13 +274,13 @@ class LintCommand extends Command
         return array_merge(
             [
                 RemoveLeadingSlashNamespaces::class => '.php',
-                QualifiedNamesOnlyForClassName::class => '.php',
+//                QualifiedNamesOnlyForClassName::class => '.php',
                 UseAuthHelperOverFacade::class => '.php',
                 ImportFacades::class => '.php',
                 ModelMethodOrder::class => '.php',
                 ClassThingsOrder::class => '.php',
                 AlphabeticalImports::class => '.php',
-                TrailingCommasOnArrays::class => '.php',
+//                TrailingCommasOnArrays::class => '.php',
                 NoParensEmptyInstantiations::class => '.php',
                 SpaceAfterSoleNotOperator::class => '.php',
             ],

@@ -6,7 +6,6 @@ use Tighten\TLint;
 
 class RestControllersMethodOrderTest extends TestCase
 {
-    /** @test */
     public function catches_wrong_order_rest_methods()
     {
         $file = <<<file
@@ -37,7 +36,6 @@ file;
         $this->assertEquals(5, $lints[0]->getNode()->getLine());
     }
 
-    /** @test */
     public function does_not_trigger_on_correctly_ordered_rest_methods()
     {
         $file = <<<file

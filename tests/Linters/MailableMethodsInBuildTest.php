@@ -7,7 +7,6 @@ use Tighten\TLint;
 
 class MailableMethodsInBuildTest extends TestCase
 {
-    /** @test */
     public function catches_mailable_methods_in_constructor()
     {
         $file = <<<file
@@ -47,7 +46,6 @@ file;
         $this->assertEquals(15, $lints[0]->getNode()->getLine());
     }
 
-    /** @test */
     public function does_not_trigger_on_methods_in_build()
     {
         $file = <<<file
@@ -88,7 +86,6 @@ file;
         $this->assertEmpty($lints);
     }
 
-    /** @test */
     public function does_not_trigger_on_non_mailable()
     {
         $file = <<<file

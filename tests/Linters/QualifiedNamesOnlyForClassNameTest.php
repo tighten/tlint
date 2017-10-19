@@ -6,7 +6,6 @@ use Tighten\TLint;
 
 class QualifiedNamesOnlyForClassNameTest extends TestCase
 {
-    /** @test */
     public function catches_qualified_class_constant_calls()
     {
         $file = <<<file
@@ -22,7 +21,6 @@ file;
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 
-    /** @test */
     public function catches_qualified_static_property_access()
     {
         $file = <<<file
@@ -38,7 +36,6 @@ file;
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 
-    /** @test */
     public function catches_qualified_static_method_calls()
     {
         $file = <<<file
@@ -54,7 +51,6 @@ file;
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 
-    /** @test */
     public function allows_qualified_class_name_access()
     {
         $file = <<<file
@@ -86,7 +82,6 @@ file;
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 
-    /** @test */
     public function does_not_triggen_on_variable_class_instantiation()
     {
         $file = <<<file
@@ -103,7 +98,6 @@ file;
         $this->assertEmpty($lints);
     }
 
-    /** @test */
     public function does_not_trigger_on_anonymous_class()
     {
         $file = <<<file
@@ -119,7 +113,6 @@ file;
         $this->assertEmpty($lints);
     }
 
-    /** @test */
     public function catches_extends_fqcn()
     {
         $file = <<<file
@@ -138,7 +131,6 @@ file;
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 
-    /** @test */
     public function catches_extends_fqcn_no_leading_slash()
     {
         $file = <<<file
@@ -193,7 +185,6 @@ file;
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 
-    /** @test */
     public function does_not_throw_on_dynamic_class_instantiation()
     {
         $file = <<<file
