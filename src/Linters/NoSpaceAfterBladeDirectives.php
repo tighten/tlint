@@ -30,6 +30,7 @@ class NoSpaceAfterBladeDirectives extends BaseLinter
         'push',
         'stack',
     ];
+
     protected $description = 'No space between blade template directive names and the opening paren:'
         . '`@section (` -> `@section(`';
 

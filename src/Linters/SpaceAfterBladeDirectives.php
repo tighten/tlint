@@ -19,6 +19,7 @@ class SpaceAfterBladeDirectives extends BaseLinter
         'unless',
         'forelse',
     ];
+
     protected $description = 'Put a space between blade control structure names and the opening paren:'
         . '`@if(` -> `@if (`';
 

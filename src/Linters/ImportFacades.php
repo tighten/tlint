@@ -45,6 +45,7 @@ class ImportFacades extends BaseLinter
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View' => 'Illuminate\Support\Facades\View',
     ];
+
     protected $description = "Import facades (don't use aliases).";
 
     public function lint(Parser $parser)

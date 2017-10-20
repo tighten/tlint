@@ -27,6 +27,7 @@ use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoLeadingShashesOnRoutePaths;
 use Tighten\Linters\NoParensEmptyInstantiations;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
+use Tighten\Linters\OneLineBetweenClassVisibilityChanges;
 use Tighten\Linters\PureRestControllers;
 use Tighten\Linters\RequestHelperFunctionWherePossible;
 use Tighten\Linters\RestControllersMethodOrder;
@@ -116,6 +117,8 @@ class LintCommand extends Command
                 /** @var Lint $lint */
                 $output->writeln((string)$lint);
             }
+
+            $output->writeln(['']);
 
             return self::LINTS_FOUND_OR_ERROR;
         }
@@ -283,6 +286,7 @@ class LintCommand extends Command
                 TrailingCommasOnArrays::class => '.php',
                 NoParensEmptyInstantiations::class => '.php',
                 SpaceAfterSoleNotOperator::class => '.php',
+                OneLineBetweenClassVisibilityChanges::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),

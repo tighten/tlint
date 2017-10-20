@@ -23,6 +23,7 @@ class PureRestControllers extends BaseLinter
         'validator',
         '__construct',
     ];
+
     protected $description = 'You should not mix restful and non-restful methods in a controller';
 
     public function lint(Parser $parser)
