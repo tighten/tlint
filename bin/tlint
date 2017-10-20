@@ -18,8 +18,12 @@ foreach (
 
 use Symfony\Component\Console\Application;
 use Tighten\Commands\LintCommand;
+use function Tighten\version;
 
-$application = new Application();
+$application = new Application(
+        'tlint',
+        version()
+);
 
 $lintCommand = new LintCommand();
 

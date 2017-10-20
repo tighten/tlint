@@ -1,5 +1,6 @@
 {
     "name": "loganhenson/tlint",
+    "version": "2.0.0",
     "require": {
         "php": ">=7.1",
         "nikic/php-parser": "v4.0.0alpha1",
@@ -13,7 +14,8 @@
     "autoload": {
         "psr-4": {
             "Tighten\\": "src/"
-        }
+        },
+        "files": ["src/helpers.php"]
     },
     "bin": ["bin/tlint"]
 }
