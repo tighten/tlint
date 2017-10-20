@@ -64,6 +64,7 @@ Lints:
 - Trailing commas on arrays `TrailingCommasOnArrays`
 - No parenthesis on empty instantiations `NoParensEmptyInstantiations`
 - Space after sole not operator `SpaceAfterSoleNotOperator`
+- One blank line between class constants / properties of different visibility `OneLineBetweenClassVisibilityChanges`
 
 ## Disabled Lints
 - No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`

@@ -19,6 +19,7 @@ class RestControllersMethodOrder extends BaseLinter
         'update',
         'destroy',
     ];
+
     protected $description = 'REST methods in controllers should match the ordering here:'
         . ' https://laravel.com/docs/5.4/controllers#restful-partial-resource-routes';
 
