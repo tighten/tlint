@@ -66,6 +66,7 @@ Lints:
 - Space after sole not operator `SpaceAfterSoleNotOperator`
 - One blank line between class constants / properties of different visibility `OneLineBetweenClassVisibilityChanges`
 - Spaces around blade rendered content `SpacesAroundBladeRenderContent`
+- Never use string interpolation without braces `NoStringInterpolationWithoutBraces`
 
 ## Disabled Lints
 - No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`

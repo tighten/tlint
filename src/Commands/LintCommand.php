@@ -27,6 +27,7 @@ use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoLeadingShashesOnRoutePaths;
 use Tighten\Linters\NoParensEmptyInstantiations;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
+use Tighten\Linters\NoStringInterpolationWithoutBraces;
 use Tighten\Linters\OneLineBetweenClassVisibilityChanges;
 use Tighten\Linters\PureRestControllers;
 use Tighten\Linters\RequestHelperFunctionWherePossible;
@@ -116,7 +117,13 @@ class LintCommand extends Command
 
             foreach ($lints as $lint) {
                 /** @var Lint $lint */
-                $output->writeln((string)$lint);
+
+                [$title, $codeLine] = explode(PHP_EOL, (string) $lint);
+
+                $output->writeln([
+                    "<fg=yellow>{$title}</>",
+                    $codeLine,
+                ]);
             }
 
             $output->writeln(['']);
@@ -289,6 +296,7 @@ class LintCommand extends Command
                 NoParensEmptyInstantiations::class => '.php',
                 SpaceAfterSoleNotOperator::class => '.php',
                 OneLineBetweenClassVisibilityChanges::class => '.php',
+                NoStringInterpolationWithoutBraces::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
