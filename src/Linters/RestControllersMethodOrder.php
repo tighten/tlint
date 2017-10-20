@@ -29,7 +29,7 @@ class RestControllersMethodOrder extends BaseLinter
         $visitor = new FindingVisitor(function (Node $node) {
             if ($node instanceof Node\Stmt\Class_) {
                 $methodNames = array_map(function ($stmt) {
-                    return $stmt->name;
+                    return $stmt->name->name;
                 }, array_filter($node->stmts, function ($stmt) {
                     return $stmt instanceof Node\Stmt\ClassMethod;
                 }));

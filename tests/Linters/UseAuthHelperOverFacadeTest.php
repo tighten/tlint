@@ -61,7 +61,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_when_calling_routes()
+    public function does_not_trigger_when_calling_routes()
     {
         $file = <<<file
 <?php
@@ -77,7 +77,6 @@ file;
 
         $this->assertEmpty($lints);
     }
-
 
     /** @test */
     public function does_not_throw_when_file_contains_dynamic_class_variables()

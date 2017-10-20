@@ -18,7 +18,7 @@ class RequestHelperFunctionWherePossible extends BaseLinter
 
         $visitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Expr\MethodCall
-                && $node->name === 'get'
+                && $node->name->name === 'get'
                 && $node->var instanceof Node\Expr\FuncCall
                 && $node->var->name->toString() === 'request';
         });

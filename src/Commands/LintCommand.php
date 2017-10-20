@@ -91,7 +91,7 @@ class LintCommand extends Command
                     new Lint(
                         $linterInstance,
                         new class(['startLine' => $e->getStartLine()]) extends NodeAbstract {
-                            public function getSubNodeNames()
+                            public function getSubNodeNames() : array
                             {
                                 return [];
                             }

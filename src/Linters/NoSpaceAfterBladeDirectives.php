@@ -49,7 +49,7 @@ class NoSpaceAfterBladeDirectives extends BaseLinter
 
             if (in_array($matches[1] ?? null, self::NO_SPACE_AFTER) && ($matches[2] ?? null) !== '') {
                 $foundNodes[] = new class(['startLine' => $line + 1]) extends NodeAbstract {
-                    public function getSubNodeNames()
+                    public function getSubNodeNames() : array
                     {
                         return [];
                     }

@@ -157,6 +157,7 @@ file;
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 
+    /** @test */
     public function catches_trait_qualified()
     {
         $file = <<<file
@@ -172,9 +173,10 @@ file;
             new QualifiedNamesOnlyForClassName($file)
         );
 
-        $this->assertEquals(3, $lints[0]->getNode()->getLine());
+        $this->assertEquals(5, $lints[0]->getNode()->getLine());
     }
 
+    /** @test */
     public function catches_trait_fully_qualified()
     {
         $file = <<<file
@@ -190,7 +192,7 @@ file;
             new QualifiedNamesOnlyForClassName($file)
         );
 
-        $this->assertEquals(3, $lints[0]->getNode()->getLine());
+        $this->assertEquals(5, $lints[0]->getNode()->getLine());
     }
 
     /** @test */

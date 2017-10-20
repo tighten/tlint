@@ -97,9 +97,6 @@ file;
         $this->assertEmpty($lints);
     }
 
-    // [
-
-
     /** @test */
     public function catches_multidimensional_arrays()
     {
