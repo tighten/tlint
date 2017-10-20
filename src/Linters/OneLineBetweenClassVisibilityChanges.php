@@ -8,14 +8,9 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
-use Tighten\Concerns\IdentifiesExtends;
-use Tighten\Concerns\IdentifiesModelMethodTypes;
 
 class OneLineBetweenClassVisibilityChanges extends BaseLinter
 {
-    use IdentifiesModelMethodTypes;
-    use IdentifiesExtends;
-
     protected $description = 'Class members of differing visibility must be separated by a blank line';
 
     public function lint(Parser $parser)
