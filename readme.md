@@ -65,6 +65,7 @@ Lints:
 - No parenthesis on empty instantiations `NoParensEmptyInstantiations`
 - Space after sole not operator `SpaceAfterSoleNotOperator`
 - One blank line between class constants / properties of different visibility `OneLineBetweenClassVisibilityChanges`
+- Spaces around blade rendered content `SpacesAroundBladeRenderContent`
 
 ## Disabled Lints
 - No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`
