@@ -35,6 +35,7 @@ use Tighten\Linters\SpaceAfterBladeDirectives;
 use Tighten\Linters\QualifiedNamesOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
 use Tighten\Linters\SpaceAfterSoleNotOperator;
+use Tighten\Linters\SpacesAroundBladeRenderContent;
 use Tighten\Linters\TrailingCommasOnArrays;
 use Tighten\Linters\UseAuthHelperOverFacade;
 use Tighten\Linters\ViewWithOverArrayParamaters;
@@ -258,6 +259,7 @@ class LintCommand extends Command
             return [
                 SpaceAfterBladeDirectives::class => '.php',
                 NoSpaceAfterBladeDirectives::class => '.php',
+                SpacesAroundBladeRenderContent::class => '.php',
                 UseAuthHelperOverFacade::class => '.blade.php',
             ];
         }
