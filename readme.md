@@ -1,4 +1,7 @@
 ## Tighten linter
+
+This is an ALPHA release under active development of a linter for the Tighten-specific development conventions for Laravel code. By @loganhenson.
+
 > not psr stuff, these are conventions agreed upon by Tighten developers
 > intended for use alongside default php-cs-fixer (to cover aforementioned psr stuff)
 
