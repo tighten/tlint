@@ -3,7 +3,7 @@
     "version": "2.0.0",
     "require": {
         "php": ">=7.1",
-        "nikic/php-parser": "v4.0.0alpha1",
+        "nikic/php-parser": "v4.0.0alpha2",
         "symfony/console": "^3.2",
         "illuminate/view": "^5.4",
         "symfony/process": "^3.3"
