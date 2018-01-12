@@ -19,6 +19,7 @@ class NoParensEmptyInstantiations extends BaseLinter
         $visitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Expr\New_
                 && empty($node->args)
+                && $node->class instanceof Node\Name
                 && strpos(
                     $this->getCodeLine($node->getAttributes()['startLine']),
                     "new " . $node->class->toString() . '()'
