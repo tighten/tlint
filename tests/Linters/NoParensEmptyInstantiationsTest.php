@@ -37,4 +37,21 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function works_when_instantiating_from_variable()
+    {
+        $file = <<<file
+<?php
+
+\$class = Thing::class;
+\$ok = new \$class;
+file;
+
+        $lints = (new TLint)->lint(
+            new NoParensEmptyInstantiations($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
