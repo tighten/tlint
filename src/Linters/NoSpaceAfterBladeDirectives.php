@@ -54,6 +54,11 @@ class NoSpaceAfterBladeDirectives extends BaseLinter
                     {
                         return [];
                     }
+
+                    public function getType(): string
+                    {
+                        return '';
+                    }
                 };
             }
         }

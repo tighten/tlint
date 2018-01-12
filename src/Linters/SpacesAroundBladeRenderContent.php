@@ -36,6 +36,11 @@ class SpacesAroundBladeRenderContent extends BaseLinter
                     {
                         return [];
                     }
+
+                    public function getType(): string
+                    {
+                        return '';
+                    }
                 };
             }
         }
@@ -57,6 +62,11 @@ class SpacesAroundBladeRenderContent extends BaseLinter
                     public function getSubNodeNames() : array
                     {
                         return [];
+                    }
+
+                    public function getType(): string
+                    {
+                        return '';
                     }
                 };
             }

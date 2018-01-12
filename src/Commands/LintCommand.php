@@ -98,6 +98,11 @@ class LintCommand extends Command
                             {
                                 return [];
                             }
+
+                            public function getType(): string
+                            {
+                                return '';
+                            }
                         }
                     ),
                 ]);
