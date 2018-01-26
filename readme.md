@@ -75,3 +75,4 @@ Lints:
 - No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`
 
 ## Todo Lints
+## test
