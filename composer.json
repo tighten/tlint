@@ -1,6 +1,6 @@
 {
-    "name": "loganhenson/tlint",
-    "version": "2.0.4",
+    "name": "tightenco/tlint",
+    "version": "2.0.5",
     "require": {
         "php": ">=7.1",
         "nikic/php-parser": "^4.0",

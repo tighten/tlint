@@ -7,10 +7,8 @@ This is an ALPHA release under active development of a linter for the Tighten-sp
 
 ## Install (Requires php7.1+)
 ```
-composer global require loganhenson/tlint
+composer global require tightenco/tlint
 ```
-> If you have other globally installed core laravel files you may need to update them to test this package.
-> - laravel/valet
 
 ## Usage
 For entire project (you must pass the lint command to use other options)
