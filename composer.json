@@ -17,5 +17,9 @@
         },
         "files": ["src/helpers.php"]
     },
-    "bin": ["bin/tlint"]
+    "bin": ["bin/tlint"],
+    "scripts": {
+        "runTests": "./scripts/runTests.sh",
+        "buildTestEnvironments": "./scripts/buildTestEnvironments.sh"
+    }
 }
