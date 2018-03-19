@@ -2,7 +2,6 @@
 
 namespace Tighten\Linters;
 
-use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Expr\BinaryOp\Concat;
@@ -13,7 +12,7 @@ use Tighten\BaseLinter;
 
 class SpacesAroundConcatenators extends BaseLinter
 {
-    protected $description = 'There should be spaces around `.` concatenators';
+    protected $description = 'There should be spaces around `.` concatenations';
 
     /**
      * When multiple concatenations are present in a single line, they're recorded in an unpredictable way.
@@ -31,7 +30,50 @@ class SpacesAroundConcatenators extends BaseLinter
 
         $visitor = new FindingVisitor(function (Node $node) {
             if ($node instanceof Concat) {
-                return $node->getEndTokenPos() - $node->getStartTokenPos() !== 4;
+                $stringLiteralCorrectlyFormattedConcatCount = 0;
+                $concatCount = 1;
+                $left = $node->left;
+
+                if ($left instanceof String_) {
+//                    $stringLiteralCorrectlyFormattedConcatCount += substr_count($left->value, ' . ');
+                    preg_match_all('/(?<= )(?<!  |^)\.(?= )(?!  |$)/', $left->value, $matches);
+                    $stringLiteralCorrectlyFormattedConcatCount += count($matches[0]);
+                }
+
+                while ($left instanceof Concat) {
+                    $concatCount += 1;
+
+                    $left = $left->left;
+                }
+
+//                $correctlyFormattedCodeLineConcatCount = substr_count($this->getCodeLine($node->getLine()), ' . ');
+                preg_match_all('/(?<= )(?<!  |^)\.(?= )(?!  |$)/', $this->getCodeLine($node->getLine()), $matches);
+                $correctlyFormattedCodeLineConcatCount = count($matches[0]);
+//                dd(count($matches));
+                // (?:[^ ] \. [^ ])
+
+                /**
+                 * Check for non-first line start of line concats space after and subtract from
+                 * $concatCount if they are correct.
+                 */
+                if ($node->getEndLine() > $node->getStartLine()) {
+                    foreach (range($node->getStartLine() + 1, $node->getEndLine()) as $lineNumber) {
+                        echo $this->getCodeLine($lineNumber) . PHP_EOL;
+                        preg_match_all('/^\s*\.(?= )(?!  |$)/', $this->getCodeLine($lineNumber), $matches);
+                        $concatCount -= count($matches[0]);
+                        var_dump($concatCount . 'as');
+                    }
+                }
+
+                dd(
+                    $this->getCodeLine($node->getLine()),
+                    $correctlyFormattedCodeLineConcatCount,
+                    $stringLiteralCorrectlyFormattedConcatCount,
+                    $concatCount
+                );
+
+                return $correctlyFormattedCodeLineConcatCount - $stringLiteralCorrectlyFormattedConcatCount
+                    < $concatCount;
             }
 
             return false;

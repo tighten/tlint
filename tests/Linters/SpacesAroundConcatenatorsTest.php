@@ -12,8 +12,6 @@ class SpacesAroundConcatenatorsTest extends TestCase
         $file = <<<file
 <?php
 
-\$baz = '';
-
 echo "foo bar . ".\$baz;
 
 file;
@@ -22,7 +20,24 @@ file;
             new SpacesAroundConcatenators($file)
         );
 
-        $this->assertEquals(5, $lints[0]->getNode()->getLine());
+        $this->assertEquals(3, $lints[0]->getNode()->getLine());
+    }
+
+    /** @test */
+    public function catches_concat_with_too_many_spaces()
+    {
+        $file = <<<file
+<?php
+
+echo "foo bar . "  . \$baz;
+
+file;
+
+        $lints = (new TLint)->lint(
+            new SpacesAroundConcatenators($file)
+        );
+
+        $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 
     /** @test */
@@ -45,33 +60,10 @@ file;
     }
 
     /** @test */
-    public function catches_multiple_concats_in_the_same_line()
-    {
-        $file = <<<file
-<?php
-
-echo "foo" . \$bar . "baz";
-echo foo()."bar . ". \$baz ."bar".\$foo;
-
-file;
-
-        $lints = (new TLint)->lint(
-            new SpacesAroundConcatenators($file)
-        );
-
-        $this->assertEquals(3, $lints[0]->getNode()->getLine());
-        $this->assertEquals(3, $lints[1]->getNode()->getLine());
-        $this->assertEquals(4, $lints[2]->getNode()->getLine());
-        $this->assertEquals(4, $lints[3]->getNode()->getLine());
-    }
-
-    /** @test */
     public function does_not_trigger_on_concat_with_spaces()
     {
         $file = <<<file
 <?php
-
-\$baz = '';
 
 echo "foo bar . " . \$baz;
 
@@ -82,5 +74,41 @@ file;
         );
 
         $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function handles_valid_multiline_concat()
+    {
+        $file = <<<file
+<?php
+
+echo '! ' . \$this->linter->getLintDescription() . PHP_EOL
+                . \$this->node->getLine() . ' : `' . \$this->linter->getCodeLine(\$this->node->getLine()) . '`';
+
+file;
+
+        $lints = (new TLint)->lint(
+            new SpacesAroundConcatenators($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function triggers_on_multiline_concat()
+    {
+        $file = <<<file
+<?php
+
+echo getcwd() . '/'
+    .\$a;
+
+file;
+
+        $lints = (new TLint)->lint(
+            new SpacesAroundConcatenators($file)
+        );
+
+        $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 }
