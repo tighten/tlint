@@ -14,22 +14,10 @@ class TLint
 
     public function __construct()
     {
-        $this->parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7, new Lexer([
-            'usedAttributes' => [
-                'comments',
-                'startLine',
-                'endLine',
-                'startTokenPos',
-                'endTokenPos',
-            ],
-        ]));
+        $this->parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7, new Lexer);
     }
 
-    /**
-     * @param LinterInterface $linter
-     * @return Lint[]
-     */
-    public function lint(LinterInterface $linter)
+    public function lint(BaseLinter $linter)
     {
         return array_map(function (Node $node) use ($linter) {
             return new Lint($linter, $node);

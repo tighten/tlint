@@ -4,9 +4,10 @@ namespace Tighten;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
+use PhpParser\Node;
 use PhpParser\Parser;
 
-class BaseLinter implements LinterInterface
+class BaseLinter
 {
     protected $description = 'No Description for Linter.';
     protected $extension;
@@ -55,6 +56,17 @@ class BaseLinter implements LinterInterface
     public function getCodeLine(int $line)
     {
         return $this->getCodeLines()[$line - 1];
+    }
+
+    public function getCodeLinesFromNode(Node $node)
+    {
+        return array_reduce(
+            range($node->getStartLine(), $node->getEndLine()),
+            function ($carry, $line) {
+                return $carry . $this->getCodeLine($line);
+            },
+            ''
+        );
     }
 
     public function getCodeLines()

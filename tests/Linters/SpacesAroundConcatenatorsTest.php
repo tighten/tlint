@@ -1,10 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\SpacesAroundConcatenators;
+use Tighten\Linters\CorrectlyFormattedConcatenations;
 use Tighten\TLint;
 
-class SpacesAroundConcatenatorsTest extends TestCase
+class CorrectlyFormattedConcatenationsTest extends TestCase
 {
     /** @test */
     public function catches_concat_without_spaces()
@@ -17,7 +17,7 @@ echo "foo bar . ".\$baz;
 file;
 
         $lints = (new TLint)->lint(
-            new SpacesAroundConcatenators($file)
+            new CorrectlyFormattedConcatenations($file)
         );
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
@@ -34,7 +34,7 @@ echo "foo bar . "  . \$baz;
 file;
 
         $lints = (new TLint)->lint(
-            new SpacesAroundConcatenators($file)
+            new CorrectlyFormattedConcatenations($file)
         );
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
@@ -52,7 +52,7 @@ echo "foo bar . " .\$baz;
 file;
 
         $lints = (new TLint)->lint(
-            new SpacesAroundConcatenators($file)
+            new CorrectlyFormattedConcatenations($file)
         );
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
@@ -70,7 +70,7 @@ echo "foo bar . " . \$baz;
 file;
 
         $lints = (new TLint)->lint(
-            new SpacesAroundConcatenators($file)
+            new CorrectlyFormattedConcatenations($file)
         );
 
         $this->assertEmpty($lints);
@@ -88,7 +88,7 @@ echo '! ' . \$this->linter->getLintDescription() . PHP_EOL
 file;
 
         $lints = (new TLint)->lint(
-            new SpacesAroundConcatenators($file)
+            new CorrectlyFormattedConcatenations($file)
         );
 
         $this->assertEmpty($lints);
@@ -106,9 +106,30 @@ echo getcwd() . '/'
 file;
 
         $lints = (new TLint)->lint(
-            new SpacesAroundConcatenators($file)
+            new CorrectlyFormattedConcatenations($file)
         );
 
+        $this->assertEquals(3, $lints[0]->getNode()->getLine());
+    }
+
+    /** @test */
+    public function triggers_on_multiline_concat_where_lines_do_not_start_with_concat()
+    {
+        $file = <<<file
+<?php
+
+       \$directory = 'images/articles' . DIRECTORY_SEPARATOR .
+            date('Y') . DIRECTORY_SEPARATOR .
+            date('m') . DIRECTORY_SEPARATOR .
+            date('d') . DIRECTORY_SEPARATOR;
+            
+file;
+
+        $lints = (new TLint)->lint(
+            new CorrectlyFormattedConcatenations($file)
+        );
+
+        $this->assertEquals(1, count($lints));
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 }

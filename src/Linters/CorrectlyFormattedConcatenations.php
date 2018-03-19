@@ -10,32 +10,32 @@ use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 
-class SpacesAroundConcatenators extends BaseLinter
+class CorrectlyFormattedConcatenations extends BaseLinter
 {
-    protected $description = 'There should be spaces around `.` concatenations';
+    protected $description = 'There should be 1 space around `.` concatenations, and additional lines should'
+        . ' always start with a `.`';
 
-    /**
-     * When multiple concatenations are present in a single line, they're recorded in an unpredictable way.
-     * - the start token is always the left-most concat's start.
-     * - the end token is the end of the farthest right concat.
-     * Concats are traversed in right to left order, so the longest/farthest right is reported first.
-     *
-     * "foo" . $bar . "baz" would produce 2 concats:
-     * one beginning at token 4 and ending at token 12
-     * one beginning at token 4 and ending at token 8
-     */
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser;
 
         $visitor = new FindingVisitor(function (Node $node) {
+            static $startLine;
+
             if ($node instanceof Concat) {
+                /**
+                 * Stop multiple lints for single concat
+                 */
+                if ($startLine === $node->getStartLine()) {
+                    return false;
+                }
+
+                $startLine = $node->getStartLine();
                 $stringLiteralCorrectlyFormattedConcatCount = 0;
                 $concatCount = 1;
                 $left = $node->left;
 
                 if ($left instanceof String_) {
-//                    $stringLiteralCorrectlyFormattedConcatCount += substr_count($left->value, ' . ');
                     preg_match_all('/(?<= )(?<!  |^)\.(?= )(?!  |$)/', $left->value, $matches);
                     $stringLiteralCorrectlyFormattedConcatCount += count($matches[0]);
                 }
@@ -46,11 +46,11 @@ class SpacesAroundConcatenators extends BaseLinter
                     $left = $left->left;
                 }
 
-//                $correctlyFormattedCodeLineConcatCount = substr_count($this->getCodeLine($node->getLine()), ' . ');
-                preg_match_all('/(?<= )(?<!  |^)\.(?= )(?!  |$)/', $this->getCodeLine($node->getLine()), $matches);
+                $totalCodeLine = $node->getEndLine() > $node->getStartLine()
+                    ? $this->getCodeLinesFromNode($node)
+                    : $this->getCodeLine($node->getLine());
+                preg_match_all('/(?<= )(?<!  |^)\.(?= )(?!  |$)/', $totalCodeLine, $matches);
                 $correctlyFormattedCodeLineConcatCount = count($matches[0]);
-//                dd(count($matches));
-                // (?:[^ ] \. [^ ])
 
                 /**
                  * Check for non-first line start of line concats space after and subtract from
@@ -58,19 +58,10 @@ class SpacesAroundConcatenators extends BaseLinter
                  */
                 if ($node->getEndLine() > $node->getStartLine()) {
                     foreach (range($node->getStartLine() + 1, $node->getEndLine()) as $lineNumber) {
-                        echo $this->getCodeLine($lineNumber) . PHP_EOL;
                         preg_match_all('/^\s*\.(?= )(?!  |$)/', $this->getCodeLine($lineNumber), $matches);
                         $concatCount -= count($matches[0]);
-                        var_dump($concatCount . 'as');
                     }
                 }
-
-                dd(
-                    $this->getCodeLine($node->getLine()),
-                    $correctlyFormattedCodeLineConcatCount,
-                    $stringLiteralCorrectlyFormattedConcatCount,
-                    $concatCount
-                );
 
                 return $correctlyFormattedCodeLineConcatCount - $stringLiteralCorrectlyFormattedConcatCount
                     < $concatCount;

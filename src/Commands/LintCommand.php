@@ -15,8 +15,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use Tighten\BaseLinter;
 use Tighten\Lint;
-use Tighten\LinterInterface;
 use Tighten\Linters\AlphabeticalImports;
 use Tighten\Linters\ApplyMiddlewareInRoutes;
 use Tighten\Linters\ClassThingsOrder;
@@ -37,7 +37,7 @@ use Tighten\Linters\QualifiedNamesOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
 use Tighten\Linters\SpaceAfterSoleNotOperator;
 use Tighten\Linters\SpacesAroundBladeRenderContent;
-use Tighten\Linters\SpacesAroundConcatenators;
+use Tighten\Linters\CorrectlyFormattedConcatenations;
 use Tighten\Linters\TrailingCommasOnArrays;
 use Tighten\Linters\UseAuthHelperOverFacade;
 use Tighten\Linters\ViewWithOverArrayParamaters;
@@ -80,7 +80,7 @@ class LintCommand extends Command
         $lints = [];
 
         foreach ($linters as $linterClass => $parseAs) {
-            /** @var LinterInterface $linterInstance */
+            /** @var BaseLinter $linterInstance */
             $linterInstance = new $linterClass(
                 file_get_contents($file),
                 $parseAs
@@ -303,7 +303,7 @@ class LintCommand extends Command
                 SpaceAfterSoleNotOperator::class => '.php',
                 OneLineBetweenClassVisibilityChanges::class => '.php',
                 NoStringInterpolationWithoutBraces::class => '.php',
-                SpacesAroundConcatenators::class => '.php',
+                CorrectlyFormattedConcatenations::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
