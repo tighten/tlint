@@ -9,7 +9,7 @@ class Lint
     private $linter;
     private $node;
 
-    public function __construct(LinterInterface $linter, Node $node)
+    public function __construct(BaseLinter $linter, Node $node)
     {
         $this->linter = $linter;
         $this->node = $node;
@@ -19,7 +19,7 @@ class Lint
     {
         if ($this->linter->getExtension() === '.php') {
             return '! ' . $this->linter->getLintDescription() . PHP_EOL
-                . $this->node->getLine() . ' : `' . $this->linter->getCodeLine($this->node->getLine()) . '`';
+                    . $this->node->getLine() . ' : `' . $this->linter->getCodeLine($this->node->getLine()) . '`';
         }
 
         if ($this->linter->getExtension() === '.blade.php') {
@@ -29,10 +29,7 @@ class Lint
         return 'Something is wrong.';
     }
 
-    /**
-     * @return LinterInterface
-     */
-    public function getLinter(): LinterInterface
+    public function getLinter(): BaseLinter
     {
         return $this->linter;
     }
