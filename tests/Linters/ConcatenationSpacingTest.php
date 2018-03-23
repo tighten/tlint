@@ -1,10 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\CorrectlyFormattedConcatenations;
+use Tighten\Linters\ConcatenationSpacing;
 use Tighten\TLint;
 
-class CorrectlyFormattedConcatenationsTest extends TestCase
+class ConcatenationSpacingTest extends TestCase
 {
     /** @test */
     public function catches_concat_without_spaces()
@@ -17,7 +17,7 @@ echo "foo bar . ".\$baz;
 file;
 
         $lints = (new TLint)->lint(
-            new CorrectlyFormattedConcatenations($file)
+            new ConcatenationSpacing($file)
         );
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
@@ -34,7 +34,7 @@ echo "foo bar . "  . \$baz;
 file;
 
         $lints = (new TLint)->lint(
-            new CorrectlyFormattedConcatenations($file)
+            new ConcatenationSpacing($file)
         );
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
@@ -52,7 +52,7 @@ echo "foo bar . " .\$baz;
 file;
 
         $lints = (new TLint)->lint(
-            new CorrectlyFormattedConcatenations($file)
+            new ConcatenationSpacing($file)
         );
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
@@ -70,7 +70,7 @@ echo "foo bar . " . \$baz;
 file;
 
         $lints = (new TLint)->lint(
-            new CorrectlyFormattedConcatenations($file)
+            new ConcatenationSpacing($file)
         );
 
         $this->assertEmpty($lints);
@@ -88,7 +88,7 @@ echo '! ' . \$this->linter->getLintDescription() . PHP_EOL
 file;
 
         $lints = (new TLint)->lint(
-            new CorrectlyFormattedConcatenations($file)
+            new ConcatenationSpacing($file)
         );
 
         $this->assertEmpty($lints);
@@ -106,7 +106,7 @@ echo getcwd() . '/'
 file;
 
         $lints = (new TLint)->lint(
-            new CorrectlyFormattedConcatenations($file)
+            new ConcatenationSpacing($file)
         );
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
@@ -126,7 +126,7 @@ file;
 file;
 
         $lints = (new TLint)->lint(
-            new CorrectlyFormattedConcatenations($file)
+            new ConcatenationSpacing($file)
         );
 
         $this->assertEquals(1, count($lints));

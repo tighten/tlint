@@ -37,7 +37,7 @@ use Tighten\Linters\QualifiedNamesOnlyForClassName;
 use Tighten\Linters\RemoveLeadingSlashNamespaces;
 use Tighten\Linters\SpaceAfterSoleNotOperator;
 use Tighten\Linters\SpacesAroundBladeRenderContent;
-use Tighten\Linters\CorrectlyFormattedConcatenations;
+use Tighten\Linters\ConcatenationSpacing;
 use Tighten\Linters\TrailingCommasOnArrays;
 use Tighten\Linters\UseAuthHelperOverFacade;
 use Tighten\Linters\ViewWithOverArrayParamaters;
@@ -303,7 +303,7 @@ class LintCommand extends Command
                 SpaceAfterSoleNotOperator::class => '.php',
                 OneLineBetweenClassVisibilityChanges::class => '.php',
                 NoStringInterpolationWithoutBraces::class => '.php',
-                CorrectlyFormattedConcatenations::class => '.php',
+                ConcatenationSpacing::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),

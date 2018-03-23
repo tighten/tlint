@@ -10,7 +10,7 @@ use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 
-class CorrectlyFormattedConcatenations extends BaseLinter
+class ConcatenationSpacing extends BaseLinter
 {
     protected $description = 'There should be 1 space around `.` concatenations, and additional lines should'
         . ' always start with a `.`';
