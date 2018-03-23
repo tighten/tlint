@@ -24,7 +24,7 @@ class CorrectlyFormattedConcatenations extends BaseLinter
 
             if ($node instanceof Concat) {
                 /**
-                 * Stop multiple lints for single concat
+                 * Stop multiple lints triggers for a single concat
                  */
                 if ($startLine === $node->getStartLine()) {
                     return false;
@@ -35,11 +35,16 @@ class CorrectlyFormattedConcatenations extends BaseLinter
                 $concatCount = 1;
                 $left = $node->left;
 
+                /**
+                 * Count correctly formatted raw string concats
+                 */
                 if ($left instanceof String_) {
-                    preg_match_all('/(?<= )(?<!  |^)\.(?= )(?!  |$)/', $left->value, $matches);
-                    $stringLiteralCorrectlyFormattedConcatCount += count($matches[0]);
+                    $stringLiteralCorrectlyFormattedConcatCount += $this->countCorrectlyFormattedConcats($left->value);
                 }
 
+                /**
+                 * Count concat operations via parser tokens
+                 */
                 while ($left instanceof Concat) {
                     $concatCount += 1;
 
@@ -49,20 +54,14 @@ class CorrectlyFormattedConcatenations extends BaseLinter
                 $totalCodeLine = $node->getEndLine() > $node->getStartLine()
                     ? $this->getCodeLinesFromNode($node)
                     : $this->getCodeLine($node->getLine());
-                preg_match_all('/(?<= )(?<!  |^)\.(?= )(?!  |$)/', $totalCodeLine, $matches);
-                $correctlyFormattedCodeLineConcatCount = count($matches[0]);
+
+                $correctlyFormattedCodeLineConcatCount = $this->countCorrectlyFormattedConcats($totalCodeLine);
+
+                $concatCount -= $this->countAdditionalLinesThatStartWithConcat($node);
 
                 /**
-                 * Check for non-first line start of line concats space after and subtract from
-                 * $concatCount if they are correct.
+                 * Compare the parsed vs raw string (correct) count
                  */
-                if ($node->getEndLine() > $node->getStartLine()) {
-                    foreach (range($node->getStartLine() + 1, $node->getEndLine()) as $lineNumber) {
-                        preg_match_all('/^\s*\.(?= )(?!  |$)/', $this->getCodeLine($lineNumber), $matches);
-                        $concatCount -= count($matches[0]);
-                    }
-                }
-
                 return $correctlyFormattedCodeLineConcatCount - $stringLiteralCorrectlyFormattedConcatCount
                     < $concatCount;
             }
@@ -75,5 +74,29 @@ class CorrectlyFormattedConcatenations extends BaseLinter
         $traverser->traverse($parser->parse($this->code));
 
         return $visitor->getFoundNodes();
+    }
+
+    private function countCorrectlyFormattedConcats(string $string)
+    {
+        preg_match_all('/(?<= )(?<!  |^)\.(?= )(?!  |$)/', $string, $matches);
+
+        return count($matches[0] ?? []);
+    }
+
+    /**
+     * Count non-first line start of line concats (with space after)
+     */
+    private function countAdditionalLinesThatStartWithConcat(Node $node)
+    {
+        $concatCount = 0;
+
+        if ($node->getEndLine() > $node->getStartLine()) {
+            foreach (range($node->getStartLine() + 1, $node->getEndLine()) as $lineNumber) {
+                preg_match_all('/^\s*\.(?= )(?!  |$)/', $this->getCodeLine($lineNumber), $matches);
+                $concatCount += count($matches[0] ?? []) > 0 ? 1 : 0;
+            }
+        }
+
+        return $concatCount;
     }
 }
