@@ -23,6 +23,7 @@ use Tighten\Linters\ClassThingsOrder;
 use Tighten\Linters\ImportFacades;
 use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\Linters\ModelMethodOrder;
+use Tighten\Linters\NoCompact;
 use Tighten\Linters\NoDd;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoLeadingSlashesOnRoutePaths;
@@ -261,6 +262,7 @@ class LintCommand extends Command
                 RestControllersMethodOrder::class => '.php',
                 RequestHelperFunctionWherePossible::class => '.php',
                 ApplyMiddlewareInRoutes::class => '.php',
+                NoCompact::class,
             ];
         }
 
