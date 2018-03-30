@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\ImportFacades;
-use Tighten\Linters\NoLeadingShashesOnRoutePaths;
+use Tighten\Linters\NoLeadingSlashesOnRoutePaths;
 use Tighten\TLint;
 
 class NoLeadingSlashesOnRoutePathsTest extends TestCase
@@ -19,14 +19,14 @@ Route::get('/', function () {
 file;
 
         $lints = (new TLint)->lint(
-            new NoLeadingShashesOnRoutePaths($file)
+            new NoLeadingSlashesOnRoutePaths($file)
         );
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 
     /** @test */
-    public function catches_leading_shashes_in_route_groups()
+    public function catches_leading_slashes_in_route_groups()
     {
         $file = <<<file
 <?php
@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
 file;
 
         $lints = (new TLint)->lint(
-            new NoLeadingShashesOnRoutePaths($file)
+            new NoLeadingSlashesOnRoutePaths($file)
         );
 
         $this->assertEquals(4, $lints[0]->getNode()->getLine());
