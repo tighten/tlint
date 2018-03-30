@@ -23,6 +23,7 @@ use Tighten\Linters\ClassThingsOrder;
 use Tighten\Linters\ImportFacades;
 use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\Linters\ModelMethodOrder;
+use Tighten\Linters\NoDd;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoLeadingSlashesOnRoutePaths;
 use Tighten\Linters\NoParensEmptyInstantiations;
@@ -304,6 +305,7 @@ class LintCommand extends Command
                 OneLineBetweenClassVisibilityChanges::class => '.php',
                 NoStringInterpolationWithoutBraces::class => '.php',
                 ConcatenationSpacing::class => '.php',
+                NoDd::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
