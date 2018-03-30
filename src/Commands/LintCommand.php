@@ -24,7 +24,7 @@ use Tighten\Linters\ImportFacades;
 use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\Linters\ModelMethodOrder;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
-use Tighten\Linters\NoLeadingShashesOnRoutePaths;
+use Tighten\Linters\NoLeadingSlashesOnRoutePaths;
 use Tighten\Linters\NoParensEmptyInstantiations;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\NoStringInterpolationWithoutBraces;
@@ -233,7 +233,7 @@ class LintCommand extends Command
         if (strpos($path, 'routes') !== false) {
             return [
                 ViewWithOverArrayParamaters::class => '.php',
-                NoLeadingShashesOnRoutePaths::class => '.php',
+                NoLeadingSlashesOnRoutePaths::class => '.php',
             ];
         }
 
