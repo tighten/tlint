@@ -9,16 +9,16 @@ use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 
-class NoDd extends BaseLinter
+class NoCompact extends BaseLinter
 {
-    protected $description = 'There should be no calls to `dd()`';
+    protected $description = 'There should be no calls to `compact()` in controllers';
 
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser;
 
         $visitor = new FindingVisitor(function (Node $node) {
-            return $node instanceof FuncCall && ! empty($node->name->parts) && $node->name->parts[0] === 'dd';
+            return $node instanceof FuncCall && ! empty($node->name->parts) && $node->name->parts[0] === 'compact';
         });
 
         $traverser->addVisitor($visitor);
