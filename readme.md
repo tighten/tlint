@@ -31,6 +31,11 @@ OR
 tlint lint src --diff
 ```
 
+Want the output from a file as JSON?
+```
+tlint lint test.php --diff
+```
+
 > output
 ```
 Linting TestLaravelApp/routes/ViewWithOverArrayParamatersExample.php
