@@ -33,7 +33,7 @@ tlint lint src --diff
 
 Want the output from a file as JSON?
 ```
-tlint lint test.php --diff
+tlint lint test.php --json
 ```
 
 > output
