@@ -65,6 +65,9 @@ class LintCommand extends Command
                 new InputOption(
                     'diff'
                 ),
+                new InputOption(
+                    'json'
+                ),
             ]))
             ->setHelp('This command allows you to lint a laravel file.');
     }
@@ -112,7 +115,28 @@ class LintCommand extends Command
             }
         }
 
-        return $this->outputLints($output, $file, $lints);
+        if ($input->getOption('json')) {
+            return $this->outputLintsAsJson($output, $file, $lints);
+        } else {
+            return $this->outputLints($output, $file, $lints);
+        }
+    }
+
+    private function outputLintsAsJson(OutputInterface $output, $file, $lints)
+    {
+        $errors = array_map(function (Lint $lint) {
+            $title = explode(PHP_EOL, (string) $lint)[0];
+
+            return [
+                'line' => $lint->getNode()->getStartLine(),
+                'message' => $title,
+                'source' => class_basename($lint->getLinter()),
+            ];
+        }, $lints);
+
+        $output->writeln(json_encode([
+            'errors' => $errors,
+        ]));
     }
 
     private function outputLints(OutputInterface $output, $file, $lints)
