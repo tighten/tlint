@@ -24,7 +24,7 @@ class PureRestControllers extends BaseLinter
         '__construct',
     ];
 
-    protected $description = 'You should not mix restful and non-restful methods in a controller';
+    protected $description = 'You should not mix restful and non-restful public methods in a controller';
 
     public function lint(Parser $parser)
     {
@@ -35,7 +35,7 @@ class PureRestControllers extends BaseLinter
                 $methodNames = array_filter(array_map(function ($stmt) {
                     return $stmt->name;
                 }, array_filter($node->stmts, function ($stmt) {
-                    return $stmt instanceof Node\Stmt\ClassMethod;
+                    return $stmt instanceof Node\Stmt\ClassMethod && $stmt->isPublic();
                 })), function ($methodName) {
                     return ! in_array($methodName, self::IGNORED_METHOD_NAMES);
                 });
