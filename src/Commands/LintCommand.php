@@ -286,7 +286,7 @@ class LintCommand extends Command
                 RestControllersMethodOrder::class => '.php',
                 RequestHelperFunctionWherePossible::class => '.php',
                 ApplyMiddlewareInRoutes::class => '.php',
-                NoCompact::class,
+                NoCompact::class => '.php',
             ];
         }
 
