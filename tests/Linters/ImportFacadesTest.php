@@ -7,7 +7,7 @@ use Tighten\TLint;
 class ImportFacadesTest extends TestCase
 {
     /** @test */
-    public function catches_alias_usage_without_import()
+    public function does_not_trigger_when_file_is_not_namespaced()
     {
         $file = <<<file
 <?php
@@ -19,7 +19,25 @@ file;
             new ImportFacades($file)
         );
 
-        $this->assertEquals(3, $lints[0]->getNode()->getLine());
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function catches_alias_usage_without_import()
+    {
+        $file = <<<file
+<?php
+
+namespace Test;
+
+var_dump(Hash::make('test'));
+file;
+
+        $lints = (new TLint)->lint(
+            new ImportFacades($file)
+        );
+
+        $this->assertEquals(5, $lints[0]->getNode()->getLine());
     }
 
     /** @test */
@@ -27,6 +45,8 @@ file;
     {
         $file = <<<file
 <?php
+
+namespace Test;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -46,7 +66,7 @@ file;
         $file = <<<file
 <?php
 
-namespace App\Newsboard\Factory;
+namespace Test;
 
 class Relationships
 {

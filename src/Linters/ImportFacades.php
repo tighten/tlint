@@ -53,6 +53,12 @@ class ImportFacades extends BaseLinter
         $traverser = new NodeTraverser;
 
         $visitor = new FindingVisitor(function (Node $node) {
+            static $hasNamespace = false;
+
+            if ($node instanceof Node\Stmt\Namespace_) {
+                $hasNamespace = true;
+            }
+
             static $useNames = [];
 
             if ($node instanceof Node\Stmt\UseUse) {
@@ -60,11 +66,10 @@ class ImportFacades extends BaseLinter
             }
 
             return $node instanceof Node\Expr\StaticCall
-                && (
-                    $node->class instanceof Node\Name
-                    && in_array($node->class->toString(), array_keys(static::$aliases))
-                    && ! in_array(static::$aliases[$node->class->toString()], $useNames)
-                );
+                && $hasNamespace
+                && $node->class instanceof Node\Name
+                && in_array($node->class->toString(), array_keys(static::$aliases))
+                && ! in_array(static::$aliases[$node->class->toString()], $useNames);
         });
 
         $traverser->addVisitor($visitor);
