@@ -26,7 +26,7 @@ class NoStringInterpolationWithoutBraces extends BaseLinter
                 } elseif ($node->parts[0] instanceof Node\Expr\PropertyFetch) {
                     $line = $this->getCodeLine($node->getStartLine());
                     $propertyFetchString = $this->constructPropertyFetchString($node->parts[0]);
-                    
+
                     return ! str_contains($line, "{\${$propertyFetchString}");
                 }
             }
@@ -41,11 +41,15 @@ class NoStringInterpolationWithoutBraces extends BaseLinter
         return $visitor->getFoundNodes();
     }
     
-    private function constructPropertyFetchString($next, $string = '') {
+    private function constructPropertyFetchString($next, $string = '')
+    {
         if (property_exists($next, 'var')) {
-            return $this->constructPropertyFetchString($next->var, $string . $next->name->name);
+            return $this->constructPropertyFetchString(
+                $next->var,
+                $next->name->name . ($string ? ('->' . $string) : $string)
+            );
         }
 
-        return implode('->', str_split(strrev($string . $next->name)));
+        return $next->name . '->' . $string;
     }
 }

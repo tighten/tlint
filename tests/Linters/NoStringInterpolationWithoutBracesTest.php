@@ -91,10 +91,7 @@ file;
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
     
-    /**
-     * @test
-     * @group foo
-     */
+    /** @test */
     public function does_not_trigger_for_nested_object_properties_with_braces()
     {
         $file = <<<file
@@ -107,6 +104,22 @@ file;
             new NoStringInterpolationWithoutBraces($file)
         );
         
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function does_not_trigger_for_nested_object_properties_with_braces_word_variables()
+    {
+        $file = <<<file
+<?php
+
+\$next = "{\$foo->bar->cat->dog->eagle}";
+file;
+
+        $lints = (new TLint)->lint(
+            new NoStringInterpolationWithoutBraces($file)
+        );
+
         $this->assertEmpty($lints);
     }
 }
