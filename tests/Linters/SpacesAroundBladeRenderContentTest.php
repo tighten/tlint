@@ -35,6 +35,20 @@ file;
     }
 
     /** @test */
+    public function does_not_trigger_when_spaces_are_placed_correctly_raw_blade_render_content()
+    {
+        $file = <<<file
+        {!! \$a !!}
+file;
+
+        $lints = (new TLint)->lint(
+            new SpacesAroundBladeRenderContent($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     public function does_not_trigger_when_spaces_are_placed_correctly()
     {
         $file = <<<file
@@ -55,6 +69,20 @@ file;
         {{
         1 + 1
         }}
+file;
+
+        $lints = (new TLint)->lint(
+            new SpacesAroundBladeRenderContent($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function does_not_trigger_on_blade_comment()
+    {
+        $file = <<<file
+{{-- This comment will not be present in the rendered HTML --}}
 file;
 
         $lints = (new TLint)->lint(
