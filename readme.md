@@ -1,16 +1,53 @@
-## Tighten linter
+[<img src="https://cdn.rawgit.com/tightenco/tlint/ca54b2eb/tlint.svg" width="400">]()
+
+<hr>
 
 [![Build Status](https://travis-ci.org/tightenco/tlint.svg?branch=master)](https://travis-ci.org/tightenco/tlint)
-
-This is an ALPHA release under active development of a linter for the Tighten-specific development conventions for Laravel code. By @loganhenson.
-
-> not psr stuff, these are conventions agreed upon by Tighten developers
-> intended for use alongside default php-cs-fixer (to cover aforementioned psr stuff)
 
 ## Install (Requires php7.1+)
 ```
 composer global require tightenco/tlint
 ```
+
+## What is it?
+
+This is an opinionated code _linter_ for Tighten flavored code conventions for Laravel and Php.
+
+There are a few different categories of static code analyzers:
+
+### Formatting
+> A tool that takes a source file in, and returns the same code formatted in a sane and consistent manner. (whitespace, commas, etc.)
+- [prettier-php](https://github.com/prettier/plugin-php)
+- [php-cs-fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
+
+### Code Quality
+> A tool that takes a source file in, and notifies you of possible logical errors and runtime errors. (undefined variables, runtime errors, invalid regex, logical/type errors)
+- [phan](https://github.com/phan/phan)
+
+### Team Conventions (Intended to be used alongside the above tool categories)
+> A tool that makes the choice for you when presented with multiple ways of doing the same thing.
+> For example: Laravel has many available ways to pass variables from a controller to a view:
+
+> **A)**
+```php
+return view('view', ['value' => 'Hello, World!']);
+```
+
+> **B)**
+```php
+$value = 'Hello, World!';
+
+return view('view', compact('value'));
+```
+
+> **C)**
+```php
+return view('view')
+    ->with('value', 'Hello, World!');
+```
+
+> In this case [TLint](https://github.com/tightenco/tlint) will warn if you are not using the **C)** method.
+> This is a sort of "meta layer" of code linting, allowing teams to avoid another layer of code review / discussions.
 
 ## Usage
 For entire project (you must pass the lint command to use other options)
@@ -19,26 +56,24 @@ tlint
 ```
 For individual files and specific directories
 ```
-tlint lint routes/ViewWithOverArrayParamatersExample.php
+tlint lint index.php
+tlint lint app
 ```
 
-You can also lint only diff files by
+You can also lint only diff files by running the following with unstaged git changes
 ```
 tlint lint --diff
-```
-OR
-```
 tlint lint src --diff
 ```
 
-Want the output from a file as JSON?
+Want the output from a file as JSON? (Primarily used for integration with editor plugins)
 ```
 tlint lint test.php --json
 ```
 
-> output
-```
-Linting TestLaravelApp/routes/ViewWithOverArrayParamatersExample.php
+## Example Output
+```bash
+Linting TestLaravelApp/routes/web.php
 ============
 Lints: 
 ============
@@ -46,12 +81,7 @@ Lints:
 5 : `    return view('test', ['test' => 'test']);``
 ```
 
-## Lint this project
-```
-./bin/tlint
-```
-
-## Implemented lints
+## Lints
 - Use with over array parameters in view(). `ViewWithOverArrayParamaters`
 - No leading slashes in namespaces or static calls or instantiations. `RemoveLeadingSlashNamespaces`
 - Fully qualified class name only when it's being used a string (class name). `QualifiedNamesOnlyForClassName`
@@ -76,8 +106,3 @@ Lints:
 - Spaces around blade rendered content `SpacesAroundBladeRenderContent`
 - Never use string interpolation without braces `NoStringInterpolationWithoutBraces`
 - Spaces around concat operators, and start additional lines with concat `ConcatenationSpacing`
-
-## Disabled Lints
-- No non-model-specific methods in models (only relationships, scopes, accessors, mutators, boot). `NoNonModelMethods`
-
-## Todo Lints
