@@ -189,7 +189,7 @@ class LintCommand extends Command
 
     private function getDiffedFilesInDir($directory, $fileExtension)
     {
-        $process = new Process('git diff --name-only');
+        $process = new Process('git diff --name-only --diff-filter=ACMRTUXB');
         $process->run();
 
         if (! $process->isSuccessful()) {
