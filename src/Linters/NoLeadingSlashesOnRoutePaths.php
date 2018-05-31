@@ -21,7 +21,8 @@ class NoLeadingSlashesOnRoutePaths extends BaseLinter
                 && $node->class->toString() === 'Route'
                 && isset($node->args[0])
                 && $node->args[0]->value instanceof Node\Scalar\String_
-                && strpos($node->args[0]->value->value, '/') === 0;
+                && strpos($node->args[0]->value->value, '/') === 0
+                && strlen($node->args[0]->value->value) > 1;
         });
 
         $traverser->addVisitor($visitor);

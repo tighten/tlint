@@ -2,17 +2,17 @@
 
 namespace Tighten\Concerns;
 
-use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
+use PhpParser\Node\Stmt\TraitUse;
 
 trait IdentifiesClassThings
 {
     private function isTraitUse(Stmt $stmt)
     {
-        return $stmt instanceof Node\Stmt\TraitUse;
+        return $stmt instanceof TraitUse;
     }
 
     private function isPublicStaticProperty(Stmt $stmt)

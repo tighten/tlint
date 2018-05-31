@@ -3,7 +3,6 @@
 namespace Tighten\Commands;
 
 use PhpParser\Error;
-use PhpParser\NodeAbstract;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
@@ -15,7 +14,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-use Tighten\BaseLinter;
+use Tighten\CustomNode;
 use Tighten\Lint;
 use Tighten\Linters\AlphabeticalImports;
 use Tighten\Linters\ApplyMiddlewareInRoutes;
@@ -23,13 +22,16 @@ use Tighten\Linters\ClassThingsOrder;
 use Tighten\Linters\ImportFacades;
 use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\Linters\ModelMethodOrder;
+use Tighten\Linters\NewLineAtEndOfFile;
 use Tighten\Linters\NoCompact;
 use Tighten\Linters\NoDd;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
+use Tighten\Linters\NoInlineVarDocs;
 use Tighten\Linters\NoLeadingSlashesOnRoutePaths;
 use Tighten\Linters\NoParensEmptyInstantiations;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\NoStringInterpolationWithoutBraces;
+use Tighten\Linters\NoUnusedImports;
 use Tighten\Linters\OneLineBetweenClassVisibilityChanges;
 use Tighten\Linters\PureRestControllers;
 use Tighten\Linters\RequestHelperFunctionWherePossible;
@@ -85,7 +87,6 @@ class LintCommand extends Command
         $lints = [];
 
         foreach ($linters as $linterClass => $parseAs) {
-            /** @var BaseLinter $linterInstance */
             $linterInstance = new $linterClass(
                 file_get_contents($file),
                 $parseAs
@@ -99,17 +100,7 @@ class LintCommand extends Command
                 return $this->outputLints($output, $file, [
                     new Lint(
                         $linterInstance,
-                        new class(['startLine' => $e->getStartLine()]) extends NodeAbstract {
-                            public function getSubNodeNames() : array
-                            {
-                                return [];
-                            }
-
-                            public function getType(): string
-                            {
-                                return '';
-                            }
-                        }
+                        new CustomNode(['startLine' => $e->getStartLine()])
                     ),
                 ]);
             }
@@ -143,13 +134,11 @@ class LintCommand extends Command
     {
         if (! empty($lints)) {
             $output->writeln([
-                "Lints for $file: ",
+                "Lints for $file",
                 '============',
             ]);
 
             foreach ($lints as $lint) {
-                /** @var Lint $lint */
-
                 [$title, $codeLine] = explode(PHP_EOL, (string) $lint);
 
                 $output->writeln([
@@ -211,7 +200,6 @@ class LintCommand extends Command
         $it = new RegexIterator($it, '(\.' . preg_quote($fileExtension) . '$)');
 
         foreach ($it as $file) {
-            /** @var \SplFileObject $file */
             $filepath = $file->getRealPath();
 
             yield $filepath;
@@ -332,6 +320,9 @@ class LintCommand extends Command
                 NoStringInterpolationWithoutBraces::class => '.php',
                 ConcatenationSpacing::class => '.php',
                 NoDd::class => '.php',
+                NoInlineVarDocs::class => '.php',
+                NoUnusedImports::class => '.php',
+                NewLineAtEndOfFile::class => '.php',
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),

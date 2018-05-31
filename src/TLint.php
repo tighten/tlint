@@ -2,10 +2,8 @@
 
 namespace Tighten;
 
-use PhpParser\Error;
 use PhpParser\Lexer;
 use PhpParser\Node;
-use PhpParser\NodeAbstract;
 use PhpParser\ParserFactory;
 
 class TLint

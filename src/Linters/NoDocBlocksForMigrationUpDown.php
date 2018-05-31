@@ -2,7 +2,6 @@
 
 namespace Tighten\Linters;
 
-use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;

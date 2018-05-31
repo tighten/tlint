@@ -29,11 +29,6 @@ class OneLineBetweenClassVisibilityChanges extends BaseLinter
                         Node\Stmt\Property::class,
                     ]);
                 }) as $stmt) {
-                    /**
-                     * @var Node\Stmt\Property $stmt
-                     * @var Node\Stmt\Property $prev
-                     */
-
                     if (! is_null($prev)) {
                         if ($prev->flags !== $stmt->flags && $stmt->getStartLine() - $prev->getEndLine() !== 2) {
                             $notSeparatedByBlankLine[] = $stmt;

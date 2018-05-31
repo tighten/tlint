@@ -2,12 +2,9 @@
 
 namespace Tighten\Linters;
 
-use PhpParser\Node;
-use PhpParser\NodeAbstract;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\CustomNode;
 
 class SpacesAroundBladeRenderContent extends BaseLinter
 {
@@ -42,17 +39,7 @@ class SpacesAroundBladeRenderContent extends BaseLinter
                     || $matches[1][-2] === ' '
                 )
             ) {
-                $foundNodes[] = new class(['startLine' => $line + 1]) extends NodeAbstract {
-                    public function getSubNodeNames() : array
-                    {
-                        return [];
-                    }
-
-                    public function getType(): string
-                    {
-                        return '';
-                    }
-                };
+                $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
             }
         }
 
@@ -69,17 +56,7 @@ class SpacesAroundBladeRenderContent extends BaseLinter
             );
 
             if (isset($matches[1]) && (! str_contains($codeLine, '{!! ') && ! str_contains($codeLine, ' !!}'))) {
-                $foundNodes[] = new class(['startLine' => $line + 1]) extends NodeAbstract {
-                    public function getSubNodeNames() : array
-                    {
-                        return [];
-                    }
-
-                    public function getType(): string
-                    {
-                        return '';
-                    }
-                };
+                $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
             }
         }
 

@@ -2,7 +2,6 @@
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\ClassThingsOrder;
-use Tighten\Linters\ModelMethodOrder;
 use Tighten\TLint;
 
 class ClassThingsOrderTest extends TestCase

@@ -1,7 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\ImportFacades;
 use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\TLint;
 

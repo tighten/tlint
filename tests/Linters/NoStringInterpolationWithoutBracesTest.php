@@ -2,7 +2,6 @@
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\NoStringInterpolationWithoutBraces;
-use Tighten\Linters\PureRestControllers;
 use Tighten\TLint;
 
 class NoStringInterpolationWithoutBracesTest extends TestCase
