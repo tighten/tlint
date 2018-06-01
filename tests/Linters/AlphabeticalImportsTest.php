@@ -2,7 +2,6 @@
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\AlphabeticalImports;
-use Tighten\Linters\ImportFacades;
 use Tighten\TLint;
 
 class AlphabeticalImportsTest extends TestCase

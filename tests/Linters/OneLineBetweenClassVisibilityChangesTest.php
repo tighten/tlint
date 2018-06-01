@@ -1,8 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\ClassThingsOrder;
-use Tighten\Linters\ModelMethodOrder;
 use Tighten\Linters\OneLineBetweenClassVisibilityChanges;
 use Tighten\TLint;
 

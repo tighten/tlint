@@ -4,7 +4,6 @@ namespace Tighten\Linters;
 
 use Closure;
 use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
@@ -48,8 +47,6 @@ class ModelMethodOrder extends BaseLinter
 
         $visitor = new FindingVisitor(function (Node $node) {
             if ($this->extends($node, 'Model')) {
-                /** @var Class_ $node */
-
                 $methodTypes = array_map(function (ClassMethod $stmt) {
                     foreach ($this->tests as $label => $test) {
                         if ($test($stmt)) {

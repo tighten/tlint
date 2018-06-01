@@ -43,12 +43,7 @@ class BaseLinter
         return $this->description = $description;
     }
 
-    /**
-     * Get the code to be parsed (this should always be raw php)
-     *
-     * @return string
-     */
-    public function getCode()
+    public function getCode() : string
     {
         return $this->code;
     }

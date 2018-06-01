@@ -4,8 +4,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Tighten\Commands\LintCommand;
-use Tighten\Linters\ClassThingsOrder;
-use Tighten\TLint;
 
 class ParseErrorConvertsToLintTest extends TestCase
 {

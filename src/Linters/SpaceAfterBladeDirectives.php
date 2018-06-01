@@ -2,12 +2,9 @@
 
 namespace Tighten\Linters;
 
-use PhpParser\Node;
-use PhpParser\NodeAbstract;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\CustomNode;
 
 class SpaceAfterBladeDirectives extends BaseLinter
 {
@@ -38,17 +35,7 @@ class SpaceAfterBladeDirectives extends BaseLinter
             );
 
             if (in_array($matches[1] ?? null, self::SPACE_AFTER) && ($matches[2] ?? null) === '') {
-                $foundNodes[] = new class(['startLine' => $line + 1]) extends NodeAbstract {
-                    public function getSubNodeNames() : array
-                    {
-                        return [];
-                    }
-
-                    public function getType(): string
-                    {
-                        return '';
-                    }
-                };
+                $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
             }
         }
 

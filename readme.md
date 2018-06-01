@@ -11,22 +11,9 @@ composer global require tightenco/tlint
 
 ## What is it?
 
-This is an opinionated code _linter_ for Tighten flavored code conventions for Laravel and Php.
+This is an opinionated code linter for Tighten flavored code conventions for Laravel and Php.
 
-There are a few different categories of static code analyzers:
-
-### Formatting
-> A tool that takes a source file in, and returns the same code formatted in a sane and consistent manner. (whitespace, commas, etc.)
-- [prettier-php](https://github.com/prettier/plugin-php)
-- [php-cs-fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
-
-### Code Quality
-> A tool that takes a source file in, and notifies you of possible logical errors and runtime errors. (undefined variables, runtime errors, invalid regex, logical/type errors)
-- [phan](https://github.com/phan/phan)
-
-### Team Conventions (Intended to be used alongside the above tool categories)
-> A tool that makes the choice for you when presented with multiple ways of doing the same thing.
-> For example: Laravel has many available ways to pass variables from a controller to a view:
+For example, Laravel has many available ways to pass variables from a controller to a view:
 
 > **A)**
 ```php
@@ -47,7 +34,12 @@ return view('view')
 ```
 
 > In this case [TLint](https://github.com/tightenco/tlint) will warn if you are not using the **C)** method.
-> This is a sort of "meta layer" of code linting, allowing teams to avoid another layer of code review / discussions.
+> This example is a sort of "meta layer" of code linting, allowing teams to avoid higher level sticking points of code review / discussions.
+
+> TLint also has more immediately useful lints that can supplement your editor/ide such as:
+- `NoUnusedImports`
+- `TrailingCommasOnArrays`
+- And many more! (See below for full listing)
 
 ## Usage
 For entire project (you must pass the lint command to use other options)
@@ -106,3 +98,6 @@ Lints:
 - Spaces around blade rendered content `SpacesAroundBladeRenderContent`
 - Never use string interpolation without braces `NoStringInterpolationWithoutBraces`
 - Spaces around concat operators, and start additional lines with concat `ConcatenationSpacing`
+- File should end with a new line `NewLineAtEndOfFile`
+- No /** @var ClassName $var */ inline docs `NoInlineVarDocs`
+- There should be no unused imports `NoUnusedImports`

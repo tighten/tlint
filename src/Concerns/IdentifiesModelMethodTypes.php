@@ -46,15 +46,6 @@ trait IdentifiesModelMethodTypes
         return $node;
     }
 
-    private function isRelationshipMethod(ClassMethod $stmt)
-    {
-        return isset($stmt->stmts[0])
-            && in_array(
-                $this->getFirstCall($stmt->stmts[0])->name ?? null,
-                self::$relationshipMethods
-            );
-    }
-
     private function isScopeMethod(ClassMethod $stmt)
     {
         return strpos($stmt->name, 'scope') === 0;
