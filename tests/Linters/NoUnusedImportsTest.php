@@ -158,6 +158,27 @@ file;
     }
 
     /** @test */
+    public function does_not_trigger_when_import_is_aliased()
+    {
+        $file = <<<file
+<?php
+
+use Test\ThingA as ThingB;
+
+\$testA = new ThingB;
+\$testB = ThingB::class;
+\$testC = ThingB::make();
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     public function handles_variable_class_static_const()
     {
         $file = <<<file
