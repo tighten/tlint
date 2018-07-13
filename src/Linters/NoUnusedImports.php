@@ -63,7 +63,11 @@ class NoUnusedImports extends BaseLinter
 
         if (! empty($useStatements)) {
             $unusedImports = array_filter($useStatements, function (UseUse $node) use ($used) {
-                return ! in_array(last(explode('\\', $node->name->toString())) ?? $node->name->toString(), $used);
+                $nodeName = $node->name->toString();
+                if ($node->alias) {
+                    $nodeName = $node->alias->name;
+                }
+                return ! in_array(last(explode('\\', $nodeName)) ?? $nodeName, $used);
             });
 
             return $unusedImports;
