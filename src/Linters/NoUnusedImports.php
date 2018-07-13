@@ -38,8 +38,8 @@ class NoUnusedImports extends BaseLinter
             ) {
                 $used[] = $node->extends->toString();
             } elseif ($node instanceof Node\Param
-                && property_exists($node, 'type')
                 && $node->type instanceof Node\Name
+                && property_exists($node, 'type')
             ) {
                 $used[] = $node->type->toString();
             } elseif ($node instanceof Node\Stmt\Catch_ && property_exists($node, 'types')) {
