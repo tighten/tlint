@@ -159,11 +159,12 @@ class LintCommand extends Command
     {
         return strpos($filepath, 'vendor') !== false
             || strpos($filepath, 'public/') !== false
+            || strpos($filepath, 'bootstrap/') !== false
+            || strpos($filepath, 'server.php') !== false
             || strpos($filepath, 'app/Http/Middleware/RedirectIfAuthenticated.php') !== false
             || strpos($filepath, 'app/Exceptions/Handler.php') !== false
             || strpos($filepath, 'app/Http/Controllers/Auth') !== false
             || strpos($filepath, 'app/Http/Kernel.php') !== false
-            || strpos($filepath, 'bootstrap/app.php') !== false
             || strpos($filepath, 'storage/framework/views') !== false;
     }
 

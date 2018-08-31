@@ -8,7 +8,7 @@ use Tighten\Commands\LintCommand;
 class DoesNotLintCoreLaravelFilesTest extends TestCase
 {
     /** @test */
-    public function app_Http_Middleware_RedirectIfAuthenticated()
+    public function does_not_lint_app_Http_Middleware_RedirectIfAuthenticated()
     {
         $application = new Application;
 
@@ -25,7 +25,7 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
     }
 
     /** @test */
-    public function app_Exceptions_Handler()
+    public function does_not_lint_app_Exceptions_Handler()
     {
         $application = new Application;
 
@@ -42,7 +42,7 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
     }
 
     /** @test */
-    public function app_Http_Kernel()
+    public function does_not_lint_app_Http_Kernel()
     {
         $application = new Application;
 
@@ -70,6 +70,23 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
         $commandTester->execute([
             'command'  => $command->getName(),
             'file or directory' => 'app/Http/Controllers/Auth',
+        ]);
+
+        $this->assertEquals(0, $commandTester->getStatusCode());
+    }
+
+    /** @test */
+    public function does_not_lint_server_php()
+    {
+        $application = new Application;
+
+        $command = new LintCommand;
+        $application->add($command);
+        $commandTester = new CommandTester($command);
+
+        $commandTester->execute([
+            'command'  => $command->getName(),
+            'file or directory' => 'server.php',
         ]);
 
         $this->assertEquals(0, $commandTester->getStatusCode());
