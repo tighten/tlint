@@ -101,3 +101,4 @@ Lints:
 - File should end with a new line `NewLineAtEndOfFile`
 - No /** @var ClassName $var */ inline docs `NoInlineVarDocs`
 - There should be no unused imports `NoUnusedImports`
+- No `dd()` usages `NoDd`
