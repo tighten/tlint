@@ -102,3 +102,4 @@ Lints:
 - No /** @var ClassName $var */ inline docs `NoInlineVarDocs`
 - There should be no unused imports `NoUnusedImports`
 - No `dd()` usages `NoDd`
+- Use `request()->validate(...)` helper function over `$this->validate(...)` in controllers `RequestHelperValidation`
