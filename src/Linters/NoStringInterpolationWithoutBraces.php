@@ -18,16 +18,18 @@ class NoStringInterpolationWithoutBraces extends BaseLinter
 
         $visitor = new FindingVisitor(function (Node $node) use ($parser) {
             if ($node instanceof Node\Scalar\Encapsed) {
-                if ($node->parts[0] instanceof Node\Expr\Variable) {
-                    $line = $this->getCodeLine($node->getStartLine());
-                    $name = $node->parts[0]->name;
-    
-                    return ! str_contains($line, "{\${$name}}");
-                } elseif ($node->parts[0] instanceof Node\Expr\PropertyFetch) {
-                    $line = $this->getCodeLine($node->getStartLine());
-                    $propertyFetchString = $this->constructPropertyFetchString($node->parts[0]);
+                foreach ($node->parts as $part) {
+                    if ($part instanceof Node\Expr\Variable) {
+                        $line = $this->getCodeLine($node->getStartLine());
+                        $name = $part->name;
 
-                    return ! str_contains($line, "{\${$propertyFetchString}");
+                        return ! str_contains($line, "{\${$name}}");
+                    } elseif ($part instanceof Node\Expr\PropertyFetch) {
+                        $line = $this->getCodeLine($node->getStartLine());
+                        $propertyFetchString = $this->constructPropertyFetchString($part);
+
+                        return ! str_contains($line, "{\${$propertyFetchString}");
+                    }
                 }
             }
 

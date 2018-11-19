@@ -25,6 +25,24 @@ file;
     }
 
     /** @test */
+    public function catches_string_interpolation_without_braces_embedded()
+    {
+        $file = <<<file
+<?php
+
+\$a = 1;
+
+\$next = "this is \$a string";
+file;
+
+        $lints = (new TLint)->lint(
+            new NoStringInterpolationWithoutBraces($file)
+        );
+
+        $this->assertEquals(5, $lints[0]->getNode()->getLine());
+    }
+
+    /** @test */
     public function it_does_not_trigger_on_string_interpolation_with_braces()
     {
         $file = <<<file

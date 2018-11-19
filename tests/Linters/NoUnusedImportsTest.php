@@ -216,4 +216,48 @@ file;
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
+
+    /** @test */
+    public function does_not_trigger_when_import_is_used_as_an_interface()
+    {
+        $file = <<<file
+<?php
+
+use Test\ThingA;
+
+class Thing implements ThingA
+{
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function does_not_trigger_when_import_is_used_as_an_interface_along_with_extends()
+    {
+        $file = <<<file
+<?php
+
+namespace App\Jobs;
+
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class CancelUserForBadCredentials extends Job implements ShouldQueue
+{
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }

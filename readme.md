@@ -1,4 +1,4 @@
-[<img src="https://cdn.rawgit.com/tightenco/tlint/ca54b2eb/tlint.svg" width="400">]()
+[<img src="./tlint.svg" width="400">]()
 
 <hr>
 
@@ -72,6 +72,11 @@ Lints:
 ! Prefer `view(...)->with(...)` over `view(..., [...])`.
 5 : `    return view('test', ['test' => 'test']);``
 ```
+
+## Editor Integrations
+
+### [PHPStorm](https://plugins.jetbrains.com/plugin/10703-tlint)
+[<img src="./tlint-phpstorm.png" width="400">]()
 
 ## Lints
 - Use with over array parameters in view(). `ViewWithOverArrayParamaters`
