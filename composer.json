@@ -1,6 +1,6 @@
 {
     "name": "tightenco/tlint",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "description": "Tighten linter for Laravel conventions",
     "require": {
         "php": ">=7.1",
@@ -22,5 +22,6 @@
     "scripts": {
         "runTests": "./scripts/runTests.sh",
         "buildTestEnvironments": "./scripts/buildTestEnvironments.sh"
-    }
+    },
+    "license": "MIT"
 }
