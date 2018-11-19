@@ -135,7 +135,7 @@ class LintCommand extends Command
     {
         if (! empty($lints)) {
             $output->writeln([
-                "Lints for $file",
+                "Lints for {$file}",
                 '============',
             ]);
 
