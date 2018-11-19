@@ -4,4 +4,6 @@
 /.travis.yml export-ignore
 /phpunit.xml export-ignore
 /tests export-ignore
+/tlint.svg export-ignore
+/tlint-phpstorm export-ignore
 /.gitattributes export-ignore
