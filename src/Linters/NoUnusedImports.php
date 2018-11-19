@@ -32,11 +32,16 @@ class NoUnusedImports extends BaseLinter
                 $used[] = $node->class->toString();
             } elseif ($node instanceof Node\Expr\ClassConstFetch) {
                 $used[] = $node->class->toString();
-            } elseif ($node instanceof Node\Stmt\Class_
-                && property_exists($node, 'extends')
-                && method_exists($node->extends, 'toString')
-            ) {
-                $used[] = $node->extends->toString();
+            } elseif ($node instanceof Node\Stmt\Class_) {
+                if (property_exists($node, 'extends') && method_exists($node->extends, 'toString')) {
+                    $used[] = $node->extends->toString();
+                }
+
+                if (property_exists($node, 'implements')) {
+                    array_map(function ($implemented) use (&$used) {
+                        $used[] = $implemented->toString();
+                    }, $node->implements);
+                }
             } elseif ($node instanceof Node\Param
                 && $node->type instanceof Node\Name
                 && property_exists($node, 'type')
