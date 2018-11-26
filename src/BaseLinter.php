@@ -25,7 +25,7 @@ class BaseLinter
             $this->code = $code;
         }
 
-        $this->codeLines = explode(PHP_EOL, $code);
+        $this->codeLines = preg_split('/\r\n|\r|\n/', $code);
     }
 
     public function lint(Parser $parser)
