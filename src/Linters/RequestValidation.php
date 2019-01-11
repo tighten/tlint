@@ -9,11 +9,12 @@ use PhpParser\Parser;
 use Tighten\BaseLinter;
 use Tighten\Concerns\IdentifiesExtends;
 
-class RequestHelperValidation extends BaseLinter
+class RequestValidation extends BaseLinter
 {
     use IdentifiesExtends;
 
-    protected $description = 'Use request()->validate(...) helper function over $this->validate(...) in controllers';
+    protected $description = 'Use `request()->validate(...)` helper function or extract a FormRequest instead of using'
+        . ' `$this->validate(...)` in controllers';
 
     public function lint(Parser $parser)
     {
@@ -27,6 +28,7 @@ class RequestHelperValidation extends BaseLinter
             }
 
             return $node instanceof Node\Expr\MethodCall
+                && ! $node->var instanceof Node\Expr\FuncCall
                 && $node->name->name === 'validate';
         });
 
