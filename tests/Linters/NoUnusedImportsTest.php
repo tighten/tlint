@@ -260,4 +260,23 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function does_not_trigger_on_imported_functions()
+    {
+        $file = <<<file
+<?php
+
+use function Tighten\afunction;
+
+afunction();
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
