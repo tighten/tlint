@@ -57,6 +57,10 @@ class NoUnusedImports extends BaseLinter
                 foreach ($node->traits as $name) {
                     $used[] = $name->toString();
                 }
+            } elseif ($node instanceof Node\Expr\FuncCall
+                && $node->name instanceof Node\Name
+            ) {
+                $used[] = $node->name->toString();
             }
 
             return false;
