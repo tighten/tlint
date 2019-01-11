@@ -2,7 +2,7 @@
 
 <hr>
 
-[![Build Status](https://travis-ci.org/tightenco/tlint.svg?branch=master)](https://travis-ci.org/tightenco/tlint)
+[![Build Status](https://travis-ci.com/tightenco/tlint.svg?branch=master)](https://travis-ci.org/tightenco/tlint)
 
 ## Install (Requires php7.1+)
 ```
