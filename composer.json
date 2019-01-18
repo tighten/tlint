@@ -4,9 +4,9 @@
     "description": "Tighten linter for Laravel conventions",
     "require": {
         "php": ">=7.1",
-        "nikic/php-parser": "^4.1",
+        "nikic/php-parser": "^4.2",
         "symfony/console": "^4.1",
-        "illuminate/view": "^5.7",
+        "illuminate/view": "^5.4",
         "symfony/process": "^4.1"
     },
     "require-dev": {
