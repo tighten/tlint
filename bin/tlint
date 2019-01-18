@@ -7,7 +7,7 @@ foreach (
         __DIR__ . '/../../../../vendor/autoload.php',
         __DIR__ . '/../../autoload.php',
         __DIR__ . '/../vendor/autoload.php',
-        __DIR__ . '/vendor/autoload.php'
+        __DIR__ . '/vendor/autoload.php',
     ] as $file) {
     if (file_exists($file)) {
         require $file;
@@ -25,7 +25,7 @@ $application = new Application(
         version()
 );
 
-$lintCommand = new LintCommand();
+$lintCommand = new LintCommand;
 
 $application->add($lintCommand);
 

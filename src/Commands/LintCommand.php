@@ -35,7 +35,7 @@ use Tighten\Linters\NoUnusedImports;
 use Tighten\Linters\OneLineBetweenClassVisibilityChanges;
 use Tighten\Linters\PureRestControllers;
 use Tighten\Linters\RequestHelperFunctionWherePossible;
-use Tighten\Linters\RequestHelperValidation;
+use Tighten\Linters\RequestValidation;
 use Tighten\Linters\RestControllersMethodOrder;
 use Tighten\Linters\SpaceAfterBladeDirectives;
 use Tighten\Linters\QualifiedNamesOnlyForClassName;
@@ -277,7 +277,7 @@ class LintCommand extends Command
                 RequestHelperFunctionWherePossible::class => '.php',
                 ApplyMiddlewareInRoutes::class => '.php',
                 NoCompact::class => '.php',
-                RequestHelperValidation::class => '.php',
+                RequestValidation::class => '.php',
             ];
         }
 
