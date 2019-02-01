@@ -279,4 +279,51 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function does_not_trigger_when_used_in_class_method_return_typehint()
+    {
+        $file = <<<file
+<?php
+
+use App\Job;
+
+class Test
+{
+    public function test() : Job
+    {
+        //
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function does_not_trigger_when_used_in_function_return_typehint()
+    {
+        $file = <<<file
+<?php
+
+use App\Job;
+
+function test() : Job
+{
+    //
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
