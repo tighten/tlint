@@ -7,7 +7,7 @@ use Tighten\TLint;
 class RequestValidationTest extends TestCase
 {
     /** @test */
-    public function catches_this_validate_method_usage()
+    function catches_this_validate_method_usage()
     {
         $file = <<<file
 <?php
@@ -33,7 +33,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_helper_function_usage()
+    function does_not_trigger_on_helper_function_usage()
     {
         $file = <<<file
 <?php
@@ -57,7 +57,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_when_using_request_variable_method()
+    function does_not_trigger_when_using_request_variable_method()
     {
         $file = <<<file
 <?php

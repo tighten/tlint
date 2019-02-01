@@ -7,7 +7,7 @@ use Tighten\TLint;
 class AlphabeticalImportsTest extends TestCase
 {
     /** @test */
-    public function catches_non_alphabetical_imports()
+    function catches_non_alphabetical_imports()
     {
         $file = <<<file
 <?php
@@ -26,7 +26,7 @@ file;
     }
 
     /** @test */
-    public function handles_duplicate_base_imports()
+    function handles_duplicate_base_imports()
     {
         $file = <<<file
 <?php

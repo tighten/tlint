@@ -8,7 +8,7 @@ use Tighten\Commands\LintCommand;
 class DoesNotLintBootstrapFilesTest extends TestCase
 {
     /** @test */
-    public function does_not_lint_bootstrap_app_php()
+    function does_not_lint_bootstrap_app_php()
     {
         $application = new Application;
 
@@ -25,7 +25,7 @@ class DoesNotLintBootstrapFilesTest extends TestCase
     }
 
     /** @test */
-    public function does_lint_app_php_outside_bootstrap()
+    function does_lint_app_php_outside_bootstrap()
     {
         $application = new Application;
 

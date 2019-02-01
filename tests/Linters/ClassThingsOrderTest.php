@@ -7,7 +7,7 @@ use Tighten\TLint;
 class ClassThingsOrderTest extends TestCase
 {
     /** @test */
-    public function catches_wrong_order_for_class_things()
+    function catches_wrong_order_for_class_things()
     {
         $file = <<<file
 <?php

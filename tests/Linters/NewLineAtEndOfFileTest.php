@@ -7,7 +7,7 @@ use Tighten\TLint;
 class NewLineAtEndOfFileTest extends TestCase
 {
     /** @test */
-    public function catches_file_without_new_line_at_end()
+    function catches_file_without_new_line_at_end()
     {
         $file = <<<file
 <?php
@@ -26,7 +26,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_file_with_newline_at_end()
+    function does_not_trigger_on_file_with_newline_at_end()
     {
         $file = <<<file
 <?php

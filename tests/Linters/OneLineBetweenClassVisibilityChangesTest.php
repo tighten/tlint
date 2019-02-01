@@ -7,7 +7,7 @@ use Tighten\TLint;
 class OneLineBetweenClassVisibilityChangesTest extends TestCase
 {
     /** @test */
-    public function catches_missing_line_between_visibility_changes()
+    function catches_missing_line_between_visibility_changes()
     {
         $file = <<<file
 <?php

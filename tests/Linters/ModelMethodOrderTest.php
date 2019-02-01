@@ -7,7 +7,7 @@ use Tighten\TLint;
 class ModelMethodOrderTest extends TestCase
 {
     /** @test */
-    public function catches_wrong_order_for_model_methods()
+    function catches_wrong_order_for_model_methods()
     {
         $file = <<<file
 <?php

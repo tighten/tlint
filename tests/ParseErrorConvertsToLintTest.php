@@ -8,7 +8,7 @@ use Tighten\Commands\LintCommand;
 class ParseErrorConvertsToLintTest extends TestCase
 {
     /** @test */
-    public function gracefully_handles_parse_error()
+    function gracefully_handles_parse_error()
     {
         $application = new Application;
 
