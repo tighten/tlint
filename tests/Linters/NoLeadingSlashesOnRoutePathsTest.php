@@ -7,7 +7,7 @@ use Tighten\TLint;
 class NoLeadingSlashesOnRoutePathsTest extends TestCase
 {
     /** @test */
-    public function catches_leading_slashes_on_top_level_routes()
+    function catches_leading_slashes_on_top_level_routes()
     {
         $file = <<<file
 <?php
@@ -25,7 +25,7 @@ file;
     }
 
     /** @test */
-    public function catches_leading_slashes_in_route_groups()
+    function catches_leading_slashes_in_route_groups()
     {
         $file = <<<file
 <?php
@@ -45,7 +45,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_otherwise_empty_paths()
+    function does_not_trigger_on_otherwise_empty_paths()
     {
         $file = <<<file
 <?php

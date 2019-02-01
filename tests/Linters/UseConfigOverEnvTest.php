@@ -7,7 +7,7 @@ use Tighten\TLint;
 class UseConfigOverEnvTest extends TestCase
 {
     /** @test */
-    public function catches_direct_usage_of_env_function()
+    function catches_direct_usage_of_env_function()
     {
         $file = <<<file
 <?php

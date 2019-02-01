@@ -7,7 +7,7 @@ use Tighten\TLint;
 class UseAuthHelperOverFacadeTest extends TestCase
 {
     /** @test */
-    public function catches_auth_facade_usage_in_views()
+    function catches_auth_facade_usage_in_views()
     {
         $file = <<<file
    @extends('layouts.app')
@@ -27,7 +27,7 @@ file;
     }
 
     /** @test */
-    public function catches_auth_facade_usage_in_code()
+    function catches_auth_facade_usage_in_code()
     {
         $file = <<<file
 <?php
@@ -44,7 +44,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_non_facade_call()
+    function does_not_trigger_on_non_facade_call()
     {
         $file = <<<file
 <?php
@@ -60,7 +60,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_when_calling_routes()
+    function does_not_trigger_when_calling_routes()
     {
         $file = <<<file
 <?php
@@ -78,7 +78,7 @@ file;
     }
 
     /** @test */
-    public function does_not_throw_when_file_contains_dynamic_class_variables()
+    function does_not_throw_when_file_contains_dynamic_class_variables()
     {
         $file = <<<file
 <?php

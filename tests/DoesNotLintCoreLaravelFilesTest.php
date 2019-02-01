@@ -8,7 +8,7 @@ use Tighten\Commands\LintCommand;
 class DoesNotLintCoreLaravelFilesTest extends TestCase
 {
     /** @test */
-    public function does_not_lint_app_Http_Middleware_RedirectIfAuthenticated()
+    function does_not_lint_app_Http_Middleware_RedirectIfAuthenticated()
     {
         $application = new Application;
 
@@ -25,7 +25,7 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
     }
 
     /** @test */
-    public function does_not_lint_app_Exceptions_Handler()
+    function does_not_lint_app_Exceptions_Handler()
     {
         $application = new Application;
 
@@ -42,7 +42,7 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
     }
 
     /** @test */
-    public function does_not_lint_app_Http_Kernel()
+    function does_not_lint_app_Http_Kernel()
     {
         $application = new Application;
 
@@ -59,7 +59,7 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
     }
 
     /** @test */
-    public function does_not_lint_auth_scaffolding()
+    function does_not_lint_auth_scaffolding()
     {
         $application = new Application;
 
@@ -76,7 +76,7 @@ class DoesNotLintCoreLaravelFilesTest extends TestCase
     }
 
     /** @test */
-    public function does_not_lint_server_php()
+    function does_not_lint_server_php()
     {
         $application = new Application;
 
