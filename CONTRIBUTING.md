@@ -7,8 +7,8 @@
 - Alternatively if you have Docker Engine installed, you can run tests in multiple PHP environments at once. Just run the following commands from the root directory:
 
 ```
-> composer buildTestEnvironments
-> composer runTests
+> sudo composer buildTestEnvironments
+> sudo composer runTests
 ```
 
 `buildTestEnvironments` will build the Docker environments, and `runTests` will execute them. You only need to run `buildTestEnvironments` the first time you run them, and any time
