@@ -7,7 +7,7 @@ use Tighten\TLint;
 class ImportFacadesTest extends TestCase
 {
     /** @test */
-    public function does_not_trigger_when_file_is_not_namespaced()
+    function does_not_trigger_when_file_is_not_namespaced()
     {
         $file = <<<file
 <?php
@@ -23,7 +23,7 @@ file;
     }
 
     /** @test */
-    public function catches_alias_usage_without_import()
+    function catches_alias_usage_without_import()
     {
         $file = <<<file
 <?php
@@ -41,7 +41,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_facade_usage_with_import()
+    function does_not_trigger_on_facade_usage_with_import()
     {
         $file = <<<file
 <?php
@@ -61,7 +61,7 @@ file;
     }
 
     /** @test */
-    public function does_not_throw_on_variable_class_static_calls()
+    function does_not_throw_on_variable_class_static_calls()
     {
         $file = <<<file
 <?php

@@ -7,7 +7,7 @@ use Tighten\TLint;
 class ConcatenationSpacingTest extends TestCase
 {
     /** @test */
-    public function catches_concat_without_spaces()
+    function catches_concat_without_spaces()
     {
         $file = <<<file
 <?php
@@ -24,7 +24,7 @@ file;
     }
 
     /** @test */
-    public function catches_concat_with_too_many_spaces()
+    function catches_concat_with_too_many_spaces()
     {
         $file = <<<file
 <?php
@@ -41,7 +41,7 @@ file;
     }
 
     /** @test */
-    public function catches_concat_with_space_on_one_side()
+    function catches_concat_with_space_on_one_side()
     {
         $file = <<<file
 <?php
@@ -60,7 +60,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_concat_with_spaces()
+    function does_not_trigger_on_concat_with_spaces()
     {
         $file = <<<file
 <?php
@@ -77,7 +77,7 @@ file;
     }
 
     /** @test */
-    public function handles_valid_multiline_concat()
+    function handles_valid_multiline_concat()
     {
         $file = <<<file
 <?php
@@ -95,7 +95,7 @@ file;
     }
 
     /** @test */
-    public function triggers_on_multiline_concat()
+    function triggers_on_multiline_concat()
     {
         $file = <<<file
 <?php
@@ -113,7 +113,7 @@ file;
     }
 
     /** @test */
-    public function triggers_on_multiline_concat_where_lines_do_not_start_with_concat()
+    function triggers_on_multiline_concat_where_lines_do_not_start_with_concat()
     {
         $file = <<<file
 <?php

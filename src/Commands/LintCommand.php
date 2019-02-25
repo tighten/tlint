@@ -28,6 +28,7 @@ use Tighten\Linters\NoDd;
 use Tighten\Linters\NoDocBlocksForMigrationUpDown;
 use Tighten\Linters\NoInlineVarDocs;
 use Tighten\Linters\NoLeadingSlashesOnRoutePaths;
+use Tighten\Linters\NoMethodVisibilityInTests;
 use Tighten\Linters\NoParensEmptyInstantiations;
 use Tighten\Linters\NoSpaceAfterBladeDirectives;
 use Tighten\Linters\NoStringInterpolationWithoutBraces;
@@ -284,6 +285,17 @@ class LintCommand extends Command
         return [];
     }
 
+    private function getTestFilesLinters($path)
+    {
+        if (strpos($path, 'tests') !== false) {
+            return [
+                NoMethodVisibilityInTests::class => '.php',
+            ];
+        }
+
+        return [];
+    }
+
     private function getBladeTemplatesLinters($path)
     {
         if (strpos($path, '.blade.php') !== false) {
@@ -329,6 +341,7 @@ class LintCommand extends Command
             ],
             $this->getRoutesFilesLinters($path),
             $this->getControllerFilesLinters($path),
+            $this->getTestFilesLinters($path),
             $this->getBladeTemplatesLinters($path),
             $this->getMigrationsLinters($path),
             $this->getMailableLinters($path)

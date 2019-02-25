@@ -7,7 +7,7 @@ use Tighten\TLint;
 class SpacesAroundBladeRenderContentTest extends TestCase
 {
     /** @test */
-    public function catches_missing_spaces_around_blade_render_content()
+    function catches_missing_spaces_around_blade_render_content()
     {
         $file = <<<file
         {{1 + 1}}
@@ -21,7 +21,7 @@ file;
     }
 
     /** @test */
-    public function catches_missing_spaces_around_raw_blade_render_content()
+    function catches_missing_spaces_around_raw_blade_render_content()
     {
         $file = <<<file
         {!!\$a!!}
@@ -35,7 +35,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_when_spaces_are_placed_correctly_raw_blade_render_content()
+    function does_not_trigger_when_spaces_are_placed_correctly_raw_blade_render_content()
     {
         $file = <<<file
         {!! \$a !!}
@@ -49,7 +49,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_when_spaces_are_placed_correctly()
+    function does_not_trigger_when_spaces_are_placed_correctly()
     {
         $file = <<<file
         {{ 1 + 1 }}
@@ -63,7 +63,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_multiline_renders()
+    function does_not_trigger_on_multiline_renders()
     {
         $file = <<<file
         {{
@@ -79,7 +79,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_blade_comment()
+    function does_not_trigger_on_blade_comment()
     {
         $file = <<<file
 {{-- This comment will not be present in the rendered HTML --}}

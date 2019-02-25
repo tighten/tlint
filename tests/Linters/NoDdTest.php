@@ -7,7 +7,7 @@ use Tighten\TLint;
 class NoDdTest extends TestCase
 {
     /** @test */
-    public function catches_dd_call()
+    function catches_dd_call()
     {
         $file = <<<file
 <?php
@@ -25,7 +25,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_dd_call_in_comments()
+    function does_not_trigger_on_dd_call_in_comments()
     {
         $file = <<<file
 <?php

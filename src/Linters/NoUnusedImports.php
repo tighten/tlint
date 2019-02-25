@@ -61,6 +61,16 @@ class NoUnusedImports extends BaseLinter
                 && $node->name instanceof Node\Name
             ) {
                 $used[] = $node->name->toString();
+            } elseif ($node instanceof Node\Stmt\ClassMethod
+                && property_exists($node, 'returnType')
+                && $node->returnType instanceof Node\Name
+            ) {
+                $used[] = $node->returnType->toString();
+            } elseif ($node instanceof Node\Stmt\Function_
+                && property_exists($node, 'returnType')
+                && $node->returnType instanceof Node\Name
+            ) {
+                $used[] = $node->returnType->toString();
             }
 
             return false;

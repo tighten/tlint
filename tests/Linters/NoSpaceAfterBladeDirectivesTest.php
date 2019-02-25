@@ -7,7 +7,7 @@ use Tighten\TLint;
 class NoSpaceAfterBladeDirectivesTest extends TestCase
 {
     /** @test */
-    public function catches_space_after_directives()
+    function catches_space_after_directives()
     {
         $file = <<<file
         @section ('sidebar')

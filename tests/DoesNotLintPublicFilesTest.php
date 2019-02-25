@@ -8,7 +8,7 @@ use Tighten\Commands\LintCommand;
 class DoesNotLintPublicFilesTest extends TestCase
 {
     /** @test */
-    public function does_not_lint_public_app_js()
+    function does_not_lint_public_app_js()
     {
         $application = new Application;
 
@@ -25,7 +25,7 @@ class DoesNotLintPublicFilesTest extends TestCase
     }
 
     /** @test */
-    public function does_lint_app_js_outside_public()
+    function does_lint_app_js_outside_public()
     {
         $application = new Application;
 

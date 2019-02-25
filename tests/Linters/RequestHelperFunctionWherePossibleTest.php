@@ -7,7 +7,7 @@ use Tighten\TLint;
 class RequestHelperFunctionWherePossibleTest extends TestCase
 {
     /** @test */
-    public function catches_get_method_usage()
+    function catches_get_method_usage()
     {
         $file = <<<file
 <?php
@@ -31,7 +31,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_new_instance_method_calls()
+    function does_not_trigger_on_new_instance_method_calls()
     {
         $file = <<<file
 <?php

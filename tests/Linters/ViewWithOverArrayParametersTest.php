@@ -7,7 +7,7 @@ use Tighten\Linters\ViewWithOverArrayParameters;
 class ViewWithOverArrayParametersTest extends TestCase
 {
     /** @test */
-    public function catches_array_parameters_with_view_in_controller_methods()
+    function catches_array_parameters_with_view_in_controller_methods()
     {
         $file = <<<file
 <?php
@@ -16,7 +16,7 @@ namespace App;
 
 class Controller
 {
-    public function index()
+    function index()
     {
         return view('test.view', ['ok' => 'test']);
     }
@@ -31,7 +31,7 @@ file;
     }
 
     /** @test */
-    public function catches_array_parameters_with_view_in_routes()
+    function catches_array_parameters_with_view_in_routes()
     {
         $file = <<<file
 <?php
@@ -49,7 +49,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_variable_function_call()
+    function does_not_trigger_on_variable_function_call()
     {
         $file = <<<file
 <?php
