@@ -10,7 +10,7 @@ use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 
-class ViewWithOverArrayParamaters extends BaseLinter
+class ViewWithOverArrayParameters extends BaseLinter
 {
     protected $description = 'Prefer `view(...)->with(...)` over `view(..., [...])`.';
 

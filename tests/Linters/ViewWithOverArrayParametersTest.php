@@ -2,12 +2,12 @@
 
 use PHPUnit\Framework\TestCase;
 use Tighten\TLint;
-use Tighten\Linters\ViewWithOverArrayParamaters;
+use Tighten\Linters\ViewWithOverArrayParameters;
 
-class ViewWithOverArrayParamatersTest extends TestCase
+class ViewWithOverArrayParametersTest extends TestCase
 {
     /** @test */
-    public function catches_array_paramaters_with_view_in_controller_methods()
+    public function catches_array_parameters_with_view_in_controller_methods()
     {
         $file = <<<file
 <?php
@@ -24,14 +24,14 @@ class Controller
 file;
 
         $lints = (new TLint)->lint(
-            new ViewWithOverArrayParamaters($file)
+            new ViewWithOverArrayParameters($file)
         );
 
         $this->assertEquals(9, $lints[0]->getNode()->getLine());
     }
 
     /** @test */
-    public function catches_array_paramaters_with_view_in_routes()
+    public function catches_array_parameters_with_view_in_routes()
     {
         $file = <<<file
 <?php
@@ -42,7 +42,7 @@ file;
 file;
 
         $lints = (new TLint)->lint(
-            new ViewWithOverArrayParamaters($file)
+            new ViewWithOverArrayParameters($file)
         );
 
         $this->assertEquals(4, $lints[0]->getNode()->getLine());
@@ -58,7 +58,7 @@ file;
 file;
 
         $lints = (new TLint)->lint(
-            new ViewWithOverArrayParamaters($file)
+            new ViewWithOverArrayParameters($file)
         );
 
         $this->assertEmpty($lints);

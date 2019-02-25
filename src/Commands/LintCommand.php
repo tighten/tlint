@@ -45,7 +45,7 @@ use Tighten\Linters\SpacesAroundBladeRenderContent;
 use Tighten\Linters\ConcatenationSpacing;
 use Tighten\Linters\TrailingCommasOnArrays;
 use Tighten\Linters\UseAuthHelperOverFacade;
-use Tighten\Linters\ViewWithOverArrayParamaters;
+use Tighten\Linters\ViewWithOverArrayParameters;
 use Tighten\TLint;
 
 class LintCommand extends Command
@@ -248,7 +248,7 @@ class LintCommand extends Command
     {
         if (strpos($path, 'routes') !== false) {
             return [
-                ViewWithOverArrayParamaters::class => '.php',
+                ViewWithOverArrayParameters::class => '.php',
                 NoLeadingSlashesOnRoutePaths::class => '.php',
             ];
         }
@@ -271,7 +271,7 @@ class LintCommand extends Command
     {
         if (strpos($path, 'app/Http/Controllers') !== false) {
             return [
-                ViewWithOverArrayParamaters::class => '.php',
+                ViewWithOverArrayParameters::class => '.php',
                 PureRestControllers::class => '.php',
                 RestControllersMethodOrder::class => '.php',
                 RequestHelperFunctionWherePossible::class => '.php',
