@@ -54,4 +54,34 @@ file;
 
         $this->assertEquals(5, $lints[0]->getNode()->getLine());
     }
+
+    /** @test */
+    function identifies_constructor_method()
+    {
+        $file = <<<file
+<?php
+
+namespace App;
+
+class Thing
+{
+
+    private function __construct(\$foo)
+    {
+        \$foo = "bar";
+    }
+
+    public function bar()
+    {
+        // 
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new ClassThingsOrder($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
