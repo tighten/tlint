@@ -62,7 +62,7 @@ trait IdentifiesClassThings
 
     private function isConstructor(Stmt $stmt)
     {
-        return $stmt instanceof ClassMethod && ($stmt->name ?? null) === '__construct';
+        return $stmt instanceof ClassMethod && ($stmt->name->name ?? null) === '__construct';
     }
 
     private function isPublicMethod(Stmt $stmt)
