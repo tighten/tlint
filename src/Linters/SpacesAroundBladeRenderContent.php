@@ -2,6 +2,7 @@
 
 namespace Tighten\Linters;
 
+use Illuminate\Support\Str;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 use Tighten\CustomNode;
@@ -55,7 +56,7 @@ class SpacesAroundBladeRenderContent extends BaseLinter
                 $matches
             );
 
-            if (isset($matches[1]) && (! str_contains($codeLine, '{!! ') && ! str_contains($codeLine, ' !!}'))) {
+            if (isset($matches[1]) && (! Str::contains($codeLine, '{!! ') && ! Str::contains($codeLine, ' !!}'))) {
                 $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
             }
         }
