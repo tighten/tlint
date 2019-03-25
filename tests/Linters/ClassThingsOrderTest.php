@@ -84,4 +84,25 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function handles_empty_class()
+    {
+        $file = <<<file
+<?php
+
+namespace App;
+
+class Thing
+{
+    //
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new ClassThingsOrder($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }

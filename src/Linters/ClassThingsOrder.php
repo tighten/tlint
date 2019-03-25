@@ -77,7 +77,9 @@ class ClassThingsOrder extends BaseLinter
                     }
 
                     throw new Exception('Unknown statement');
-                }, $node->stmts);
+                }, array_filter($node->stmts, function (Node\Stmt $stmt) {
+                    return ! $stmt instanceof Node\Stmt\Nop;
+                }));
 
                 $uniquedThingTypes = array_values(array_unique($thingTypes));
 
