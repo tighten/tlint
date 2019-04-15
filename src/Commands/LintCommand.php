@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 use Tighten\CustomNode;
 use Tighten\Lint;
@@ -194,7 +195,7 @@ class LintCommand extends Command
 
     private function getDiffedFilesInDir($directory, $fileExtension)
     {
-        $process = new Process(['git diff --name-only --diff-filter=ACMRTUXB']);
+        $process = new Process([(new ExecutableFinder)->find('git'), 'diff', '--name-only', '--diff-filter=ACMRTUXB']);
         $process->run();
 
         if (! $process->isSuccessful()) {
