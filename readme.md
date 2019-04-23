@@ -63,6 +63,11 @@ Want the output from a file as JSON? (Primarily used for integration with editor
 tlint lint test.php --json
 ```
 
+Want to only run a single linter?
+```
+tlint --only=UseConfigOverEnv
+```
+
 ## Example Output
 ```bash
 Linting TestLaravelApp/routes/web.php

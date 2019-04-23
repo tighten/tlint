@@ -19,6 +19,7 @@ class UseConfigOverEnv extends BaseLinter
 
         $envUsages = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Expr\FuncCall
+                && $node->name instanceof Node\Name
                 && $node->name->toString() === 'env';
         });
 

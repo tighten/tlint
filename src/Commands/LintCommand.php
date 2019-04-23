@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 use Tighten\CustomNode;
 use Tighten\Lint;
@@ -46,6 +47,7 @@ use Tighten\Linters\SpacesAroundBladeRenderContent;
 use Tighten\Linters\ConcatenationSpacing;
 use Tighten\Linters\TrailingCommasOnArrays;
 use Tighten\Linters\UseAuthHelperOverFacade;
+use Tighten\Linters\UseConfigOverEnv;
 use Tighten\Linters\ViewWithOverArrayParameters;
 use Tighten\TLint;
 
@@ -72,6 +74,12 @@ class LintCommand extends Command
                 new InputOption(
                     'json'
                 ),
+                new InputOption(
+                    'only',
+                    null,
+                    InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                    'The subset of linters to use'
+                ),
             ]))
             ->setHelp('This command allows you to lint a laravel file.');
     }
@@ -83,6 +91,12 @@ class LintCommand extends Command
         }
 
         $linters = $this->getLinters($file);
+
+        if (! empty($input->getOption('only'))) {
+            $linters = array_intersect_key($linters, array_flip(array_map(function ($className) {
+                return 'Tighten\\Linters\\' . $className;
+            }, $input->getOption('only'))));
+        }
 
         $tighten = new TLint;
 
@@ -181,7 +195,7 @@ class LintCommand extends Command
 
     private function getDiffedFilesInDir($directory, $fileExtension)
     {
-        $process = new Process('git diff --name-only --diff-filter=ACMRTUXB');
+        $process = new Process([(new ExecutableFinder)->find('git'), 'diff', '--name-only', '--diff-filter=ACMRTUXB']);
         $process->run();
 
         if (! $process->isSuccessful()) {
@@ -317,6 +331,17 @@ class LintCommand extends Command
         ];
     }
 
+    private function getNonConfigFileLinters($path)
+    {
+        if (strpos($path, '/config/') === false) {
+            return [
+                UseConfigOverEnv::class => '.php',
+            ];
+        }
+
+        return [];
+    }
+
     private function getLinters($path)
     {
         return array_merge(
@@ -344,7 +369,8 @@ class LintCommand extends Command
             $this->getTestFilesLinters($path),
             $this->getBladeTemplatesLinters($path),
             $this->getMigrationsLinters($path),
-            $this->getMailableLinters($path)
+            $this->getMailableLinters($path),
+            $this->getNonConfigFileLinters($path)
         );
     }
 }
