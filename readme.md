@@ -78,13 +78,27 @@ Lints:
 5 : `    return view('test', ['test' => 'test']);``
 ```
 
+## Configuration
+TLint Ships with 2 "preset" styles: Laravel & Tighten.
+The Laravel preset is intended to match the conventions agreed upon by the Laravel framework contributors, while the Tighten preset is intended to match those agree upon by Tighten team members.
+
+The default configuration is "tighten" flavored, but you may change this by adding a `tlint.json` file to your project's root directory with the following schema:
+> Note: You may further customize the linters used by adding specific lint names to the `"disabled"` list (As shown below).
+```json
+{
+  "preset": "laravel",
+  "disabled": ["NoInlineVarDocs"]
+}
+```
+
 ## Editor Integrations
 
 ### [PHPStorm](https://plugins.jetbrains.com/plugin/10703-tlint)
 [<img src="./tlint-phpstorm.png" width="400">]()
 
-## Lints
+## Available Linters
 - Use with over array parameters in view(). `ViewWithOverArrayParamaters`
+- Prefer `view(..., [...])` over `view(...)->with(...)`. `ArrayParametersOverViewWith`
 - No leading slashes in namespaces or static calls or instantiations. `RemoveLeadingSlashNamespaces`
 - Fully qualified class name only when it's being used a string (class name). `QualifiedNamesOnlyForClassName`
 - Blade directive spacing conventions. `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
