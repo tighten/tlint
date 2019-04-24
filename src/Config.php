@@ -11,15 +11,11 @@ class Config
     protected $disabled;
 
     public function __construct($jsonConfigContents) {
-        if (! $jsonConfigContents) {
-            return;
-        }
-
         switch ($jsonConfigContents['preset'] ?? null) {
             case 'laravel':
                 $this->preset = new LaravelPreset;
                 break;
-            case 'tighten':
+            default:
                 $this->preset = new TightenPreset;
                 break;
         }
@@ -44,5 +40,15 @@ class Config
         }
 
         return $linters;
+    }
+
+    public function getPreset(): TightenPreset
+    {
+        return $this->preset;
+    }
+
+    public function getDisabled()
+    {
+        return $this->disabled;
     }
 }

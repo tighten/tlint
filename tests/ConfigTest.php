@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 use Tighten\Config;
 use Tighten\Linters\AlphabeticalImports;
 use Tighten\Presets\LaravelPreset;
+use Tighten\Presets\TightenPreset;
 
 class ConfigTest extends TestCase
 {
@@ -23,5 +24,13 @@ class ConfigTest extends TestCase
         $this->assertArrayNotHasKey(AlphabeticalImports::class, $config->filterLinters([
             AlphabeticalImports::class => '.php',
         ]));
+    }
+
+    /** @test */
+    function default_preset_is_tighten()
+    {
+        $config = new Config(null);
+
+        $this->assertInstanceOf(TightenPreset::class, $config->getPreset());
     }
 }
