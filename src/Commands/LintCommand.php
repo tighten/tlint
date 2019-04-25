@@ -15,10 +15,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
+use Tighten\Config;
 use Tighten\CustomNode;
 use Tighten\Lint;
 use Tighten\Linters\AlphabeticalImports;
 use Tighten\Linters\ApplyMiddlewareInRoutes;
+use Tighten\Linters\ArrayParametersOverViewWith;
 use Tighten\Linters\ClassThingsOrder;
 use Tighten\Linters\ImportFacades;
 use Tighten\Linters\MailableMethodsInBuild;
@@ -264,6 +266,7 @@ class LintCommand extends Command
         if (strpos($path, 'routes') !== false) {
             return [
                 ViewWithOverArrayParameters::class => '.php',
+                ArrayParametersOverViewWith::class => '.php',
                 NoLeadingSlashesOnRoutePaths::class => '.php',
             ];
         }
@@ -287,6 +290,7 @@ class LintCommand extends Command
         if (strpos($path, 'app/Http/Controllers') !== false) {
             return [
                 ViewWithOverArrayParameters::class => '.php',
+                ArrayParametersOverViewWith::class => '.php',
                 PureRestControllers::class => '.php',
                 RestControllersMethodOrder::class => '.php',
                 RequestHelperFunctionWherePossible::class => '.php',
@@ -344,7 +348,9 @@ class LintCommand extends Command
 
     private function getLinters($path)
     {
-        return array_merge(
+        $config = new Config(json_decode(file_get_contents(getcwd() . '/tlint.json'), true) ?? null);
+
+        $linters = array_merge(
             [
                 RemoveLeadingSlashNamespaces::class => '.php',
                 QualifiedNamesOnlyForClassName::class => '.php',
@@ -372,5 +378,7 @@ class LintCommand extends Command
             $this->getMailableLinters($path),
             $this->getNonConfigFileLinters($path)
         );
+
+        return $config->filterLinters($linters);
     }
 }
