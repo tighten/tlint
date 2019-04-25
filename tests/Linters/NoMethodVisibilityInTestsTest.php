@@ -111,7 +111,7 @@ file;
 class NoMethodVisibilityInTestsTest extends TestCase
 {
     /** @test */
-    public static function setUp()
+    public static function test_method()
     {
 
     }
@@ -124,5 +124,97 @@ file;
         );
 
         $this->assertEquals(6, $lints[0]->getNode()->getLine());
+    }
+
+    /** @test */
+    function does_not_trigger_on_set_up_method()
+    {
+        $file = <<<file
+<?php
+
+class NoMethodVisibilityInTestsTest extends TestCase
+{
+    public function setUp() : void
+    {
+
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoMethodVisibilityInTests($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    function does_not_trigger_on_set_up_before_class_method()
+    {
+        $file = <<<file
+<?php
+
+class NoMethodVisibilityInTestsTest extends TestCase
+{
+    public static function setUpBeforeClass() : void
+    {
+
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoMethodVisibilityInTests($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    function does_not_trigger_on_tear_down_method()
+    {
+        $file = <<<file
+<?php
+
+class NoMethodVisibilityInTestsTest extends TestCase
+{
+    public function tearDown() : void
+    {
+
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoMethodVisibilityInTests($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    function does_not_trigger_on_tear_down_after_class_method()
+    {
+        $file = <<<file
+<?php
+
+class NoMethodVisibilityInTestsTest extends TestCase
+{
+    public static function tearDownAfterClass() : void
+    {
+
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoMethodVisibilityInTests($file)
+        );
+
+        $this->assertEmpty($lints);
     }
 }

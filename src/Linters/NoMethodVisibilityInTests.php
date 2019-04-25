@@ -19,6 +19,7 @@ class NoMethodVisibilityInTests extends BaseLinter
 
         $visitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Stmt\ClassMethod
+                && ! in_array($node->name->toString(), ['setUp', 'setUpBeforeClass', 'tearDown', 'tearDownAfterClass'])
                 && (bool) ($node->flags & Class_::VISIBILITY_MODIFIER_MASK);
         });
 
