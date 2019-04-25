@@ -22,6 +22,7 @@ use Tighten\Linters\AlphabeticalImports;
 use Tighten\Linters\ApplyMiddlewareInRoutes;
 use Tighten\Linters\ArrayParametersOverViewWith;
 use Tighten\Linters\ClassThingsOrder;
+use Tighten\Linters\NoJsonDirective;
 use Tighten\Linters\ImportFacades;
 use Tighten\Linters\MailableMethodsInBuild;
 use Tighten\Linters\ModelMethodOrder;
@@ -322,6 +323,7 @@ class LintCommand extends Command
                 NoSpaceAfterBladeDirectives::class => '.php',
                 SpacesAroundBladeRenderContent::class => '.php',
                 UseAuthHelperOverFacade::class => '.blade.php',
+                NoJsonDirective::class => '.php',
             ];
         }
 
@@ -348,7 +350,8 @@ class LintCommand extends Command
 
     private function getLinters($path)
     {
-        $config = new Config(json_decode(file_get_contents(getcwd() . '/tlint.json'), true) ?? null);
+        $configPath = getcwd() . '/tlint.json';
+        $config = new Config(json_decode(is_file($configPath) ? file_get_contents($configPath) : null, true) ?? null);
 
         $linters = array_merge(
             [
