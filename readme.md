@@ -97,11 +97,28 @@ The default configuration is "tighten" flavored, but you may change this by addi
 [<img src="./tlint-phpstorm.png" width="400">]()
 
 ## Available Linters
-- Use with over array parameters in view(). `ViewWithOverArrayParamaters`
-- Prefer `view(..., [...])` over `view(...)->with(...)`. `ArrayParametersOverViewWith`
+
+## General PHP
 - No leading slashes in namespaces or static calls or instantiations. `RemoveLeadingSlashNamespaces`
 - Fully qualified class name only when it's being used a string (class name). `QualifiedNamesOnlyForClassName`
-- Blade directive spacing conventions. `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
+- Class "things" should be ordered traits, static constants, statics, constants, public properties, protected properties, private properties, constructor, public methods, protected methods, private methods, other magic methods. `ClassThingsOrder`
+- Sort imports alphabetically `AlphabeticalImports`
+- Trailing commas on arrays `TrailingCommasOnArrays`
+- No parenthesis on empty instantiations `NoParensEmptyInstantiations`
+- Space after sole not operator `SpaceAfterSoleNotOperator`
+- One blank line between class constants / properties of different visibility `OneLineBetweenClassVisibilityChanges`
+- Never use string interpolation without braces `NoStringInterpolationWithoutBraces`
+- Spaces around concat operators, and start additional lines with concat `ConcatenationSpacing`
+- File should end with a new line `NewLineAtEndOfFile`
+- No /** @var ClassName $var */ inline docs `NoInlineVarDocs`
+- There should be no unused imports `NoUnusedImports`
+
+## PhpUnit
+- There should be no method visibility in test methods `NoMethodVisibilityInTestsTest`
+
+## Laravel
+- Use with over array parameters in view(). `ViewWithOverArrayParamaters`
+- Prefer `view(..., [...])` over `view(...)->with(...)`. `ArrayParametersOverViewWith`
 - Don’t use environment variables directly in code; instead, use them in config files and call config vars from code. `UseConfigOverEnv`
 - There should only be rest methods in an otherwise purely restful controller. `PureRestControllers`
 - Controller method order (rest methods follow docs). `RestControllersMethodOrder`
@@ -113,18 +130,8 @@ The default configuration is "tighten" flavored, but you may change this by addi
 - No leading slashes on route paths. `NoLeadingSlashesOnRoutePaths`
 - Apply middleware in routes (not controllers). `ApplyMiddlewareInRoutes`
 - Model method order (relationships > scopes > accessors > mutators > boot). `ModelMethodOrder`
-- Class "things" should be ordered traits, static constants, statics, constants, public properties, protected properties, private properties, constructor, public methods, protected methods, private methods, other magic methods. `ClassThingsOrder`
-- Sort imports alphabetically `AlphabeticalImports`
-- Trailing commas on arrays `TrailingCommasOnArrays`
-- No parenthesis on empty instantiations `NoParensEmptyInstantiations`
-- Space after sole not operator `SpaceAfterSoleNotOperator`
-- One blank line between class constants / properties of different visibility `OneLineBetweenClassVisibilityChanges`
-- Spaces around blade rendered content `SpacesAroundBladeRenderContent`
-- Never use string interpolation without braces `NoStringInterpolationWithoutBraces`
-- Spaces around concat operators, and start additional lines with concat `ConcatenationSpacing`
-- File should end with a new line `NewLineAtEndOfFile`
-- No /** @var ClassName $var */ inline docs `NoInlineVarDocs`
-- There should be no unused imports `NoUnusedImports`
 - There should be no calls to `dd()` `NoDd`
 - Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers `RequestValidation`
-- There should be no method visibility in test methods `NoMethodVisibilityInTestsTest`
+- Blade directive spacing conventions. `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
+- Spaces around blade rendered content `SpacesAroundBladeRenderContent`
+- Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{{ json_encode($var) }}">` `NoJsonDirective`
