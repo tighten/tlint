@@ -96,6 +96,9 @@ The default configuration is "tighten" flavored, but you may change this by addi
 ### [PHPStorm](https://plugins.jetbrains.com/plugin/10703-tlint)
 [<img src="./tlint-phpstorm.png" width="400">]()
 
+### [Sublime](https://packagecontrol.io/packages/SublimeLinter-contrib-tlint)
+[<img src="./tlint-sublime.png" width="400">]()
+
 ## Available Linters
 
 ## General PHP
