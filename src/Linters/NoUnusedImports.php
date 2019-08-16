@@ -51,7 +51,7 @@ class NoUnusedImports extends BaseLinter
                 foreach ($node->types as $type) {
                     $used[] = $type->toString();
                 }
-            } elseif ($node instanceof Node\Expr\Instanceof_) {
+            } elseif ($node instanceof Node\Expr\Instanceof_ && method_exists($node->class, 'toString')) {
                 $used[] = $node->class->toString();
             } elseif ($node instanceof Node\Stmt\TraitUse) {
                 foreach ($node->traits as $name) {

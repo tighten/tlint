@@ -326,4 +326,26 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function handles_instanceof_for_dynamic_expressions()
+    {
+        $file = <<<file
+<?php
+
+class Test
+{
+    function test(\$a, \$b)
+    {
+        return \$a instanceof \$b;
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
