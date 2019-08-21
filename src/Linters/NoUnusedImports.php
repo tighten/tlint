@@ -30,7 +30,7 @@ class NoUnusedImports extends BaseLinter
                 && method_exists($node->class, 'toString')
             ) {
                 $used[] = $node->class->toString();
-            } elseif ($node instanceof Node\Expr\ClassConstFetch) {
+            } elseif ($node instanceof Node\Expr\ClassConstFetch && method_exists($node->class, 'toString')) {
                 $used[] = $node->class->toString();
             } elseif ($node instanceof Node\Stmt\Class_) {
                 if (property_exists($node, 'extends') && method_exists($node->extends, 'toString')) {
