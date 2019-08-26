@@ -99,6 +99,9 @@ The default configuration is "tighten" flavored, but you may change this by addi
 ### [Sublime](https://packagecontrol.io/packages/SublimeLinter-contrib-tlint)
 [<img src="./tlint-sublime.png" width="400">]()
 
+### [VSCode](https://marketplace.visualstudio.com/items?itemName=d9705996.tighten-lint)
+[<img src="./tlint-vscode.png" width="400">]()
+
 ## Available Linters
 
 ## General PHP
