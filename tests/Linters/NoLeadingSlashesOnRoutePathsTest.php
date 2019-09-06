@@ -61,4 +61,22 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function does_not_throw_on_dynamic_calls()
+    {
+        $file = <<<file
+<?php
+
+Route::get('/', function (\$class) {
+    return  \$class::test();
+});
+file;
+
+        $lints = (new TLint)->lint(
+            new NoLeadingSlashesOnRoutePaths($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
