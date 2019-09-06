@@ -25,15 +25,12 @@ class NoUnusedImports extends BaseLinter
                 $useStatements[] = $node;
             } elseif ($node instanceof Node\Expr\New_ && $node->class instanceof Node\Name) {
                 $used[] = $node->class->toString();
-            } elseif ($node instanceof Node\Expr\StaticCall
-                && property_exists($node, 'class')
-                && method_exists($node->class, 'toString')
-            ) {
+            } elseif ($node instanceof Node\Expr\StaticCall && $node->class instanceof Node\Name) {
                 $used[] = $node->class->toString();
-            } elseif ($node instanceof Node\Expr\ClassConstFetch && method_exists($node->class, 'toString')) {
+            } elseif ($node instanceof Node\Expr\ClassConstFetch && $node->class instanceof Node\Name) {
                 $used[] = $node->class->toString();
             } elseif ($node instanceof Node\Stmt\Class_) {
-                if (property_exists($node, 'extends') && method_exists($node->extends, 'toString')) {
+                if ($node->extends instanceof Node\Name) {
                     $used[] = $node->extends->toString();
                 }
 
@@ -51,14 +48,13 @@ class NoUnusedImports extends BaseLinter
                 foreach ($node->types as $type) {
                     $used[] = $type->toString();
                 }
-            } elseif ($node instanceof Node\Expr\Instanceof_ && method_exists($node->class, 'toString')) {
+            } elseif ($node instanceof Node\Expr\Instanceof_ && $node->class instanceof Node\Name) {
                 $used[] = $node->class->toString();
             } elseif ($node instanceof Node\Stmt\TraitUse) {
                 foreach ($node->traits as $name) {
                     $used[] = $name->toString();
                 }
-            } elseif ($node instanceof Node\Expr\FuncCall
-                && $node->name instanceof Node\Name
+            } elseif ($node instanceof Node\Expr\FuncCall && $node->name instanceof Node\Name
             ) {
                 $used[] = $node->name->toString();
             } elseif ($node instanceof Node\Stmt\ClassMethod

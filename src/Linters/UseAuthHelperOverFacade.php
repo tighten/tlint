@@ -30,7 +30,7 @@ class UseAuthHelperOverFacade extends BaseLinter
 
             return $node instanceof Node\Expr\StaticCall
                 // use Illuminate\Support\Facades\Auth and calling Auth::
-                && (($usesAuthFacade && $node->class->toString() === 'Auth')
+                && (($usesAuthFacade && $node->class instanceof Node\Name && $node->class->toString() === 'Auth')
                     // FQCN usage
                     || (
                         $node->class instanceof Node\Name

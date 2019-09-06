@@ -18,7 +18,7 @@ class NoLeadingSlashesOnRoutePaths extends BaseLinter
 
         $visitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Expr\StaticCall
-                && $node->class->toString() === 'Route'
+                && ($node->class instanceof Node\Name && $node->class->toString() === 'Route')
                 && isset($node->args[0])
                 && $node->args[0]->value instanceof Node\Scalar\String_
                 && strpos($node->args[0]->value->value, '/') === 0

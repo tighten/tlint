@@ -104,4 +104,28 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function does_not_throw_when_using_static_call_on_dynamic_variable()
+    {
+        $file = <<<file
+<?php
+
+use Illuminate\Support\Facades\Auth;
+
+class Test
+{
+    static function test(\$class)
+    {
+        \$class::test();
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new UseAuthHelperOverFacade($file, '.php')
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
