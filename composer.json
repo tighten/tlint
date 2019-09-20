@@ -3,7 +3,7 @@
     "version": "3.0.0",
     "description": "Tighten linter for Laravel conventions",
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "nikic/php-parser": "^4.2",
         "symfony/console": "^4.3",
         "illuminate/view": "^6.0",

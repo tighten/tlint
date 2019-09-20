@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.com/tightenco/tlint.svg?branch=master)](https://travis-ci.org/tightenco/tlint)
 
-## Install (Requires php7.1+)
+## Install (Requires php7.2+)
 ```
 composer global require tightenco/tlint
 ```
