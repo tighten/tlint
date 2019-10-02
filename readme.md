@@ -94,13 +94,17 @@ The default configuration is "tighten" flavored, but you may change this by addi
 ## Editor Integrations
 
 ### [PHPStorm](https://plugins.jetbrains.com/plugin/10703-tlint)
-[<img src="./tlint-phpstorm.png" width="400">]()
+
+<img src="tlint-phpstorm.png" width="400px" />
+
 
 ### [Sublime](https://packagecontrol.io/packages/SublimeLinter-contrib-tlint)
-[<img src="./tlint-sublime.png" width="400">]()
+
+<img src="tlint-sublime.png" width="400px" />
 
 ### [VSCode](https://marketplace.visualstudio.com/items?itemName=d9705996.tighten-lint)
-[<img src="./tlint-vscode.png" width="400">]()
+
+<img src="tlint-vscode.png" width="400px" />
 
 ## Available Linters
 
