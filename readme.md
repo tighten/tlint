@@ -120,11 +120,11 @@ The default configuration is "tighten" flavored, but you may change this by addi
 - Never use string interpolation without braces `NoStringInterpolationWithoutBraces`
 - Spaces around concat operators, and start additional lines with concat `ConcatenationSpacing`
 - File should end with a new line `NewLineAtEndOfFile`
-- No /** @var ClassName $var */ inline docs `NoInlineVarDocs`
+- No /** @var ClassName $var */ inline docs `NoInlineVarDocs` (https://github.com/tightenco/tlint/issues/108)
 - There should be no unused imports `NoUnusedImports`
 
 ## PhpUnit
-- There should be no method visibility in test methods `NoMethodVisibilityInTestsTest`
+- There should be no method visibility in test methods `NoMethodVisibilityInTestsTest` (https://github.com/tightenco/tlint/issues/106#issuecomment-537952774)
 
 ## Laravel
 - Use with over array parameters in view(). `ViewWithOverArrayParamaters`
