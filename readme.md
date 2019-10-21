@@ -83,11 +83,15 @@ TLint Ships with 2 "preset" styles: Laravel & Tighten.
 The Laravel preset is intended to match the conventions agreed upon by the Laravel framework contributors, while the Tighten preset is intended to match those agree upon by Tighten team members.
 
 The default configuration is "tighten" flavored, but you may change this by adding a `tlint.json` file to your project's root directory with the following schema:
-> Note: You may further customize the linters used by adding specific lint names to the `"disabled"` list (As shown below).
+> You may further customize the linters used by adding specific lint names to the `"disabled"` list (As shown below).
+> You may disable linting for specific directories by adding them to the `"excluded"` list (As shown below).
 ```json
 {
   "preset": "laravel",
-  "disabled": ["NoInlineVarDocs"]
+  "disabled": ["NoInlineVarDocs"],
+  "excluded": [
+    "tests/"
+  ]
 }
 ```
 
