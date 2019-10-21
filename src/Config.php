@@ -9,6 +9,7 @@ class Config
 {
     protected $preset;
     protected $disabled;
+    protected $excluded = [];
 
     public function __construct($jsonConfigContents) {
         switch ($jsonConfigContents['preset'] ?? null) {
@@ -22,6 +23,10 @@ class Config
 
         if (isset($jsonConfigContents['disabled']) && is_array($jsonConfigContents['disabled'])) {
             $this->disabled = $jsonConfigContents['disabled'];
+        }
+
+        if (isset($jsonConfigContents['excluded']) && is_array($jsonConfigContents['excluded'])) {
+            $this->excluded = $jsonConfigContents['excluded'];
         }
     }
 
@@ -47,8 +52,8 @@ class Config
         return $this->preset;
     }
 
-    public function getDisabled()
+    public function getExcluded(): array
     {
-        return $this->disabled;
+        return $this->excluded;
     }
 }

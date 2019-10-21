@@ -1,4 +1,7 @@
 {
   "preset": "tighten",
-  "disabled": []
+  "disabled": [],
+  "excluded": [
+    "tests/Laravel/LaravelApp/"
+  ]
 }

@@ -58,6 +58,24 @@ class LintCommand extends Command
 {
     private const NO_LINTS_FOUND_OR_SUCCESS = 0;
     private const LINTS_FOUND_OR_ERROR = 1;
+    private $cwd;
+    private $config;
+
+    public function __construct(string $cwd = null)
+    {
+        $this->cwd = $cwd;
+        $configPath = $this->resolveFileOrDirectory('tlint.json');
+        $this->config = new Config(
+            json_decode(
+                is_file($configPath)
+                    ? file_get_contents($configPath)
+                    : null,
+                true
+            ) ?? null
+        );
+
+        parent::__construct();
+    }
 
     protected function configure()
     {
@@ -84,7 +102,7 @@ class LintCommand extends Command
                     'The subset of linters to use'
                 ),
             ]))
-            ->setHelp('This command allows you to lint a laravel file.');
+            ->setHelp('This command allows you to lint a php/laravel file/directory.');
     }
 
     private function lintFile(InputInterface $input, OutputInterface $output, $file)
@@ -174,6 +192,19 @@ class LintCommand extends Command
         return self::NO_LINTS_FOUND_OR_SUCCESS;
     }
 
+    private function isExcluded(string $filepath): bool
+    {
+        foreach ($this->config->getExcluded() as $excluded) {
+            $excludedPath = $this->resolveFileOrDirectory($excluded);
+
+            if ($excludedPath && strpos($filepath, $this->resolveFileOrDirectory($excluded)) === 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private function isBlacklisted($filepath)
     {
         return strpos($filepath, 'vendor') !== false
@@ -184,7 +215,8 @@ class LintCommand extends Command
             || strpos($filepath, 'app/Exceptions/Handler.php') !== false
             || strpos($filepath, 'app/Http/Controllers/Auth') !== false
             || strpos($filepath, 'app/Http/Kernel.php') !== false
-            || strpos($filepath, 'storage/framework/views') !== false;
+            || strpos($filepath, 'storage/framework/views') !== false
+            || $this->isExcluded($filepath);
     }
 
     private function filesInDir($directory, $fileExtension, $diff)
@@ -214,7 +246,6 @@ class LintCommand extends Command
 
     private function getAllFilesInDir($directory, $fileExtension)
     {
-        $directory = realpath($directory);
         $it = new RecursiveDirectoryIterator($directory);
         $it = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::LEAVES_ONLY);
         $it = new RegexIterator($it, '(\.' . preg_quote($fileExtension) . '$)');
@@ -226,9 +257,22 @@ class LintCommand extends Command
         }
     }
 
+    private function resolveFileOrDirectory(string $fileOrDirectory)
+    {
+        $realpath = realpath($fileOrDirectory);
+
+        if ($this->cwd || ! $realpath) {
+            return $this->cwd
+                ? realpath($this->cwd . '/' . ltrim($fileOrDirectory, '/'))
+                : realpath(getcwd() . '/' . ltrim($fileOrDirectory, '/'));
+        }
+
+        return $realpath;
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $fileOrDirectory = $input->getArgument('file or directory');
+        $fileOrDirectory = $this->resolveFileOrDirectory($input->getArgument('file or directory'));
         $finalResponseCode = self::NO_LINTS_FOUND_OR_SUCCESS;
 
         if ($this->isBlacklisted($fileOrDirectory)) {
@@ -250,7 +294,7 @@ class LintCommand extends Command
                 $finalResponseCode = self::LINTS_FOUND_OR_ERROR;
             }
         } else {
-            $output->writeln('No file or directory found at ' . $fileOrDirectory);
+            $output->writeln('No file or directory found at ' . $input->getArgument('file or directory'));
 
             return self::LINTS_FOUND_OR_ERROR;
         }
@@ -350,9 +394,6 @@ class LintCommand extends Command
 
     private function getLinters($path)
     {
-        $configPath = getcwd() . '/tlint.json';
-        $config = new Config(json_decode(is_file($configPath) ? file_get_contents($configPath) : null, true) ?? null);
-
         $linters = array_merge(
             [
                 RemoveLeadingSlashNamespaces::class => '.php',
@@ -382,6 +423,6 @@ class LintCommand extends Command
             $this->getNonConfigFileLinters($path)
         );
 
-        return $config->filterLinters($linters);
+        return $this->config->filterLinters($linters);
     }
 }
