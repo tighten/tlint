@@ -33,7 +33,7 @@ class AlphabeticalImports extends BaseLinter
 
         if (! empty($useStatements)) {
             $importStrings = array_map(function (UseUse $useStatement) {
-                return explode('\\', $useStatement->name->toString())[0] ?? $useStatement->name->toString();
+                return $useStatement->name->toString();
             }, $useStatements);
 
             $alphabetical = $importStrings;
