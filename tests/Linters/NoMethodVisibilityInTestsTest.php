@@ -12,6 +12,8 @@ class NoMethodVisibilityInTestsTest extends TestCase
         $file = <<<file
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 class NoMethodVisibilityInTestsTest extends TestCase
 {
     /** @test */
@@ -36,6 +38,8 @@ file;
         $file = <<<file
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 class NoMethodVisibilityInTestsTest extends TestCase
 {
     /** @test */
@@ -51,7 +55,7 @@ file;
             new NoMethodVisibilityInTests($file)
         );
 
-        $this->assertEquals(6, $lints[0]->getNode()->getLine());
+        $this->assertEquals(8, $lints[0]->getNode()->getLine());
     }
 
     /** @test */
@@ -59,6 +63,8 @@ file;
     {
         $file = <<<file
 <?php
+
+use PHPUnit\Framework\TestCase;
 
 class NoMethodVisibilityInTestsTest extends TestCase
 {
@@ -75,7 +81,7 @@ file;
             new NoMethodVisibilityInTests($file)
         );
 
-        $this->assertEquals(6, $lints[0]->getNode()->getLine());
+        $this->assertEquals(8, $lints[0]->getNode()->getLine());
     }
 
     /** @test */
@@ -83,6 +89,8 @@ file;
     {
         $file = <<<file
 <?php
+
+use PHPUnit\Framework\TestCase;
 
 class NoMethodVisibilityInTestsTest extends TestCase
 {
@@ -99,7 +107,7 @@ file;
             new NoMethodVisibilityInTests($file)
         );
 
-        $this->assertEquals(6, $lints[0]->getNode()->getLine());
+        $this->assertEquals(8, $lints[0]->getNode()->getLine());
     }
 
     /** @test */
@@ -107,6 +115,8 @@ file;
     {
         $file = <<<file
 <?php
+
+use PHPUnit\Framework\TestCase;
 
 class NoMethodVisibilityInTestsTest extends TestCase
 {
@@ -123,7 +133,7 @@ file;
             new NoMethodVisibilityInTests($file)
         );
 
-        $this->assertEquals(6, $lints[0]->getNode()->getLine());
+        $this->assertEquals(8, $lints[0]->getNode()->getLine());
     }
 
     /** @test */
@@ -131,6 +141,8 @@ file;
     {
         $file = <<<file
 <?php
+
+use PHPUnit\Framework\TestCase;
 
 class NoMethodVisibilityInTestsTest extends TestCase
 {
@@ -155,6 +167,8 @@ file;
         $file = <<<file
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 class NoMethodVisibilityInTestsTest extends TestCase
 {
     public static function setUpBeforeClass() : void
@@ -177,6 +191,8 @@ file;
     {
         $file = <<<file
 <?php
+
+use PHPUnit\Framework\TestCase;
 
 class NoMethodVisibilityInTestsTest extends TestCase
 {
@@ -201,9 +217,35 @@ file;
         $file = <<<file
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 class NoMethodVisibilityInTestsTest extends TestCase
 {
     public static function tearDownAfterClass() : void
+    {
+
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoMethodVisibilityInTests($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    function does_not_trigger_on_non_test_case_class()
+    {
+        $file = <<<file
+<?php
+
+class NoMethodVisibilityInTestsTest extends NonTestCase
+{
+    /** @test */
+    public function test()
     {
 
     }
