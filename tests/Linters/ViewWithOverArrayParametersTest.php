@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Tighten\TLint;
 use Tighten\Linters\ViewWithOverArrayParameters;
+use Tighten\TLint;
 
 class ViewWithOverArrayParametersTest extends TestCase
 {
