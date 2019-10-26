@@ -17,6 +17,7 @@ foreach (
 }
 
 use Symfony\Component\Console\Application;
+use Tighten\Commands\FormatCommand;
 use Tighten\Commands\LintCommand;
 use function Tighten\version;
 
@@ -26,9 +27,8 @@ $application = new Application(
 );
 
 $lintCommand = new LintCommand;
-
 $application->add($lintCommand);
-
+$application->add(new FormatCommand);
 $application->setDefaultCommand($lintCommand->getName());
 
 $application->run();

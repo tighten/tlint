@@ -42,4 +42,11 @@ class TightenPreset implements PresetInterface
             'NoJsonDirective',
         ];
     }
+
+    public function getFormatters() : array
+    {
+        return [
+            'AlphabeticalImports',
+        ];
+    }
 }

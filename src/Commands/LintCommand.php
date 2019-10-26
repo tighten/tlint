@@ -6,7 +6,6 @@ use PhpParser\Error;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,7 +14,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
-use Tighten\Config;
 use Tighten\CustomNode;
 use Tighten\Lint;
 use Tighten\Linters\AlphabeticalImports;
@@ -54,28 +52,10 @@ use Tighten\Linters\UseConfigOverEnv;
 use Tighten\Linters\ViewWithOverArrayParameters;
 use Tighten\TLint;
 
-class LintCommand extends Command
+class LintCommand extends BaseCommand
 {
     private const NO_LINTS_FOUND_OR_SUCCESS = 0;
     private const LINTS_FOUND_OR_ERROR = 1;
-    private $cwd;
-    private $config;
-
-    public function __construct(string $cwd = null)
-    {
-        $this->cwd = $cwd;
-        $configPath = $this->resolveFileOrDirectory('tlint.json');
-        $this->config = new Config(
-            json_decode(
-                is_file($configPath)
-                    ? file_get_contents($configPath)
-                    : null,
-                true
-            ) ?? null
-        );
-
-        parent::__construct();
-    }
 
     protected function configure()
     {
@@ -255,19 +235,6 @@ class LintCommand extends Command
 
             yield $filepath;
         }
-    }
-
-    private function resolveFileOrDirectory(string $fileOrDirectory)
-    {
-        $realpath = realpath($fileOrDirectory);
-
-        if ($this->cwd || ! $realpath) {
-            return $this->cwd
-                ? realpath($this->cwd . '/' . ltrim($fileOrDirectory, '/'))
-                : realpath(getcwd() . '/' . ltrim($fileOrDirectory, '/'));
-        }
-
-        return $realpath;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

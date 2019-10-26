@@ -1,5 +1,7 @@
 <?php
 
+namespace tests;
+
 use PHPUnit\Framework\TestCase;
 use Tighten\Config;
 use Tighten\Linters\AlphabeticalImports;

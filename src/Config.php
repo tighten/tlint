@@ -47,6 +47,23 @@ class Config
         return $linters;
     }
 
+    public function filterFormatters(array $formatters)
+    {
+        if ($this->preset) {
+            $formatters = array_intersect_key($formatters, array_flip(array_map(function ($className) {
+                return 'Tighten\\Formatters\\' . $className;
+            }, $this->preset->getFormatters())));
+        }
+
+        if ($this->disabled) {
+            $formatters = array_diff_key($formatters, array_flip(array_map(function ($className) {
+                return 'Tighten\\Formatters\\' . $className;
+            }, $this->disabled)));
+        }
+
+        return $formatters;
+    }
+
     public function getPreset(): TightenPreset
     {
         return $this->preset;
