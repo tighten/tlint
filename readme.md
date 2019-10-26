@@ -11,20 +11,20 @@ composer global require tightenco/tlint
 
 ## What is it?
 
-This is an opinionated code linter for Tighten flavored code conventions for Laravel and Php.
+This is an opinionated code linter (and growing support for auto-formatting!) for Tighten flavored code conventions for Laravel and Php.
 
 For example, Laravel has many available ways to pass variables from a controller to a view:
 
 > **A)**
 ```php
-return view('view', ['value' => 'Hello, World!']);
+$value = 'Hello, World!';
+
+return view('view', compact('value'));
 ```
 
 > **B)**
 ```php
-$value = 'Hello, World!';
-
-return view('view', compact('value'));
+return view('view', ['value' => 'Hello, World!']);
 ```
 
 > **C)**
@@ -33,7 +33,7 @@ return view('view')
     ->with('value', 'Hello, World!');
 ```
 
-> In this case [TLint](https://github.com/tightenco/tlint) will warn if you are not using the **C)** method.
+> In this case [TLint](https://github.com/tightenco/tlint) will warn if you are not using the **B)** method.
 > This example is a sort of "meta layer" of code linting, allowing teams to avoid higher level sticking points of code review / discussions.
 
 > TLint also has more immediately useful lints that can supplement your editor/ide such as:
@@ -78,6 +78,12 @@ Lints:
 5 : `    return view('test', ['test' => 'test']);``
 ```
 
+## Beta Support: Formatting
+Using the same conventions as above, but using the format command, you can auto-fix some lints:
+```
+tlint format
+```
+
 ## Configuration
 TLint Ships with 2 "preset" styles: Laravel & Tighten.
 The Laravel preset is intended to match the conventions agreed upon by the Laravel framework contributors, while the Tighten preset is intended to match those agree upon by Tighten team members.
@@ -100,7 +106,6 @@ The default configuration is "tighten" flavored, but you may change this by addi
 ### [PHPStorm](https://plugins.jetbrains.com/plugin/10703-tlint)
 
 <img src="tlint-phpstorm.png" width="400px" />
-
 
 ### [Sublime](https://packagecontrol.io/packages/SublimeLinter-contrib-tlint)
 
@@ -149,3 +154,8 @@ The default configuration is "tighten" flavored, but you may change this by addi
 - Blade directive spacing conventions. `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
 - Spaces around blade rendered content `SpacesAroundBladeRenderContent`
 - Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{{ json_encode($var) }}">` `NoJsonDirective`
+
+## Available Formatters (Beta Support)
+
+## General PHP
+- Sort imports alphabetically `AlphabeticalImports`
