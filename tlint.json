@@ -2,6 +2,6 @@
   "preset": "tighten",
   "disabled": [],
   "excluded": [
-    "tests/Laravel/LaravelApp/"
+    "tests/Linting/Laravel/LaravelApp/"
   ]
 }

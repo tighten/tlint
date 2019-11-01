@@ -1,7 +1,0 @@
-{
-  "preset": "tighten",
-  "disabled": [],
-  "excluded": [
-    "tests/Laravel/LaravelApp/"
-  ]
-}
