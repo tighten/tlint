@@ -1,4 +1,4 @@
-[<img src="./tlint.svg" width="400">]()
+![Tlint Logo](https://raw.githubusercontent.com/tightenco/tlint/master/tlint-banner.png)
 
 <hr>
 
