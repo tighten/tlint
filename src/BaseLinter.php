@@ -2,10 +2,9 @@
 
 namespace Tighten;
 
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\View\Compilers\BladeCompiler;
 use PhpParser\Node;
 use PhpParser\Parser;
+use Tighten\Illuminate\Compilers\BladeCompiler;
 
 class BaseLinter
 {
@@ -19,7 +18,7 @@ class BaseLinter
         $this->extension = $extension;
 
         if ($extension === '.blade.php') {
-            $bladeCompiler = new BladeCompiler(new Filesystem, sys_get_temp_dir());
+            $bladeCompiler = new BladeCompiler(null, sys_get_temp_dir());
             $this->code = $bladeCompiler->compileString($code);
         } else {
             $this->code = $code;

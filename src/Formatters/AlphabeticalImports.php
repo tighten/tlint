@@ -47,9 +47,11 @@ class AlphabeticalImports extends BaseFormatter
             }
         }
 
-        $orderedOldUseStmts = collect($oldUseStmts)->sort(function ($a, $b) {
+        $orderedOldUseStmts = $oldUseStmts;
+        uasort($orderedOldUseStmts, function ($a, $b) {
             return $a['uses'][0]->name->toString() <=> $b['uses'][0]->name->toString();
-        })->values();
+        });
+        $orderedOldUseStmts = array_values($orderedOldUseStmts);
 
         foreach ($stmts as $index => $newStmt) {
             if ($newStmt instanceof Use_) {

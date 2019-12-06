@@ -14,7 +14,7 @@ class NewLineAtEndOfFile extends BaseLinter
     {
         $codeLines = $this->getCodeLines();
 
-        if (last($codeLines) !== '') {
+        if (end($codeLines) ?? null !== '') {
             return [new CustomNode(['startLine' => count($codeLines)])];
         }
 
