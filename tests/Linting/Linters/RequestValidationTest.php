@@ -70,7 +70,7 @@ class ControllerA extends Controller
 {
     public function store(ARequest \$request)
     {
-        \$request()->validate(['name' => 'required']);
+        \$request->validate([]);
     }
 }
 file;
