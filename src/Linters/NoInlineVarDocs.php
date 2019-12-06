@@ -2,7 +2,6 @@
 
 namespace Tighten\Linters;
 
-use Illuminate\Support\Str;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
@@ -19,7 +18,7 @@ class NoInlineVarDocs extends BaseLinter
 
         $useStatementsVisitor = new FindingVisitor(function (Node $node) use (&$useStatements) {
 
-            if ($node->getDocComment() && Str::contains($node->getDocComment()->getText(), ' @var ')) {
+            if ($node->getDocComment() && strpos($node->getDocComment()->getText(), ' @var ') !== false) {
                 return $node;
             }
 
@@ -30,8 +29,19 @@ class NoInlineVarDocs extends BaseLinter
 
         $traverser->traverse($parser->parse($this->code));
 
-        return collect($useStatementsVisitor->getFoundNodes())->uniqueStrict(function (Node $node) {
+
+        $startLines = [];
+        return array_filter($useStatementsVisitor->getFoundNodes(), function (Node $node) use (&$startLines) {
+            if (in_array($node->getStartLine(), $startLines)) {
+                return false;
+            }
+
+            $startLines[] = $node->getStartLine();
+
             return $node->getStartLine();
-        })->toArray();
+        });
+//        return collect($useStatementsVisitor->getFoundNodes())->uniqueStrict(function (Node $node) {
+//            return $node->getStartLine();
+//        })->toArray();
     }
 }

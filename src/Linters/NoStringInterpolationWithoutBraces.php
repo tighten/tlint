@@ -2,7 +2,6 @@
 
 namespace Tighten\Linters;
 
-use Illuminate\Support\Str;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
@@ -24,12 +23,12 @@ class NoStringInterpolationWithoutBraces extends BaseLinter
                         $line = $this->getCodeLine($node->getStartLine());
                         $name = $part->name;
 
-                        return ! Str::contains($line, "{\${$name}}");
+                        return ! (strpos($line, "{\${$name}}") !== false);
                     } elseif ($part instanceof Node\Expr\PropertyFetch) {
                         $line = $this->getCodeLine($node->getStartLine());
                         $propertyFetchString = $this->constructPropertyFetchString($part);
 
-                        return ! Str::contains($line, "{\${$propertyFetchString}");
+                        return ! (strpos($line, "{\${$propertyFetchString}") !== false);
                     }
                 }
             }

@@ -2,12 +2,12 @@
 
 namespace Tighten\Linters;
 
-use Illuminate\View\Compilers\Concerns\CompilesConditionals;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Illuminate\Compilers\Concerns\CompilesConditionals;
 
 class UseAuthHelperOverFacade extends BaseLinter
 {
