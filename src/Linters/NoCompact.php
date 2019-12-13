@@ -8,9 +8,12 @@ use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsControllers;
 
 class NoCompact extends BaseLinter
 {
+    use LintsControllers;
+
     protected $description = 'There should be no calls to `compact()` in controllers';
 
     public function lint(Parser $parser)

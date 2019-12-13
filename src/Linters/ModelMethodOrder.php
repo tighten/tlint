@@ -29,9 +29,9 @@ class ModelMethodOrder extends BaseLinter
 
     private $tests;
 
-    public function __construct($code, $extension = '.php')
+    public function __construct($code, $filename = null)
     {
-        parent::__construct($code, $extension);
+        parent::__construct($code, $filename);
 
         $this->tests = [
             'scope' => Closure::fromCallable([$this, 'isScopeMethod']),

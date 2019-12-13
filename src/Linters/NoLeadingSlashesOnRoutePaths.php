@@ -7,9 +7,12 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsRoutesFiles;
 
 class NoLeadingSlashesOnRoutePaths extends BaseLinter
 {
+    use LintsRoutesFiles;
+
     protected $description = 'No leading slashes on route paths.';
 
     public function lint(Parser $parser)

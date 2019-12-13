@@ -7,9 +7,12 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsControllers;
 
 class ApplyMiddlewareInRoutes extends BaseLinter
 {
+    use LintsControllers;
+    
     protected $description ='Apply middleware in routes (not controllers).';
 
     public function lint(Parser $parser)

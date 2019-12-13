@@ -7,9 +7,12 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsNonConfigFiles;
 
 class UseConfigOverEnv extends BaseLinter
 {
+    use LintsNonConfigFiles;
+
     protected $description = 'Don’t use environment variables directly; instead,'
         . ' use them in config files and call config vars from code';
 

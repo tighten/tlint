@@ -5,9 +5,12 @@ namespace Tighten\Linters;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 use Tighten\CustomNode;
+use Tighten\Linters\Concerns\LintsBladeTemplates;
 
 class SpacesAroundBladeRenderContent extends BaseLinter
 {
+    use LintsBladeTemplates;
+
     protected $description = 'Spaces around blade rendered content:'
         . '`{{1 + 1}}` -> `{{ 1 + 1 }}`';
 

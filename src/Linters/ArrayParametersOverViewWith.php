@@ -8,9 +8,21 @@ use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsControllers;
+use Tighten\Linters\Concerns\LintsRoutesFiles;
 
 class ArrayParametersOverViewWith extends BaseLinter
 {
+    use LintsControllers, LintsRoutesFiles {
+        LintsControllers::appliesToPath as pathIsController;
+        LintsRoutesFiles::appliesToPath as pathIsRoute;
+    }
+    
+    public static function appliesToPath(string $path): bool
+    {
+        return static::pathIsController($path) || static::pathIsRoute($path);
+    }
+
     protected $description = 'Prefer `view(..., [...])` over `view(...)->with(...)`.';
 
     public function lint(Parser $parser)

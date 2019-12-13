@@ -9,9 +9,21 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsControllers;
+use Tighten\Linters\Concerns\LintsRoutesFiles;
 
 class ViewWithOverArrayParameters extends BaseLinter
 {
+    use LintsControllers, LintsRoutesFiles {
+        LintsControllers::appliesToPath as pathIsController;
+        LintsRoutesFiles::appliesToPath as pathIsRoute;
+    }
+
+    public static function appliesToPath(string $path): bool
+    {
+        return static::pathIsController($path) || static::pathIsRoute($path);
+    }
+
     protected $description = 'Prefer `view(...)->with(...)` over `view(..., [...])`.';
 
     public function lint(Parser $parser)

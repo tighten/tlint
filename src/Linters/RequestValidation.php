@@ -8,9 +8,11 @@ use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 use Tighten\Concerns\IdentifiesExtends;
+use Tighten\Linters\Concerns\LintsControllers;
 
 class RequestValidation extends BaseLinter
 {
+    use LintsControllers;
     use IdentifiesExtends;
 
     protected $description = 'Use `request()->validate(...)` helper function or extract a FormRequest instead of using'

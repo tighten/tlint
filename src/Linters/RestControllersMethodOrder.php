@@ -7,9 +7,12 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsControllers;
 
 class RestControllersMethodOrder extends BaseLinter
 {
+    use LintsControllers;
+
     private const RESTFUL_METHOD_NAMES = [
         'index',
         'create',

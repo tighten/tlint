@@ -7,9 +7,12 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsMailables;
 
 class MailableMethodsInBuild extends BaseLinter
 {
+    use LintsMailables;
+
     protected $description = 'Mailable values (from and subject etc) should be set in build().';
 
     public function lint(Parser $parser)

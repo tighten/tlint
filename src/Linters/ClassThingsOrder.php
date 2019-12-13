@@ -38,9 +38,9 @@ class ClassThingsOrder extends BaseLinter
 
     private $tests;
 
-    public function __construct($code, $extension = '.php')
+    public function __construct($code, $filename = null)
     {
-        parent::__construct($code, $extension);
+        parent::__construct($code, $filename);
 
         $this->setLintDescription('Class "things" should be ordered ' . implode(', ', self::THINGS_ORDER));
 
