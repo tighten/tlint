@@ -35,4 +35,9 @@ class LaravelPreset implements PresetInterface
             'UseConfigOverEnv',
         ];
     }
+
+    public function getFormatters() : array
+    {
+        return [];
+    }
 }
