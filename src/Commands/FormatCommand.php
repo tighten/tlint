@@ -68,10 +68,10 @@ class FormatCommand extends BaseCommand
         $initialFileContents = file_get_contents($file);
         $formattedFileContents = $initialFileContents;
 
-        foreach ($formatters as $formatterClass => $parseAs) {
+        foreach ($formatters as $formatterClass) {
             $formatterInstance = new $formatterClass(
                 $formattedFileContents,
-                $parseAs
+                $file
             );
 
             try {
@@ -209,11 +209,9 @@ class FormatCommand extends BaseCommand
     {
         $configPath = getcwd() . '/tformat.json';
         $config = new Config(json_decode(is_file($configPath) ? file_get_contents($configPath) : null, true) ?? null);
-
-        $formatters = [
-            AlphabeticalImports::class => '.php',
-        ];
-
-        return $config->filterFormatters($formatters);
+        
+        return array_filter($config->getFormatters(), function($className) use ($path) {
+            return $className::appliesToPath($path);
+        });
     }
 }

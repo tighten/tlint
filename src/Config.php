@@ -10,6 +10,7 @@ class Config
 {
     protected $preset;
     protected $linters;
+    protected $formatters;
     protected $excluded = [];
 
     public function __construct($jsonConfigContents) {
@@ -20,23 +21,7 @@ class Config
         }
         
         $this->linters = $this->buildLinterList($jsonConfigContents ?? []);
-    }
-
-    public function filterFormatters(array $formatters)
-    {
-        if ($this->preset) {
-            $formatters = array_intersect_key($formatters, array_flip(array_map(function ($className) {
-	            return $this->normalizeNamespace('Tighten\\Formatters\\', $className);
-            }, $this->preset->getFormatters())));
-        }
-
-        if ($this->disabled) {
-            $formatters = array_diff_key($formatters, array_flip(array_map(function ($className) {
-	            return $this->normalizeNamespace('Tighten\\Formatters\\', $className);
-            }, $this->disabled)));
-        }
-
-        return $formatters;
+        $this->formatters = $this->buildFormatterList($jsonConfigContents ?? []);
     }
     
     public function setPreset($preset): self
@@ -68,6 +53,11 @@ class Config
     {
         return $this->linters;
     }
+
+    public function getFormatters(): array
+    {
+        return $this->formatters;
+    }
     
     private function normalizeClassList(string $namespace, array $classNames): array
     {
@@ -87,17 +77,21 @@ class Config
     {
         $linters = $this->normalizeClassList('Tighten\\Linters\\', $this->preset->getLinters());
 
-        if (isset($config['custom']) && is_array($config['custom'])) {
-            $linters = array_merge(
-                $linters, 
-                $this->normalizeClassList('Tighten\\Linters\\', $config['custom'])
-            );
-        }
-
         $disabled = isset($config['disabled']) && is_array($config['disabled'])
             ? $this->normalizeClassList('Tighten\\Linters\\', $config['disabled'])
             : [];
         
         return array_diff($linters, $disabled);
+    }
+
+    private function buildFormatterList(array $config): array
+    {
+        $formatters = $this->normalizeClassList('Tighten\\Formatters\\', $this->preset->getFormatters());
+
+        $disabled = isset($config['disabled']) && is_array($config['disabled'])
+            ? $this->normalizeClassList('Tighten\\Formatters\\', $config['disabled'])
+            : [];
+
+        return array_diff($formatters, $disabled);
     }
 }
