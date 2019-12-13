@@ -86,7 +86,9 @@ class Config
 
     private function buildFormatterList(array $config): array
     {
-        $formatters = $this->normalizeClassList('Tighten\\Formatters\\', $this->preset->getFormatters());
+        $formatters = method_exists($this->preset, 'getFormatters')
+            ? $this->normalizeClassList('Tighten\\Formatters\\', $this->preset->getFormatters())
+            : [];
 
         $disabled = isset($config['disabled']) && is_array($config['disabled'])
             ? $this->normalizeClassList('Tighten\\Formatters\\', $config['disabled'])
