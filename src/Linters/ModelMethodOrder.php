@@ -17,7 +17,7 @@ class ModelMethodOrder extends BaseLinter
     use IdentifiesModelMethodTypes;
     use IdentifiesExtends;
 
-    private const METHOD_ORDER = [
+    protected const METHOD_ORDER = [
         0 => 'relationship',
         1 => 'scope',
         2 => 'accessor',
