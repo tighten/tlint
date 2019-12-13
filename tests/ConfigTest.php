@@ -23,9 +23,7 @@ class ConfigTest extends TestCase
     {
         $config = new Config(['disabled' => ['AlphabeticalImports']]);
 
-        $this->assertArrayNotHasKey(AlphabeticalImports::class, $config->filterLinters([
-            AlphabeticalImports::class => '.php',
-        ]));
+        $this->assertNotContains(AlphabeticalImports::class, $config->getLinters());
     }
 
     /** @test */

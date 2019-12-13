@@ -19,7 +19,7 @@ class Config
             $this->excluded = $jsonConfigContents['excluded'];
         }
         
-        $this->linters = $this->buildLinterList($jsonConfigContents);
+        $this->linters = $this->buildLinterList($jsonConfigContents ?? []);
     }
 
     public function filterFormatters(array $formatters)
@@ -83,19 +83,19 @@ class Config
 		    : $namespace . $className;
     }
     
-    private function buildLinterList(array $jsonConfigContents): array
+    private function buildLinterList(array $config): array
     {
         $linters = $this->normalizeClassList('Tighten\\Linters\\', $this->preset->getLinters());
 
-        if (isset($jsonConfigContents['custom']) && is_array($jsonConfigContents['custom'])) {
+        if (isset($config['custom']) && is_array($config['custom'])) {
             $linters = array_merge(
                 $linters, 
-                $this->normalizeClassList('Tighten\\Linters\\', $jsonConfigContents['custom'])
+                $this->normalizeClassList('Tighten\\Linters\\', $config['custom'])
             );
         }
 
-        $disabled = isset($jsonConfigContents['disabled']) && is_array($jsonConfigContents['disabled'])
-            ? $this->normalizeClassList('Tighten\\Linters\\', $jsonConfigContents['disabled'])
+        $disabled = isset($config['disabled']) && is_array($config['disabled'])
+            ? $this->normalizeClassList('Tighten\\Linters\\', $config['disabled'])
             : [];
         
         return array_diff($linters, $disabled);
