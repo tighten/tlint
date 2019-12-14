@@ -14,43 +14,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
-use Tighten\BaseLinter;
 use Tighten\CustomNode;
 use Tighten\Lint;
-use Tighten\Linters\AlphabeticalImports;
-use Tighten\Linters\ApplyMiddlewareInRoutes;
-use Tighten\Linters\ArrayParametersOverViewWith;
-use Tighten\Linters\ClassThingsOrder;
-use Tighten\Linters\ConcatenationSpacing;
-use Tighten\Linters\ImportFacades;
-use Tighten\Linters\MailableMethodsInBuild;
-use Tighten\Linters\ModelMethodOrder;
-use Tighten\Linters\NewLineAtEndOfFile;
-use Tighten\Linters\NoCompact;
-use Tighten\Linters\NoDd;
-use Tighten\Linters\NoDocBlocksForMigrationUpDown;
-use Tighten\Linters\NoInlineVarDocs;
-use Tighten\Linters\NoJsonDirective;
-use Tighten\Linters\NoLeadingSlashesOnRoutePaths;
-use Tighten\Linters\NoMethodVisibilityInTests;
-use Tighten\Linters\NoParensEmptyInstantiations;
-use Tighten\Linters\NoSpaceAfterBladeDirectives;
-use Tighten\Linters\NoStringInterpolationWithoutBraces;
-use Tighten\Linters\NoUnusedImports;
-use Tighten\Linters\OneLineBetweenClassVisibilityChanges;
-use Tighten\Linters\PureRestControllers;
-use Tighten\Linters\QualifiedNamesOnlyForClassName;
-use Tighten\Linters\RemoveLeadingSlashNamespaces;
-use Tighten\Linters\RequestHelperFunctionWherePossible;
-use Tighten\Linters\RequestValidation;
-use Tighten\Linters\RestControllersMethodOrder;
-use Tighten\Linters\SpaceAfterBladeDirectives;
-use Tighten\Linters\SpaceAfterSoleNotOperator;
-use Tighten\Linters\SpacesAroundBladeRenderContent;
-use Tighten\Linters\TrailingCommasOnArrays;
-use Tighten\Linters\UseAuthHelperOverFacade;
-use Tighten\Linters\UseConfigOverEnv;
-use Tighten\Linters\ViewWithOverArrayParameters;
 use Tighten\TLint;
 
 class LintCommand extends BaseCommand
@@ -93,11 +58,11 @@ class LintCommand extends BaseCommand
         }
         
         $linters = $this->getLinters($file);
-
-        if (! empty($input->getOption('only'))) {
-            $linters = array_intersect_key($linters, array_flip(array_map(function ($className) {
-                return 'Tighten\\Linters\\' . $className;
-            }, $input->getOption('only'))));
+        
+        if (! empty($only = $input->getOption('only'))) {
+            $linters = array_filter($linters, function($formatter) use ($only) {
+                return false !== strpos($formatter, $only);
+            });
         }
 
         $tighten = new TLint;
