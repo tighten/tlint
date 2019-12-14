@@ -13,7 +13,7 @@ class RestControllersMethodOrder extends BaseLinter
 {
     use LintsControllers;
 
-    private const RESTFUL_METHOD_NAMES = [
+    protected const RESTFUL_METHOD_NAMES = [
         'index',
         'create',
         'store',

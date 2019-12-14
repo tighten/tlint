@@ -57,10 +57,10 @@ class FormatCommand extends BaseCommand
 
         $formatters = $this->getFormatters($file);
 
-        if (! empty($input->getOption('only'))) {
-            $formatters = array_intersect_key($formatters, array_flip(array_map(function ($className) {
-                return 'Tighten\\Formatters\\' . $className;
-            }, $input->getOption('only'))));
+        if (! empty($only = $input->getOption('only'))) {
+            $formatters = array_filter($formatters, function($formatter) use ($only) {
+                return false !== strpos($formatter, $only);
+            });
         }
 
         $tighten = new TFormat;

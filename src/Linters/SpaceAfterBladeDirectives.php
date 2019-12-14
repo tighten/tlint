@@ -11,7 +11,7 @@ class SpaceAfterBladeDirectives extends BaseLinter
 {
     use LintsBladeTemplates;
 
-    private const SPACE_AFTER = [
+    protected const SPACE_AFTER = [
         'if',
         'elseif',
         'for',

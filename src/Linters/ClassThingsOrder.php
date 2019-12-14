@@ -36,7 +36,7 @@ class ClassThingsOrder extends BaseLinter
         'magic method',
     ];
 
-    private $tests;
+    protected $tests;
 
     public function __construct($code, $filename = null)
     {

@@ -27,7 +27,7 @@ class ModelMethodOrder extends BaseLinter
 
     protected $description = 'Model method order should be relationships > scopes > accessors > mutators > boot';
 
-    private $tests;
+    protected $tests;
 
     public function __construct($code, $filename = null)
     {

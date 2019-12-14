@@ -11,7 +11,7 @@ class NoSpaceAfterBladeDirectives extends BaseLinter
 {
     use LintsBladeTemplates;
 
-    private const NO_SPACE_AFTER = [
+    protected const NO_SPACE_AFTER = [
         'endif',
         'else',
         'section',
