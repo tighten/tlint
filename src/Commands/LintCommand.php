@@ -58,10 +58,15 @@ class LintCommand extends BaseCommand
         }
         
         $linters = $this->getLinters($file);
-        
+
         if (! empty($only = $input->getOption('only'))) {
-            $linters = array_filter($linters, function($formatter) use ($only) {
-                return false !== strpos($formatter, $only);
+            $linters = array_filter($linters, function($linter) use ($only) {
+                foreach ($only as $filter) {
+                    if (false !== strpos($linter, $filter)) {
+                        return true;
+                    }
+                }
+                return false;
             });
         }
 

@@ -59,7 +59,12 @@ class FormatCommand extends BaseCommand
 
         if (! empty($only = $input->getOption('only'))) {
             $formatters = array_filter($formatters, function($formatter) use ($only) {
-                return false !== strpos($formatter, $only);
+                foreach ($only as $filter) {
+                    if (false !== strpos($formatter, $filter)) {
+                        return true;
+                    }
+                }
+                return false;
             });
         }
 
