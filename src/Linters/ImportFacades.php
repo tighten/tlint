@@ -10,7 +10,7 @@ use Tighten\BaseLinter;
 
 class ImportFacades extends BaseLinter
 {
-    private static $aliases = [
+    protected static $aliases = [
         'App' => 'Illuminate\Support\Facades\App',
         'Artisan' => 'Illuminate\Support\Facades\Artisan',
         'Auth' => 'Illuminate\Support\Facades\Auth',

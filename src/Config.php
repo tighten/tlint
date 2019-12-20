@@ -2,69 +2,44 @@
 
 namespace Tighten;
 
-use Tighten\Presets\LaravelPreset;
+use InvalidArgumentException;
+use Tighten\Presets\PresetInterface;
 use Tighten\Presets\TightenPreset;
 
 class Config
 {
     protected $preset;
-    protected $disabled;
+    protected $linters;
+    protected $formatters;
     protected $excluded = [];
 
     public function __construct($jsonConfigContents) {
-        switch ($jsonConfigContents['preset'] ?? null) {
-            case 'laravel':
-                $this->preset = new LaravelPreset;
-                break;
-            default:
-                $this->preset = new TightenPreset;
-                break;
-        }
-
-        if (isset($jsonConfigContents['disabled']) && is_array($jsonConfigContents['disabled'])) {
-            $this->disabled = $jsonConfigContents['disabled'];
-        }
+    	$this->setPreset($jsonConfigContents['preset'] ?? TightenPreset::class);
 
         if (isset($jsonConfigContents['excluded']) && is_array($jsonConfigContents['excluded'])) {
             $this->excluded = $jsonConfigContents['excluded'];
         }
+        
+        $this->linters = $this->buildLinterList($jsonConfigContents ?? []);
+        $this->formatters = $this->buildFormatterList($jsonConfigContents ?? []);
     }
-
-    public function filterLinters(array $linters)
+    
+    public function setPreset($preset): self
     {
-        if ($this->preset) {
-            $linters = array_intersect_key($linters, array_flip(array_map(function ($className) {
-                return 'Tighten\\Linters\\' . $className;
-            }, $this->preset->getLinters())));
-        }
-
-        if ($this->disabled) {
-            $linters = array_diff_key($linters, array_flip(array_map(function ($className) {
-                return 'Tighten\\Linters\\' . $className;
-            }, $this->disabled)));
-        }
-
-        return $linters;
+    	if (!class_exists($preset)) {
+    		$preset = 'Tighten\\Presets\\' . ucfirst($preset) . 'Preset';
+	    }
+    	
+    	if (!is_a($preset, PresetInterface::class, true)) {
+    		throw new InvalidArgumentException("The preset '{$preset}' does not exist or does not implement the PresetInterface.");
+	    }
+	
+	    $this->preset = new $preset;
+    	
+    	return $this;
     }
 
-    public function filterFormatters(array $formatters)
-    {
-        if ($this->preset) {
-            $formatters = array_intersect_key($formatters, array_flip(array_map(function ($className) {
-                return 'Tighten\\Formatters\\' . $className;
-            }, $this->preset->getFormatters())));
-        }
-
-        if ($this->disabled) {
-            $formatters = array_diff_key($formatters, array_flip(array_map(function ($className) {
-                return 'Tighten\\Formatters\\' . $className;
-            }, $this->disabled)));
-        }
-
-        return $formatters;
-    }
-
-    public function getPreset(): TightenPreset
+    public function getPreset(): PresetInterface
     {
         return $this->preset;
     }
@@ -72,5 +47,51 @@ class Config
     public function getExcluded(): array
     {
         return $this->excluded;
+    }
+    
+    public function getLinters(): array
+    {
+        return $this->linters;
+    }
+
+    public function getFormatters(): array
+    {
+        return $this->formatters;
+    }
+    
+    private function normalizeClassList(string $namespace, array $classNames): array
+    {
+        return array_map(function($className) use ($namespace) {
+            return $this->normalizeNamespace($namespace, $className);
+        }, $classNames);
+    }
+    
+    private function normalizeNamespace(string $namespace, string $className): string
+    {
+	    return class_exists($className)
+		    ? $className
+		    : $namespace . $className;
+    }
+    
+    private function buildLinterList(array $config): array
+    {
+        $linters = $this->normalizeClassList('Tighten\\Linters\\', $this->preset->getLinters());
+
+        $disabled = isset($config['disabled']) && is_array($config['disabled'])
+            ? $this->normalizeClassList('Tighten\\Linters\\', $config['disabled'])
+            : [];
+        
+        return array_diff($linters, $disabled);
+    }
+
+    private function buildFormatterList(array $config): array
+    {
+        $formatters = $this->normalizeClassList('Tighten\\Formatters\\', $this->preset->getFormatters());
+
+        $disabled = isset($config['disabled']) && is_array($config['disabled'])
+            ? $this->normalizeClassList('Tighten\\Formatters\\', $config['disabled'])
+            : [];
+
+        return array_diff($formatters, $disabled);
     }
 }

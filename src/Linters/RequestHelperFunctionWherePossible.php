@@ -7,9 +7,12 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsControllers;
 
 class RequestHelperFunctionWherePossible extends BaseLinter
 {
+    use LintsControllers;
+
     protected $description = 'Use the request(...) helper function directly to access request values wherever possible';
 
     public function lint(Parser $parser)

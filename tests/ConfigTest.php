@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Tighten\Config;
 use Tighten\Linters\AlphabeticalImports;
 use Tighten\Presets\LaravelPreset;
+use Tighten\Presets\PresetInterface;
 use Tighten\Presets\TightenPreset;
 
 class ConfigTest extends TestCase
@@ -23,9 +24,7 @@ class ConfigTest extends TestCase
     {
         $config = new Config(['disabled' => ['AlphabeticalImports']]);
 
-        $this->assertArrayNotHasKey(AlphabeticalImports::class, $config->filterLinters([
-            AlphabeticalImports::class => '.php',
-        ]));
+        $this->assertNotContains(AlphabeticalImports::class, $config->getLinters());
     }
 
     /** @test */
@@ -34,5 +33,26 @@ class ConfigTest extends TestCase
         $config = new Config(null);
 
         $this->assertInstanceOf(TightenPreset::class, $config->getPreset());
+    }
+
+    /** @test */
+    function a_custom_preset_can_be_provided()
+    {
+        $config = new Config(['preset' => ConfigTestPreset::class]);
+
+        $this->assertInstanceOf(ConfigTestPreset::class, $config->getPreset());
+    }
+}
+
+class ConfigTestPreset implements PresetInterface
+{
+    public function getLinters(): array
+    {
+        return [];
+    }
+    
+    public function getFormatters(): array
+    {
+        return [];
     }
 }

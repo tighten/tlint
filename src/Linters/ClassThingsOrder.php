@@ -18,7 +18,7 @@ class ClassThingsOrder extends BaseLinter
     use IdentifiesClassThings;
     use IdentifiesExtends;
 
-    private const THINGS_ORDER = [
+    protected const THINGS_ORDER = [
         'trait use',
         'public static property',
         'protected static property',
@@ -36,11 +36,11 @@ class ClassThingsOrder extends BaseLinter
         'magic method',
     ];
 
-    private $tests;
+    protected $tests;
 
-    public function __construct($code, $extension = '.php')
+    public function __construct($code, $filename = null)
     {
-        parent::__construct($code, $extension);
+        parent::__construct($code, $filename);
 
         $this->setLintDescription('Class "things" should be ordered ' . implode(', ', self::THINGS_ORDER));
 

@@ -7,9 +7,12 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsMigrations;
 
 class NoDocBlocksForMigrationUpDown extends BaseLinter
 {
+    use LintsMigrations;
+
     protected $description = 'Remove doc blocks from the up and down method in migrations.';
 
     public function lint(Parser $parser)

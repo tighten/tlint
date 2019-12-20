@@ -7,10 +7,13 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsControllers;
 
 class PureRestControllers extends BaseLinter
 {
-    private const RESTFUL_METHOD_NAMES = [
+    use LintsControllers;
+
+    protected const RESTFUL_METHOD_NAMES = [
         'index',
         'create',
         'store',
@@ -19,7 +22,7 @@ class PureRestControllers extends BaseLinter
         'update',
         'destroy',
     ];
-    private const IGNORED_METHOD_NAMES = [
+    protected const IGNORED_METHOD_NAMES = [
         'validator',
         '__construct',
     ];

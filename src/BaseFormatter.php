@@ -8,13 +8,18 @@ use PhpParser\Parser;
 class BaseFormatter
 {
     protected $description = 'No Description for Formatter.';
-    protected $extension;
+    protected $filename;
     protected $code;
     protected $codeLines;
 
-    public function __construct($code, $extension = '.php')
+    public static function appliesToPath(string $path): bool
     {
-        $this->extension = $extension;
+        return true;
+    }
+
+    public function __construct($code, $filename = null)
+    {
+        $this->filename = $filename;
         $this->code = $code;
         $this->codeLines = preg_split('/\r\n|\r|\n/', $code);
     }
@@ -39,8 +44,8 @@ class BaseFormatter
         return $this->code;
     }
 
-    public function getExtension()
+    public function getFilename()
     {
-        return $this->extension;
+        return $this->filename;
     }
 }

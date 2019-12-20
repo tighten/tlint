@@ -5,10 +5,13 @@ namespace Tighten\Linters;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 use Tighten\CustomNode;
+use Tighten\Linters\Concerns\LintsBladeTemplates;
 
 class NoSpaceAfterBladeDirectives extends BaseLinter
 {
-    private const NO_SPACE_AFTER = [
+    use LintsBladeTemplates;
+
+    protected const NO_SPACE_AFTER = [
         'endif',
         'else',
         'section',

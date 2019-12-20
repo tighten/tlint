@@ -17,7 +17,7 @@ class ModelMethodOrder extends BaseLinter
     use IdentifiesModelMethodTypes;
     use IdentifiesExtends;
 
-    private const METHOD_ORDER = [
+    protected const METHOD_ORDER = [
         0 => 'relationship',
         1 => 'scope',
         2 => 'accessor',
@@ -27,11 +27,11 @@ class ModelMethodOrder extends BaseLinter
 
     protected $description = 'Model method order should be relationships > scopes > accessors > mutators > boot';
 
-    private $tests;
+    protected $tests;
 
-    public function __construct($code, $extension = '.php')
+    public function __construct($code, $filename = null)
     {
-        parent::__construct($code, $extension);
+        parent::__construct($code, $filename);
 
         $this->tests = [
             'scope' => Closure::fromCallable([$this, 'isScopeMethod']),

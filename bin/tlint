@@ -16,6 +16,10 @@ foreach (
     }
 }
 
+if (file_exists($appAutoloader = getcwd() . '/vendor/autoload.php')) {
+    require $appAutoloader;
+}
+
 use Symfony\Component\Console\Application;
 use Tighten\Commands\FormatCommand;
 use Tighten\Commands\LintCommand;

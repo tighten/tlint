@@ -8,9 +8,12 @@ use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
+use Tighten\Linters\Concerns\LintsTests;
 
 class NoMethodVisibilityInTests extends BaseLinter
 {
+    use LintsTests;
+
     protected $description = 'There should be no method visibility in test methods.';
 
     public function lint(Parser $parser)

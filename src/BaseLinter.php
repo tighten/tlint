@@ -9,21 +9,19 @@ use Tighten\Illuminate\Compilers\BladeCompiler;
 class BaseLinter
 {
     protected $description = 'No Description for Linter.';
-    protected $extension;
+    protected $filename;
     protected $code;
     protected $codeLines;
-
-    public function __construct($code, $extension = '.php')
+    
+    public static function appliesToPath(string $path): bool
     {
-        $this->extension = $extension;
+        return true;
+    }
 
-        if ($extension === '.blade.php') {
-            $bladeCompiler = new BladeCompiler(null, sys_get_temp_dir());
-            $this->code = $bladeCompiler->compileString($code);
-        } else {
-            $this->code = $code;
-        }
-
+    public function __construct($code, $filename = null)
+    {
+        $this->filename = $filename;
+        $this->code = $code;
         $this->codeLines = preg_split('/\r\n|\r|\n/', $code);
     }
 
@@ -68,8 +66,8 @@ class BaseLinter
         return $this->codeLines;
     }
 
-    public function getExtension()
+    public function getFilename()
     {
-        return $this->extension;
+        return $this->filename;
     }
 }

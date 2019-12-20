@@ -16,40 +16,6 @@ use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 use Tighten\CustomNode;
 use Tighten\Lint;
-use Tighten\Linters\AlphabeticalImports;
-use Tighten\Linters\ApplyMiddlewareInRoutes;
-use Tighten\Linters\ArrayParametersOverViewWith;
-use Tighten\Linters\ClassThingsOrder;
-use Tighten\Linters\ConcatenationSpacing;
-use Tighten\Linters\ImportFacades;
-use Tighten\Linters\MailableMethodsInBuild;
-use Tighten\Linters\ModelMethodOrder;
-use Tighten\Linters\NewLineAtEndOfFile;
-use Tighten\Linters\NoCompact;
-use Tighten\Linters\NoDd;
-use Tighten\Linters\NoDocBlocksForMigrationUpDown;
-use Tighten\Linters\NoInlineVarDocs;
-use Tighten\Linters\NoJsonDirective;
-use Tighten\Linters\NoLeadingSlashesOnRoutePaths;
-use Tighten\Linters\NoMethodVisibilityInTests;
-use Tighten\Linters\NoParensEmptyInstantiations;
-use Tighten\Linters\NoSpaceAfterBladeDirectives;
-use Tighten\Linters\NoStringInterpolationWithoutBraces;
-use Tighten\Linters\NoUnusedImports;
-use Tighten\Linters\OneLineBetweenClassVisibilityChanges;
-use Tighten\Linters\PureRestControllers;
-use Tighten\Linters\QualifiedNamesOnlyForClassName;
-use Tighten\Linters\RemoveLeadingSlashNamespaces;
-use Tighten\Linters\RequestHelperFunctionWherePossible;
-use Tighten\Linters\RequestValidation;
-use Tighten\Linters\RestControllersMethodOrder;
-use Tighten\Linters\SpaceAfterBladeDirectives;
-use Tighten\Linters\SpaceAfterSoleNotOperator;
-use Tighten\Linters\SpacesAroundBladeRenderContent;
-use Tighten\Linters\TrailingCommasOnArrays;
-use Tighten\Linters\UseAuthHelperOverFacade;
-use Tighten\Linters\UseConfigOverEnv;
-use Tighten\Linters\ViewWithOverArrayParameters;
 use Tighten\TLint;
 
 class LintCommand extends BaseCommand
@@ -90,23 +56,28 @@ class LintCommand extends BaseCommand
         if ($this->isBlacklisted($file)) {
             return self::NO_LINTS_FOUND_OR_SUCCESS;
         }
-
+        
         $linters = $this->getLinters($file);
 
-        if (! empty($input->getOption('only'))) {
-            $linters = array_intersect_key($linters, array_flip(array_map(function ($className) {
-                return 'Tighten\\Linters\\' . $className;
-            }, $input->getOption('only'))));
+        if (! empty($only = $input->getOption('only'))) {
+            $linters = array_filter($linters, function($linter) use ($only) {
+                foreach ($only as $filter) {
+                    if (false !== strpos($linter, $filter)) {
+                        return true;
+                    }
+                }
+                return false;
+            });
         }
 
         $tighten = new TLint;
 
         $lints = [];
 
-        foreach ($linters as $linterClass => $parseAs) {
+        foreach ($linters as $linterClass) {
             $linterInstance = new $linterClass(
                 file_get_contents($file),
-                $parseAs
+                $file
             );
 
             try {
@@ -272,124 +243,11 @@ class LintCommand extends BaseCommand
 
         return $finalResponseCode;
     }
-
-    private function getRoutesFilesLinters($path)
-    {
-        if (strpos($path, 'routes') !== false) {
-            return [
-                ViewWithOverArrayParameters::class => '.php',
-                ArrayParametersOverViewWith::class => '.php',
-                NoLeadingSlashesOnRoutePaths::class => '.php',
-            ];
-        }
-
-        return [];
-    }
-
-    private function getMigrationsLinters($path)
-    {
-        if (strpos($path, 'migrations') !== false) {
-            return [
-                NoDocBlocksForMigrationUpDown::class => '.php',
-            ];
-        }
-
-        return [];
-    }
-
-    private function getControllerFilesLinters($path)
-    {
-        if (strpos($path, 'app/Http/Controllers') !== false) {
-            return [
-                ViewWithOverArrayParameters::class => '.php',
-                ArrayParametersOverViewWith::class => '.php',
-                PureRestControllers::class => '.php',
-                RestControllersMethodOrder::class => '.php',
-                RequestHelperFunctionWherePossible::class => '.php',
-                ApplyMiddlewareInRoutes::class => '.php',
-                NoCompact::class => '.php',
-                RequestValidation::class => '.php',
-            ];
-        }
-
-        return [];
-    }
-
-    private function getTestFilesLinters($path)
-    {
-        if (strpos($path, 'tests') !== false) {
-            return [
-                NoMethodVisibilityInTests::class => '.php',
-            ];
-        }
-
-        return [];
-    }
-
-    private function getBladeTemplatesLinters($path)
-    {
-        if (strpos($path, '.blade.php') !== false) {
-            return [
-                SpaceAfterBladeDirectives::class => '.php',
-                NoSpaceAfterBladeDirectives::class => '.php',
-                SpacesAroundBladeRenderContent::class => '.php',
-                UseAuthHelperOverFacade::class => '.blade.php',
-                NoJsonDirective::class => '.php',
-            ];
-        }
-
-        return [];
-    }
-
-    private function getMailableLinters($path)
-    {
-        return [
-            MailableMethodsInBuild::class => '.php',
-        ];
-    }
-
-    private function getNonConfigFileLinters($path)
-    {
-        if (strpos($path, '/config/') === false) {
-            return [
-                UseConfigOverEnv::class => '.php',
-            ];
-        }
-
-        return [];
-    }
-
+    
     private function getLinters($path)
     {
-        $linters = array_merge(
-            [
-                RemoveLeadingSlashNamespaces::class => '.php',
-                QualifiedNamesOnlyForClassName::class => '.php',
-                UseAuthHelperOverFacade::class => '.php',
-                ImportFacades::class => '.php',
-                ModelMethodOrder::class => '.php',
-                ClassThingsOrder::class => '.php',
-                AlphabeticalImports::class => '.php',
-                TrailingCommasOnArrays::class => '.php',
-                NoParensEmptyInstantiations::class => '.php',
-                SpaceAfterSoleNotOperator::class => '.php',
-                OneLineBetweenClassVisibilityChanges::class => '.php',
-                NoStringInterpolationWithoutBraces::class => '.php',
-                ConcatenationSpacing::class => '.php',
-                NoDd::class => '.php',
-                NoInlineVarDocs::class => '.php',
-                NoUnusedImports::class => '.php',
-                NewLineAtEndOfFile::class => '.php',
-            ],
-            $this->getRoutesFilesLinters($path),
-            $this->getControllerFilesLinters($path),
-            $this->getTestFilesLinters($path),
-            $this->getBladeTemplatesLinters($path),
-            $this->getMigrationsLinters($path),
-            $this->getMailableLinters($path),
-            $this->getNonConfigFileLinters($path)
-        );
-
-        return $this->config->filterLinters($linters);
+        return array_filter($this->config->getLinters(), function($className) use ($path) {
+            return $className::appliesToPath($path);
+        });
     }
 }
