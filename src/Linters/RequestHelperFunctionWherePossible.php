@@ -13,7 +13,7 @@ class RequestHelperFunctionWherePossible extends BaseLinter
 {
     use LintsControllers;
 
-    protected $description = 'Use the request(...) helper function directly to access request values wherever possible';
+    public const description = 'Use the request(...) helper function directly to access request values wherever possible';
 
     public function lint(Parser $parser)
     {

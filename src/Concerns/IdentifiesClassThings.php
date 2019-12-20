@@ -65,19 +65,36 @@ trait IdentifiesClassThings
         return $stmt instanceof ClassMethod && ($stmt->name->name ?? null) === '__construct';
     }
 
+
+    private function isPublicStaticMethod(Stmt $stmt)
+    {
+        return $stmt instanceof ClassMethod && $stmt->isPublic() && $stmt->isStatic();
+    }
+
+    private function isProtectedStaticMethod(Stmt $stmt)
+    {
+        return $stmt instanceof ClassMethod && $stmt->isProtected() && $stmt->isStatic();
+    }
+
+    private function isPrivateStaticMethod(Stmt $stmt)
+    {
+        return $stmt instanceof ClassMethod && $stmt->isPrivate() && $stmt->isStatic();
+    }
+
+
     private function isPublicMethod(Stmt $stmt)
     {
-        return $stmt instanceof ClassMethod && $stmt->isPublic();
+        return $stmt instanceof ClassMethod && $stmt->isPublic() && ! $stmt->isStatic();
     }
 
     private function isProtectedMethod(Stmt $stmt)
     {
-        return $stmt instanceof ClassMethod && $stmt->isProtected();
+        return $stmt instanceof ClassMethod && $stmt->isProtected() && ! $stmt->isStatic();
     }
 
     private function isPrivateMethod(Stmt $stmt)
     {
-        return $stmt instanceof ClassMethod && $stmt->isPrivate();
+        return $stmt instanceof ClassMethod && $stmt->isPrivate() && ! $stmt->isStatic();
     }
 
     private function isMagicMethod(Stmt $stmt)

@@ -11,7 +11,7 @@ use Tighten\BaseLinter;
 
 class AlphabeticalImports extends BaseLinter
 {
-    protected $description = 'Imports should be ordered alphabetically (the first segment).';
+    public const description = 'Imports should be ordered alphabetically (the first segment).';
 
     public function lint(Parser $parser)
     {

@@ -10,7 +10,7 @@ use Tighten\BaseLinter;
 
 class NoStringInterpolationWithoutBraces extends BaseLinter
 {
-    protected $description = 'Never use string interpolation without braces';
+    public const description = 'Never use string interpolation without braces';
 
     public function lint(Parser $parser)
     {

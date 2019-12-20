@@ -17,6 +17,8 @@ class ModelMethodOrder extends BaseLinter
     use IdentifiesModelMethodTypes;
     use IdentifiesExtends;
 
+    public const description = 'Model method order should be relationships > scopes > accessors > mutators > boot';
+
     protected const METHOD_ORDER = [
         0 => 'relationship',
         1 => 'scope',
@@ -24,8 +26,6 @@ class ModelMethodOrder extends BaseLinter
         3 => 'mutator',
         4 => 'boot',
     ];
-
-    protected $description = 'Model method order should be relationships > scopes > accessors > mutators > boot';
 
     protected $tests;
 

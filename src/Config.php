@@ -13,30 +13,31 @@ class Config
     protected $formatters;
     protected $excluded = [];
 
-    public function __construct($jsonConfigContents) {
-    	$this->setPreset($jsonConfigContents['preset'] ?? TightenPreset::class);
+    public function __construct($jsonConfigContents)
+    {
+        $this->setPreset($jsonConfigContents['preset'] ?? TightenPreset::class);
 
         if (isset($jsonConfigContents['excluded']) && is_array($jsonConfigContents['excluded'])) {
             $this->excluded = $jsonConfigContents['excluded'];
         }
-        
+
         $this->linters = $this->buildLinterList($jsonConfigContents ?? []);
         $this->formatters = $this->buildFormatterList($jsonConfigContents ?? []);
     }
-    
+
     public function setPreset($preset): self
     {
-    	if (!class_exists($preset)) {
-    		$preset = 'Tighten\\Presets\\' . ucfirst($preset) . 'Preset';
-	    }
-    	
-    	if (!is_a($preset, PresetInterface::class, true)) {
-    		throw new InvalidArgumentException("The preset '{$preset}' does not exist or does not implement the PresetInterface.");
-	    }
-	
-	    $this->preset = new $preset;
-    	
-    	return $this;
+        if (! class_exists($preset)) {
+            $preset = 'Tighten\\Presets\\' . ucfirst($preset) . 'Preset';
+        }
+
+        if (! is_a($preset, PresetInterface::class, true)) {
+            throw new InvalidArgumentException("The preset '{$preset}' does not exist or does not implement the PresetInterface.");
+        }
+
+        $this->preset = new $preset;
+
+        return $this;
     }
 
     public function getPreset(): PresetInterface
@@ -48,7 +49,7 @@ class Config
     {
         return $this->excluded;
     }
-    
+
     public function getLinters(): array
     {
         return $this->linters;
@@ -58,21 +59,21 @@ class Config
     {
         return $this->formatters;
     }
-    
+
     private function normalizeClassList(string $namespace, array $classNames): array
     {
-        return array_map(function($className) use ($namespace) {
+        return array_map(function ($className) use ($namespace) {
             return $this->normalizeNamespace($namespace, $className);
         }, $classNames);
     }
-    
+
     private function normalizeNamespace(string $namespace, string $className): string
     {
-	    return class_exists($className)
-		    ? $className
-		    : $namespace . $className;
+        return class_exists($className)
+            ? $className
+            : $namespace . $className;
     }
-    
+
     private function buildLinterList(array $config): array
     {
         $linters = $this->normalizeClassList('Tighten\\Linters\\', $this->preset->getLinters());
@@ -80,7 +81,7 @@ class Config
         $disabled = isset($config['disabled']) && is_array($config['disabled'])
             ? $this->normalizeClassList('Tighten\\Linters\\', $config['disabled'])
             : [];
-        
+
         return array_diff($linters, $disabled);
     }
 

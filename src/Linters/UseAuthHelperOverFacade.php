@@ -16,7 +16,7 @@ class UseAuthHelperOverFacade extends BaseLinter
     use LintsBladeTemplates;
     use CompilesConditionals;
 
-    protected $description = 'Prefer the `auth()` helper function over the `Auth` Facade.';
+    public const description = 'Prefer the `auth()` helper function over the `Auth` Facade.';
     
     public function __construct($code, $filename = null)
     {

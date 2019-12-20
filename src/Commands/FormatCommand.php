@@ -15,7 +15,6 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 use Tighten\Config;
-use Tighten\Formatters\AlphabeticalImports;
 use Tighten\TFormat;
 
 class FormatCommand extends BaseCommand

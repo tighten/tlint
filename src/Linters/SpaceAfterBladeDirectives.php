@@ -11,6 +11,9 @@ class SpaceAfterBladeDirectives extends BaseLinter
 {
     use LintsBladeTemplates;
 
+    public const description = 'Put a space between blade control structure names and the opening paren:'
+        . '`@if(` -> `@if (`';
+
     protected const SPACE_AFTER = [
         'if',
         'elseif',
@@ -19,9 +22,6 @@ class SpaceAfterBladeDirectives extends BaseLinter
         'unless',
         'forelse',
     ];
-
-    protected $description = 'Put a space between blade control structure names and the opening paren:'
-        . '`@if(` -> `@if (`';
 
     public function lint(Parser $parser)
     {

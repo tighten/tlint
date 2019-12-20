@@ -10,7 +10,7 @@ use Tighten\BaseLinter;
 
 class NoInlineVarDocs extends BaseLinter
 {
-    protected $description = 'No /** @var ClassName $var */ inline docs.';
+    public const description = 'No /** @var ClassName $var */ inline docs.';
 
     public function lint(Parser $parser)
     {

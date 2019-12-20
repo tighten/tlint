@@ -4,15 +4,16 @@ namespace Tighten;
 
 use PhpParser\Node;
 use PhpParser\Parser;
-use Tighten\Illuminate\Compilers\BladeCompiler;
 
 class BaseLinter
 {
-    protected $description = 'No Description for Linter.';
+    public const description = 'No Description for Linter.';
+
+    protected $description;
     protected $filename;
     protected $code;
     protected $codeLines;
-    
+
     public static function appliesToPath(string $path): bool
     {
         return true;
@@ -20,6 +21,7 @@ class BaseLinter
 
     public function __construct($code, $filename = null)
     {
+        $this->description = static::description;
         $this->filename = $filename;
         $this->code = $code;
         $this->codeLines = preg_split('/\r\n|\r|\n/', $code);

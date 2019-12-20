@@ -10,7 +10,7 @@ use Tighten\BaseLinter;
 
 class SpaceAfterSoleNotOperator extends BaseLinter
 {
-    protected $description = 'There should be a space after sole `!` operators';
+    public const description = 'There should be a space after sole `!` operators';
 
     public function lint(Parser $parser)
     {

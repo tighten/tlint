@@ -13,6 +13,8 @@ class PureRestControllers extends BaseLinter
 {
     use LintsControllers;
 
+    public const description = 'You should not mix restful and non-restful public methods in a controller';
+
     protected const RESTFUL_METHOD_NAMES = [
         'index',
         'create',
@@ -26,8 +28,6 @@ class PureRestControllers extends BaseLinter
         'validator',
         '__construct',
     ];
-
-    protected $description = 'You should not mix restful and non-restful public methods in a controller';
 
     public function lint(Parser $parser)
     {

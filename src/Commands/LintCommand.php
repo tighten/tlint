@@ -109,7 +109,7 @@ class LintCommand extends BaseCommand
             return [
                 'line' => $lint->getNode()->getStartLine(),
                 'message' => $title,
-                'source' => class_basename($lint->getLinter()),
+                'source' => basename(str_replace('\\', '/', get_class($lint->getLinter()))),
             ];
         }, $lints);
 

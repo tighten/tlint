@@ -13,7 +13,7 @@ use Tighten\BaseFormatter;
 
 class AlphabeticalImports extends BaseFormatter
 {
-    protected $description = 'Orders imports alphabetically.';
+    public const description = 'Orders imports alphabetically.';
 
     public function format(Parser $parser, Lexer $lexer)
     {

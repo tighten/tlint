@@ -11,7 +11,7 @@ use Tighten\BaseLinter;
 
 class OneLineBetweenClassVisibilityChanges extends BaseLinter
 {
-    protected $description = 'Class members of differing visibility must be separated by a blank line';
+    public const description = 'Class members of differing visibility must be separated by a blank line';
 
     public function lint(Parser $parser)
     {

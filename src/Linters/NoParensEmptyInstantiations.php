@@ -10,7 +10,7 @@ use Tighten\BaseLinter;
 
 class NoParensEmptyInstantiations extends BaseLinter
 {
-    protected $description = 'No parenthesis on empty instantiations';
+    public const description = 'No parenthesis on empty instantiations';
 
     public function lint(Parser $parser)
     {
