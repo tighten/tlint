@@ -11,7 +11,7 @@ use Tighten\BaseLinter;
 
 class NoUnusedImports extends BaseLinter
 {
-    protected $description = 'There should be no unused imports.';
+    public const description = 'There should be no unused imports.';
 
     public function lint(Parser $parser)
     {
@@ -77,19 +77,20 @@ class NoUnusedImports extends BaseLinter
         $traverser->traverse($parser->parse($this->code));
 
         if (! empty($useStatements)) {
-            $unusedImports = array_filter($useStatements, function (UseUse $node) use ($used) {
+            return array_filter($useStatements, function (UseUse $node) use ($used) {
                 $nodeName = $node->name->toString();
 
                 if ($node->alias) {
                     $nodeName = $node->alias->name;
                 }
 
-                $parts = explode('\\', $nodeName);
+                $useStatementParts = explode('\\', $nodeName);
+                $usedParts = array_map(function ($use) {
+                    return explode('\\', $use)[0] ?? $use;
+                }, $used);
 
-                return ! in_array(end($parts) ?? $nodeName, $used);
+                return ! in_array(end($useStatementParts) ?? $nodeName, $usedParts);
             });
-
-            return $unusedImports;
         }
 
         return [];

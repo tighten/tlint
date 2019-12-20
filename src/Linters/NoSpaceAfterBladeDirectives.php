@@ -11,6 +11,9 @@ class NoSpaceAfterBladeDirectives extends BaseLinter
 {
     use LintsBladeTemplates;
 
+    public const description = 'No space between blade template directive names and the opening paren:'
+        . '`@section (` -> `@section(`';
+
     protected const NO_SPACE_AFTER = [
         'endif',
         'else',
@@ -30,9 +33,6 @@ class NoSpaceAfterBladeDirectives extends BaseLinter
         'push',
         'stack',
     ];
-
-    protected $description = 'No space between blade template directive names and the opening paren:'
-        . '`@section (` -> `@section(`';
 
     public function lint(Parser $parser)
     {

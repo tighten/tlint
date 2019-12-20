@@ -350,4 +350,32 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function does_not_trigger_on_partial_use_statements()
+    {
+        $file = <<<file
+<?php
+
+use Tighten\Linters;
+
+class TightenPreset implements PresetInterface
+{
+    public function getLinters() : array
+    {
+        return [
+            Linters\AlphabeticalImports::class,
+            Linters\ApplyMiddlewareInRoutes::class,
+        ];
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }

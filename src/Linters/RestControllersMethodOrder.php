@@ -13,6 +13,9 @@ class RestControllersMethodOrder extends BaseLinter
 {
     use LintsControllers;
 
+    public const description = 'REST methods in controllers should match the ordering here:'
+        . ' https://laravel.com/docs/5.4/controllers#restful-partial-resource-routes';
+
     protected const RESTFUL_METHOD_NAMES = [
         'index',
         'create',
@@ -22,9 +25,6 @@ class RestControllersMethodOrder extends BaseLinter
         'update',
         'destroy',
     ];
-
-    protected $description = 'REST methods in controllers should match the ordering here:'
-        . ' https://laravel.com/docs/5.4/controllers#restful-partial-resource-routes';
 
     public function lint(Parser $parser)
     {

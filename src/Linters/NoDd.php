@@ -11,7 +11,7 @@ use Tighten\BaseLinter;
 
 class NoDd extends BaseLinter
 {
-    protected $description = 'There should be no calls to `dd()`';
+    public const description = 'There should be no calls to `dd()`';
 
     public function lint(Parser $parser)
     {

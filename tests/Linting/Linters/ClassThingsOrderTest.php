@@ -107,4 +107,32 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function does_not_trigger_when_first_method_is_static()
+    {
+        $file = <<<file
+<?php
+
+class Test
+{
+    public static function test()
+    {
+        return true;
+    }
+
+    public function __construct()
+    {
+
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new ClassThingsOrder($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }

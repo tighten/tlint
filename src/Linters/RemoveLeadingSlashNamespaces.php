@@ -10,7 +10,7 @@ use Tighten\BaseLinter;
 
 class RemoveLeadingSlashNamespaces extends BaseLinter
 {
-    protected $description = 'Prefer `Namespace\...` over `\Namespace\...`.';
+    public const description = 'Prefer `Namespace\...` over `\Namespace\...`.';
 
     public function lint(Parser $parser)
     {

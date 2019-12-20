@@ -17,13 +17,13 @@ class ArrayParametersOverViewWith extends BaseLinter
         LintsControllers::appliesToPath as pathIsController;
         LintsRoutesFiles::appliesToPath as pathIsRoute;
     }
-    
+
+    public const description = 'Prefer `view(..., [...])` over `view(...)->with(...)`.';
+
     public static function appliesToPath(string $path): bool
     {
         return static::pathIsController($path) || static::pathIsRoute($path);
     }
-
-    protected $description = 'Prefer `view(..., [...])` over `view(...)->with(...)`.';
 
     public function lint(Parser $parser)
     {

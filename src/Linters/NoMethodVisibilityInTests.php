@@ -14,7 +14,7 @@ class NoMethodVisibilityInTests extends BaseLinter
 {
     use LintsTests;
 
-    protected $description = 'There should be no method visibility in test methods.';
+    public const description = 'There should be no method visibility in test methods.';
 
     public function lint(Parser $parser)
     {

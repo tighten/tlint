@@ -8,7 +8,7 @@ use Tighten\CustomNode;
 
 class NewLineAtEndOfFile extends BaseLinter
 {
-    protected $description = 'File should end with a new line';
+    public const description = 'File should end with a new line';
 
     public function lint(Parser $parser)
     {

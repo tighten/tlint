@@ -10,7 +10,7 @@ use Tighten\BaseLinter;
 
 class QualifiedNamesOnlyForClassName extends BaseLinter
 {
-    protected $description = 'Fully Qualified Class Names should only be used for accessing class names';
+    public const description = 'Fully Qualified Class Names should only be used for accessing class names';
 
     public function lint(Parser $parser)
     {

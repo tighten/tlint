@@ -46,7 +46,7 @@ class ImportFacades extends BaseLinter
         'View' => 'Illuminate\Support\Facades\View',
     ];
 
-    protected $description = "Import facades (don't use aliases).";
+    public const description = "Import facades (don't use aliases).";
 
     public function lint(Parser $parser)
     {

@@ -13,7 +13,7 @@ class NoLeadingSlashesOnRoutePaths extends BaseLinter
 {
     use LintsRoutesFiles;
 
-    protected $description = 'No leading slashes on route paths.';
+    public const description = 'No leading slashes on route paths.';
 
     public function lint(Parser $parser)
     {

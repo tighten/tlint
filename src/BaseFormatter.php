@@ -7,7 +7,9 @@ use PhpParser\Parser;
 
 class BaseFormatter
 {
-    protected $description = 'No Description for Formatter.';
+    public const description = 'No Description for Formatter.';
+
+    protected $description;
     protected $filename;
     protected $code;
     protected $codeLines;
@@ -19,6 +21,7 @@ class BaseFormatter
 
     public function __construct($code, $filename = null)
     {
+        $this->description = static::description;
         $this->filename = $filename;
         $this->code = $code;
         $this->codeLines = preg_split('/\r\n|\r|\n/', $code);
