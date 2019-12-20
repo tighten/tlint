@@ -1,6 +1,6 @@
 {
     "name": "tightenco/tlint",
-    "version": "3.0.7",
+    "version": "3.0.6",
     "description": "Tighten linter for Laravel conventions",
     "require": {
         "php": ">=7.2",
