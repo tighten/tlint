@@ -20,12 +20,12 @@ class NoStringInterpolationWithoutBraces extends BaseLinter
             if ($node instanceof Node\Scalar\Encapsed) {
                 foreach ($node->parts as $part) {
                     if ($part instanceof Node\Expr\Variable) {
-                        $line = $this->getCodeLine($node->getStartLine());
+                        $line = $this->getCodeLinesFromNode($node);
                         $name = $part->name;
 
                         return ! (strpos($line, "{\${$name}}") !== false);
                     } elseif ($part instanceof Node\Expr\PropertyFetch) {
-                        $line = $this->getCodeLine($node->getStartLine());
+                        $line = $this->getCodeLinesFromNode($node);
                         $propertyFetchString = $this->constructPropertyFetchString($part);
 
                         return ! (strpos($line, "{\${$propertyFetchString}") !== false);
