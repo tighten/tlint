@@ -86,7 +86,7 @@ tlint format
 
 ## Configuration
 TLint Ships with 2 "preset" styles: Laravel & Tighten.
-The Laravel preset is intended to match the conventions agreed upon by the Laravel framework contributors, while the Tighten preset is intended to match those agree upon by Tighten team members.
+The Laravel preset is intended to match the conventions agreed upon by the Laravel framework contributors, while the Tighten preset is intended to match those agreed upon by Tighten team members.
 
 The default configuration is "tighten" flavored, but you may change this by adding a `tlint.json` file to your project's root directory with the following schema:
 > You may further customize the linters used by adding specific lint names to the `"disabled"` list (As shown below).
@@ -100,6 +100,42 @@ The default configuration is "tighten" flavored, but you may change this by addi
   ]
 }
 ```
+
+### Custom Configuration & Presets
+
+You can also add your own custom preset and linters by providing a fully-qualified class name as the preset. For example, if you created a custom preset class:
+
+```php
+namespace App\Support\Linting;
+
+/** use ... */
+
+class Preset implements PresetInterface
+{
+  public function getLinters() : array
+  {
+    return [
+      PrefixTestsWithTest::class,
+      ModelMethodOrder::class,
+    ];
+  }
+  
+  public function getFormatters() : array
+  {
+  	return [];
+  }
+}
+```
+
+Then your config could look like:
+
+```json
+{
+  "preset": "App\\Support\\Linting\\Preset",
+}
+```
+
+This lets you define whatever custom linting functionality, or modify the existing linters to your liking.
 
 ## Editor Integrations
 
