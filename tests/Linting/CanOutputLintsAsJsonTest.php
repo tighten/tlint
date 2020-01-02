@@ -45,6 +45,6 @@ file;
             ],
         ], json_decode($commandTester->getDisplay(), true));
 
-        $this->assertEquals(0, $commandTester->getStatusCode());
+        $this->assertEquals(1, $commandTester->getStatusCode());
     }
 }
