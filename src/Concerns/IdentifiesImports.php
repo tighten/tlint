@@ -12,13 +12,24 @@ trait IdentifiesImports
 {
     private function getUnusedImportLines(array $stmts)
     {
+        return array_map(function (Node $node) {
+            return $node->getLine();
+        }, $this->getUnusedImportNodes($stmts));
+    }
+
+    private function getUnusedImportNodes(array $stmts)
+    {
         $traverser = new NodeTraverser;
 
         $groupUseStatements = [];
         $useStatements = [];
         $used = [];
 
-        $useStatementsVisitor = new FindingVisitor(function (Node $node) use (&$useStatements, &$used, &$groupUseStatements) {
+        $useStatementsVisitor = new FindingVisitor(function (Node $node) use (
+            &$useStatements,
+            &$used,
+            &$groupUseStatements
+        ) {
             if ($node instanceof Stmt\GroupUse) {
                 foreach ($node->uses as $use) {
                     $groupUseStatements[] = $use->name->toString();
@@ -82,9 +93,7 @@ trait IdentifiesImports
 
         $traverser->traverse($stmts);
 
-        return array_map(function (Node $node) {
-            return $node->getLine();
-        }, array_filter($useStatements, function (UseUse $node) use ($used) {
+        return array_filter($useStatements, function (UseUse $node) use ($used) {
             $nodeName = $node->name->toString();
 
             if ($node->alias) {
@@ -97,6 +106,6 @@ trait IdentifiesImports
             }, $used);
 
             return ! in_array(end($useStatementParts) ?? $nodeName, $usedParts);
-        }));
+        });
     }
 }
