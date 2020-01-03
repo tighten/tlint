@@ -198,5 +198,6 @@ This lets you define whatever custom linting functionality, or modify the existi
 - Import related formatters are not designed to alter grouped imports.
 
 ## General PHP
-- Sort imports alphabetically `AlphabeticalImports`
-- Remove unused imports `UnusedImports`
+- Alphabetizes import statements `AlphabeticalImports`
+- Removes unused import statements `UnusedImports`
+- Removes excess newlines around use statements `ExcessSpaceBetweenAndAfterImports`

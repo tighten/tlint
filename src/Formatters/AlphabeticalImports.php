@@ -15,7 +15,7 @@ use Tighten\BaseFormatter;
 
 class AlphabeticalImports extends BaseFormatter
 {
-    public const description = 'Formats import statements.';
+    public const description = 'Alphabetizes import statements.';
 
     public function format(Parser $parser, Lexer $lexer)
     {
