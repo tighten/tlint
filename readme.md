@@ -193,5 +193,11 @@ This lets you define whatever custom linting functionality, or modify the existi
 
 ## Available Formatters (Beta Support)
 
+### Notes about formatting
+- Formatting is designed to alter the least amount of code possible.
+- Import related formatters are not designed to alter grouped imports.
+
 ## General PHP
-- Sort imports alphabetically `AlphabeticalImports`
+- Alphabetizes import statements `AlphabeticalImports`
+- Removes unused import statements `UnusedImports`
+- Removes excess newlines around use statements `ExcessSpaceBetweenAndAfterImports`

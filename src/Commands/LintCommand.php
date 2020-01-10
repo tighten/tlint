@@ -116,6 +116,8 @@ class LintCommand extends BaseCommand
         $output->writeln(json_encode([
             'errors' => $errors,
         ]));
+
+        return self::LINTS_FOUND_OR_ERROR;
     }
 
     private function outputLints(OutputInterface $output, $file, $lints)
