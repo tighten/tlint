@@ -52,7 +52,7 @@ namespace Test;
 
 use Illuminate\Support\Facades\Hash;
 
-var_dump(Hash::make('test'));
+Hash::make('test');
 file;
 
         $lints = (new TLint)->lint(
@@ -72,8 +72,7 @@ namespace Test;
 
 use Illuminate\Support\Facades\{Config, Hash};
 
-var_dump(Config::get('test'));
-var_dump(Hash::make('test'));
+Config::get('test');
 file;
 
         $lints = (new TLint)->lint(
