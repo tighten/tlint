@@ -61,7 +61,11 @@ class ImportFacades extends BaseLinter
 
             static $useNames = [];
 
-            if ($node instanceof Node\Stmt\UseUse) {
+            if ($node instanceof Node\Stmt\GroupUse) {
+                foreach ($node->uses as $use) {
+                    $useNames[] = Node\Name::concat($node->prefix, $use->name)->toString();
+                }
+            } elseif ($node instanceof Node\Stmt\UseUse) {
                 $useNames[] = $node->name->toString();
             }
 
