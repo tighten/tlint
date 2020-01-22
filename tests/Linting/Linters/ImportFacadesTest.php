@@ -52,7 +52,27 @@ namespace Test;
 
 use Illuminate\Support\Facades\Hash;
 
-var_dump(Hash::make('test'));
+Hash::make('test');
+file;
+
+        $lints = (new TLint)->lint(
+            new ImportFacades($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    function does_not_trigger_on_facade_usage_with_grouped_import()
+    {
+        $file = <<<file
+<?php
+
+namespace Test;
+
+use Illuminate\Support\Facades\{Config, Hash};
+
+Config::get('test');
 file;
 
         $lints = (new TLint)->lint(
