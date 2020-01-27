@@ -14,7 +14,7 @@ class ImportFacadesTest extends TestCase
         $file = <<<file
 <?php
 
-var_dump(Hash::make('test'));
+Hash::make('test');
 file;
 
         $lints = (new TLint)->lint(
@@ -32,7 +32,7 @@ file;
 
 namespace Test;
 
-var_dump(Hash::make('test'));
+Hash::make('test');
 file;
 
         $lints = (new TLint)->lint(
