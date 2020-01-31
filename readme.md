@@ -1,17 +1,17 @@
-![Tlint Logo](https://raw.githubusercontent.com/tightenco/tlint/master/tlint-banner.png)
+![TLint Logo](https://raw.githubusercontent.com/tightenco/tlint/master/tlint-banner.png)
 
 <hr>
 
 [![Build Status](https://travis-ci.com/tightenco/tlint.svg?branch=master)](https://travis-ci.org/tightenco/tlint)
 
-## Install (Requires php7.2+)
+## Install (Requires PHP 7.2+)
 ```
 composer global require tightenco/tlint
 ```
 
-## What is it?
+## What Is It?
 
-This is an opinionated code linter (and growing support for auto-formatting!) for Tighten flavored code conventions for Laravel and Php.
+This is an opinionated code linter (with growing support for auto-formatting!) for Tighten flavored code conventions for Laravel and PHP.
 
 For example, Laravel has many available ways to pass variables from a controller to a view:
 
@@ -36,7 +36,7 @@ return view('view')
 > In this case [TLint](https://github.com/tightenco/tlint) will warn if you are not using the **B)** method.
 > This example is a sort of "meta layer" of code linting, allowing teams to avoid higher level sticking points of code review / discussions.
 
-> TLint also has more immediately useful lints that can supplement your editor/ide such as:
+> TLint also has more immediately useful lints that can supplement your editor/IDE such as:
 - `NoUnusedImports`
 - `TrailingCommasOnArrays`
 - And many more! (See below for full listing)
@@ -168,11 +168,11 @@ This lets you define whatever custom linting functionality, or modify the existi
 - No /** @var ClassName $var */ inline docs `NoInlineVarDocs` (https://github.com/tightenco/tlint/issues/108)
 - There should be no unused imports `NoUnusedImports`
 
-## PhpUnit
-- There should be no method visibility in test methods `NoMethodVisibilityInTestsTest` (https://github.com/tightenco/tlint/issues/106#issuecomment-537952774)
+## PHPUnit
+- There should be no method visibility in test methods `NoMethodVisibilityInTests` (https://github.com/tightenco/tlint/issues/106#issuecomment-537952774)
 
 ## Laravel
-- Use with over array parameters in view(). `ViewWithOverArrayParamaters`
+- Use with over array parameters in view(). `ViewWithOverArrayParameters`
 - Prefer `view(..., [...])` over `view(...)->with(...)`. `ArrayParametersOverViewWith`
 - Don’t use environment variables directly in code; instead, use them in config files and call config vars from code. `UseConfigOverEnv`
 - There should only be rest methods in an otherwise purely restful controller. `PureRestControllers`
