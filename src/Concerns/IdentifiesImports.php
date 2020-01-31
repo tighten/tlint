@@ -3,10 +3,10 @@
 namespace Tighten\Concerns;
 
 use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\UseUse;
+use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor\FindingVisitor;
 
 trait IdentifiesImports
 {

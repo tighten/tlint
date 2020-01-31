@@ -4,9 +4,9 @@ namespace Tighten\Linters;
 
 use Closure;
 use PhpParser\Node;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
-use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 use Tighten\Concerns\IdentifiesExtends;
