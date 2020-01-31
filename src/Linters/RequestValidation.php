@@ -28,7 +28,9 @@ class RequestValidation extends BaseLinter
             if (! $isController && $this->extends($node, 'Controller')) {
                 $isController = true;
             }
+
             return $node instanceof Node\Expr\MethodCall
+                && $node->var instanceof Node\Expr\Variable
                 && $node->var->name === 'this'
                 && $node->name->name === 'validate';
         });
