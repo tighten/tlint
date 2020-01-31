@@ -63,6 +63,46 @@ file;
     }
 
     /** @test */
+    function does_not_trigger_on_facade_usage_with_nova_import()
+    {
+        $file = <<<file
+<?php
+
+namespace Test;
+
+use Laravel\Nova\Fields\Password;
+
+Password::make('Password');
+file;
+
+        $lints = (new TLint)->lint(
+            new ImportFacades($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    function does_not_trigger_on_facade_usage_with_custom_aliased_import()
+    {
+        $file = <<<file
+<?php
+
+namespace Test;
+
+use MyNamespace\MyClass as Config;
+
+Config::get('test');
+file;
+
+        $lints = (new TLint)->lint(
+            new ImportFacades($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     function does_not_trigger_on_facade_usage_with_grouped_import()
     {
         $file = <<<file
