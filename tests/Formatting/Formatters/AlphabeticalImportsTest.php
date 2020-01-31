@@ -251,4 +251,34 @@ file;
 
         $this->assertEquals($correctlyFormatted, $formatted);
     }
+
+    /** @test */
+    function ignores_case_correctly()
+    {
+        $file = <<<file
+<?php
+
+use App\Reportable;
+use App\ReportFactory;
+
+\$ok = 'thing';
+
+file;
+
+        $formatted = (new TFormat)->format(
+            new AlphabeticalImports($file)
+        );
+
+        $correctlyFormatted = <<<file
+<?php
+
+use App\Reportable;
+use App\ReportFactory;
+
+\$ok = 'thing';
+
+file;
+
+        $this->assertEquals($correctlyFormatted, $formatted);
+    }
 }

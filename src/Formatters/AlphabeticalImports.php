@@ -62,7 +62,7 @@ class AlphabeticalImports extends BaseFormatter
                 return $a['type'] <=> $b['type'];
             }
 
-            return $a['uses'][0]->name->toString() <=> $b['uses'][0]->name->toString();
+            return mb_strtolower($a['uses'][0]->name->toString()) <=> mb_strtolower($b['uses'][0]->name->toString());
         });
         $orderedOldUseStmts = array_values($orderedOldUseStmts);
 
