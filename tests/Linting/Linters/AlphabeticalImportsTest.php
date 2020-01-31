@@ -47,6 +47,25 @@ file;
     }
 
     /** @test */
+    function ignores_case_when_comparing_imports()
+    {
+        $file = <<<file
+<?php
+
+use App\Reportable;
+use App\ReportFactory;
+
+\$ok = 'thing';
+file;
+
+        $lints = (new TLint)->lint(
+            new AlphabeticalImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     function handles_duplicate_base_imports()
     {
         $file = <<<file
