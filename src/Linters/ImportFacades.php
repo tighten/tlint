@@ -3,9 +3,9 @@
 namespace Tighten\Linters;
 
 use PhpParser\Node;
+use PhpParser\Node\Name;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
-use PhpParser\Node\Name;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 

@@ -3,11 +3,11 @@
 namespace Tighten\Formatters;
 
 use PhpParser\Lexer;
+use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\Node\Stmt\Use_;
+use PhpParser\Node\Stmt\UseUse;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Node\Stmt\UseUse;
-use PhpParser\Node\Stmt\Use_;
 use PhpParser\Parser;
 use Tighten\BaseFormatter;
 
