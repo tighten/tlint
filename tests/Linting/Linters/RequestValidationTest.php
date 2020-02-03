@@ -81,4 +81,29 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function does_not_cause_php_notice_when_value_is_not_an_expression_with_a_name()
+    {
+        $file = <<<file
+<?php
+
+namespace App;
+
+class ControllerA extends Controller
+{
+    public function store()
+    {
+        return back()
+            ->with('errors', (new ViewErrorBag)->add('field', 'message'));
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new RequestValidation($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
