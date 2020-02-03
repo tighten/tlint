@@ -378,4 +378,26 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function does_not_trigger_when_used_in_class_property_typehint()
+    {
+        $file = <<<file
+<?php
+
+use App\Job;
+
+class Test
+{
+    public Job \$job;
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }

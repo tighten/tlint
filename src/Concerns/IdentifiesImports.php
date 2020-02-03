@@ -56,7 +56,7 @@ trait IdentifiesImports
                         $used[] = $implemented->toString();
                     }, $node->implements);
                 }
-            } elseif ($node instanceof Node\Param
+            } elseif (($node instanceof Node\Param || $node instanceof Node\Stmt\Property)
                 && $node->type instanceof Node\Name
                 && property_exists($node, 'type')
             ) {
