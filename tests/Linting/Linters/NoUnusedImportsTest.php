@@ -241,6 +241,27 @@ file;
     }
 
     /** @test */
+    function does_not_trigger_on_interface_import()
+    {
+        $file = <<<file
+<?php
+
+use Test\ThingA;
+
+interface Thing extends ThingA
+{
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     function does_not_trigger_when_import_is_used_as_an_interface_along_with_extends()
     {
         $file = <<<file
@@ -330,6 +351,28 @@ file;
     }
 
     /** @test */
+    function does_not_trigger_when_used_in_static_property_fetch()
+    {
+        $file = <<<file
+<?php
+
+use App\Job;
+
+function test()
+{
+    echo Job::TYPES;
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     function handles_instanceof_for_dynamic_expressions()
     {
         $file = <<<file
@@ -340,6 +383,30 @@ class Test
     function test(\$a, \$b)
     {
         return \$a instanceof \$b;
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    function handles_nullable_parameters()
+    {
+        $file = <<<file
+<?php
+
+use App\Job;
+
+class Test
+{
+    function test(?Job \$j)
+    {
+        return \$j ?? false;
     }
 }
 file;
