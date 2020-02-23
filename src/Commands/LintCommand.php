@@ -56,7 +56,7 @@ class LintCommand extends BaseCommand
         if ($this->isBlacklisted($file)) {
             return self::NO_LINTS_FOUND_OR_SUCCESS;
         }
-        
+
         $linters = $this->getLinters($file);
 
         if (! empty($only = $input->getOption('only'))) {
@@ -117,7 +117,7 @@ class LintCommand extends BaseCommand
             'errors' => $errors,
         ]));
 
-        return self::LINTS_FOUND_OR_ERROR;
+        return self::NO_LINTS_FOUND_OR_SUCCESS;
     }
 
     private function outputLints(OutputInterface $output, $file, $lints)
@@ -141,6 +141,8 @@ class LintCommand extends BaseCommand
 
             return self::LINTS_FOUND_OR_ERROR;
         }
+
+        $output->writeLn('LGTM!');
 
         return self::NO_LINTS_FOUND_OR_SUCCESS;
     }
@@ -239,13 +241,9 @@ class LintCommand extends BaseCommand
             return self::LINTS_FOUND_OR_ERROR;
         }
 
-        if ($finalResponseCode === self::NO_LINTS_FOUND_OR_SUCCESS) {
-            $output->writeLn('LGTM!');
-        }
-
         return $finalResponseCode;
     }
-    
+
     private function getLinters($path)
     {
         return array_filter($this->config->getLinters(), function($className) use ($path) {
