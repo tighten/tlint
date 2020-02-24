@@ -142,8 +142,6 @@ class LintCommand extends BaseCommand
             return self::LINTS_FOUND_OR_ERROR;
         }
 
-        $output->writeLn('LGTM!');
-
         return self::NO_LINTS_FOUND_OR_SUCCESS;
     }
 
@@ -239,6 +237,16 @@ class LintCommand extends BaseCommand
             $output->writeln('No file or directory found at ' . $input->getArgument('file or directory'));
 
             return self::LINTS_FOUND_OR_ERROR;
+        }
+
+
+        if($input->getOption('json')) {
+            return self::NO_LINTS_FOUND_OR_SUCCESS;
+        }
+
+
+        if($finalResponseCode === self::NO_LINTS_FOUND_OR_SUCCESS) {
+            $output->writeLn('LGTM!');
         }
 
         return $finalResponseCode;
