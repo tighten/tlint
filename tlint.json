@@ -2,7 +2,7 @@
   "preset": "tighten",
   "disabled": [],
   "excluded": [
-    "tests/Linting/Laravel/LaravelApp/",
+    "tests/Linting/Laravel/",
     "src/Illuminate/"
   ]
 }
