@@ -22,7 +22,6 @@ class TightenPreset implements PresetInterface
             Linters\NoCompact::class,
             Linters\NoDd::class,
             Linters\NoDocBlocksForMigrationUpDown::class,
-            Linters\NoInlineVarDocs::class,
             Linters\NoLeadingSlashesOnRoutePaths::class,
             Linters\NoMethodVisibilityInTests::class,
             Linters\NoParensEmptyInstantiations::class,
