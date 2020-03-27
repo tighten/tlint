@@ -11,7 +11,7 @@
     <testsuites>
         <testsuite name="Unit Tests">
             <directory suffix="Test.php">./tests</directory>
-            <exclude>./tests/Linting/Laravel/LaravelApp</exclude>
+            <exclude>./tests/Linting/Laravel</exclude>
         </testsuite>
     </testsuites>
     <filter>
