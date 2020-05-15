@@ -2,11 +2,18 @@
 
 <hr>
 
+
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/tlint.svg?style=flat-square)](https://packagist.org/packages/tightenco/tlint)
 [![Build Status](https://travis-ci.com/tightenco/tlint.svg?branch=master)](https://travis-ci.org/tightenco/tlint)
 
 ## Install (Requires PHP 7.2+)
 ```
 composer global require tightenco/tlint
+```
+
+## Upgrade
+```
+composer global update tightenco/tlint
 ```
 
 ## What Is It?
@@ -201,3 +208,20 @@ This lets you define whatever custom linting functionality, or modify the existi
 - Alphabetizes import statements `AlphabeticalImports`
 - Removes unused import statements `UnusedImports`
 - Removes excess newlines around use statements `ExcessSpaceBetweenAndAfterImports`
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Security
+
+If you discover any security related issues, please email hello@tighten.co instead of using the issue tracker.
+
+## Credits
+
+- [Logan Henson](https://github.com/loganhenson)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
