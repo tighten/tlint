@@ -163,7 +163,7 @@ This lets you define whatever custom linting functionality, or modify the existi
 ## General PHP
 - No leading slashes in namespaces or static calls or instantiations. `RemoveLeadingSlashNamespaces`
 - Fully qualified class name only when it's being used a string (class name). `QualifiedNamesOnlyForClassName`
-- Class "things" should be ordered traits, static constants, statics, constants, public properties, protected properties, private properties, constructor, public methods, protected methods, private methods, other magic methods. `ClassThingsOrder`
+- Class "things" should follow the ordering presented in the [handbook](https://github.com/tightenco/handbook/tree/master/coding-standards/php#classesobjects). `ClassThingsOrder`
 - Sort imports alphabetically `AlphabeticalImports`
 - Trailing commas on arrays `TrailingCommasOnArrays`
 - No parenthesis on empty instantiations `NoParensEmptyInstantiations`
