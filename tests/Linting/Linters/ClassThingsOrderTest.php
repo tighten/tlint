@@ -20,29 +20,29 @@ class Thing
 {
     protected const OK = 1;
     private \$ok;
-    
+
     use Thing;
-    
+
     private static function boot()
     {
-     
+
     }
-    
+
     protected function setFirstNameAttribute(\$value)
     {
         \$this->attributes['first_name'] = strtolower(\$value);
     }
-    
+
     public function setLastNameAttribute(\$value)
     {
         \$this->attributes['first_name'] = strtolower(\$value);
     }
-    
+
     public function getFirstNameAttribute(\$value)
     {
         return ucfirst(\$value);
     }
-    
+
     public function phone()
     {
         return \$this->hasOne('App\Phone');
@@ -75,7 +75,7 @@ class Thing
 
     public function bar()
     {
-        // 
+        //
     }
 }
 file;
@@ -109,7 +109,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_first_method_is_static()
+    function triggers_when_static_method_is_above_constructor()
     {
         $file = <<<file
 <?php
@@ -133,6 +133,6 @@ file;
             new ClassThingsOrder($file)
         );
 
-        $this->assertEmpty($lints);
+        $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 }
