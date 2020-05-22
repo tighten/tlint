@@ -14,17 +14,17 @@ class BaseLinter
     protected $code;
     protected $codeLines;
 
-    public static function appliesToPath(string $path): bool
-    {
-        return true;
-    }
-
     public function __construct($code, $filename = null)
     {
         $this->description = static::description;
         $this->filename = $filename;
         $this->code = $code;
         $this->codeLines = preg_split('/\r\n|\r|\n/', $code);
+    }
+
+    public static function appliesToPath(string $path): bool
+    {
+        return true;
     }
 
     public function lint(Parser $parser)
