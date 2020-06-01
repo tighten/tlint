@@ -19,8 +19,8 @@ use Tighten\TFormat;
 
 class FormatCommand extends BaseCommand
 {
-    private const SUCCESS = 0;
-    private const ERROR = 1;
+    public const SUCCESS = 0;
+    public const ERROR = 1;
     private $thereWasChange = false;
 
     protected function configure()
