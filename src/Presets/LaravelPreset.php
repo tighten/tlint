@@ -1,7 +1,7 @@
 <?php
 
 namespace Tighten\Presets;
- 
+
 use Tighten\Linters;
 
 class LaravelPreset implements PresetInterface
@@ -18,6 +18,7 @@ class LaravelPreset implements PresetInterface
             Linters\NewLineAtEndOfFile::class,
             Linters\NoCompact::class,
             Linters\NoDd::class,
+            Linters\NoDump::class,
             Linters\NoLeadingSlashesOnRoutePaths::class,
             Linters\NoParensEmptyInstantiations::class,
             Linters\NoSpaceAfterBladeDirectives::class,
