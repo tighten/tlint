@@ -17,7 +17,6 @@ class LaravelPreset implements PresetInterface
             Linters\ModelMethodOrder::class,
             Linters\NewLineAtEndOfFile::class,
             Linters\NoCompact::class,
-            Linters\NoDd::class,
             Linters\NoDump::class,
             Linters\NoLeadingSlashesOnRoutePaths::class,
             Linters\NoParensEmptyInstantiations::class,
