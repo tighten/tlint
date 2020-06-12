@@ -6,6 +6,6 @@ trait LintsNonConfigFiles
 {
     public static function appliesToPath(string $path): bool
     {
-        return strpos($path, '/config/') === false;
+        return strpos($path, DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR) === false;
     }
 }
