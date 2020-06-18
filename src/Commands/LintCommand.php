@@ -160,15 +160,16 @@ class LintCommand extends BaseCommand
 
     private function isBlacklisted($filepath)
     {
-        return strpos($filepath, 'vendor') !== false
-            || strpos($filepath, 'public/') !== false
-            || strpos($filepath, 'bootstrap/') !== false
-            || strpos($filepath, 'server.php') !== false
-            || strpos($filepath, 'app/Http/Middleware/RedirectIfAuthenticated.php') !== false
-            || strpos($filepath, 'app/Exceptions/Handler.php') !== false
-            || strpos($filepath, 'app/Http/Controllers/Auth') !== false
-            || strpos($filepath, 'app/Http/Kernel.php') !== false
-            || strpos($filepath, 'storage/framework/views') !== false
+        $DS = DIRECTORY_SEPARATOR;
+        return strpos($filepath, "vendor") !== false
+            || strpos($filepath, "public{$DS}") !== false
+            || strpos($filepath, "bootstrap{$DS}") !== false
+            || strpos($filepath, "server.php") !== false
+            || strpos($filepath, "app{$DS}Http{$DS}Middleware{$DS}RedirectIfAuthenticated.php") !== false
+            || strpos($filepath, "app{$DS}Exceptions{$DS}Handler.php") !== false
+            || strpos($filepath, "app{$DS}Http{$DS}Controllers{$DS}Auth") !== false
+            || strpos($filepath, "app{$DS}Http{$DS}Kernel.php") !== false
+            || strpos($filepath, "storage{$DS}framework{$DS}views") !== false
             || $this->isExcluded($filepath);
     }
 
