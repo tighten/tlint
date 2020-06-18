@@ -8,6 +8,81 @@ use Tighten\TLint;
 
 class NoDumpTest extends TestCase
 {
+    static function codeToIgnore(): iterable
+    {
+        return [
+            [
+                <<<php
+<?php
+
+\$foo = "abc";
+//dd(\$foo);
+
+/**
+* dd(\$foo);
+*/
+
+php,
+            ], [
+                <<<php
+<?php
+
+\$foo = "abc";
+//dump(\$foo);
+
+/**
+* dump(\$foo);
+*/
+
+php,
+            ], [
+                <<<php
+<?php
+
+\$foo = "abc";
+//var_dump(\$foo);
+
+/**
+ *
+* var_dump(\$foo);
+*/
+
+php,
+            ],
+        ];
+    }
+
+    static function codeToTrigger(): iterable
+    {
+        return [
+            [
+                <<<php
+<?php
+
+\$foo = "abc";
+dd(\$foo);
+
+php,
+            ], [
+                <<<php
+<?php
+
+\$foo = "abc";
+dump(\$foo);
+
+php,
+            ], [
+                <<<php
+<?php
+
+\$foo = "abc";
+var_dump(\$foo);
+
+php,
+            ],
+        ];
+    }
+
     /**
      * @test
      * @dataProvider codeToTrigger
@@ -32,80 +107,5 @@ class NoDumpTest extends TestCase
         );
 
         $this->assertEmpty($lints);
-    }
-
-    public static function codeToTrigger(): iterable
-    {
-        return [
-            [
-                <<<php
-<?php
-
-\$foo = "abc";
-dd(\$foo);
-
-php
-            ], [
-                <<<php
-<?php
-
-\$foo = "abc";
-dump(\$foo);
-
-php
-            ], [
-                <<<php
-<?php
-
-\$foo = "abc";
-var_dump(\$foo);
-
-php
-            ],
-        ];
-    }
-
-    public static function codeToIgnore(): iterable
-    {
-        return [
-            [
-                <<<php
-<?php
-
-\$foo = "abc";
-//dd(\$foo);
-
-/**
-* dd(\$foo);
-*/
-
-php
-            ], [
-                <<<php
-<?php
-
-\$foo = "abc";
-//dump(\$foo);
-
-/**
-* dump(\$foo);
-*/
-
-php
-            ], [
-                <<<php
-<?php
-
-\$foo = "abc";
-//var_dump(\$foo);
-
-/**
- *
-* var_dump(\$foo);
-*/
-
-php
-            ],
-        ];
     }
 }
