@@ -1,8 +1,5 @@
 #! /bin/bash
 
-echo "Running tests in PHP7.2..."
-docker run -v $PWD:/home/tightenco/ tightenco/tests-php7.2
-
 echo "Running tests in PHP7.3..."
 docker run -v $PWD:/home/tightenco/ tightenco/tests-php7.3
 
