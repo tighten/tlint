@@ -21,6 +21,7 @@ class FormatCommand extends BaseCommand
 {
     public const SUCCESS = 0;
     public const ERROR = 1;
+    
     private $thereWasChange = false;
 
     protected function configure()
@@ -101,7 +102,7 @@ class FormatCommand extends BaseCommand
         $output->writeln([
             "Formatted {$file}",
         ]);
-        
+
         return self::SUCCESS;
     }
 
@@ -213,7 +214,7 @@ class FormatCommand extends BaseCommand
     {
         $configPath = getcwd() . '/tformat.json';
         $config = new Config(json_decode(is_file($configPath) ? file_get_contents($configPath) : null, true) ?? null);
-        
+
         return array_filter($config->getFormatters(), function($className) use ($path) {
             return $className::appliesToPath($path);
         });

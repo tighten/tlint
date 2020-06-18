@@ -40,7 +40,7 @@ file;
             'file or directory' => $filePath,
         ]);
 
-        $this->assertContains("unexpected T_STRING, expecting '='", $commandTester->getDisplay());
+        $this->assertStringContainsString("unexpected T_STRING, expecting '='", $commandTester->getDisplay());
         $this->assertEquals(1, $commandTester->getStatusCode());
     }
 }
