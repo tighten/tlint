@@ -3,13 +3,13 @@
     "version": "4.0.2",
     "description": "Tighten linter for Laravel conventions",
     "require": {
-        "php": ">=7.2",
-        "nikic/php-parser": "^4.3",
+        "php": ">=7.3",
+        "nikic/php-parser": "^4.5",
         "symfony/console": "^4.3|^5.0",
         "symfony/process": "^4.3|^5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.4"
+        "phpunit/phpunit": "^9.2"
     },
     "autoload": {
         "psr-4": {

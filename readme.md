@@ -6,7 +6,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/tlint.svg?style=flat-square)](https://packagist.org/packages/tightenco/tlint)
 [![Build Status](https://travis-ci.com/tightenco/tlint.svg?branch=master)](https://travis-ci.org/tightenco/tlint)
 
-## Install (Requires PHP 7.2+)
+## Install (Requires PHP 7.3+)
 ```
 composer global require tightenco/tlint
 ```

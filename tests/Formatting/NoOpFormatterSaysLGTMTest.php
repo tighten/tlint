@@ -38,7 +38,7 @@ file;
             'file or directory' => $filePath,
         ]);
 
-        $this->assertContains("LGTM!", $commandTester->getDisplay());
+        $this->assertStringContainsString("LGTM!", $commandTester->getDisplay());
         $this->assertEquals(0, $commandTester->getStatusCode());
     }
 }
