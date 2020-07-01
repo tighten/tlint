@@ -329,6 +329,31 @@ file;
     }
 
     /** @test */
+    function does_not_trigger_when_used_in_class_method_return_nullable_typehint()
+    {
+        $file = <<<file
+<?php
+
+use App\User;
+
+class Test
+{
+    public function test() : ?User
+    {
+        //
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     function does_not_trigger_when_used_in_function_return_typehint()
     {
         $file = <<<file
@@ -337,6 +362,28 @@ file;
 use App\Job;
 
 function test() : Job
+{
+    //
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoUnusedImports($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    function does_not_trigger_when_used_in_function_return_nullable_typehint()
+    {
+        $file = <<<file
+<?php
+
+use App\User;
+
+function test() : ?User
 {
     //
 }
