@@ -89,14 +89,24 @@ trait IdentifiesImports
                 $used[] = $node->name->toString();
             } elseif ($node instanceof Node\Stmt\ClassMethod
                 && property_exists($node, 'returnType')
-                && $node->returnType instanceof Node\Name
             ) {
-                $used[] = $node->returnType->toString();
+                if ($node->returnType instanceof Node\Name) {
+                    $used[] = $node->returnType->toString();
+                } elseif ($node->returnType instanceof Node\NullableType
+                    && $node->returnType->type instanceof Node\Name
+                ) {
+                    $used[] = $node->returnType->type->toString();
+                }
             } elseif ($node instanceof Node\Stmt\Function_
                 && property_exists($node, 'returnType')
-                && $node->returnType instanceof Node\Name
             ) {
-                $used[] = $node->returnType->toString();
+                if ($node->returnType instanceof Node\Name) {
+                    $used[] = $node->returnType->toString();
+                } elseif ($node->returnType instanceof Node\NullableType
+                    && $node->returnType->type instanceof Node\Name
+                ) {
+                    $used[] = $node->returnType->type->toString();
+                }
             }
 
             return false;
