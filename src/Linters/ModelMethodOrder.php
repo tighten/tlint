@@ -17,14 +17,17 @@ class ModelMethodOrder extends BaseLinter
     use IdentifiesModelMethodTypes;
     use IdentifiesExtends;
 
-    public const description = 'Model method order should be relationships > scopes > accessors > mutators > boot';
+    public const description = 'Model method order should be: relationships > scopes > accessors > mutators > booting > boot > booted > custom';
 
     protected const METHOD_ORDER = [
         0 => 'relationship',
         1 => 'scope',
         2 => 'accessor',
         3 => 'mutator',
-        4 => 'boot',
+        4 => 'booting',
+        5 => 'boot',
+        6 => 'booted',
+        7 => 'custom',
     ];
 
     protected $tests;
@@ -34,10 +37,13 @@ class ModelMethodOrder extends BaseLinter
         parent::__construct($code, $filename);
 
         $this->tests = [
+            'relationship' => Closure::fromCallable([$this, 'isRelationshipMethod']),
             'scope' => Closure::fromCallable([$this, 'isScopeMethod']),
             'accessor' => Closure::fromCallable([$this, 'isAccessorMethod']),
             'mutator' => Closure::fromCallable([$this, 'isMutatorMethod']),
+            'booting' => Closure::fromCallable([$this, 'isBootingMethod']),
             'boot' => Closure::fromCallable([$this, 'isBootMethod']),
+            'booted' => Closure::fromCallable([$this, 'isBootedMethod']),
         ];
     }
 
@@ -47,6 +53,19 @@ class ModelMethodOrder extends BaseLinter
 
         $visitor = new FindingVisitor(function (Node $node) {
             if ($this->extends($node, 'Model')) {
+                // get all methods on class
+                $methods = array_filter($node->stmts, function ($stmt) {
+                    return $stmt instanceof ClassMethod;
+                });
+                // key by method name
+                $methods = array_combine(
+                    array_map(function (ClassMethod $stmt) {
+                        return $stmt->name;
+                    }, $methods),
+                    $methods
+                );
+
+                // resolve method type
                 $methodTypes = array_map(function (ClassMethod $stmt) {
                     foreach ($this->tests as $label => $test) {
                         if ($test($stmt)) {
@@ -54,16 +73,36 @@ class ModelMethodOrder extends BaseLinter
                         }
                     }
 
-                    /** This is the catch all, as custom methods should be extracted into "service objects" */
-                    return 'relationship';
-                }, array_filter($node->stmts, function ($stmt) {
-                    return $stmt instanceof ClassMethod;
-                }));
+                    return 'custom';
+                }, $methods);
 
-                $uniquedMethodTypes = array_values(array_unique($methodTypes));
+                $methodTypesShouldBeOrderedLike = $methodTypes;
+                uasort($methodTypesShouldBeOrderedLike, function ($typeA, $typeB) {
+                    $sortA = array_flip(self::METHOD_ORDER)[$typeA];
+                    $sortB = array_flip(self::METHOD_ORDER)[$typeB];
 
-                return $uniquedMethodTypes
-                    !== array_values(array_intersect(self::METHOD_ORDER, $uniquedMethodTypes));
+                    if ($sortA == $sortB) {
+                        return 0;
+                    }
+
+                    return ($sortA < $sortB) ? -1 : 1;
+                });
+
+                $this->setLintDescription(
+                    self::description .PHP_EOL
+                    .'Methods are expected to be ordered like:'.PHP_EOL
+                    .implode(
+                        PHP_EOL,
+                        array_map(function(string $method, string $type) {
+                            return sprintf(' * %s() is matched as "%s"', $method, $type);
+                        }, array_keys($methodTypesShouldBeOrderedLike), array_values($methodTypesShouldBeOrderedLike))
+                    )
+                );
+
+                $uniqueMethodTypes = array_values(array_unique($methodTypes));
+
+                return $uniqueMethodTypes
+                    !== array_values(array_intersect(self::METHOD_ORDER, $uniqueMethodTypes));
             }
 
             return false;
