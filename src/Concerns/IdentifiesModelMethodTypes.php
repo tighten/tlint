@@ -63,8 +63,34 @@ trait IdentifiesModelMethodTypes
             && strpos($stmt->name, 'Attribute') === strlen($stmt->name) - 9;
     }
 
+    private function isBootingMethod(ClassMethod $stmt)
+    {
+        return $stmt->name == 'booting';
+    }
+
     private function isBootMethod(ClassMethod $stmt)
     {
-        return $stmt->name === 'boot';
+        return $stmt->name == 'boot';
+    }
+
+    private function isBootedMethod(ClassMethod $stmt)
+    {
+        return $stmt->name == 'booted';
+    }
+
+    private function isRelationshipMethod(ClassMethod $stmt)
+    {
+        return in_array($stmt->getReturnType(), [
+            'BelongsTo',
+            'BelongsToMany',
+            'HasMany',
+            'HasManyThrough',
+            'HasOne',
+            'HasOneThrough',
+            'MorphMany',
+            'MorphOne',
+            'MorphTo',
+            'MorphToMany',
+        ]);
     }
 }
