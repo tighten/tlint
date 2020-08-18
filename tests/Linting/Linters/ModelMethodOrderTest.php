@@ -76,7 +76,7 @@ class Thing extends Model
 
     public function images(): MorphMany
     {
-        return \$this->media();
+        return \$this->media()->where('type', 'image');
     }
 
     public function media()
