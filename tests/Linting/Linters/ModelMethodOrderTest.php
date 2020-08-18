@@ -74,6 +74,22 @@ class Thing extends Model
         return \$this->hasOne('App\Phone');
     }
 
+    public function images(): MorphMany
+    {
+        return \$this->media();
+    }
+
+    public function media()
+    {
+        return \$this->morphMany('App\Media');
+    }
+
+    public function comments()
+    {
+        \$model = 'App\Comment';
+        return \$this->morphMany(\$model);
+    }
+
     public function tags(): HasMany
     {
         return \$this->hasMany('App\Tag');
@@ -97,6 +113,9 @@ PHP;
             'Methods are expected to be ordered like:',
             ' * category() is matched as "relationship"',
             ' * phone() is matched as "relationship"',
+            ' * images() is matched as "relationship"',
+            ' * media() is matched as "relationship"',
+            ' * comments() is matched as "relationship"',
             ' * tags() is matched as "relationship"',
             ' * scopeWhereInactive() is matched as "scope"',
             ' * scopeWhereActive() is matched as "scope"',

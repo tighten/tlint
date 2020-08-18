@@ -36,14 +36,19 @@ class ModelMethodOrder extends BaseLinter
     {
         parent::__construct($code, $filename);
 
+        // order of tests is important
         $this->tests = [
+            // first detect the static boot methods
+            'booting' => Closure::fromCallable([$this, 'isBootingMethod']),
+            'boot' => Closure::fromCallable([$this, 'isBootMethod']),
+            'booted' => Closure::fromCallable([$this, 'isBootedMethod']),
+            // second declare everything custom that's not public
+            'custom' => Closure::fromCallable([$this, 'isCustomMethod']),
+            // third detect all methods that have to be public
             'relationship' => Closure::fromCallable([$this, 'isRelationshipMethod']),
             'scope' => Closure::fromCallable([$this, 'isScopeMethod']),
             'accessor' => Closure::fromCallable([$this, 'isAccessorMethod']),
             'mutator' => Closure::fromCallable([$this, 'isMutatorMethod']),
-            'booting' => Closure::fromCallable([$this, 'isBootingMethod']),
-            'boot' => Closure::fromCallable([$this, 'isBootMethod']),
-            'booted' => Closure::fromCallable([$this, 'isBootedMethod']),
         ];
     }
 
