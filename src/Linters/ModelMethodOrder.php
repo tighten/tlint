@@ -94,9 +94,9 @@ class ModelMethodOrder extends BaseLinter
                 });
 
                 $this->setLintDescription(
-                    self::description .PHP_EOL
-                    .'Methods are expected to be ordered like:'.PHP_EOL
-                    .implode(
+                    self::description . PHP_EOL
+                    . 'Methods are expected to be ordered like:' . PHP_EOL
+                    . implode(
                         PHP_EOL,
                         array_map(function(string $method, string $type) {
                             return sprintf(' * %s() is matched as "%s"', $method, $type);
