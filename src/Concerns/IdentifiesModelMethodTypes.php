@@ -2,8 +2,9 @@
 
 namespace Tighten\Concerns;
 
-use PhpParser\Node;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Return_;
 
 trait IdentifiesModelMethodTypes
 {
@@ -18,33 +19,6 @@ trait IdentifiesModelMethodTypes
         'morphToMany',
         'morphedByMany',
     ];
-
-    private function getFirstCall(Node $node)
-    {
-        if (property_exists($node, 'expr')
-            && property_exists($node->expr, 'name')
-            && ! in_array($node->expr->name, self::$relationshipMethods)
-        ) {
-            return $this->getFirstCall($node->expr);
-        }
-
-        if (property_exists($node, 'var')
-            && property_exists($node->var, 'name')
-            && ! in_array($node->var->name, self::$relationshipMethods)
-        ) {
-            return $this->getFirstCall($node->var);
-        }
-
-        if (property_exists($node, 'expr')) {
-            return $node->expr;
-        }
-
-        if (property_exists($node, 'var')) {
-            return $node->var;
-        }
-
-        return $node;
-    }
 
     private function isScopeMethod(ClassMethod $stmt)
     {
@@ -63,8 +37,74 @@ trait IdentifiesModelMethodTypes
             && strpos($stmt->name, 'Attribute') === strlen($stmt->name) - 9;
     }
 
+    private function isBootingMethod(ClassMethod $stmt)
+    {
+        return $stmt->isPublic()
+            && $stmt->isStatic()
+            && $stmt->name == 'booting';
+    }
+
     private function isBootMethod(ClassMethod $stmt)
     {
-        return $stmt->name === 'boot';
+        return $stmt->isPublic()
+            && $stmt->isStatic()
+            && $stmt->name == 'boot';
+    }
+
+    private function isBootedMethod(ClassMethod $stmt)
+    {
+        return $stmt->isPublic()
+            && $stmt->isStatic()
+            && $stmt->name == 'booted';
+    }
+
+    private function isCustomMethod(ClassMethod $stmt)
+    {
+        if ($stmt->isAbstract()) {
+            return true;
+        }
+
+        if (! $stmt->isPublic()) {
+            return true;
+        }
+
+        if ($stmt->isStatic()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function isRelationshipMethod(ClassMethod $stmt)
+    {
+        if (! empty($stmt->getParams())) {
+            return false;
+        }
+
+        if (in_array(lcfirst($stmt->getReturnType()), self::$relationshipMethods)) {
+            return true;
+        }
+
+        if (empty($stmt->getStmts())) {
+            return false;
+        }
+
+        $returnStmts = array_filter($stmt->getStmts(), function (Stmt $stmt) {
+            return $stmt instanceof Return_;
+        });
+        $returnStmt = array_shift($returnStmts);
+
+        if (is_null($returnStmt)) {
+            return false;
+        }
+
+        if (
+            $returnStmt->expr->var->name == 'this'
+            && in_array($returnStmt->expr->name, self::$relationshipMethods)
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }
