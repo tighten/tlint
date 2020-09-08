@@ -20,14 +20,15 @@ class ModelMethodOrder extends BaseLinter
     public const description = 'Model method order should be: relationships > scopes > accessors > mutators > booting > boot > booted > custom';
 
     protected const METHOD_ORDER = [
-        0 => 'relationship',
-        1 => 'scope',
-        2 => 'accessor',
-        3 => 'mutator',
-        4 => 'booting',
-        5 => 'boot',
-        6 => 'booted',
-        7 => 'custom',
+        0 => 'booting',
+        1 => 'boot',
+        2 => 'booted',
+        3 => 'custom_static',
+        4 => 'relationship',
+        5 => 'scope',
+        6 => 'accessor',
+        7 => 'mutator',
+        8 => 'custom',
     ];
 
     protected $tests;
