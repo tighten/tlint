@@ -39,6 +39,21 @@ class Thing extends Model
 
     }
 
+    public static function booting()
+    {
+
+    }
+
+    public static function make(array \$attributes)
+    {
+
+    }
+
+    protected static function makeInternal(array \$attributes)
+    {
+
+    }
+
     public function scopeWhereInactive(Builder \$query)
     {
         return \$query->where('is_active', false);
@@ -62,6 +77,11 @@ class Thing extends Model
     public function setLastNameAttribute(\$value)
     {
         \$this->attributes['first_name'] = strtolower(\$value);
+    }
+
+    protected function publish()
+    {
+
     }
 
     public function activate()
@@ -109,23 +129,26 @@ PHP;
         $this->assertInstanceOf(ModelMethodOrder::class, $lints[0]->getLinter());
 
         $this->assertEquals(implode(PHP_EOL, [
-            'Model method order should be: relationships > scopes > accessors > mutators > booting > boot > booted > custom',
+            'Model method order should be: booting > boot > booted > custom_static > relationships > scopes > accessors > mutators > custom',
             'Methods are expected to be ordered like:',
-            ' * category() is matched as "relationship"',
-            ' * phone() is matched as "relationship"',
-            ' * images() is matched as "relationship"',
-            ' * media() is matched as "relationship"',
-            ' * comments() is matched as "relationship"',
-            ' * tags() is matched as "relationship"',
-            ' * scopeWhereInactive() is matched as "scope"',
-            ' * scopeWhereActive() is matched as "scope"',
-            ' * getFirstNameAttribute() is matched as "accessor"',
-            ' * setFirstNameAttribute() is matched as "mutator"',
-            ' * setLastNameAttribute() is matched as "mutator"',
             ' * booting() is matched as "booting"',
             ' * boot() is matched as "boot"',
             ' * booted() is matched as "booted"',
+            ' * make() is matched as "custom_static"',
+            ' * makeInternal() is matched as "custom_static"',
+            ' * category() is matched as "relationship"',
+            ' * comments() is matched as "relationship"',
+            ' * images() is matched as "relationship"',
+            ' * media() is matched as "relationship"',
+            ' * phone() is matched as "relationship"',
+            ' * tags() is matched as "relationship"',
+            ' * scopeWhereActive() is matched as "scope"',
+            ' * scopeWhereInactive() is matched as "scope"',
+            ' * getFirstNameAttribute() is matched as "accessor"',
+            ' * setFirstNameAttribute() is matched as "mutator"',
+            ' * setLastNameAttribute() is matched as "mutator"',
             ' * activate() is matched as "custom"',
+            ' * publish() is matched as "custom"',
         ]), $lints[0]->getLinter()->getLintDescription());
 
         $this->assertEquals(11, $lints[0]->getNode()->getLine());
