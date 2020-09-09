@@ -17,17 +17,18 @@ class ModelMethodOrder extends BaseLinter
     use IdentifiesModelMethodTypes;
     use IdentifiesExtends;
 
-    public const description = 'Model method order should be: relationships > scopes > accessors > mutators > booting > boot > booted > custom';
+    public const description = 'Model method order should be: booting > boot > booted > custom_static > relationships > scopes > accessors > mutators > custom';
 
     protected const METHOD_ORDER = [
-        0 => 'relationship',
-        1 => 'scope',
-        2 => 'accessor',
-        3 => 'mutator',
-        4 => 'booting',
-        5 => 'boot',
-        6 => 'booted',
-        7 => 'custom',
+        0 => 'booting',
+        1 => 'boot',
+        2 => 'booted',
+        3 => 'custom_static',
+        4 => 'relationship',
+        5 => 'scope',
+        6 => 'accessor',
+        7 => 'mutator',
+        8 => 'custom',
     ];
 
     protected $tests;
@@ -38,13 +39,15 @@ class ModelMethodOrder extends BaseLinter
 
         // order of tests is important
         $this->tests = [
-            // first detect the static boot methods
+            // detect the static boot methods
             'booting' => Closure::fromCallable([$this, 'isBootingMethod']),
             'boot' => Closure::fromCallable([$this, 'isBootMethod']),
             'booted' => Closure::fromCallable([$this, 'isBootedMethod']),
-            // second declare everything custom that's not public
+            // declare everything else custom static
+            'custom_static' => Closure::fromCallable([$this, 'isCustomStaticMethod']),
+            // declare everything custom that's not public
             'custom' => Closure::fromCallable([$this, 'isCustomMethod']),
-            // third detect all methods that have to be public
+            // detect all methods that have to be public
             'relationship' => Closure::fromCallable([$this, 'isRelationshipMethod']),
             'scope' => Closure::fromCallable([$this, 'isScopeMethod']),
             'accessor' => Closure::fromCallable([$this, 'isAccessorMethod']),
@@ -82,12 +85,16 @@ class ModelMethodOrder extends BaseLinter
                 }, $methods);
 
                 $methodTypesShouldBeOrderedLike = $methodTypes;
-                uasort($methodTypesShouldBeOrderedLike, function ($typeA, $typeB) {
+                // sort all methods by type and in type blocks alphabetically
+                uksort($methodTypesShouldBeOrderedLike, function ($methodA, $methodB) use ($methodTypes) {
+                    $typeA = $methodTypes[$methodA];
+                    $typeB = $methodTypes[$methodB];
+
                     $sortA = array_flip(self::METHOD_ORDER)[$typeA];
                     $sortB = array_flip(self::METHOD_ORDER)[$typeB];
 
                     if ($sortA == $sortB) {
-                        return 0;
+                        return strnatcasecmp($methodA, $methodB);
                     }
 
                     return ($sortA < $sortB) ? -1 : 1;

@@ -58,6 +58,11 @@ trait IdentifiesModelMethodTypes
             && $stmt->name == 'booted';
     }
 
+    private function isCustomStaticMethod(ClassMethod $stmt)
+    {
+        return $stmt->isStatic();
+    }
+
     private function isCustomMethod(ClassMethod $stmt)
     {
         if ($stmt->isAbstract()) {
