@@ -1,3 +1,3 @@
 FROM php:7.3-cli
-WORKDIR "/home/tightenco"
+WORKDIR "/home/tighten"
 CMD ["./vendor/bin/phpunit"]

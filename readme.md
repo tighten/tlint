@@ -1,4 +1,4 @@
-![TLint Logo](https://raw.githubusercontent.com/tightenco/tlint/master/tlint-banner.png)
+![TLint Logo](https://raw.githubusercontent.com/tighten/tlint/master/tlint-banner.png)
 
 <hr>
 
@@ -40,7 +40,7 @@ return view('view')
     ->with('value', 'Hello, World!');
 ```
 
-> In this case [TLint](https://github.com/tightenco/tlint) will warn if you are not using the **B)** method.
+> In this case [TLint](https://github.com/tighten/tlint) will warn if you are not using the **B)** method.
 > This example is a sort of "meta layer" of code linting, allowing teams to avoid higher level sticking points of code review / discussions.
 
 > TLint also has more immediately useful lints that can supplement your editor/IDE such as:
@@ -163,7 +163,7 @@ This lets you define whatever custom linting functionality, or modify the existi
 ## General PHP
 - No leading slashes in namespaces or static calls or instantiations. `RemoveLeadingSlashNamespaces`
 - Fully qualified class name only when it's being used a string (class name). `QualifiedNamesOnlyForClassName`
-- Class "things" should follow the ordering presented in the [handbook](https://github.com/tightenco/handbook/tree/master/coding-standards/php#classesobjects). `ClassThingsOrder`
+- Class "things" should follow the ordering presented in the [handbook](https://github.com/tighten/handbook/tree/master/coding-standards/php#classesobjects). `ClassThingsOrder`
 - Sort imports alphabetically `AlphabeticalImports`
 - Trailing commas on arrays `TrailingCommasOnArrays`
 - No parenthesis on empty instantiations `NoParensEmptyInstantiations`
@@ -172,11 +172,11 @@ This lets you define whatever custom linting functionality, or modify the existi
 - Never use string interpolation without braces `NoStringInterpolationWithoutBraces`
 - Spaces around concat operators, and start additional lines with concat `ConcatenationSpacing`
 - File should end with a new line `NewLineAtEndOfFile`
-- No /** @var ClassName $var */ inline docs `NoInlineVarDocs` (https://github.com/tightenco/tlint/issues/108)
+- No /** @var ClassName $var */ inline docs `NoInlineVarDocs` (https://github.com/tighten/tlint/issues/108)
 - There should be no unused imports `NoUnusedImports`
 
 ## PHPUnit
-- There should be no method visibility in test methods `NoMethodVisibilityInTests` (https://github.com/tightenco/tlint/issues/106#issuecomment-537952774)
+- There should be no method visibility in test methods `NoMethodVisibilityInTests` (https://github.com/tighten/tlint/issues/106#issuecomment-537952774)
 
 ## Laravel
 - Use with over array parameters in view(). `ViewWithOverArrayParameters`
