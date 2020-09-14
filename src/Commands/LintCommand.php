@@ -129,12 +129,15 @@ class LintCommand extends BaseCommand
             ]);
 
             foreach ($lints as $lint) {
-                [$title, $codeLine] = explode(PHP_EOL, (string) $lint);
+                $lines = explode(PHP_EOL, (string) $lint);
+                $title = array_shift($lines);
+                $codeLine = array_pop($lines);
 
-                $output->writeln([
-                    "<fg=yellow>{$title}</>",
-                    $codeLine,
-                ]);
+                $output->writeln("<fg=yellow>{$title}</>");
+                if (! empty($lines)) {
+                    $output->writeln($lines);
+                }
+                $output->writeln("<fg=magenta>{$codeLine}</>");
             }
 
             $output->writeln(['']);
