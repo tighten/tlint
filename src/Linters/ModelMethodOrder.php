@@ -48,10 +48,10 @@ class ModelMethodOrder extends BaseLinter
             // declare everything custom that's not public
             'custom' => Closure::fromCallable([$this, 'isCustomMethod']),
             // detect all methods that have to be public
-            'relationship' => Closure::fromCallable([$this, 'isRelationshipMethod']),
             'scope' => Closure::fromCallable([$this, 'isScopeMethod']),
             'accessor' => Closure::fromCallable([$this, 'isAccessorMethod']),
             'mutator' => Closure::fromCallable([$this, 'isMutatorMethod']),
+            'relationship' => Closure::fromCallable([$this, 'isRelationshipMethod']),
         ];
     }
 
