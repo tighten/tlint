@@ -79,14 +79,16 @@ class Thing extends Model
         \$this->attributes['first_name'] = strtolower(\$value);
     }
 
-    protected function publish()
+    protected function publish(): ?self
     {
-
+        return \$this->exists ? \$this : null;
     }
 
     public function activate()
     {
         \$this->is_active = true;
+
+        return true;
     }
 
     public function phone(): HasOne

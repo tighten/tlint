@@ -2,6 +2,7 @@
 
 namespace Tighten\Concerns;
 
+use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
@@ -86,7 +87,9 @@ trait IdentifiesModelMethodTypes
             return false;
         }
 
-        if (in_array(lcfirst($stmt->getReturnType()), self::$relationshipMethods)) {
+        /** @see NullableType */
+        $returnType = (string) ($stmt->getReturnType()->type ?? $stmt->getReturnType());
+        if (in_array(lcfirst($returnType), self::$relationshipMethods)) {
             return true;
         }
 
@@ -104,7 +107,7 @@ trait IdentifiesModelMethodTypes
         }
 
         if (
-            $returnStmt->expr->var->name == 'this'
+            $returnStmt->expr->var->name ?? null == 'this'
             && in_array($returnStmt->expr->name, self::$relationshipMethods)
         ) {
             return true;
