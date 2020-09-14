@@ -135,7 +135,7 @@ class LintCommand extends BaseCommand
 
                 $output->writeln("<fg=yellow>{$title}</>");
                 if (! empty($lines)) {
-                    $output->writeln($lines);
+                    $output->writeln($lines, OutputInterface::OUTPUT_NORMAL | OutputInterface::VERBOSITY_VERBOSE);
                 }
                 $output->writeln("<fg=magenta>{$codeLine}</>");
             }
