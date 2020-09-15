@@ -60,7 +60,7 @@ class ModelMethodOrder extends BaseLinter
         $traverser = new NodeTraverser;
 
         $visitor = new FindingVisitor(function (Node $node) {
-            if ($this->extends($node, 'Model') || $this->extends($node, 'Pivot')) {
+            if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
                 // get all methods on class
                 $methods = array_filter($node->stmts, function ($stmt) {
                     return $stmt instanceof ClassMethod;
