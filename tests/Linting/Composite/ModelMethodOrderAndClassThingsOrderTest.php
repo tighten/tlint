@@ -3,6 +3,8 @@
 namespace tests\Linting\Composite;
 
 use PHPUnit\Framework\TestCase;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Tighten\Linters\ClassThingsOrder;
 use Tighten\Linters\ModelMethodOrder;
 use Tighten\TLint;
@@ -11,10 +13,14 @@ class ModelMethodOrderAndClassThingsOrderTest extends TestCase
 {
     /**
      * @test
-     * @dataProvider models
+     * @dataProvider modelFixtures
      */
-    public function a_valid_sorted_model_passes_both_linters(string $file): void
+    public function a_valid_sorted_model_passes_both_linters(string $file, string $extension): void
     {
+        if ($extension === 'pending') {
+            $this->markTestSkipped('Model fixture is flagged as pending.');
+        }
+
         $lints = [];
         $lints += (new TLint)->lint(
             new ModelMethodOrder($file),
@@ -26,121 +32,24 @@ class ModelMethodOrderAndClassThingsOrderTest extends TestCase
         $this->assertEmpty($lints);
     }
 
-    public function models(): array
+    public function modelFixtures(): array
     {
-        return [
-            [
-                <<<PHP
-<?php
+        $models = [];
 
-namespace App;
+        $models['Thing'] = [file_get_contents(__DIR__ . '/../../fixtures/Models/Valid/Thing.php'), 'php'];
 
-class Post extends Model
-{
-    use Notifiable;
+        $dir = realpath(__DIR__ . '/../../fixtures/Models/RealWorld');
+        $directoryIterator = new RecursiveDirectoryIterator($dir);
+        $iterator = new RecursiveIteratorIterator($directoryIterator);
+        foreach ($iterator as $fileInfo) {
+            if (! $fileInfo->isFile()) continue;
+            if (! $fileInfo->isReadable()) continue;
+            if (! in_array($fileInfo->getExtension(), ['php', 'pending'])) continue;
 
-    protected \$fillable = [];
-    protected \$guarded = [];
-    protected \$hidden = [];
-    protected \$casts = [];
-    protected \$dates = [];
+            $name = trim(str_replace([$dir, '.php'], '', $fileInfo->getPathname()), '/');
+            $models[$name] = [file_get_contents($fileInfo->getPathname()), $fileInfo->getExtension()];
+        }
 
-    public static function booting(){}
-
-    public static function boot(){}
-
-    public static function booted(){}
-
-    public static function fromDraft(){}
-
-    protected static function toDraft(){}
-
-    public function author(): BelongsTo {}
-
-    public function scopeWhereIsPublished(){}
-
-    public function getPasswordAttribute(){}
-
-    public function setPasswordAttribute(){}
-
-    public function publish(){}
-
-    public function unpublish(){}
-
-    protected function drafting(){}
-}
-PHP
-            ],
-            [
-                <<<PHP
-<?php
-
-namespace App\Models;
-
-class Song extends Model implements HasMedia
-{
-    use Actionable;
-    use HasTranslatableSections;
-    use InteractsWithMedia;
-    use Searchable;
-    use Sluggable;
-
-    protected \$appends = ['slug', 'title_with_translation'];
-
-    protected \$guarded = [];
-
-    protected \$hidden = ['internal_note'];
-
-    protected static function boot()
-    {
-    }
-
-    public function culture(): BelongsTo
-    {
-    }
-
-    public function tenants(): BelongsToMany
-    {
-    }
-
-    public function sections(): HasMany
-    {
-    }
-
-    public function scopeNotOnCurrentTenant(Builder \$query): void
-    {
-    }
-
-    public function scopePublished(Builder \$query): void
-    {
-    }
-
-    public function getTitleWithTranslationAttribute()
-    {
-    }
-
-    public function loadOrderedTranslatedSections(): self
-    {
-    }
-
-    public function url(): string
-    {
-    }
-
-    public function registerMediaCollections(): void
-    {
-    }
-
-    public function toSearchableArray(): array
-    {
-    }
-
-    public function shouldBeSearchable(): bool
-    {
-    }
-}
-PHP
-            ],
-        ];
+        return $models;
     }
 }
