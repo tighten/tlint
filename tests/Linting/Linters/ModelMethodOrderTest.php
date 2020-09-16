@@ -19,6 +19,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -151,6 +152,6 @@ PHP;
             ' * publish() is matched as "custom"',
         ]), $lints[0]->getLinter()->getLintDescription());
 
-        $this->assertEquals(11, $lints[0]->getNode()->getLine());
+        $this->assertEquals(12, $lints[0]->getNode()->getLine());
     }
 }

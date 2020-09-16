@@ -5,8 +5,9 @@ namespace Tighten\Linters;
 use Closure;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\NodeFinder;
 use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
+use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
 use Tighten\Concerns\IdentifiesExtends;
@@ -58,72 +59,73 @@ class ModelMethodOrder extends BaseLinter
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser;
+        $traverser->addVisitor(new NameResolver());
 
-        $visitor = new FindingVisitor(function (Node $node) {
-            if ($this->extends($node, 'Model')) {
-                // get all methods on class
-                $methods = array_filter($node->stmts, function ($stmt) {
-                    return $stmt instanceof ClassMethod;
-                });
-                // key by method name
-                $methods = array_combine(
-                    array_map(function (ClassMethod $stmt) {
-                        return $stmt->name;
-                    }, $methods),
-                    $methods
-                );
+        $nodes = $traverser->traverse($parser->parse($this->code));
 
-                // resolve method type
-                $methodTypes = array_map(function (ClassMethod $stmt) {
-                    foreach ($this->tests as $label => $test) {
-                        if ($test($stmt)) {
-                            return $label;
-                        }
-                    }
+        return (new NodeFinder())->find(
+            $nodes,
+            function (Node $node): bool {
+                return $node instanceof Node\Stmt\Class_
+                    && $this->extends($node, 'Illuminate\Database\Eloquent\Model')
+                    && ! $this->lintModel($node);
+            }
+        );
+    }
 
-                    return 'custom';
-                }, $methods);
+    protected function lintModel(Node\Stmt\Class_ $node): bool
+    {
+        // get all methods on class
+        $methods = $node->getMethods();
 
-                $methodTypesShouldBeOrderedLike = $methodTypes;
-                // sort all methods by type and in type blocks alphabetically
-                uksort($methodTypesShouldBeOrderedLike, function ($methodA, $methodB) use ($methodTypes) {
-                    $typeA = $methodTypes[$methodA];
-                    $typeB = $methodTypes[$methodB];
+        // key by method name
+        $methods = array_combine(
+            array_map(function (ClassMethod $stmt) {
+                return $stmt->name;
+            }, $methods),
+            $methods
+        );
 
-                    $sortA = array_flip(self::METHOD_ORDER)[$typeA];
-                    $sortB = array_flip(self::METHOD_ORDER)[$typeB];
-
-                    if ($sortA == $sortB) {
-                        return strnatcasecmp($methodA, $methodB);
-                    }
-
-                    return ($sortA < $sortB) ? -1 : 1;
-                });
-
-                $this->setLintDescription(
-                    self::description . PHP_EOL
-                    . 'Methods are expected to be ordered like:' . PHP_EOL
-                    . implode(
-                        PHP_EOL,
-                        array_map(function(string $method, string $type) {
-                            return sprintf(' * %s() is matched as "%s"', $method, $type);
-                        }, array_keys($methodTypesShouldBeOrderedLike), array_values($methodTypesShouldBeOrderedLike))
-                    )
-                );
-
-                $uniqueMethodTypes = array_values(array_unique($methodTypes));
-
-                return $uniqueMethodTypes
-                    !== array_values(array_intersect(self::METHOD_ORDER, $uniqueMethodTypes));
+        // resolve method type
+        $methodTypes = array_map(function (ClassMethod $stmt) {
+            foreach ($this->tests as $label => $test) {
+                if ($test($stmt)) {
+                    return $label;
+                }
             }
 
-            return false;
+            return 'custom';
+        }, $methods);
+
+        $methodTypesShouldBeOrderedLike = $methodTypes;
+        // sort all methods by type and in type blocks alphabetically
+        uksort($methodTypesShouldBeOrderedLike, function ($methodA, $methodB) use ($methodTypes) {
+            $typeA = $methodTypes[$methodA];
+            $typeB = $methodTypes[$methodB];
+
+            $sortA = array_flip(self::METHOD_ORDER)[$typeA];
+            $sortB = array_flip(self::METHOD_ORDER)[$typeB];
+
+            if ($sortA == $sortB) {
+                return strnatcasecmp($methodA, $methodB);
+            }
+
+            return ($sortA < $sortB) ? -1 : 1;
         });
 
-        $traverser->addVisitor($visitor);
+        $this->setLintDescription(
+            self::description . PHP_EOL
+            . 'Methods are expected to be ordered like:' . PHP_EOL
+            . implode(
+                PHP_EOL,
+                array_map(function(string $method, string $type) {
+                    return sprintf(' * %s() is matched as "%s"', $method, $type);
+                }, array_keys($methodTypesShouldBeOrderedLike), array_values($methodTypesShouldBeOrderedLike))
+            )
+        );
 
-        $traverser->traverse($parser->parse($this->code));
+        $uniqueMethodTypes = array_values(array_unique($methodTypes));
 
-        return $visitor->getFoundNodes();
+        return $uniqueMethodTypes === array_values(array_intersect(self::METHOD_ORDER, $uniqueMethodTypes));
     }
 }

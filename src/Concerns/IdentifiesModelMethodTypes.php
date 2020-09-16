@@ -20,6 +20,18 @@ trait IdentifiesModelMethodTypes
         'morphedByMany',
     ];
 
+    private static $relationshipReturnTypes = [
+        'Illuminate\Database\Eloquent\Relations\HasOne',
+        'Illuminate\Database\Eloquent\Relations\BelongsTo',
+        'Illuminate\Database\Eloquent\Relations\HasMany',
+        'Illuminate\Database\Eloquent\Relations\BelongsToMany',
+        'Illuminate\Database\Eloquent\Relations\HasManyThrough',
+        'Illuminate\Database\Eloquent\Relations\MorphTo',
+        'Illuminate\Database\Eloquent\Relations\MorphMany',
+        'Illuminate\Database\Eloquent\Relations\MorphToMany',
+        'Illuminate\Database\Eloquent\Relations\MorphedByMany',
+    ];
+
     private function isScopeMethod(ClassMethod $stmt)
     {
         return strpos($stmt->name, 'scope') === 0;
@@ -86,7 +98,7 @@ trait IdentifiesModelMethodTypes
             return false;
         }
 
-        if (in_array(lcfirst($stmt->getReturnType()), self::$relationshipMethods)) {
+        if (in_array((string) $stmt->getReturnType(), self::$relationshipReturnTypes)) {
             return true;
         }
 
