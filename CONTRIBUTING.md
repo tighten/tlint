@@ -16,31 +16,33 @@ When requesting or submitting new features, first consider whether it might be u
 
 Before filing an issue:
 
-- Attempt to replicate the problem, to ensure that it wasn't a coincidental incident.
-- Check to make sure your feature suggestion isn't already present within the project.
-- Check the pull requests tab to ensure that the bug doesn't have a fix in progress.
-- Check the pull requests tab to ensure that the feature isn't already in progress.
+-   Attempt to replicate the problem, to ensure that it wasn't a coincidental incident.
+-   Check to make sure your feature suggestion isn't already present within the project.
+-   Check the pull requests tab to ensure that the bug doesn't have a fix in progress.
+-   Check the pull requests tab to ensure that the feature isn't already in progress.
 
 Before submitting a pull request:
 
-- Check the codebase to ensure that your feature doesn't already exist.
-- Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
+-   Check the codebase to ensure that your feature doesn't already exist.
+-   Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
 
 ## Requirements
 
-- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - The easiest way to apply the conventions is to install [PHP Code Sniffer](https://pear.php.net/package/PHP_CodeSniffer).
+-   **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - The easiest way to apply the conventions is to install [PHP Code Sniffer](https://pear.php.net/package/PHP_CodeSniffer).
 
-- **Tlint styles** - Changes to tlint should pass tlint checks (default, tighten flavor).
+-   **Tlint styles** - Changes to tlint should pass tlint checks (default, tighten flavor).
 
-- **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
+-   **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
 
 ## Running Tests Locally
-- If you want to run tests locally, you can run them normally through phpunit
+
+-   If you want to run tests locally, you can run them normally through phpunit
+
 ```
 > phpunit
 ```
 
-- Alternatively if you have Docker Engine installed, you can run tests in multiple PHP environments at once. Just run the following commands from the root directory:
+-   Alternatively if you have Docker Engine installed, you can run tests in multiple PHP environments at once. Just run the following commands from the root directory:
 
 ```
 > sudo composer buildTestEnvironments
@@ -51,6 +53,7 @@ Before submitting a pull request:
 a new PHP environment is added to the testing environments directory.
 
 ## Check Coverage
+
 ```
 > phpdbg -qrr ./vendor/bin/phpunit --coverage-text
 ```
