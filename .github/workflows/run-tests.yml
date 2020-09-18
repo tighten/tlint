@@ -19,7 +19,6 @@ jobs:
           - php: 8.0
             os: ubuntu-latest
             dependency-version: prefer-stable
-            experimental: true
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
@@ -45,9 +44,10 @@ jobs:
             dependencies-php-
 
       - name: Install dependencies
+        id: composer-run
         continue-on-error: true
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
-        if: success()
+        if: ${{ steps.composer-run.outcome == success && steps.composer-run.conclusion == success }}
         run: vendor/bin/phpunit
