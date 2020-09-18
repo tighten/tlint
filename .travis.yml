@@ -4,6 +4,7 @@ php:
     - 7.4
     - nightly
 before_script:
+    - composer validate --strict
     - composer install --dev --no-interaction
     - composer dump-autoload
 matrix:
