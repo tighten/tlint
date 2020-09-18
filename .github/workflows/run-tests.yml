@@ -10,43 +10,39 @@ jobs:
   test:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
 
-    runs-on: ${{ matrix.os }}
-
-    continue-on-error: ${{ matrix.experimental }}
-
     strategy:
-      fail-fast: true
       matrix:
         php: [7.4, 7.3]
-        dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest, macos-latest]
-        experimental: [false]
-# Removing until https://github.com/actions/toolkit/issues/399 is resolved (red X on allowed failures) #
-#        include:
-#          - php: 8.0
-#            os: ubuntu-latest
-#            experimental: true
+        dependency-version: [prefer-lowest, prefer-stable]
+        include:
+          - php: 8.0
+            os: ubuntu-latest
+            dependency-version: prefer-stable
+            experimental: true
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: ~/.composer/cache/files
-          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-          keys: |
-            dependencies-php-${{ matrix.php }}-composer-
-            dependencies-php-
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v1
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlit3, pdo_sqlite
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: |
+            dependencies-php-${{ matrix.php }}-composer-
+            dependencies-php-
 
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
