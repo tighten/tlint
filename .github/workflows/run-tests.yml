@@ -25,13 +25,18 @@ jobs:
           - php: 8.0
             os: ubuntu-latest
             experimental: true
-            continue-on-error: true 
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlit3, pdo_sqlite
 
       - name: Cache dependencies
         uses: actions/cache@v1
@@ -42,14 +47,9 @@ jobs:
             dependencies-php-${{ matrix.php }}-composer-
             dependencies-php-
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v1
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlit3, pdo_sqlite
-
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
+        if: ${{ matrix.php }} == '8.0' && succeeded()
         run: vendor/bin/phpunit
