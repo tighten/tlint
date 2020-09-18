@@ -23,6 +23,7 @@ jobs:
         experimental: [false]
         include:
           - php: 8.0
+            os: ${{ matrix.os }}
             experimental: true
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
