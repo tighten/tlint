@@ -13,12 +13,4 @@ class VersionTest extends TestCase
     {
         $this->assertNotEmpty(version());
     }
-
-    /** @test */
-    function version_is_updated()
-    {
-        $checkTag = Process::fromShellCommandline('git describe --abbrev=0 --tag');
-        $checkTag->run();
-        $this->assertEquals(trim($checkTag->getOutput()), version());
-    }
 }

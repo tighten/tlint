@@ -17,13 +17,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [8.0, 7.4, 7.3]
+        php: [7.4, 7.3]
         dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest, windows-latest, macos-latest]
         experimental: [false]
         include:
           - php: 8.0
-            os: ${{ matrix.os }}
+            os: ubuntu-latest
             experimental: true
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
