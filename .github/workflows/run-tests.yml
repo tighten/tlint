@@ -49,5 +49,5 @@ jobs:
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
-        if: ${{ steps.composer-run.outcome == success && steps.composer-run.conclusion == success }}
+        if: steps.composer-run.outcome == success && steps.composer-run.conclusion == success
         run: vendor/bin/phpunit
