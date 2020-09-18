@@ -2,7 +2,6 @@
     "name": "tightenco/tlint",
     "description": "Tighten linter for Laravel conventions",
     "homepage": "https://github.com/tighten/tlint",
-    "version": "5.0.3",
     "license": "MIT",
     "authors": [
         {
