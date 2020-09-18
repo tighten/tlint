@@ -21,11 +21,11 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest, macos-latest]
         experimental: [false]
-# Removing until https://github.com/actions/toolkit/issues/399 is resolved (red X on allowed failures) #
-#        include:
-#          - php: 8.0
-#            os: ubuntu-latest
-#            experimental: true
+        include:
+          - php: 8.0
+            os: ubuntu-latest
+            experimental: true
+            continue-on-error: true 
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
