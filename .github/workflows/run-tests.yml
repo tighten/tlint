@@ -43,7 +43,7 @@ jobs:
         with:
           path: ~/.composer/cache/files
           key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-          keys: |
+          restore-keys: |
             dependencies-php-${{ matrix.php }}-composer-
             dependencies-php-
 
@@ -51,5 +51,5 @@ jobs:
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
-        if: ${{ matrix.php }} == '8.0' && succeeded()
+        if: succeeded()
         run: vendor/bin/phpunit
