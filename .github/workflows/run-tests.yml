@@ -11,6 +11,7 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
 
     strategy:
+      fail-fast: true
       matrix:
         php: [7.4, 7.3]
         os: [ubuntu-latest, macos-latest]
@@ -49,5 +50,5 @@ jobs:
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
-        if: steps.composer-run.outcome == 'success' && steps.composer-run.conclusion == 'success'
+        if: matrix.php != '8.0' || ( steps.composer-run.outcome == 'success' && steps.composer-run.conclusion == 'success' )
         run: vendor/bin/phpunit
