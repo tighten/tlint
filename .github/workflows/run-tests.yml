@@ -18,7 +18,7 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.4, 7.3]
-        dependency-version: [prefer-lowest, prefer-stable]
+        dependency-version: [lowest, highest]
         os: [ubuntu-latest, macos-latest]
         experimental: [false]
 # Removing until https://github.com/actions/toolkit/issues/399 is resolved (red X on allowed failures) #
@@ -33,23 +33,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: ~/.composer/cache/files
-          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-          keys: |
-            dependencies-php-${{ matrix.php }}-composer-
-            dependencies-php-
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v1
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlit3, pdo_sqlite
 
-      - name: Install dependencies
-        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+      - uses: "ramsey/composer-install@v1"
+        with:
+          dependency-versions: ${{ matrix.dependency-version }}
 
       - name: Execute tests
         run: vendor/bin/phpunit
