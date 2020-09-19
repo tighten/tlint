@@ -10,16 +10,20 @@ jobs:
   test:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
 
-    runs-on: ${{ matrix.os }}
-
     strategy:
       fail-fast: true
       matrix:
         php: [7.4, 7.3, 8.0]
-        dependency-version: [lowest, highest]
         os: [ubuntu-latest, macos-latest]
+        dependency-version: [lowest, highest]
+        include:
+          - php: 8.0
+            os: ubuntu-latest
+            dependency-version: highest
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout code
@@ -29,11 +33,14 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlit3, pdo_sqlite
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite3, pdo_sqlite
 
-      - uses: "ramsey/composer-install@v1"
+      - uses: ramsey/composer-install@v1
+        id: composer-run
+        continue-on-error: true
         with:
           dependency-versions: ${{ matrix.dependency-version }}
 
       - name: Execute tests
+        if: matrix.php != '8.0' || ( steps.composer-run.outcome == 'success' && steps.composer-run.conclusion == 'success' )
         run: vendor/bin/phpunit
