@@ -10,16 +10,14 @@ jobs:
   test:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
 
+    runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: true
       matrix:
         php: [7.4, 7.3]
+        dependency-version: [lowest, highest]
         os: [ubuntu-latest, macos-latest]
-        dependency-version: [prefer-lowest, prefer-stable]
-        include:
-          - php: 8.0
-            os: ubuntu-latest
-            dependency-version: prefer-stable
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
@@ -35,19 +33,9 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlit3, pdo_sqlite
 
-      - name: Cache dependencies
-        uses: actions/cache@v1
+      - uses: "ramsey/composer-install@v1"
         with:
-          path: ~/.composer/cache/files
-          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: |
-            dependencies-php-${{ matrix.php }}-composer-
-            dependencies-php-
-
-      - name: Install dependencies
-        id: composer-run
-        continue-on-error: true
-        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+          dependency-versions: ${{ matrix.dependency-version }}
 
       - name: Execute tests
         if: matrix.php != '8.0' || ( steps.composer-run.outcome == 'success' && steps.composer-run.conclusion == 'success' )
