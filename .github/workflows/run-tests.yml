@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 7.3]
+        php: [7.4, 7.3, 8.0]
         os: [ubuntu-latest, macos-latest]
         dependency-version: [lowest, highest]
         include:

@@ -33,5 +33,10 @@
     "scripts": {
         "buildTestEnvironments": "./scripts/buildTestEnvironments.sh",
         "runTests": "./scripts/runTests.sh"
+    },
+    "config": {
+        "platform": {
+            "php": "7.3.0"
+        }
     }
 }
