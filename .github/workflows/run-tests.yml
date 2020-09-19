@@ -1,0 +1,39 @@
+name: run-tests
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  test:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [7.4, 7.3]
+        dependency-version: [lowest, highest]
+        os: [ubuntu-latest, macos-latest]
+
+    name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlit3, pdo_sqlite
+
+      - uses: "ramsey/composer-install@v1"
+        with:
+          dependency-versions: ${{ matrix.dependency-version }}
+
+      - name: Execute tests
+        run: vendor/bin/phpunit
