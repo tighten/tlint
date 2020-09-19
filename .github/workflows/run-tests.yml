@@ -10,8 +10,6 @@ jobs:
   test:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
 
-    runs-on: ${{ matrix.os }}
-
     strategy:
       fail-fast: true
       matrix:
@@ -33,7 +31,9 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlit3, pdo_sqlite
 
-      - uses: "ramsey/composer-install@v1"
+      - uses: ramsey/composer-install@v1
+        id: composer-run
+        continue-on-error: true
         with:
           dependency-versions: ${{ matrix.dependency-version }}
 
