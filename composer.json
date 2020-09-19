@@ -19,6 +19,11 @@
     "require-dev": {
         "phpunit/phpunit": "^9.3"
     },
+    "config": {
+        "platform": {
+            "php": "7.3.0"
+        }
+    },
     "autoload": {
         "psr-4": {
             "Tighten\\": "src/"
@@ -33,10 +38,5 @@
     "scripts": {
         "buildTestEnvironments": "./scripts/buildTestEnvironments.sh",
         "runTests": "./scripts/runTests.sh"
-    },
-    "config": {
-        "platform": {
-            "php": "7.3.0"
-        }
     }
 }
