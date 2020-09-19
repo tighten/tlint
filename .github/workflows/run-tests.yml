@@ -16,10 +16,6 @@ jobs:
         php: [7.4, 7.3, 8.0]
         os: [ubuntu-latest, macos-latest]
         dependency-version: [lowest, highest]
-        include:
-          - php: 8.0
-            os: ubuntu-latest
-            dependency-version: highest
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
