@@ -7,7 +7,6 @@ use BenSampo\Enum\Traits\CastsEnums;
 use Laravel\Nova\Actions\Actionable;
 use Laravel\Scout\Searchable;
 
-// @todo: https://github.com/tighten/tlint/pull/169
 class Event extends Model
 {
     use Actionable,
@@ -20,6 +19,15 @@ class Event extends Model
         Concerns\Publishable,
         Concerns\Validatable,
         Searchable;
+
+    public $translatable = [
+        'name',
+        'description',
+        'organizer_name',
+        'organizer_description',
+        'place_name',
+        'directions',
+    ];
 
     protected $attributes = [
         'files' => '[]',
@@ -49,15 +57,6 @@ class Event extends Model
 
     protected $hidden = [
         'notes',
-    ];
-
-    public $translatable = [
-        'name',
-        'description',
-        'organizer_name',
-        'organizer_description',
-        'place_name',
-        'directions',
     ];
 
     public static function draftRules(): array
@@ -175,16 +174,6 @@ class Event extends Model
         ]);
     }
 
-    public function getTagSlugsAttribute(): array
-    {
-        return $this->tags->pluck('slug')->all();
-    }
-
-    public function setTagSlugsAttribute(array $tags)
-    {
-        $this->tags()->sync(Tag::whereIn('slug', $tags)->get());
-    }
-
     public function collections()
     {
         return $this->belongsToMany(Collection::class)
@@ -200,11 +189,6 @@ class Event extends Model
             ->withTimestamps();
     }
 
-    public function getHubAttribute(): ?Hub
-    {
-        return $this->hubs->where('published_at', '!=', null)->firstWhere('invitation.accepted_at', '!=', null);
-    }
-
     public function province()
     {
         return $this->belongsTo(Province::class);
@@ -218,6 +202,21 @@ class Event extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getTagSlugsAttribute(): array
+    {
+        return $this->tags->pluck('slug')->all();
+    }
+
+    public function getHubAttribute(): ?Hub
+    {
+        return $this->hubs->where('published_at', '!=', null)->firstWhere('invitation.accepted_at', '!=', null);
+    }
+
+    public function setTagSlugsAttribute(array $tags)
+    {
+        $this->tags()->sync(Tag::whereIn('slug', $tags)->get());
     }
 
     /**
