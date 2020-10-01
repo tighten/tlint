@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-// @todo: https://github.com/tighten/tlint/issues/175
 class EventHub extends Pivot
 {
     public $incrementing = true;
@@ -20,6 +19,21 @@ class EventHub extends Pivot
         'declined_at',
     ];
 
+    public function getIsAcceptedAttribute(): bool
+    {
+        return isset($this->accepted_at);
+    }
+
+    public function getIsDeclinedAttribute(): bool
+    {
+        return isset($this->declined_at);
+    }
+
+    public function getIsPendingAttribute(): bool
+    {
+        return ! $this->accepted && ! $this->declined;
+    }
+
     public function accept()
     {
         $this->update([
@@ -34,20 +48,5 @@ class EventHub extends Pivot
             'accepted_at' => null,
             'declined_at' => now(),
         ]);
-    }
-
-    public function getIsAcceptedAttribute(): bool
-    {
-        return isset($this->accepted_at);
-    }
-
-    public function getIsDeclinedAttribute(): bool
-    {
-        return isset($this->declined_at);
-    }
-
-    public function getIsPendingAttribute(): bool
-    {
-        return ! $this->accepted && ! $this->declined;
     }
 }

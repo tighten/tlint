@@ -106,9 +106,16 @@ trait IdentifiesModelMethodTypes
             return false;
         }
 
+        $expr = $returnStmt->expr ?? null;
+        $var = $expr->var ?? null;
+        while ($var !== null && property_exists($var, 'var')) {
+            $expr = $var;
+            $var = $var->var;
+        }
+
         if (
-            $returnStmt->expr->var->name ?? null == 'this'
-            && in_array($returnStmt->expr->name, self::$relationshipMethods)
+            strval($var->name ?? null) === 'this'
+            && in_array($expr->name, self::$relationshipMethods)
         ) {
             return true;
         }

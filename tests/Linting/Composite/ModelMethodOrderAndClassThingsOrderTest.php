@@ -29,7 +29,10 @@ class ModelMethodOrderAndClassThingsOrderTest extends TestCase
             new ClassThingsOrder($file),
         );
 
-        $this->assertEmpty($lints);
+        $this->assertEmpty(
+            $lints,
+            !empty($lints) ? $lints[0]->getLinter()->getLintDescription() : ''
+        );
     }
 
     public function modelFixtures(): array

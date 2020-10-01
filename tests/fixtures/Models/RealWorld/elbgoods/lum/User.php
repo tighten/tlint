@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// @todo: https://github.com/tighten/tlint/issues/175
 class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalData
 {
     use Notifiable, HasApiTokens, HasEnums, UsesUUID, Recoverable, LogsActivity, CausesActivity, HasTransactionalCalls;
@@ -10,18 +9,12 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
     protected static $logOnlyDirty = true;
     protected static $submitEmptyLogs = false;
     protected static $logAttributes = [];
-
     protected $rememberTokenName = null;
     protected string $recoveryCodesName = 'two_factor_recovery_codes';
-
     protected $fillable = [];
-
     protected $hidden = [];
-
     protected $casts = [];
-
     protected $dates = [];
-
     protected $enums = [
         'gender' => GenderEnum::class,
     ];
@@ -41,6 +34,30 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
         return $this->hasMany(RelationThree::class);
     }
 
+    public function scopeWhereEmail(Builder $query, string $email): Builder
+    {
+        return $query->where('email', Str::lower($email));
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
+    public function setEmailAttribute(string $value): void
+    {
+        $this->attributes['email'] = Str::lower($value);
+    }
+
+    public function setPasswordAttribute(string $value): void
+    {
+        if (Hash::info($value)['algo'] === null) {
+            $value = Hash::make($value);
+        }
+
+        $this->attributes['password'] = $value;
+    }
+
     public function routeNotificationForMail(Notification $notification = null)
     {
         if ($notification instanceof VerifyUpdatingEmailNotification) {
@@ -48,11 +65,6 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
         }
 
         return $this->email;
-    }
-
-    public function getNameAttribute()
-    {
-        return $this->first_name.' '.$this->last_name;
     }
 
     public function sendEmailVerificationNotification()
@@ -103,25 +115,6 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
             $otp,
             floor($this->two_factor_last_verified_at->timestamp / $google2fa->getKeyRegeneration())
         );
-    }
-
-    public function setPasswordAttribute(string $value): void
-    {
-        if (Hash::info($value)['algo'] === null) {
-            $value = Hash::make($value);
-        }
-
-        $this->attributes['password'] = $value;
-    }
-
-    public function setEmailAttribute(string $value): void
-    {
-        $this->attributes['email'] = Str::lower($value);
-    }
-
-    public function scopeWhereEmail(Builder $query, string $email): Builder
-    {
-        return $query->where('email', Str::lower($email));
     }
 
     public function personalDataExportName(): string
