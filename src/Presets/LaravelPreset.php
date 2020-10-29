@@ -9,6 +9,7 @@ class LaravelPreset implements PresetInterface
     public function getLinters() : array
     {
         return [
+            Linters\AlphabeticalImports::class,
             Linters\ApplyMiddlewareInRoutes::class,
             Linters\ArrayParametersOverViewWith::class,
             Linters\ClassThingsOrder::class,
