@@ -4,5 +4,5 @@ namespace Tighten;
 
 function version()
 {
-    return "v5.0.6";
+    return "v5.0.7";
 }
