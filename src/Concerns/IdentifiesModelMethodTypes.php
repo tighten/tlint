@@ -2,7 +2,6 @@
 
 namespace Tighten\Concerns;
 
-use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;

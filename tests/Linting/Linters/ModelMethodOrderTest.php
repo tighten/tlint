@@ -11,7 +11,7 @@ class ModelMethodOrderTest extends TestCase
     /** @test */
     function catches_wrong_order_for_model_methods()
     {
-        $file = file_get_contents(__DIR__.'/../../fixtures/Models/Invalid/Thing.php');
+        $file = file_get_contents(__DIR__ . '/../../fixtures/Models/Invalid/Thing.php');
 
         $lints = (new TLint)->lint(
             new ModelMethodOrder($file)

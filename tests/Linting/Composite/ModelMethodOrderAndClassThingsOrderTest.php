@@ -15,7 +15,7 @@ class ModelMethodOrderAndClassThingsOrderTest extends TestCase
      * @test
      * @dataProvider modelFixtures
      */
-    public function a_valid_sorted_model_passes_both_linters(string $file, string $extension): void
+    function a_valid_sorted_model_passes_both_linters(string $file, string $extension): void
     {
         if ($extension === 'pending') {
             $this->markTestSkipped('Model fixture is flagged as pending.');
@@ -31,11 +31,11 @@ class ModelMethodOrderAndClassThingsOrderTest extends TestCase
 
         $this->assertEmpty(
             $lints,
-            !empty($lints) ? $lints[0]->getLinter()->getLintDescription() : ''
+            ! empty($lints) ? $lints[0]->getLinter()->getLintDescription() : ''
         );
     }
 
-    public function modelFixtures(): array
+    function modelFixtures(): array
     {
         $models = [];
 
