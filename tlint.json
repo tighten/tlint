@@ -3,6 +3,7 @@
   "disabled": [],
   "excluded": [
     "tests/Linting/Laravel/",
-    "src/Illuminate/"
+    "src/Illuminate/",
+    "tests/fixtures/"
   ]
 }
