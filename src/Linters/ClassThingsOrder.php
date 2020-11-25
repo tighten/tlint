@@ -84,6 +84,15 @@ class ClassThingsOrder extends BaseLinter
 
                     throw new Exception('Unknown statement');
                 }, array_filter($node->stmts, function (Node\Stmt $stmt) {
+                    // Ignore PhpUnit protected setUp/tearDown method
+                    if ($stmt instanceof Node\Stmt\ClassMethod
+                        && $stmt->isProtected()
+                        && in_array($stmt->name->toString(), ['setUp', 'tearDown'])
+                        && $stmt->returnType->toString() === 'void'
+                    ) {
+                        return false;
+                    }
+
                     return ! $stmt instanceof Node\Stmt\Nop;
                 }));
 

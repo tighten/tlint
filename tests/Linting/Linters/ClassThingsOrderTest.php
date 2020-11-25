@@ -135,4 +135,74 @@ file;
 
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
+
+    /** @test */
+    function does_not_trigger_on_setup_setup() {
+        $file = <<<file
+<?php
+
+namespace Tests\Feature;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class ResourceSearchTest extends TestCase
+{
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        // Do stuff
+        parent::setUp();
+    }
+
+    /** @test */
+    function true_is_true()
+    {
+        \$this->assertTrue(true);
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new ClassThingsOrder($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    function does_not_trigger_on_phpunit_teardown() {
+        $file = <<<file
+<?php
+
+namespace Tests\Feature;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class ResourceSearchTest extends TestCase
+{
+    use RefreshDatabase;
+
+    protected function tearDown(): void
+    {
+        // Do stuff
+        parent::tearDown();
+    }
+
+    /** @test */
+    function true_is_true()
+    {
+        \$this->assertTrue(true);
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new ClassThingsOrder($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
