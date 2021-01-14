@@ -89,6 +89,27 @@ file;
     }
 
     /** @test */
+    function does_not_throw_when_calling_class_in_a_namespaced_file()
+    {
+        $file = <<<file
+<?php
+
+namespace App\Nova;
+
+class User extends BaseResource
+{
+    public static \$model = \App\User::class;
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new RemoveLeadingSlashNamespaces($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     function catches_leading_slash_in_factories()
     {
         $file = <<<file

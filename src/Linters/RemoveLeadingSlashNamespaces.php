@@ -23,7 +23,8 @@ class RemoveLeadingSlashNamespaces extends BaseLinter
                 || $node instanceof Node\Expr\ClassConstFetch
             )
                 && $node->class instanceof Node\Name
-                && strpos($this->getCodeLine($node->getLine()), "\\" . $node->class->toString()) !== false;
+                && strpos($this->getCodeLine($node->getLine()), "\\" . $node->class->toString()) !== false
+                && substr(rtrim($this->getCodeLine($node->getLine()), ',; '), -7) !== '::class';
         });
 
         $useStatementsVisitor = new FindingVisitor(function (Node $node) {
