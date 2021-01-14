@@ -165,6 +165,7 @@ class LintCommand extends BaseCommand
     {
         $DS = DIRECTORY_SEPARATOR;
         return strpos($filepath, "vendor") !== false
+            || strpos($filepath, "node_modules") !== false
             || strpos($filepath, "public{$DS}") !== false
             || strpos($filepath, "bootstrap{$DS}") !== false
             || strpos($filepath, "server.php") !== false
