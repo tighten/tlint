@@ -21,7 +21,7 @@ class FormatCommand extends BaseCommand
 {
     public const SUCCESS = 0;
     public const ERROR = 1;
-    
+
     private $thereWasChange = false;
 
     protected function configure()
@@ -109,6 +109,7 @@ class FormatCommand extends BaseCommand
     private function isBlacklisted($filepath)
     {
         return strpos($filepath, 'vendor') !== false
+            || strpos($filepath, 'node_modules/') !== false
             || strpos($filepath, 'public/') !== false
             || strpos($filepath, 'bootstrap/') !== false
             || strpos($filepath, 'server.php') !== false
