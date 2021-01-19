@@ -3,9 +3,8 @@
 namespace Tighten\Linters;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
@@ -20,17 +19,9 @@ class NoRequestAll extends BaseLinter
         $traverser = new NodeTraverser;
 
         $traverser->addVisitor($visitor = new FindingVisitor(function (Node $node) {
-            return (
-                $node instanceof MethodCall
-                && $node->var instanceof Variable
-                && $node->var->name === 'request'
-                && $node->name->name === 'all'
-            ) || (
-                $node instanceof MethodCall
-                && $node->var instanceof FuncCall
-                && $node->var->name->toString() === 'request'
-                && $node->name->name === 'all'
-            );
+            return ($node instanceof MethodCall && (string) $node->var->name === 'request')
+                || ($node instanceof StaticCall && (string) $node->class === 'Request')
+                && $node->name->name === 'all';
         }));
 
         $traverser->traverse($parser->parse($this->code));
