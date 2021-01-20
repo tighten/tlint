@@ -49,6 +49,7 @@ class TightenPreset implements PresetInterface
             Formatters\AlphabeticalImports::class,
             Formatters\UnusedImports::class,
             Formatters\ExcessSpaceBetweenAndAfterImports::class,
+            Formatters\NoDocBlocksForMigrationUpDown::class,
         ];
     }
 }
