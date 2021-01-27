@@ -210,7 +210,7 @@ This lets you define whatever custom linting functionality, or modify the existi
 -   No leading slashes on route paths. `NoLeadingSlashesOnRoutePaths`
 -   Apply middleware in routes (not controllers). `ApplyMiddlewareInRoutes`
 -   Model method order (relationships > scopes > accessors > mutators > boot). `ModelMethodOrder`
--   There should be no calls to `dd()` or `dump()` or `var_dump()`. `NoDump`
+-   There should be no calls to `dd()`, `dump()`, `ray()`, or `var_dump()`. `NoDump`
 -   Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers `RequestValidation`
 -   Blade directive spacing conventions. `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
 -   Spaces around blade rendered content `SpacesAroundBladeRenderContent`
