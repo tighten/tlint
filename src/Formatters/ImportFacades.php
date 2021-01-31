@@ -18,7 +18,7 @@ class ImportFacades extends BaseFormatter
 {
     use IdentifiesFacades;
 
-    public const description = 'Import Facades using their full namespace.';
+    public const description = 'Import facades using their full namespace.';
 
     public function format(Parser $parser, Lexer $lexer)
     {
