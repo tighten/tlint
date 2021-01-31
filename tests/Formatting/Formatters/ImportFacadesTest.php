@@ -35,6 +35,38 @@ file;
     }
 
     /** @test */
+    function fixes_facade_aliases_mixed_with_valid_use_statements()
+    {
+        $file = <<<'file'
+<?php
+
+use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
+use Storage;
+use Tests\TestCase;
+
+return true;
+file;
+
+        $formatted = (new TFormat)->format(new ImportFacades($file));
+
+        $expected = <<<'file'
+<?php
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
+use Tests\TestCase;
+
+return true;
+file;
+
+        $this->assertSame($expected, $formatted);
+    }
+
+    /** @test */
     function fixes_str_and_arr_helpers()
     {
         $file = <<<'file'
