@@ -18,7 +18,7 @@ class NoDump extends BaseLinter
         $traverser = new NodeTraverser;
 
         $visitor = new FindingVisitor(function (Node $node) {
-            return $node instanceof FuncCall && ! empty($node->name->parts) && in_array($node->name->parts[0], ['dd', 'dump', 'var_dump'], true);
+            return $node instanceof FuncCall && ! empty($node->name->parts) && in_array($node->name->parts[0], ['dd', 'dump', 'var_dump', 'ray'], true);
         });
 
         $traverser->addVisitor($visitor);
