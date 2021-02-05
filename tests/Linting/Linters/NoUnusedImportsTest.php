@@ -516,7 +516,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_union_type_function_parameter_typehints()
+    function does_not_trigger_when_import_used_in_union_type_function_parameter_typehint()
     {
         $file = <<<'file'
 <?php
@@ -533,7 +533,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_union_type_class_method_parameter_typehints()
+    function does_not_trigger_when_import_used_in_union_type_method_parameter_typehint()
     {
         $file = <<<'file'
 <?php
@@ -554,7 +554,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_union_type_class_method_return_typehint()
+    function does_not_trigger_when_import_used_in_union_type_method_return_typehint()
     {
         $file = <<<'file'
 <?php
@@ -574,7 +574,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_union_type_function_return_typehint()
+    function does_not_trigger_when_import_used_in_union_type_function_return_typehint()
     {
         $file = <<<'file'
 <?php
@@ -591,7 +591,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_union_type_class_property_typehint()
+    function does_not_trigger_when_import_used_in_union_type_class_property_typehint()
     {
         $file = <<<'file'
 <?php
