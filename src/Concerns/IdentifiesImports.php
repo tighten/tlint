@@ -107,6 +107,12 @@ trait IdentifiesImports
                 ) {
                     $used[] = $node->returnType->type->toString();
                 }
+            } elseif ($node instanceof Node\UnionType) {
+                foreach ($node->types as $type) {
+                    if ($type instanceof Node\Name) {
+                        $used[] = (string) $type;
+                    }
+                }
             }
 
             return false;
