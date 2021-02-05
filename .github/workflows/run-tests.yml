@@ -1,23 +1,21 @@
-name: run-tests
+name: Tests
 
 on:
   push:
+    branches: [master]
   pull_request:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: '0 0 * * *'
 
 jobs:
   test:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
-
     strategy:
-      fail-fast: true
       matrix:
-        php: [7.4, 7.3, 8.0]
+        php: ['7.3', '7.4', '8.0']
         os: [ubuntu-latest, macos-latest]
         dependency-version: [lowest, highest]
 
-    name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+    name: PHP ${{ matrix.php }} - prefer-${{ matrix.dependency-version }} - ${{ matrix.os }}
 
     runs-on: ${{ matrix.os }}
 
@@ -25,8 +23,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v1
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite3, pdo_sqlite
