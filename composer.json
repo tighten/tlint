@@ -15,7 +15,7 @@
         "nikic/php-parser": "^4.5",
         "symfony/console": "^4.3 || ^5.0",
         "symfony/process": "^4.3 || ^5.0",
-        "illuminate/view": "^7.22.0 || ^8.0"
+        "illuminate/view": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.3"
