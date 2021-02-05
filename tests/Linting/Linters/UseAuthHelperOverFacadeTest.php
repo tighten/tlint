@@ -130,4 +130,17 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function does_not_error_on_section_missing_directive_in_blade_view()
+    {
+        $file = <<<'file'
+@extends('layouts.app')
+@sectionMissing('MySection')
+    Oh, hai, Mark.
+@endif
+file;
+
+        $this->assertEmpty((new TLint)->lint(new UseAuthHelperOverFacade($file, '.blade.php')));
+    }
 }
