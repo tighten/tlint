@@ -514,4 +514,96 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function does_not_trigger_when_import_used_in_union_type_function_parameter_typehint()
+    {
+        $file = <<<'file'
+<?php
+
+use App\Job;
+
+function test(string|Job $j)
+{
+    return $j ?? false;
+}
+file;
+
+        $this->assertEmpty((new TLint)->lint(new NoUnusedImports($file)));
+    }
+
+    /** @test */
+    function does_not_trigger_when_import_used_in_union_type_method_parameter_typehint()
+    {
+        $file = <<<'file'
+<?php
+
+use App\AnotherJob;
+use App\Job;
+
+class Test
+{
+    function test(AnotherJob|Job $j)
+    {
+        return $j ?? false;
+    }
+}
+file;
+
+        $this->assertEmpty((new TLint)->lint(new NoUnusedImports($file)));
+    }
+
+    /** @test */
+    function does_not_trigger_when_import_used_in_union_type_method_return_typehint()
+    {
+        $file = <<<'file'
+<?php
+
+use App\Job;
+
+class Test
+{
+    public function test(): boolean|Job
+    {
+        //
+    }
+}
+file;
+
+        $this->assertEmpty((new TLint)->lint(new NoUnusedImports($file)));
+    }
+
+    /** @test */
+    function does_not_trigger_when_import_used_in_union_type_function_return_typehint()
+    {
+        $file = <<<'file'
+<?php
+
+use App\Job;
+
+function test(): string|Job
+{
+    //
+}
+file;
+
+        $this->assertEmpty((new TLint)->lint(new NoUnusedImports($file)));
+    }
+
+    /** @test */
+    function does_not_trigger_when_import_used_in_union_type_class_property_typehint()
+    {
+        $file = <<<'file'
+<?php
+
+use DateTimeInterface;
+
+class Test
+{
+    public string|DateTimeInterface $start;
+}
+file;
+
+        $this->assertEmpty((new TLint)->lint(new NoUnusedImports($file)));
+    }
 }

@@ -64,7 +64,8 @@ trait IdentifiesImports
                         $used[] = $name->toString();
                     }
                 }
-            } elseif (($node instanceof Node\Param || $node instanceof Node\Stmt\Property)
+            } elseif (
+                ($node instanceof Node\Param || $node instanceof Node\Stmt\Property)
                 && property_exists($node, 'type')
             ) {
                 $type = $node->type;
@@ -84,28 +85,31 @@ trait IdentifiesImports
                 foreach ($node->traits as $name) {
                     $used[] = $name->toString();
                 }
-            } elseif ($node instanceof Node\Expr\FuncCall && $node->name instanceof Node\Name
-            ) {
+            } elseif ($node instanceof Node\Expr\FuncCall && $node->name instanceof Node\Name) {
                 $used[] = $node->name->toString();
-            } elseif ($node instanceof Node\Stmt\ClassMethod
-                && property_exists($node, 'returnType')
-            ) {
+            } elseif ($node instanceof Node\Stmt\ClassMethod && property_exists($node, 'returnType')) {
                 if ($node->returnType instanceof Node\Name) {
                     $used[] = $node->returnType->toString();
-                } elseif ($node->returnType instanceof Node\NullableType
+                } elseif (
+                    $node->returnType instanceof Node\NullableType
                     && $node->returnType->type instanceof Node\Name
                 ) {
                     $used[] = $node->returnType->type->toString();
                 }
-            } elseif ($node instanceof Node\Stmt\Function_
-                && property_exists($node, 'returnType')
-            ) {
+            } elseif ($node instanceof Node\Stmt\Function_ && property_exists($node, 'returnType')) {
                 if ($node->returnType instanceof Node\Name) {
                     $used[] = $node->returnType->toString();
-                } elseif ($node->returnType instanceof Node\NullableType
+                } elseif (
+                    $node->returnType instanceof Node\NullableType
                     && $node->returnType->type instanceof Node\Name
                 ) {
                     $used[] = $node->returnType->type->toString();
+                }
+            } elseif ($node instanceof Node\UnionType) {
+                foreach ($node->types as $type) {
+                    if ($type instanceof Node\Name) {
+                        $used[] = (string) $type;
+                    }
                 }
             }
 
