@@ -10,7 +10,6 @@ on:
 jobs:
   test:
     strategy:
-      fail-fast: false
       matrix:
         php: ['7.3', '7.4', '8.0']
         os: [ubuntu-latest, macos-latest]
@@ -50,5 +49,4 @@ jobs:
           composer require illuminate/view --with-all-dependencies --no-interaction
 
       - name: Execute tests
-        # if: matrix.php != '8.0' || ( steps.composer-run.outcome == 'success' && steps.composer-run.conclusion == 'success' )
         run: vendor/bin/phpunit
