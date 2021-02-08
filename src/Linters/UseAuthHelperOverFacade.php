@@ -7,27 +7,24 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\BaseLinter;
-use Tighten\Illuminate\Compilers\BladeCompiler;
-use Tighten\Illuminate\Compilers\Concerns\CompilesConditionals;
+use Tighten\Illuminate\BladeCompiler;
 use Tighten\Linters\Concerns\LintsBladeTemplates;
 
 class UseAuthHelperOverFacade extends BaseLinter
 {
     use LintsBladeTemplates;
-    use CompilesConditionals;
 
     public const description = 'Prefer the `auth()` helper function over the `Auth` Facade.';
-    
+
     public function __construct($code, $filename = null)
     {
         if (preg_match('/\.blade\.php$/i', $filename)) {
             $bladeCompiler = new BladeCompiler(null, sys_get_temp_dir());
             $code = $bladeCompiler->compileString($code);
         }
-        
+
         parent::__construct($code, $filename);
     }
-
 
     public function lint(Parser $parser)
     {
