@@ -19,7 +19,7 @@ class UseAuthHelperOverFacade extends BaseLinter
     public function __construct($code, $filename = null)
     {
         if (preg_match('/\.blade\.php$/i', $filename)) {
-            ($bladeCompiler = new BladeCompiler(null, sys_get_temp_dir()))->withoutComponentTags();
+            $bladeCompiler = new BladeCompiler(null, sys_get_temp_dir());
             $code = $bladeCompiler->compileString($code);
         }
 
