@@ -7,6 +7,8 @@ use InvalidArgumentException;
 
 class BladeCompiler extends IlluminateBladeCompiler
 {
+    protected $compilesComponentTags = false;
+
     public function __construct($files, $cachePath)
     {
         if (! $cachePath) {

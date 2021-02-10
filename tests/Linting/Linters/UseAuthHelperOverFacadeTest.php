@@ -130,4 +130,16 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    function does_not_attempt_to_compile_x_component_tags()
+    {
+        $file = <<<'file'
+<x-main-layout>
+    Hello world!
+</x-main-layout>
+file;
+
+        $this->assertEmpty((new TLint)->lint(new UseAuthHelperOverFacade($file, '.blade.php')));
+    }
 }
