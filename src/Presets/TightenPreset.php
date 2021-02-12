@@ -20,6 +20,7 @@ class TightenPreset implements PresetInterface
             Linters\ModelMethodOrder::class,
             Linters\NewLineAtEndOfFile::class,
             Linters\NoCompact::class,
+            Linters\NoDatesPropertyOnModels::class,
             Linters\NoDump::class,
             Linters\NoDocBlocksForMigrationUpDown::class,
             Linters\NoLeadingSlashesOnRoutePaths::class,
