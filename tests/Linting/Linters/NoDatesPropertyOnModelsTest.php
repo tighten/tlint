@@ -83,28 +83,7 @@ file;
     }
 
     /** @test */
-    function lints_dates_property_with_custom_base_model()
-    {
-        $file = <<<'file'
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model as BaseModel;
-
-class Post extends BaseModel
-{
-    protected $dates = ['published_at'];
-}
-file;
-
-        $lints = (new TLint)->lint(new NoDatesPropertyOnModels($file));
-
-        $this->assertEquals(9, $lints[0]->getNode()->getLine());
-    }
-
-    /** @test */
-    function doesnt_lint_dates_property_on_non_model()
+    function ignores_dates_property_on_non_model()
     {
         $file = <<<'file'
 <?php
@@ -114,23 +93,6 @@ namespace App\Events;
 class Birthday
 {
     protected $dates = ['date'];
-}
-file;
-
-        $this->assertEmpty((new TLint)->lint(new NoDatesPropertyOnModels($file)));
-    }
-
-    /** @test */
-    function doesnt_lint_dates_property_on_non_model_called_model()
-    {
-        $file = <<<'file'
-<?php
-
-namespace App\Items;
-
-class Ferrari extends Model
-{
-    protected $dates = ['manufactured_on'];
 }
 file;
 
