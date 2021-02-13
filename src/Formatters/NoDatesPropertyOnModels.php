@@ -98,9 +98,6 @@ class NoDatesPropertyOnModels extends BaseFormatter
             return $item->value->value;
         }, $dates->props[0]->default->items);
 
-        // Sort them alphabetically
-        sort($dateAttributes);
-
         // Create new $casts entries for each date attribute
         $newCasts = array_map(function ($attribute) {
             return new ArrayItem(new String_('datetime'), new String_($attribute));
@@ -120,6 +117,9 @@ class NoDatesPropertyOnModels extends BaseFormatter
 
             $newCasts = array_merge($casts->props[0]->default->items, $newCasts);
         }
+
+        // Sort casts alphabetically
+        sort($newCasts);
 
         // We always have to return a new node here so that the printer formats
         // it correctly (even if there was already a casts property)
