@@ -188,4 +188,33 @@ file;
 
         $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
     }
+
+    /** @test */
+    function doesnt_error_on_empty_dates()
+    {
+        $file = <<<'file'
+<?php
+
+class User extends Authenticatable
+{
+    protected $casts = [
+        'admin' => 'boolean',
+    ];
+    protected $dates = [];
+}
+file;
+
+        $expected = <<<'file'
+<?php
+
+class User extends Authenticatable
+{
+    protected $casts = [
+        'admin' => 'boolean',
+    ];
+}
+file;
+
+        $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
+    }
 }
