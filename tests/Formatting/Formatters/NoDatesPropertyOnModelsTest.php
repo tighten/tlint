@@ -154,4 +154,38 @@ file;
 
         $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
     }
+
+    /** @test */
+    function doesnt_error_on_custom_cast_classes()
+    {
+        $file = <<<'file'
+<?php
+
+use App\Casts\Password;
+
+class User extends Authenticatable
+{
+    protected $dates = ['email_verified_at'];
+    protected $casts = [
+        'password' => Password::class,
+    ];
+}
+file;
+
+        $expected = <<<'file'
+<?php
+
+use App\Casts\Password;
+
+class User extends Authenticatable
+{
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => Password::class,
+    ];
+}
+file;
+
+        $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
+    }
 }
