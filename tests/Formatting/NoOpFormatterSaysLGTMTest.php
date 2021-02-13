@@ -27,6 +27,7 @@ class Thing
 {
 
 }
+
 file;
 
         $filePath = tempnam(sys_get_temp_dir(), 'test');

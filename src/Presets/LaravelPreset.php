@@ -43,6 +43,9 @@ class LaravelPreset implements PresetInterface
 
     public function getFormatters() : array
     {
-        return [];
+        return [
+            Formatters\AlphabeticalImports::class,
+            Formatters\NewLineAtEndOfFile::class,
+        ];
     }
 }
