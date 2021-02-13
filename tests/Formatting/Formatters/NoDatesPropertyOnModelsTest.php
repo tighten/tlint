@@ -37,7 +37,7 @@ file;
     }
 
     /** @test */
-    function can_add_cast_to_list_of_existing_attributes()
+    function can_add_attribute_to_existing_casts()
     {
         $file = <<<'file'
 <?php
@@ -69,11 +69,12 @@ file;
         $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
     }
 
-    /** @test */
+    /**
+     * @test
+     * This is safe to do because $casts already takes precendence over $dates in Laravel.
+     */
     function removes_attributes_present_in_both_dates_and_casts()
     {
-        // $casts already takes precendence over $dates
-
         $file = <<<'file'
 <?php
 

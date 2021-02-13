@@ -2,18 +2,16 @@
 
 namespace Tighten\Formatters;
 
+use Closure;
 use PhpParser\Lexer;
 use PhpParser\Node;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\NodeFinder;
-use PhpParser\Node\Stmt\UseUse;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\Parser;
@@ -33,7 +31,6 @@ class NoDatesPropertyOnModels extends BaseFormatter
         $traverser->addVisitor(new CloningVisitor);
 
         $originalStatements = $parser->parse($this->code);
-        $tokens = $lexer->getTokens();
         $statements = $traverser->traverse($originalStatements);
 
         $nodeFinder = new NodeFinder;
@@ -43,40 +40,26 @@ class NoDatesPropertyOnModels extends BaseFormatter
         if ($dates) {
             $newCasts = $this->addDatesToCasts($dates, $casts);
 
-            // Transform the dates and casts
             $statements = array_map(function (Node $node) use ($casts, $newCasts) {
                 if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
-                    // If there were no casts before, replace the existing dates with the new casts
-                    if (is_null($casts)) {
-                        $node->stmts = array_map(function ($stmt) use ($newCasts) {
-                            return $stmt instanceof Property && (string) $stmt->props[0]->name === 'dates' ? $newCasts : $stmt;
-                        }, $node->stmts);
-                    }
-                    // Otherwise, update the existing casts and then remove the dates completely
-                    else {
-                        $node->stmts = array_values(array_filter(array_map(function ($stmt) use ($newCasts) {
-                            if ($stmt instanceof Property && (string) $stmt->props[0]->name === 'casts') {
-                                return $newCasts;
-                            } elseif ($stmt instanceof Property && (string) $stmt->props[0]->name === 'dates') {
-                                return;
-                            }
+                    // Replace the dates with the new casts and remove any existing casts (necessary so
+                    // that we know where to put the new casts if there weren't any already)
+                    $node->stmts = array_values(array_filter(array_map(function ($stmt) use ($newCasts) {
+                        if ($stmt instanceof Property && (string) $stmt->props[0]->name === 'dates') {
+                            return $newCasts;
+                        } elseif ($stmt instanceof Property && (string) $stmt->props[0]->name === 'casts') {
+                            return;
+                        }
 
-                            return $stmt;
-                        }, $node->stmts)));
-                    }
+                        return $stmt;
+                    }, $node->stmts)));
                 }
 
                 return $node;
             }, $statements);
         }
 
-        return (new class extends Standard {
-            // Force all arrays to be printed in multiline style
-            protected function pMaybeMultiline(array $nodes, bool $trailingComma = true)
-            {
-                return $this->pCommaSeparatedMultiline($nodes, $trailingComma) . $this->nl;
-            }
-        })->printFormatPreserving($statements, $originalStatements, $tokens);
+        return $this->printer()->printFormatPreserving($statements, $originalStatements, $lexer->getTokens());
     }
 
     private function nodeFinderForModelProperty(string $attribute): Closure
@@ -128,5 +111,16 @@ class NoDatesPropertyOnModels extends BaseFormatter
             Class_::MODIFIER_PROTECTED,
             [new PropertyProperty('casts', new Array_($newCasts, ['kind' => Array_::KIND_SHORT]))],
         );
+    }
+
+    private function printer(): Standard
+    {
+        // Override the printer to force all arrays to be printed in multiline style
+        return new class extends Standard {
+            protected function pMaybeMultiline(array $nodes, bool $trailingComma = true)
+            {
+                return $this->pCommaSeparatedMultiline($nodes, $trailingComma) . $this->nl;
+            }
+        };
     }
 }
