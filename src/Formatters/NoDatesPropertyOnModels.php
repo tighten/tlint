@@ -12,7 +12,7 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
-use PhpParser\Node\Stmt\Use_;
+use PhpParser\NodeFinder;
 use PhpParser\Node\Stmt\UseUse;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
@@ -36,21 +36,9 @@ class NoDatesPropertyOnModels extends BaseFormatter
         $tokens = $lexer->getTokens();
         $statements = $traverser->traverse($originalStatements);
 
-        $dates = null;
-        $casts = null;
-
-        // Find existing dates and casts
-        array_map(function (Node $node) use (&$dates, &$casts) {
-            if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
-                foreach ($node->stmts as $stmt) {
-                    if ($stmt instanceof Property && (string) $stmt->props[0]->name === 'dates') {
-                        $dates = $stmt;
-                    } elseif ($stmt instanceof Property && (string) $stmt->props[0]->name === 'casts') {
-                        $casts = $stmt;
-                    }
-                }
-            }
-        }, $statements);
+        $nodeFinder = new NodeFinder;
+        $dates = $nodeFinder->findFirst($statements, $this->nodeFinderForModelProperty('dates'));
+        $casts = $nodeFinder->findFirst($statements, $this->nodeFinderForModelProperty('casts'));
 
         if ($dates) {
             $newCasts = $this->addDatesToCasts($dates, $casts);
@@ -89,6 +77,19 @@ class NoDatesPropertyOnModels extends BaseFormatter
                 return $this->pCommaSeparatedMultiline($nodes, $trailingComma) . $this->nl;
             }
         })->printFormatPreserving($statements, $originalStatements, $tokens);
+    }
+
+    private function nodeFinderForModelProperty(string $attribute): Closure
+    {
+        return function (Node $node) use ($attribute) {
+            static $model = false;
+
+            if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
+                $model = true;
+            }
+
+            return $model && $node instanceof Property && (string) $node->props[0]->name === $attribute;
+        };
     }
 
     private function addDatesToCasts(Property $dates, Property $casts = null): Property
