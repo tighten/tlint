@@ -105,18 +105,17 @@ class NoDatesPropertyOnModels extends BaseFormatter
         // Sort casts alphabetically
         sort($newCasts);
 
-        // We always have to return a new node here so that the printer formats
-        // it correctly (even if there was already a casts property)
-        return new Property(
-            Class_::MODIFIER_PROTECTED,
-            [new PropertyProperty('casts', new Array_($newCasts, ['kind' => Array_::KIND_SHORT]))],
-        );
+        // We have to return a *new* Property node here (even if there was
+        // already a casts property) so the printer formats it correctly
+        return new Property(Class_::MODIFIER_PROTECTED, [
+            new PropertyProperty('casts', new Array_($newCasts, ['kind' => Array_::KIND_SHORT]))
+        ]);
     }
 
     private function printer(): Standard
     {
-        // Override the printer to force all arrays to be printed in multiline style
         return new class extends Standard {
+            // Force all arrays to be printed in multiline style
             protected function pMaybeMultiline(array $nodes, bool $trailingComma = true)
             {
                 return $this->pCommaSeparatedMultiline($nodes, $trailingComma) . $this->nl;

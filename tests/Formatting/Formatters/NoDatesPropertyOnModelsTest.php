@@ -9,7 +9,7 @@ use Tighten\TFormat;
 class NoDatesPropertyOnModelsTest extends TestCase
 {
     /** @test */
-    function fixes_dates_property_by_converting_to_datetime_cast()
+    function converts_dates_property_to_datetime_cast()
     {
         $file = <<<'file'
 <?php
@@ -37,7 +37,7 @@ file;
     }
 
     /** @test */
-    function can_add_attribute_to_existing_casts()
+    function adds_attributes_to_existing_casts()
     {
         $file = <<<'file'
 <?php
@@ -73,7 +73,7 @@ file;
      * @test
      * This is safe to do because $casts already takes precendence over $dates in Laravel.
      */
-    function removes_attributes_present_in_both_dates_and_casts()
+    function drops_date_attributes_already_in_casts()
     {
         $file = <<<'file'
 <?php
@@ -84,7 +84,7 @@ class Page extends Model
         'email_verified_at',
     ];
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'date',
     ];
 }
 file;
@@ -95,7 +95,7 @@ file;
 class Page extends Model
 {
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'date',
     ];
 }
 file;
@@ -104,7 +104,7 @@ file;
     }
 
     /** @test */
-    function creates_casts_property_if_it_does_not_exist()
+    function creates_casts_property_if_it_doesnt_exist()
     {
         $file = <<<'file'
 <?php
@@ -130,7 +130,7 @@ file;
     }
 
     /** @test */
-    function orders_fixed_dates_property_attributes_alphabetically()
+    function orders_casts_alphabetically()
     {
         $file = <<<'file'
 <?php
