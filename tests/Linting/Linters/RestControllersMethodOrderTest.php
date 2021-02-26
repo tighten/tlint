@@ -1,6 +1,6 @@
 <?php
 
-namespace testing\Linting\Linters;
+namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\RestControllersMethodOrder;
@@ -24,7 +24,7 @@ class Controller
     {
         return view('test.store', ['ok' => 'test']);
     }
-    
+
     public function create()
     {
         return view('test.create', ['ok' => 'test']);
@@ -53,7 +53,7 @@ class Controller
     {
         return view('test.create', ['ok' => 'test']);
     }
-    
+
     public function store()
     {
         return view('test.store', ['ok' => 'test']);

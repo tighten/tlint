@@ -28,6 +28,11 @@
             "src/helpers.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "tests\\": "tests/"
+        }
+    },
     "bin": [
         "bin/tlint"
     ],

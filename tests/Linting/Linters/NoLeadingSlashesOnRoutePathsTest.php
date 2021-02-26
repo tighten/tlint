@@ -1,6 +1,6 @@
 <?php
 
-namespace testing\Linting\Linters;
+namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\NoLeadingSlashesOnRoutePaths;
@@ -15,7 +15,7 @@ class NoLeadingSlashesOnRoutePathsTest extends TestCase
 <?php
 
 Route::get('/home', function () {
-    return ''; 
+    return '';
 });
 file;
 
@@ -53,7 +53,7 @@ file;
 <?php
 
 Route::get('/', function () {
-    return ''; 
+    return '';
 });
 file;
 

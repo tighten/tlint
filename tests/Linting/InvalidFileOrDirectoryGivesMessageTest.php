@@ -7,7 +7,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Tighten\Commands\LintCommand;
 
-class InvalidFileOrDirectoryGivesMessage extends TestCase
+class InvalidFileOrDirectoryGivesMessageTest extends TestCase
 {
     /** @test */
     function gracefully_handles_non_existent_file()
@@ -22,7 +22,7 @@ class InvalidFileOrDirectoryGivesMessage extends TestCase
             'file or directory' => 'non-existent-file.php',
         ]);
 
-        $this->assertContains("No file or directory found at non-existent-file.php", $commandTester->getDisplay());
+        $this->assertStringContainsString("No file or directory found at non-existent-file.php", $commandTester->getDisplay());
         $this->assertEquals(1, $commandTester->getStatusCode());
     }
 
@@ -39,7 +39,7 @@ class InvalidFileOrDirectoryGivesMessage extends TestCase
             'file or directory' => 'non-existent-directory',
         ]);
 
-        $this->assertContains("No file or directory found at non-existent-directory", $commandTester->getDisplay());
+        $this->assertStringContainsString("No file or directory found at non-existent-directory", $commandTester->getDisplay());
         $this->assertEquals(1, $commandTester->getStatusCode());
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace testing\Linting\Linters;
+namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\ConcatenationSpacing;
@@ -124,7 +124,7 @@ file;
             date('Y') . DIRECTORY_SEPARATOR .
             date('m') . DIRECTORY_SEPARATOR .
             date('d') . DIRECTORY_SEPARATOR;
-            
+
 file;
 
         $lints = (new TLint)->lint(
