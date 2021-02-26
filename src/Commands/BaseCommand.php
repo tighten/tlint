@@ -55,11 +55,7 @@ abstract class BaseCommand extends Command
             throw new ProcessFailedException($process);
         }
 
-        $files = ParsesGitOutput::parseFilesFromGitDiffOutput($process->getOutput());
-
-        foreach ($files as $relativeFilePath) {
-            yield getcwd() . '/' . $relativeFilePath;
-        }
+        return ParsesGitOutput::parseFilesFromGitDiffOutput($process->getOutput());
     }
 
     protected function getAllFilesInDir($directory, $fileExtension)

@@ -11,9 +11,7 @@ class ParsesGitOutput
         }
 
         foreach (explode(PHP_EOL, trim($output)) as $relativeFilePath) {
-            $filepath = getcwd() . '/' . $relativeFilePath;
-
-            yield $filepath;
+            yield getcwd() . '/' . $relativeFilePath;
         }
     }
 }
