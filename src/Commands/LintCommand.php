@@ -3,17 +3,12 @@
 namespace Tighten\Commands;
 
 use PhpParser\Error;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use RegexIterator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\ExecutableFinder;
-use Symfony\Component\Process\Process;
 use Tighten\CustomNode;
 use Tighten\Lint;
 use Tighten\TLint;
@@ -146,73 +141,6 @@ class LintCommand extends BaseCommand
         }
 
         return self::NO_LINTS_FOUND_OR_SUCCESS;
-    }
-
-    private function isExcluded(string $filepath): bool
-    {
-        foreach ($this->config->getExcluded() as $excluded) {
-            $excludedPath = $this->resolveFileOrDirectory($excluded);
-
-            if ($excludedPath && strpos($filepath, $this->resolveFileOrDirectory($excluded)) === 0) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private function isBlacklisted($filepath)
-    {
-        $DS = DIRECTORY_SEPARATOR;
-        return strpos($filepath, "vendor") !== false
-            || strpos($filepath, "node_modules") !== false
-            || strpos($filepath, "public{$DS}") !== false
-            || strpos($filepath, "bootstrap{$DS}") !== false
-            || strpos($filepath, "server.php") !== false
-            || strpos($filepath, "app{$DS}Http{$DS}Middleware{$DS}RedirectIfAuthenticated.php") !== false
-            || strpos($filepath, "app{$DS}Exceptions{$DS}Handler.php") !== false
-            || strpos($filepath, "app{$DS}Http{$DS}Controllers{$DS}Auth") !== false
-            || strpos($filepath, "app{$DS}Http{$DS}Kernel.php") !== false
-            || strpos($filepath, "storage{$DS}framework{$DS}views") !== false
-            || $this->isExcluded($filepath);
-    }
-
-    private function filesInDir($directory, $fileExtension, $diff)
-    {
-        if ($diff) {
-            return $this->getDiffedFilesInDir($directory, $fileExtension);
-        }
-
-        return $this->getAllFilesInDir($directory, $fileExtension);
-    }
-
-    private function getDiffedFilesInDir($directory, $fileExtension)
-    {
-        $process = new Process([(new ExecutableFinder)->find('git'), 'diff', '--name-only', '--diff-filter=ACMRTUXB']);
-        $process->run();
-
-        if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        foreach (explode(PHP_EOL, trim($process->getOutput())) as $relativeFilePath) {
-            $filepath = getcwd() . '/' . $relativeFilePath;
-
-            yield $filepath;
-        }
-    }
-
-    private function getAllFilesInDir($directory, $fileExtension)
-    {
-        $it = new RecursiveDirectoryIterator($directory);
-        $it = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::LEAVES_ONLY);
-        $it = new RegexIterator($it, '(\.' . preg_quote($fileExtension) . '$)');
-
-        foreach ($it as $file) {
-            $filepath = $file->getRealPath();
-
-            yield $filepath;
-        }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

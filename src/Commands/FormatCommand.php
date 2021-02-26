@@ -3,17 +3,12 @@
 namespace Tighten\Commands;
 
 use PhpParser\Error;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use RegexIterator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\ExecutableFinder;
-use Symfony\Component\Process\Process;
 use Tighten\Config;
 use Tighten\TFormat;
 
@@ -104,73 +99,6 @@ class FormatCommand extends BaseCommand
         ]);
 
         return self::SUCCESS;
-    }
-
-    private function isBlacklisted($filepath)
-    {
-        return strpos($filepath, 'vendor') !== false
-            || strpos($filepath, 'node_modules/') !== false
-            || strpos($filepath, 'public/') !== false
-            || strpos($filepath, 'bootstrap/') !== false
-            || strpos($filepath, 'server.php') !== false
-            || strpos($filepath, 'app/Http/Middleware/RedirectIfAuthenticated.php') !== false
-            || strpos($filepath, 'app/Exceptions/Handler.php') !== false
-            || strpos($filepath, 'app/Http/Controllers/Auth') !== false
-            || strpos($filepath, 'app/Http/Kernel.php') !== false
-            || strpos($filepath, 'storage/framework/views') !== false
-            || $this->isExcluded($filepath);;
-    }
-
-    private function filesInDir($directory, $fileExtension, $diff)
-    {
-        if ($diff) {
-            return $this->getDiffedFilesInDir($directory, $fileExtension);
-        }
-
-        return $this->getAllFilesInDir($directory, $fileExtension);
-    }
-
-    private function getDiffedFilesInDir($directory, $fileExtension)
-    {
-        $process = new Process([(new ExecutableFinder)->find('git'), 'diff', '--name-only', '--diff-filter=ACMRTUXB']);
-        $process->run();
-
-        if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        foreach (explode(PHP_EOL, trim($process->getOutput())) as $relativeFilePath) {
-            $filepath = getcwd() . '/' . $relativeFilePath;
-
-            yield $filepath;
-        }
-    }
-
-    private function getAllFilesInDir($directory, $fileExtension)
-    {
-        $directory = realpath($directory);
-        $it = new RecursiveDirectoryIterator($directory);
-        $it = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::LEAVES_ONLY);
-        $it = new RegexIterator($it, '(\.' . preg_quote($fileExtension) . '$)');
-
-        foreach ($it as $file) {
-            $filepath = $file->getRealPath();
-
-            yield $filepath;
-        }
-    }
-
-    private function isExcluded(string $filepath): bool
-    {
-        foreach ($this->config->getExcluded() as $excluded) {
-            $excludedPath = $this->resolveFileOrDirectory($excluded);
-
-            if ($excludedPath && strpos($filepath, $this->resolveFileOrDirectory($excluded)) === 0) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
