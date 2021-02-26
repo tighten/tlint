@@ -1,6 +1,6 @@
 <?php
 
-namespace testing\Linting\Linters;
+namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\NoParensEmptyInstantiations;

@@ -1,6 +1,6 @@
 <?php
 
-namespace testing\Linting\Linters;
+namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\SpaceAfterBladeDirectives;
@@ -13,11 +13,11 @@ class SpaceAfterBladeDirectivesTest extends TestCase
     {
         $file = <<<file
         @if(true)
-        
+
         @endif
-        
+
         @foreach(\$thing as \$things)
-        
+
         @endforeach
 file;
 

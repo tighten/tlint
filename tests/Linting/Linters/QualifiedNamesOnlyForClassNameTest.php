@@ -1,6 +1,6 @@
 <?php
 
-namespace testing\Linting\Linters;
+namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\QualifiedNamesOnlyForClassName;
@@ -129,7 +129,7 @@ file;
 
         class ImportFacades extends \Tighten\BaseLinter
         {
-            
+
         }
 file;
 
@@ -148,7 +148,7 @@ file;
 
         class ImportFacades extends Tighten\BaseLinter
         {
-            
+
         }
 file;
 

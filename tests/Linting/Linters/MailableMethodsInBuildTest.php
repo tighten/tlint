@@ -1,6 +1,6 @@
 <?php
 
-namespace testing\Linting\Linters;
+namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\MailableMethodsInBuild;
@@ -75,7 +75,7 @@ class SendGarageLink extends Mailable
     {
         \$this->from('noreply@delivermyride.com', config('name'));
         \$this->subject(config('name') . ' Garage');
-        
+
         return \$this->view('auth.emails.email-login');
     }
 }
@@ -116,7 +116,7 @@ class SendGarageLink
     public function build()
     {
         \$this->from('noreply@delivermyride.com', config('name'));
-        
+
         return \$this->view('auth.emails.email-login');
     }
 }

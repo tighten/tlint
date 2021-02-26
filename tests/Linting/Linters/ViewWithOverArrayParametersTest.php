@@ -1,6 +1,6 @@
 <?php
 
-namespace testing\Linting\Linters;
+namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\ViewWithOverArrayParameters;
@@ -39,7 +39,7 @@ file;
 <?php
 
 \Route::get('test', function () {
-    return view('test', ['test' => 'test']); 
+    return view('test', ['test' => 'test']);
 });
 file;
 

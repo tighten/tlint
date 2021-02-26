@@ -1,6 +1,6 @@
 <?php
 
-namespace testing\Linting\Linters;
+namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\PureRestControllers;
@@ -22,7 +22,7 @@ class Controller
     {
         return view('test.view', ['ok' => 'test']);
     }
-    
+
     public function nonRest()
     {
         return 'nope';
@@ -51,7 +51,7 @@ class Controller
     {
         return view('test.view', ['ok' => 'test']);
     }
-    
+
     private function nonRest()
     {
         return 'nope';

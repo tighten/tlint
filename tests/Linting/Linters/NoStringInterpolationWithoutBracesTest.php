@@ -1,6 +1,6 @@
 <?php
 
-namespace testing\Linting\Linters;
+namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\Linters\NoStringInterpolationWithoutBraces;
@@ -61,7 +61,7 @@ file;
 
         $this->assertEmpty($lints);
     }
-    
+
     /** @test */
     function does_not_trigger_for_object_properties_with_braces()
     {
@@ -70,14 +70,14 @@ file;
 
 \$next = "{\$a->b}";
 file;
-        
+
         $lints = (new TLint)->lint(
             new NoStringInterpolationWithoutBraces($file)
         );
-        
+
         $this->assertEmpty($lints);
     }
-    
+
     /** @test */
     function does_trigger_for_object_properties_without_braces()
     {
@@ -86,14 +86,14 @@ file;
 
 \$next = "\$a->b";
 file;
-        
+
         $lints = (new TLint)->lint(
             new NoStringInterpolationWithoutBraces($file)
         );
-    
+
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
-    
+
     /** @test */
     function does_trigger_for_nested_object_properties_without_braces()
     {
@@ -102,14 +102,14 @@ file;
 
 \$next = "\$a->b->c";
 file;
-        
+
         $lints = (new TLint)->lint(
             new NoStringInterpolationWithoutBraces($file)
         );
-        
+
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
-    
+
     /** @test */
     function does_not_trigger_for_nested_object_properties_with_braces()
     {
@@ -118,11 +118,11 @@ file;
 
 \$next = "{\$a->b->c->d->e}";
 file;
-        
+
         $lints = (new TLint)->lint(
             new NoStringInterpolationWithoutBraces($file)
         );
-        
+
         $this->assertEmpty($lints);
     }
 
