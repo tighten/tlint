@@ -109,6 +109,35 @@ file;
     }
 
     /** @test */
+    function handles_magic_methods()
+    {
+        $file = <<<file
+<?php
+
+namespace App;
+
+class Thing
+{
+    protected function foo()
+    {
+        //
+    }
+
+    public function __call(\$method, \$parameters)
+    {
+        //
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new ClassThingsOrder($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     function triggers_when_static_method_is_above_constructor()
     {
         $file = <<<file
@@ -137,7 +166,8 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_setup_setup() {
+    function does_not_trigger_on_setup_setup()
+    {
         $file = <<<file
 <?php
 
@@ -172,7 +202,8 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_phpunit_teardown() {
+    function does_not_trigger_on_phpunit_teardown()
+    {
         $file = <<<file
 <?php
 

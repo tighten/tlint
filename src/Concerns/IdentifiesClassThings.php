@@ -65,7 +65,6 @@ trait IdentifiesClassThings
         return $stmt instanceof ClassMethod && ($stmt->name->name ?? null) === '__construct';
     }
 
-
     private function isPublicStaticMethod(Stmt $stmt)
     {
         return $stmt instanceof ClassMethod && $stmt->isPublic() && $stmt->isStatic();
@@ -81,10 +80,9 @@ trait IdentifiesClassThings
         return $stmt instanceof ClassMethod && $stmt->isPrivate() && $stmt->isStatic();
     }
 
-
     private function isPublicMethod(Stmt $stmt)
     {
-        return $stmt instanceof ClassMethod && $stmt->isPublic() && ! $stmt->isStatic();
+        return $stmt instanceof ClassMethod && $stmt->isPublic() && ! $stmt->isStatic() && ! $stmt->isMagic();
     }
 
     private function isProtectedMethod(Stmt $stmt)
