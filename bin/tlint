@@ -23,12 +23,8 @@ if (file_exists($appAutoloader = getcwd() . '/vendor/autoload.php')) {
 use Symfony\Component\Console\Application;
 use Tighten\TLint\Commands\FormatCommand;
 use Tighten\TLint\Commands\LintCommand;
-use function Tighten\TLint\version;
 
-$application = new Application(
-        'tlint',
-        version()
-);
+$application = new Application('tlint', 'v5.0.16');
 
 $lintCommand = new LintCommand;
 $application->add($lintCommand);
