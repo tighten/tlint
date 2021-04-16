@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Formatting\Formatters;
+namespace Tests\Formatting\Formatters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\TLint\Formatters\AlphabeticalImports;
@@ -102,7 +102,7 @@ file;
         $file = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use function Tighten\\TLint\\version;
 use function PHPUnit\\Framework\\test;
@@ -116,7 +116,7 @@ file;
         $correctlyFormatted = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use function PHPUnit\\Framework\\test;
 use function Tighten\\TLint\\version;
@@ -132,7 +132,7 @@ file;
         $file = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use const Tighten\\TLint\\VERSION;
 use const PHPUnit\\Framework\\TEST;
@@ -146,7 +146,7 @@ file;
         $correctlyFormatted = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use const PHPUnit\\Framework\\TEST;
 use const Tighten\\TLint\\VERSION;
@@ -162,7 +162,7 @@ file;
         $file = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use com\\test\\ClassA;
 use const com\\test\\ConstA;
@@ -177,7 +177,7 @@ file;
         $correctlyFormatted = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use com\\test\\ClassA;
 use function com\\test\\fn_b;
@@ -194,7 +194,7 @@ file;
         $file = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use const com\\test\\ConstB;
 use com\\test\\ClassB;
@@ -210,7 +210,7 @@ file;
         $correctlyFormatted = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use com\\test\\ClassB;
 use function com\\test\\fn_b;

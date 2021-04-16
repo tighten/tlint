@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Formatting;
+namespace Tests\Formatting;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;

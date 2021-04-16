@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Linting;
+namespace Tests\Linting;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;

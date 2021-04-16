@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Linting\Composite;
+namespace Tests\Linting\Composite;
 
 use PHPUnit\Framework\TestCase;
 use RecursiveDirectoryIterator;

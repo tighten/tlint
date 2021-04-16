@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Linting\Linters;
+namespace Tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\TLint\Linters\ArrayParametersOverViewWith;

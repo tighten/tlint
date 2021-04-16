@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Formatting\Formatters;
+namespace Tests\Formatting\Formatters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\TLint\Formatters\ExcessSpaceBetweenAndAfterImports;
@@ -127,7 +127,7 @@ file;
         $file = <<<file
 <?php
 
-namespace tests\\Formatting\\Formatters;
+namespace Tests\\Formatting\\Formatters;
 
 use Tighten\TLint\\Formatters;
 
@@ -154,7 +154,7 @@ file;
         $correctlyFormatted = <<<file
 <?php
 
-namespace tests\\Formatting\\Formatters;
+namespace Tests\\Formatting\\Formatters;
 
 use Tighten\TLint\\Formatters;
 use Tighten\TLint\\Linters;

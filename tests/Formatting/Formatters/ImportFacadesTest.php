@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Formatting\Formatters;
+namespace Tests\Formatting\Formatters;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\TLint\Formatters\ImportFacades;

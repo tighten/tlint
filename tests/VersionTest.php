@@ -1,6 +1,6 @@
 <?php
 
-namespace tests;
+namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use function Tighten\TLint\version;
