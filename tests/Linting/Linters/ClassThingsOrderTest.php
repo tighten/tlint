@@ -88,6 +88,36 @@ file;
     }
 
     /** @test */
+    function identifies_invoke_method()
+    {
+        $file = <<<file
+<?php
+
+namespace App;
+
+class Thing
+{
+
+    private function __invoke(\$foo)
+    {
+        \$foo = "bar";
+    }
+
+    public function bar()
+    {
+        //
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new ClassThingsOrder($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     function handles_empty_class()
     {
         $file = <<<file

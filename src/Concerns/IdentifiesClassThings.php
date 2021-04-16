@@ -65,6 +65,11 @@ trait IdentifiesClassThings
         return $stmt instanceof ClassMethod && ($stmt->name->name ?? null) === '__construct';
     }
 
+    private function isInvoke(Stmt $stmt)
+    {
+        return $stmt instanceof ClassMethod && ($stmt->name->name ?? null) === '__invoke';
+    }
+
     private function isPublicStaticMethod(Stmt $stmt)
     {
         return $stmt instanceof ClassMethod && $stmt->isPublic() && $stmt->isStatic();
