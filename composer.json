@@ -35,6 +35,7 @@
     ],
     "scripts": {
         "buildTestEnvironments": "./scripts/buildTestEnvironments.sh",
-        "runTests": "./scripts/runTests.sh"
+        "runTests": "./scripts/runTests.sh",
+        "bumpVersion": "sed -i '' \"/TLINT_VERSION/ s/'v.*'/'$(git describe --abbrev=0 --tag)'/\" ./bin/tlint"
     }
 }
