@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten;
+namespace Tighten\TLint;
 
 use PhpParser\Lexer\Emulative;
 use PhpParser\Parser\Php7;

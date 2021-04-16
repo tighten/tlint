@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NewLineAtEndOfFile;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NewLineAtEndOfFile;
+use Tighten\TLint\TLint;
 
 class NewLineAtEndOfFileTest extends TestCase
 {

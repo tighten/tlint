@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\RemoveLeadingSlashNamespaces;
-use Tighten\TLint;
+use Tighten\TLint\Linters\RemoveLeadingSlashNamespaces;
+use Tighten\TLint\TLint;
 
 class RemoveLeadingSlashNamespacesTest extends TestCase
 {

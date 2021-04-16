@@ -3,8 +3,8 @@
 namespace tests\Formatting\Formatters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Formatters\NoDatesPropertyOnModels;
-use Tighten\TFormat;
+use Tighten\TLint\Formatters\NoDatesPropertyOnModels;
+use Tighten\TLint\TFormat;
 
 class NoDatesPropertyOnModelsTest extends TestCase
 {

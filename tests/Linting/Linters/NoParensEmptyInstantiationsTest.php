@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoParensEmptyInstantiations;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoParensEmptyInstantiations;
+use Tighten\TLint\TLint;
 
 class NoParensEmptyInstantiationsTest extends TestCase
 {

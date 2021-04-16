@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Formatters;
+namespace Tighten\TLint\Formatters;
 
 use PhpParser\Lexer;
 use PhpParser\Node;
@@ -11,8 +11,8 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard;
-use Tighten\BaseFormatter;
-use Tighten\Concerns\IdentifiesFacades;
+use Tighten\TLint\BaseFormatter;
+use Tighten\TLint\Concerns\IdentifiesFacades;
 
 class ImportFacades extends BaseFormatter
 {

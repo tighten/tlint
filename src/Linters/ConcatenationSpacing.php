@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Linters;
+namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
@@ -8,7 +8,7 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\BaseLinter;
+use Tighten\TLint\BaseLinter;
 
 class ConcatenationSpacing extends BaseLinter
 {

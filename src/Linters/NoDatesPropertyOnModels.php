@@ -1,14 +1,14 @@
 <?php
 
-namespace Tighten\Linters;
+namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\BaseLinter;
-use Tighten\Concerns\IdentifiesExtends;
+use Tighten\TLint\BaseLinter;
+use Tighten\TLint\Concerns\IdentifiesExtends;
 
 class NoDatesPropertyOnModels extends BaseLinter
 {

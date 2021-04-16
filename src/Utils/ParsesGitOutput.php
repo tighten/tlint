@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Utils;
+namespace Tighten\TLint\Utils;
 
 class ParsesGitOutput
 {

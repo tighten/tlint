@@ -1,10 +1,10 @@
 <?php
 
-namespace Tighten\Formatters;
+namespace Tighten\TLint\Formatters;
 
 use PhpParser\Lexer;
 use PhpParser\Parser;
-use Tighten\BaseFormatter;
+use Tighten\TLint\BaseFormatter;
 
 class NewLineAtEndOfFile extends BaseFormatter
 {

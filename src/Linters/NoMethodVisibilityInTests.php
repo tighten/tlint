@@ -1,14 +1,14 @@
 <?php
 
-namespace Tighten\Linters;
+namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\BaseLinter;
-use Tighten\Linters\Concerns\LintsTests;
+use Tighten\TLint\BaseLinter;
+use Tighten\TLint\Linters\Concerns\LintsTests;
 
 class NoMethodVisibilityInTests extends BaseLinter
 {

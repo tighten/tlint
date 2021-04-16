@@ -1,9 +1,9 @@
 <?php
 
-namespace Tighten\Presets;
+namespace Tighten\TLint\Presets;
 
-use Tighten\Formatters;
-use Tighten\Linters;
+use Tighten\TLint\Formatters;
+use Tighten\TLint\Linters;
 
 class TightenPreset implements PresetInterface
 {

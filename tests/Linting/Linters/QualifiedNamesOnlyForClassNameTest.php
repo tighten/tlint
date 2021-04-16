@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\QualifiedNamesOnlyForClassName;
-use Tighten\TLint;
+use Tighten\TLint\Linters\QualifiedNamesOnlyForClassName;
+use Tighten\TLint\TLint;
 
 class QualifiedNamesOnlyForClassNameTest extends TestCase
 {
@@ -127,7 +127,7 @@ file;
         $file = <<<file
 <?php
 
-        class ImportFacades extends \Tighten\BaseLinter
+        class ImportFacades extends \Tighten\TLint\BaseLinter
         {
 
         }
@@ -146,7 +146,7 @@ file;
         $file = <<<file
 <?php
 
-        class ImportFacades extends Tighten\BaseLinter
+        class ImportFacades extends Tighten\TLint\BaseLinter
         {
 
         }
@@ -167,7 +167,7 @@ file;
 
         class ImportFacades
         {
-            use Tighten\BaseLinter;
+            use Tighten\TLint\BaseLinter;
         }
 file;
 
@@ -186,7 +186,7 @@ file;
 
         class ImportFacades
         {
-            use \Tighten\BaseLinter;
+            use \Tighten\TLint\BaseLinter;
         }
 file;
 

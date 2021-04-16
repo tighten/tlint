@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoDump;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoDump;
+use Tighten\TLint\TLint;
 
 class NoDumpTest extends TestCase
 {

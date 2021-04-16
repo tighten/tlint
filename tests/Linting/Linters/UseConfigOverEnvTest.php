@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\UseConfigOverEnv;
-use Tighten\TLint;
+use Tighten\TLint\Linters\UseConfigOverEnv;
+use Tighten\TLint\TLint;
 
 class UseConfigOverEnvTest extends TestCase
 {

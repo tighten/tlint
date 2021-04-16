@@ -3,8 +3,8 @@
 namespace tests\Formatting\Formatters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Formatters\NewLineAtEndOfFile;
-use Tighten\TFormat;
+use Tighten\TLint\Formatters\NewLineAtEndOfFile;
+use Tighten\TLint\TFormat;
 
 class NewLineAtEndOfFileTest extends TestCase
 {

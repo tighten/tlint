@@ -1,14 +1,14 @@
 <?php
 
-namespace Tighten\Linters;
+namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\BaseLinter;
-use Tighten\Illuminate\BladeCompiler;
-use Tighten\Linters\Concerns\LintsBladeTemplates;
+use Tighten\TLint\BaseLinter;
+use Tighten\TLint\Illuminate\BladeCompiler;
+use Tighten\TLint\Linters\Concerns\LintsBladeTemplates;
 
 class UseAuthHelperOverFacade extends BaseLinter
 {

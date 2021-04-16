@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Tighten\\": "src/"
+            "Tighten\\TLint\\": "src/"
         },
         "files": [
             "src/helpers.php"

@@ -5,8 +5,8 @@ namespace tests\Linting;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Tighten\Commands\LintCommand;
-use Tighten\Linters\ConcatenationSpacing;
+use Tighten\TLint\Commands\LintCommand;
+use Tighten\TLint\Linters\ConcatenationSpacing;
 
 class CanOutputLintsAsJsonTest extends TestCase
 {

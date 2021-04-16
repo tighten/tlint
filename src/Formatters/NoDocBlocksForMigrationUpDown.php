@@ -1,14 +1,14 @@
 <?php
 
-namespace Tighten\Formatters;
+namespace Tighten\TLint\Formatters;
 
 use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\BaseFormatter;
-use Tighten\Linters\Concerns\LintsMigrations;
+use Tighten\TLint\BaseFormatter;
+use Tighten\TLint\Linters\Concerns\LintsMigrations;
 
 class NoDocBlocksForMigrationUpDown extends BaseFormatter
 {

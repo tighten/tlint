@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\MailableMethodsInBuild;
-use Tighten\TLint;
+use Tighten\TLint\Linters\MailableMethodsInBuild;
+use Tighten\TLint\TLint;
 
 class MailableMethodsInBuildTest extends TestCase
 {

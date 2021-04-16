@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoDocBlocksForMigrationUpDown;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoDocBlocksForMigrationUpDown;
+use Tighten\TLint\TLint;
 
 class NoDocBlocksForMigrationUpDownTest extends TestCase
 {

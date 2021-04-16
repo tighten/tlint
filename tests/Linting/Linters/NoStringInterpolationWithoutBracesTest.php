@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoStringInterpolationWithoutBraces;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoStringInterpolationWithoutBraces;
+use Tighten\TLint\TLint;
 
 class NoStringInterpolationWithoutBracesTest extends TestCase
 {

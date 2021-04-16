@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\ClassThingsOrder;
-use Tighten\TLint;
+use Tighten\TLint\Linters\ClassThingsOrder;
+use Tighten\TLint\TLint;
 
 class ClassThingsOrderTest extends TestCase
 {

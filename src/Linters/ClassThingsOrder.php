@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Linters;
+namespace Tighten\TLint\Linters;
 
 use Closure;
 use Exception;
@@ -9,9 +9,9 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\BaseLinter;
-use Tighten\Concerns\IdentifiesClassThings;
-use Tighten\Concerns\IdentifiesExtends;
+use Tighten\TLint\BaseLinter;
+use Tighten\TLint\Concerns\IdentifiesClassThings;
+use Tighten\TLint\Concerns\IdentifiesExtends;
 
 class ClassThingsOrder extends BaseLinter
 {

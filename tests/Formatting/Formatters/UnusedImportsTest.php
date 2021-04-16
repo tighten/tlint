@@ -3,8 +3,8 @@
 namespace tests\Formatting\Formatters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Formatters\UnusedImports;
-use Tighten\TFormat;
+use Tighten\TLint\Formatters\UnusedImports;
+use Tighten\TLint\TFormat;
 
 class UnusedImportsTest extends TestCase
 {

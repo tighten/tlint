@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten;
+namespace Tighten\TLint;
 
 function version()
 {

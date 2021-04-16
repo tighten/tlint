@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\ArrayParametersOverViewWith;
-use Tighten\TLint;
+use Tighten\TLint\Linters\ArrayParametersOverViewWith;
+use Tighten\TLint\TLint;
 
 class ArrayParametersOverViewWithTest extends TestCase
 {

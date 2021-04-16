@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\RestControllersMethodOrder;
-use Tighten\TLint;
+use Tighten\TLint\Linters\RestControllersMethodOrder;
+use Tighten\TLint\TLint;
 
 class RestControllersMethodOrderTest extends TestCase
 {

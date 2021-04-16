@@ -3,7 +3,7 @@
 namespace tests;
 
 use PHPUnit\Framework\TestCase;
-use function Tighten\version;
+use function Tighten\TLint\version;
 
 class VersionTest extends TestCase
 {

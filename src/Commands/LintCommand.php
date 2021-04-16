@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Commands;
+namespace Tighten\TLint\Commands;
 
 use PhpParser\Error;
 use Symfony\Component\Console\Input\InputArgument;
@@ -9,9 +9,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Tighten\CustomNode;
-use Tighten\Lint;
-use Tighten\TLint;
+use Tighten\TLint\CustomNode;
+use Tighten\TLint\Lint;
+use Tighten\TLint\TLint;
 
 class LintCommand extends BaseCommand
 {

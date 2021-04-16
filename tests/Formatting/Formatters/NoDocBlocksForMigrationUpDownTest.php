@@ -3,8 +3,8 @@
 namespace tests\Formatting\Formatters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Formatters\NoDocBlocksForMigrationUpDown;
-use Tighten\TFormat;
+use Tighten\TLint\Formatters\NoDocBlocksForMigrationUpDown;
+use Tighten\TLint\TFormat;
 
 class NoDocBlocksForMigrationUpDownTest extends TestCase
 {

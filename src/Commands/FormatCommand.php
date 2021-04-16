@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Commands;
+namespace Tighten\TLint\Commands;
 
 use PhpParser\Error;
 use Symfony\Component\Console\Input\InputArgument;
@@ -9,8 +9,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Tighten\Config;
-use Tighten\TFormat;
+use Tighten\TLint\Config;
+use Tighten\TLint\TFormat;
 
 class FormatCommand extends BaseCommand
 {

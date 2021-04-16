@@ -1,14 +1,14 @@
 <?php
 
-namespace Tighten\Linters;
+namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\BaseLinter;
-use Tighten\Concerns\IdentifiesExtends;
-use Tighten\Linters\Concerns\LintsControllers;
+use Tighten\TLint\BaseLinter;
+use Tighten\TLint\Concerns\IdentifiesExtends;
+use Tighten\TLint\Linters\Concerns\LintsControllers;
 
 class RequestValidation extends BaseLinter
 {

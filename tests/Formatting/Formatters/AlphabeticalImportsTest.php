@@ -3,8 +3,8 @@
 namespace tests\Formatting\Formatters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Formatters\AlphabeticalImports;
-use Tighten\TFormat;
+use Tighten\TLint\Formatters\AlphabeticalImports;
+use Tighten\TLint\TFormat;
 
 class AlphabeticalImportsTest extends TestCase
 {
@@ -104,7 +104,7 @@ file;
 
 namespace tests;
 
-use function Tighten\\version;
+use function Tighten\\TLint\\version;
 use function PHPUnit\\Framework\\test;
 
 file;
@@ -119,7 +119,7 @@ file;
 namespace tests;
 
 use function PHPUnit\\Framework\\test;
-use function Tighten\\version;
+use function Tighten\\TLint\\version;
 
 file;
 
@@ -134,7 +134,7 @@ file;
 
 namespace tests;
 
-use const Tighten\\VERSION;
+use const Tighten\\TLint\\VERSION;
 use const PHPUnit\\Framework\\TEST;
 
 file;
@@ -149,7 +149,7 @@ file;
 namespace tests;
 
 use const PHPUnit\\Framework\\TEST;
-use const Tighten\\VERSION;
+use const Tighten\\TLint\\VERSION;
 
 file;
 

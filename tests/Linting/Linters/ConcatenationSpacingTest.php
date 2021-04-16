@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\ConcatenationSpacing;
-use Tighten\TLint;
+use Tighten\TLint\Linters\ConcatenationSpacing;
+use Tighten\TLint\TLint;
 
 class ConcatenationSpacingTest extends TestCase
 {

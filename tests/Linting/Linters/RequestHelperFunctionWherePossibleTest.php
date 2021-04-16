@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\RequestHelperFunctionWherePossible;
-use Tighten\TLint;
+use Tighten\TLint\Linters\RequestHelperFunctionWherePossible;
+use Tighten\TLint\TLint;
 
 class RequestHelperFunctionWherePossibleTest extends TestCase
 {

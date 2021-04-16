@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Linters\Concerns;
+namespace Tighten\TLint\Linters\Concerns;
 
 trait LintsBladeTemplates
 {

@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoMethodVisibilityInTests;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoMethodVisibilityInTests;
+use Tighten\TLint\TLint;
 
 class NoMethodVisibilityInTestsTest extends TestCase
 {

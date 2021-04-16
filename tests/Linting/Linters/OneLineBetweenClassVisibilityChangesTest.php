@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\OneLineBetweenClassVisibilityChanges;
-use Tighten\TLint;
+use Tighten\TLint\Linters\OneLineBetweenClassVisibilityChanges;
+use Tighten\TLint\TLint;
 
 class OneLineBetweenClassVisibilityChangesTest extends TestCase
 {

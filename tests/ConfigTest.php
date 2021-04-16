@@ -3,11 +3,11 @@
 namespace tests;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Config;
-use Tighten\Linters\AlphabeticalImports;
-use Tighten\Presets\LaravelPreset;
-use Tighten\Presets\PresetInterface;
-use Tighten\Presets\TightenPreset;
+use Tighten\TLint\Config;
+use Tighten\TLint\Linters\AlphabeticalImports;
+use Tighten\TLint\Presets\LaravelPreset;
+use Tighten\TLint\Presets\PresetInterface;
+use Tighten\TLint\Presets\TightenPreset;
 
 class ConfigTest extends TestCase
 {
@@ -50,7 +50,7 @@ class ConfigTestPreset implements PresetInterface
     {
         return [];
     }
-    
+
     public function getFormatters(): array
     {
         return [];

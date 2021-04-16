@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoJsonDirective;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoJsonDirective;
+use Tighten\TLint\TLint;
 
 class NoJsonDirectiveTest extends TestCase
 {

@@ -3,7 +3,7 @@
 namespace tests\Linting;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Utils\ParsesGitOutput;
+use Tighten\TLint\Utils\ParsesGitOutput;
 
 class EmptyDiffDoesNotTriggerWarningTest extends TestCase
 {

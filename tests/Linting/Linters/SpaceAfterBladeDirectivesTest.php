@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\SpaceAfterBladeDirectives;
-use Tighten\TLint;
+use Tighten\TLint\Linters\SpaceAfterBladeDirectives;
+use Tighten\TLint\TLint;
 
 class SpaceAfterBladeDirectivesTest extends TestCase
 {

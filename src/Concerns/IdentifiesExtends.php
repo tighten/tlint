@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Concerns;
+namespace Tighten\TLint\Concerns;
 
 use PhpParser\Node;
 

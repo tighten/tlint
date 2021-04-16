@@ -3,8 +3,8 @@
 namespace tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoUnusedImports;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoUnusedImports;
+use Tighten\TLint\TLint;
 
 class NoUnusedImportsTest extends TestCase
 {
@@ -290,7 +290,7 @@ file;
         $file = <<<file
 <?php
 
-use function Tighten\afunction;
+use function Tighten\TLint\afunction;
 
 afunction();
 
@@ -471,7 +471,7 @@ file;
         $file = <<<file
 <?php
 
-use Tighten\Linters;
+use Tighten\TLint\Linters;
 
 class TightenPreset implements PresetInterface
 {
