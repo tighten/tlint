@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Presets;
+namespace Tighten\TLint\Presets;
 
 interface PresetInterface
 {

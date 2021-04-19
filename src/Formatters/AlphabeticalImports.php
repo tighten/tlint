@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Formatters;
+namespace Tighten\TLint\Formatters;
 
 use PhpParser\Lexer;
 use PhpParser\Node\Stmt\GroupUse;
@@ -11,7 +11,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard;
-use Tighten\BaseFormatter;
+use Tighten\TLint\BaseFormatter;
 
 class AlphabeticalImports extends BaseFormatter
 {

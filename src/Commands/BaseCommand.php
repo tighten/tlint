@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Commands;
+namespace Tighten\TLint\Commands;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -9,8 +9,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
-use Tighten\Config;
-use Tighten\Utils\ParsesGitOutput;
+use Tighten\TLint\Config;
+use Tighten\TLint\Utils\ParsesGitOutput;
 
 abstract class BaseCommand extends Command
 {

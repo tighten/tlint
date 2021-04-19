@@ -1,13 +1,13 @@
 <?php
 
-namespace Tighten\Linters;
+namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\BaseLinter;
-use Tighten\Linters\Concerns\LintsMailables;
+use Tighten\TLint\BaseLinter;
+use Tighten\TLint\Linters\Concerns\LintsMailables;
 
 class MailableMethodsInBuild extends BaseLinter
 {

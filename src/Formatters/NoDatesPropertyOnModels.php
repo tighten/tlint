@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Formatters;
+namespace Tighten\TLint\Formatters;
 
 use Closure;
 use PhpParser\Lexer;
@@ -16,8 +16,8 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard;
-use Tighten\BaseFormatter;
-use Tighten\Concerns\IdentifiesExtends;
+use Tighten\TLint\BaseFormatter;
+use Tighten\TLint\Concerns\IdentifiesExtends;
 
 class NoDatesPropertyOnModels extends BaseFormatter
 {

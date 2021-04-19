@@ -1,11 +1,11 @@
 <?php
 
-namespace tests\Formatting;
+namespace Tests\Formatting;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Tighten\Commands\FormatCommand;
+use Tighten\TLint\Commands\FormatCommand;
 
 class NoOpFormatterSaysLGTMTest extends TestCase
 {

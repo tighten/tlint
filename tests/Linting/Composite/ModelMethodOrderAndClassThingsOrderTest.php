@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\Linting\Composite;
+namespace Tests\Linting\Composite;
 
 use PHPUnit\Framework\TestCase;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Tighten\Linters\ClassThingsOrder;
-use Tighten\Linters\ModelMethodOrder;
-use Tighten\TLint;
+use Tighten\TLint\Linters\ClassThingsOrder;
+use Tighten\TLint\Linters\ModelMethodOrder;
+use Tighten\TLint\TLint;
 
 class ModelMethodOrderAndClassThingsOrderTest extends TestCase
 {

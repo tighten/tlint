@@ -1,10 +1,10 @@
 <?php
 
-namespace Tighten;
+namespace Tighten\TLint;
 
 use InvalidArgumentException;
-use Tighten\Presets\PresetInterface;
-use Tighten\Presets\TightenPreset;
+use Tighten\TLint\Presets\PresetInterface;
+use Tighten\TLint\Presets\TightenPreset;
 
 class Config
 {
@@ -28,7 +28,7 @@ class Config
     public function setPreset($preset): self
     {
         if (! class_exists($preset)) {
-            $preset = 'Tighten\\Presets\\' . ucfirst($preset) . 'Preset';
+            $preset = 'Tighten\\TLint\\Presets\\' . ucfirst($preset) . 'Preset';
         }
 
         if (! is_a($preset, PresetInterface::class, true)) {
@@ -76,10 +76,10 @@ class Config
 
     private function buildLinterList(array $config): array
     {
-        $linters = $this->normalizeClassList('Tighten\\Linters\\', $this->preset->getLinters());
+        $linters = $this->normalizeClassList('Tighten\\TLint\\Linters\\', $this->preset->getLinters());
 
         $disabled = isset($config['disabled']) && is_array($config['disabled'])
-            ? $this->normalizeClassList('Tighten\\Linters\\', $config['disabled'])
+            ? $this->normalizeClassList('Tighten\\TLint\\Linters\\', $config['disabled'])
             : [];
 
         return array_diff($linters, $disabled);
@@ -87,10 +87,10 @@ class Config
 
     private function buildFormatterList(array $config): array
     {
-        $formatters = $this->normalizeClassList('Tighten\\Formatters\\', $this->preset->getFormatters());
+        $formatters = $this->normalizeClassList('Tighten\\TLint\\Formatters\\', $this->preset->getFormatters());
 
         $disabled = isset($config['disabled']) && is_array($config['disabled'])
-            ? $this->normalizeClassList('Tighten\\Formatters\\', $config['disabled'])
+            ? $this->normalizeClassList('Tighten\\TLint\\Formatters\\', $config['disabled'])
             : [];
 
         return array_diff($formatters, $disabled);

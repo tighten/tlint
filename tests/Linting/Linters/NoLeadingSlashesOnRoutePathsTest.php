@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\Linting\Linters;
+namespace Tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoLeadingSlashesOnRoutePaths;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoLeadingSlashesOnRoutePaths;
+use Tighten\TLint\TLint;
 
 class NoLeadingSlashesOnRoutePathsTest extends TestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\Linting\Linters;
+namespace Tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoRequestAll;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoRequestAll;
+use Tighten\TLint\TLint;
 
 class NoRequestAllTest extends TestCase
 {

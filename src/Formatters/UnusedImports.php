@@ -1,11 +1,11 @@
 <?php
 
-namespace Tighten\Formatters;
+namespace Tighten\TLint\Formatters;
 
 use PhpParser\Lexer;
 use PhpParser\Parser;
-use Tighten\BaseFormatter;
-use Tighten\Concerns\IdentifiesImports;
+use Tighten\TLint\BaseFormatter;
+use Tighten\TLint\Concerns\IdentifiesImports;
 
 class UnusedImports extends BaseFormatter
 {

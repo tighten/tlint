@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Illuminate;
+namespace Tighten\TLint\Illuminate;
 
 use Illuminate\View\Compilers\BladeCompiler as IlluminateBladeCompiler;
 use InvalidArgumentException;

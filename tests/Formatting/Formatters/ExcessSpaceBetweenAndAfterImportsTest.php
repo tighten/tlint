@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\Formatting\Formatters;
+namespace Tests\Formatting\Formatters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Formatters\ExcessSpaceBetweenAndAfterImports;
-use Tighten\TFormat;
+use Tighten\TLint\Formatters\ExcessSpaceBetweenAndAfterImports;
+use Tighten\TLint\TFormat;
 
 class ExcessSpaceBetweenAndAfterImportsTest extends TestCase
 {
@@ -127,11 +127,11 @@ file;
         $file = <<<file
 <?php
 
-namespace tests\\Formatting\\Formatters;
+namespace Tests\\Formatting\\Formatters;
 
-use Tighten\\Formatters;
+use Tighten\TLint\\Formatters;
 
-use Tighten\\Linters;
+use Tighten\TLint\\Linters;
 
 
 class TightenPreset implements PresetInterface
@@ -154,10 +154,10 @@ file;
         $correctlyFormatted = <<<file
 <?php
 
-namespace tests\\Formatting\\Formatters;
+namespace Tests\\Formatting\\Formatters;
 
-use Tighten\\Formatters;
-use Tighten\\Linters;
+use Tighten\TLint\\Formatters;
+use Tighten\TLint\\Linters;
 
 class TightenPreset implements PresetInterface
 {

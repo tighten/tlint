@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\Linting\Linters;
+namespace Tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoDatesPropertyOnModels;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoDatesPropertyOnModels;
+use Tighten\TLint\TLint;
 
 class NoDatesPropertyOnModelsTest extends TestCase
 {

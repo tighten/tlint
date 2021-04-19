@@ -1,10 +1,10 @@
 <?php
 
-namespace Tighten\Linters;
+namespace Tighten\TLint\Linters;
 
 use PhpParser\Parser;
-use Tighten\BaseLinter;
-use Tighten\Concerns\IdentifiesImports;
+use Tighten\TLint\BaseLinter;
+use Tighten\TLint\Concerns\IdentifiesImports;
 
 class NoUnusedImports extends BaseLinter
 {

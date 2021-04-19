@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Linters;
+namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -8,7 +8,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\BaseLinter;
+use Tighten\TLint\BaseLinter;
 
 class NoRequestAll extends BaseLinter
 {

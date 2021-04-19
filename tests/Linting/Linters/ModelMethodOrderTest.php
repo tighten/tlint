@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\Linting\Linters;
+namespace Tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\ModelMethodOrder;
-use Tighten\TLint;
+use Tighten\TLint\Linters\ModelMethodOrder;
+use Tighten\TLint\TLint;
 
 class ModelMethodOrderTest extends TestCase
 {

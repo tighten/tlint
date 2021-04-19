@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\Linting\Linters;
+namespace Tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\ImportFacades;
-use Tighten\TLint;
+use Tighten\TLint\Linters\ImportFacades;
+use Tighten\TLint\TLint;
 
 class ImportFacadesTest extends TestCase
 {

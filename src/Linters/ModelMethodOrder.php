@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Linters;
+namespace Tighten\TLint\Linters;
 
 use Closure;
 use PhpParser\Node;
@@ -8,9 +8,9 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
-use Tighten\BaseLinter;
-use Tighten\Concerns\IdentifiesExtends;
-use Tighten\Concerns\IdentifiesModelMethodTypes;
+use Tighten\TLint\BaseLinter;
+use Tighten\TLint\Concerns\IdentifiesExtends;
+use Tighten\TLint\Concerns\IdentifiesModelMethodTypes;
 
 class ModelMethodOrder extends BaseLinter
 {

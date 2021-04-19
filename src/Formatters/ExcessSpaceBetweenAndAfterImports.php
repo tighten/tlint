@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Formatters;
+namespace Tighten\TLint\Formatters;
 
 use PhpParser\Lexer;
 use PhpParser\Node\Stmt\Namespace_;
@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\UseUse;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\Parser;
-use Tighten\BaseFormatter;
+use Tighten\TLint\BaseFormatter;
 
 class ExcessSpaceBetweenAndAfterImports extends BaseFormatter
 {

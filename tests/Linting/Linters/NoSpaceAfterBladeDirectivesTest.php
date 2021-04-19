@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\Linting\Linters;
+namespace Tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\NoSpaceAfterBladeDirectives;
-use Tighten\TLint;
+use Tighten\TLint\Linters\NoSpaceAfterBladeDirectives;
+use Tighten\TLint\TLint;
 
 class NoSpaceAfterBladeDirectivesTest extends TestCase
 {

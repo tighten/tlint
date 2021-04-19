@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\Linting\Linters;
+namespace Tests\Linting\Linters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Linters\RequestValidation;
-use Tighten\TLint;
+use Tighten\TLint\Linters\RequestValidation;
+use Tighten\TLint\TLint;
 
 class RequestValidationTest extends TestCase
 {

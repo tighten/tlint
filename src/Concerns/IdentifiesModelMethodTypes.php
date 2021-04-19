@@ -1,6 +1,6 @@
 <?php
 
-namespace Tighten\Concerns;
+namespace Tighten\TLint\Concerns;
 
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;

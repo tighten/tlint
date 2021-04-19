@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\Formatting\Formatters;
+namespace Tests\Formatting\Formatters;
 
 use PHPUnit\Framework\TestCase;
-use Tighten\Formatters\AlphabeticalImports;
-use Tighten\TFormat;
+use Tighten\TLint\Formatters\AlphabeticalImports;
+use Tighten\TLint\TFormat;
 
 class AlphabeticalImportsTest extends TestCase
 {
@@ -102,9 +102,9 @@ file;
         $file = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
-use function Tighten\\version;
+use function Tighten\\TLint\\version;
 use function PHPUnit\\Framework\\test;
 
 file;
@@ -116,10 +116,10 @@ file;
         $correctlyFormatted = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use function PHPUnit\\Framework\\test;
-use function Tighten\\version;
+use function Tighten\\TLint\\version;
 
 file;
 
@@ -132,9 +132,9 @@ file;
         $file = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
-use const Tighten\\VERSION;
+use const Tighten\\TLint\\VERSION;
 use const PHPUnit\\Framework\\TEST;
 
 file;
@@ -146,10 +146,10 @@ file;
         $correctlyFormatted = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use const PHPUnit\\Framework\\TEST;
-use const Tighten\\VERSION;
+use const Tighten\\TLint\\VERSION;
 
 file;
 
@@ -162,7 +162,7 @@ file;
         $file = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use com\\test\\ClassA;
 use const com\\test\\ConstA;
@@ -177,7 +177,7 @@ file;
         $correctlyFormatted = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use com\\test\\ClassA;
 use function com\\test\\fn_b;
@@ -194,7 +194,7 @@ file;
         $file = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use const com\\test\\ConstB;
 use com\\test\\ClassB;
@@ -210,7 +210,7 @@ file;
         $correctlyFormatted = <<<file
 <?php
 
-namespace tests;
+namespace Tests;
 
 use com\\test\\ClassB;
 use function com\\test\\fn_b;
