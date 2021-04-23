@@ -57,3 +57,11 @@ a new PHP environment is added to the testing environments directory.
 ```
 > phpdbg -qrr ./vendor/bin/phpunit --coverage-text
 ```
+
+## Updating Version
+
+First, run `git tag vMAJOR.MINOR.PATCH`, then
+```
+> composer bumpVersion
+```
+will update the `TLINT_VERSION` constant in `./bin/tlint`
