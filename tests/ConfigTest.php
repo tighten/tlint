@@ -4,7 +4,8 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\TLint\Config;
-use Tighten\TLint\Linters\AlphabeticalImports;
+use Tighten\TLint\Formatters;
+use Tighten\TLint\Linters;
 use Tighten\TLint\Presets\LaravelPreset;
 use Tighten\TLint\Presets\PresetInterface;
 use Tighten\TLint\Presets\TightenPreset;
@@ -12,19 +13,35 @@ use Tighten\TLint\Presets\TightenPreset;
 class ConfigTest extends TestCase
 {
     /** @test */
-    function laravel_preset_does_not_include_alphabetical_imports()
+    function tighten_preset_can_get_linters()
     {
-        $laravelPreset = new LaravelPreset;
+        $this->assertContains(Linters\AlphabeticalImports::class, (new TightenPreset)->getLinters());
+    }
 
-        $this->assertNotContains('AlphabeticalImports', $laravelPreset->getLinters());
+    /** @test */
+    function tighten_preset_can_get_formatters()
+    {
+        $this->assertContains(Formatters\AlphabeticalImports::class, (new TightenPreset)->getFormatters());
+    }
+
+    /** @test */
+    function laravel_preset_can_get_linters()
+    {
+        $this->assertContains(Linters\AlphabeticalImports::class, (new LaravelPreset)->getLinters());
+    }
+
+    /** @test */
+    function laravel_preset_can_get_formatters()
+    {
+        $this->assertContains(Formatters\AlphabeticalImports::class, (new LaravelPreset)->getFormatters());
     }
 
     /** @test */
     function disabling_a_linter_via_json_config_removes_it_when_filtered()
     {
-        $config = new Config(['disabled' => ['AlphabeticalImports']]);
+        $config = new Config(['disabled' => [Linters\AlphabeticalImports::class]]);
 
-        $this->assertNotContains(AlphabeticalImports::class, $config->getLinters());
+        $this->assertNotContains(Linters\AlphabeticalImports::class, $config->getLinters());
     }
 
     /** @test */
