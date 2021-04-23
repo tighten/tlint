@@ -15,22 +15,19 @@ class Lint
         $this->node = $node;
     }
 
-    public function __toString()
-    {
-        return '! ' . $this->linter->getLintDescription() . PHP_EOL
-                . $this->node->getLine() . ' : `' . $this->linter->getCodeLine($this->node->getLine()) . '`';
-    }
-
     public function getLinter(): BaseLinter
     {
         return $this->linter;
     }
 
-    /**
-     * @return Node
-     */
     public function getNode(): Node
     {
         return $this->node;
+    }
+
+    public function __toString()
+    {
+        return '! ' . $this->linter->getLintDescription() . PHP_EOL
+            . $this->node->getLine() . ' : `' . $this->linter->getCodeLine($this->node->getLine()) . '`';
     }
 }

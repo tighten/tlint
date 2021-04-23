@@ -2,6 +2,7 @@
 
 namespace Tighten\TLint\Presets;
 
+use Tighten\TLint\Formatters;
 use Tighten\TLint\Linters;
 
 class LaravelPreset implements PresetInterface
