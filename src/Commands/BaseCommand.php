@@ -96,6 +96,9 @@ abstract class BaseCommand extends Command
 
     protected function isBlacklisted($filepath)
     {
+        $cwd = $this->cwd ?: getcwd();
+        $filepath = str_replace($cwd, '', $filepath);
+
         $DS = DIRECTORY_SEPARATOR;
         return strpos($filepath, "vendor") !== false
             || strpos($filepath, "node_modules") !== false
