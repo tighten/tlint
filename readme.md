@@ -160,6 +160,7 @@ Then your config could look like:
 This lets you define whatever custom linting functionality, or modify the existing linters to your liking.
 
 ## Formatting Configuration (Beta)
+
 Similar to linting there are two "preset" styles for formatting: Laravel & Tighten.
 
 The default configuration is "tighten", but you may change this by adding a `tformat.json` file to your project's root directory with the following schema:
