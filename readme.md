@@ -105,7 +105,7 @@ Using the same conventions as above, but using the format command, you can auto-
 tlint format
 ```
 
-## Configuration
+## Linting Configuration
 
 TLint Ships with 2 "preset" styles: Laravel & Tighten.
 The Laravel preset is intended to match the conventions agreed upon by the Laravel framework contributors, while the Tighten preset is intended to match those agreed upon by Tighten team members.
@@ -158,6 +158,17 @@ Then your config could look like:
 ```
 
 This lets you define whatever custom linting functionality, or modify the existing linters to your liking.
+
+## Formatting Configuration (Beta)
+Similar to linting there are two "preset" styles for formatting: Laravel & Tighten.
+
+The default configuration is "tighten", but you may change this by adding a `tformat.json` file to your project's root directory with the following schema:
+
+```json
+{
+    "preset": "laravel"
+}
+```
 
 ## Editor Integrations
 
