@@ -606,4 +606,22 @@ file;
 
         $this->assertEmpty((new TLint)->lint(new NoUnusedImports($file)));
     }
+
+    /** @test */
+    function does_not_trigger_when_import_used_attribute()
+    {
+        $file = <<<'file'
+<?php
+
+use Spatie\DataTransferObject\Attributes\Strict;
+
+#[Strict]
+class Test
+{
+    public string $start;
+}
+file;
+
+        $this->assertEmpty((new TLint)->lint(new NoUnusedImports($file)));
+    }
 }
