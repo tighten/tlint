@@ -12,7 +12,7 @@ class TLint
 
     public function __construct()
     {
-        $this->parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7, new Lexer);
+        $this->parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
     }
 
     public function lint(BaseLinter $linter)
