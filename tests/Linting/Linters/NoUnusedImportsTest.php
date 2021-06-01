@@ -606,4 +606,37 @@ file;
 
         $this->assertEmpty((new TLint)->lint(new NoUnusedImports($file)));
     }
+
+    /** @test */
+    function does_not_trigger_when_import_uses_attribute()
+    {
+        $file = <<<'file'
+<?php
+
+use We\Are\Strict;
+use Attribute\On\Property\One;
+use Attribute\On\Property\Two;
+use Attribute\On\Property\Three;
+use Atrribute\On\Method;
+
+#[Strict]
+class Test
+{
+    #[One,Two]
+    public string $foo;
+    #[Three]
+    public string $bar;
+    
+    #[Method]
+    public function doIt(): void {
+    
+    }
 }
+file;
+
+        $this->assertEmpty((new TLint)->lint(new NoUnusedImports($file)));
+    }
+
+
+}
+
