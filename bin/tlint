@@ -2,7 +2,7 @@
 
 <?php
 
-const TLINT_VERSION = 'v6.0.1';
+const TLINT_VERSION = 'v6.0.2';
 
 foreach (
     [
