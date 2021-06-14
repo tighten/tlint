@@ -48,6 +48,24 @@ php,
 */
 
 php,
+            ], [
+                <<<php
+<?php
+// (new HasDump)->dump();
+
+/**
+*
+* (new HasDump)->dump();
+*/
+
+/**
+*
+* (new HasDd)->dd();
+*/
+
+// (new HasDd)->dd();
+
+php,
             ],
         ];
     }
@@ -77,6 +95,34 @@ php,
 
 \$foo = "abc";
 var_dump(\$foo);
+
+php,
+            ], [
+                <<<php
+<?php
+
+class HasDump {
+    public function dump() {
+
+    }
+}
+
+
+(new HasDump)->dump();
+
+php,
+            ], [
+                <<<php
+<?php
+
+class HasDd {
+    public function dd() {
+
+    }
+}
+
+
+(new HasDd)->dd();
 
 php,
             ],
