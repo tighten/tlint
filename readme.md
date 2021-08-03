@@ -252,6 +252,7 @@ If you discover any security related issues, please email hello@tighten.co inste
 ## Credits
 
 -   [Logan Henson](https://github.com/loganhenson)
+-   [Jacob Baker-Kretzmar](https://github.com/bakerkretzmar)
 -   [All Contributors](../../contributors)
 
 ## License
