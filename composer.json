@@ -42,6 +42,7 @@
             "composer create-project laravel/laravel ./tests/fixtures/laravel",
             "echo '{\"preset\":\"laravel\"}' > ./tests/fixtures/laravel/tlint.json",
             "rm -rf ./tests/fixtures/laravel/composer.lock"
-        ]
+        ],
+        "generate-readme-tables": "php ./scripts/generateLintersFormattersTables.php"
     }
 }
