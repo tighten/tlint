@@ -15,7 +15,6 @@ class LaravelPreset implements PresetInterface
             Linters\ArrayParametersOverViewWith::class,
             Linters\ClassThingsOrder::class,
             Linters\ConcatenationNoSpacing::class,
-            Linters\ImportFacades::class,
             Linters\MailableMethodsInBuild::class,
             Linters\NewLineAtEndOfFile::class,
             Linters\NoCompact::class,
