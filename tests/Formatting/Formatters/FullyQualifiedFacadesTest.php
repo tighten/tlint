@@ -39,6 +39,32 @@ file;
     }
 
     /** @test */
+    public function fixes_facade_aliases_when_file_not_namespaced()
+    {
+        $file = <<<'file'
+<?php
+
+use DB;
+use Storage;
+
+return true;
+file;
+
+        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+
+        $expected = <<<'file'
+<?php
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
+return true;
+file;
+
+        $this->assertSame($expected, $formatted);
+    }
+
+    /** @test */
     public function fixes_facade_aliases_mixed_with_valid_use_statements()
     {
         $file = <<<'file'
