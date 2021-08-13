@@ -2,17 +2,17 @@
 
 namespace Tighten\TLint\Formatters;
 
-use PhpParser\Node;
 use PhpParser\Lexer;
-use PhpParser\Parser;
+use PhpParser\Node;
 use PhpParser\Node\Name;
-use PhpParser\NodeTraverser;
+use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
-use Tighten\TLint\BaseFormatter;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\PrettyPrinter\Standard;
+use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
+use PhpParser\Parser;
+use PhpParser\PrettyPrinter\Standard;
+use Tighten\TLint\BaseFormatter;
 use Tighten\TLint\Concerns\IdentifiesFacades;
 
 class FullyQualifiedFacades extends BaseFormatter

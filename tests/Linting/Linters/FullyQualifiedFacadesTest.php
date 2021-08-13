@@ -9,20 +9,64 @@ use Tighten\TLint\TLint;
 class FullyQualifiedFacadesTest extends TestCase
 {
     /** @test */
-    public function does_not_trigger_when_file_is_not_namespaced()
+    public function it_triggers_on_namespaced_file()
     {
         $file = <<<file
 <?php
 
-Hash::make('test');
+namespace Test;
+
+use Cache;
+
+Cache::get('key');
+
 file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 
-        $this->assertEmpty($lints);
+        $this->assertEquals(5, $lints[0]->getNode()->getLine());
     }
+
+    /** @test */
+    public function it_triggers_on_non_namespaced_file()
+    {
+        $file = <<<file
+<?php
+
+use Cache;
+
+Cache::get('key');
+
+file;
+
+        $lints = (new TLint)->lint(
+            new FullyQualifiedFacades($file)
+        );
+
+        $this->assertEquals(3, $lints[0]->getNode()->getLine());
+    }
+
+    /** @test */
+    public function it_triggers_on_aliased_facade()
+    {
+        $file = <<<file
+<?php
+
+use Cache as Store;
+
+Store::get('key');
+
+file;
+
+        $lints = (new TLint)->lint(
+            new FullyQualifiedFacades($file)
+        );
+
+        $this->assertEquals(3, $lints[0]->getNode()->getLine());
+    }
+
 
     /** @test */
     public function does_not_trigger_on_alias_usage_without_import()

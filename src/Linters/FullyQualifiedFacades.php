@@ -3,7 +3,6 @@
 namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
-use PhpParser\Node\Name;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
@@ -20,32 +19,25 @@ class FullyQualifiedFacades extends BaseLinter
     {
         $traverser = new NodeTraverser;
 
-        $visitor = new FindingVisitor(function (Node $node) {
-            static $hasNamespace = false;
+        $groupUseStatements = [];
 
-            if ($node instanceof Node\Stmt\Namespace_) {
-                $hasNamespace = true;
-            }
-
-            static $useNames = [];
-            static $useAliases = [];
-
+        $visitor = new FindingVisitor(function (Node $node) use (&$groupUseStatements) {
+            /**
+             * Get array of group use statements eg. ['Cache', 'Config']
+             */
             if ($node instanceof Node\Stmt\GroupUse) {
                 foreach ($node->uses as $use) {
-                    $useNames[] = Name::concat($node->prefix, $use->name)->toString();
-                    $useAliases[] = $use->getAlias();
+                    $groupUseStatements[] = $use->name->toString();
                 }
-            } elseif ($node instanceof Node\Stmt\UseUse) {
-                $useNames[] = $node->name->toString();
-                $useAliases[] = $node->getAlias();
             }
 
-            return $node instanceof Node\Expr\StaticCall
-                && $hasNamespace
-                && $node->class instanceof Node\Name
-                && in_array($node->class->toString(), array_keys(static::$aliases))
-                && ($useAliases && ! in_array($node->class->toString(), $useAliases))
-                && ! in_array(static::$aliases[$node->class->toString()], $useNames);
+            if ($node instanceof Node\Stmt\UseUse) {
+                if (! in_array($node->name->toString(), $groupUseStatements)) {
+                    return in_array($node->name->toString(), array_keys(static::$aliases));
+                }
+            }
+
+            return false;
         });
 
         $traverser->addVisitor($visitor);
