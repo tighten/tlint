@@ -149,6 +149,29 @@ file;
     }
 
     /** @test */
+    public function ignores_files_with_same_name_as_facade_alias()
+    {
+        $file = <<<'file'
+<?php
+
+namespace App\Utilities;
+
+class Stuff
+{
+    public function doStuff()
+    {
+        return File::otherStuff();
+    }
+}
+file;
+
+        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+
+        $this->assertSame($file, $formatted);
+    }
+
+
+    /** @test */
     public function ignores_unknown_aliases()
     {
         $file = <<<'file'

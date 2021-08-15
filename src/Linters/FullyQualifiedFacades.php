@@ -23,7 +23,8 @@ class FullyQualifiedFacades extends BaseLinter
 
         $visitor = new FindingVisitor(function (Node $node) use (&$groupUseStatements) {
             /**
-             * Get array of group use statements eg. ['Cache', 'Config']
+             * Get array of group use statement classes
+             * Illuminate\Support\Facades\{Config, Hash} => ['Config', 'Hash']
              */
             if ($node instanceof Node\Stmt\GroupUse) {
                 foreach ($node->uses as $use) {
