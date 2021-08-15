@@ -67,25 +67,6 @@ file;
         $this->assertEquals(3, $lints[0]->getNode()->getLine());
     }
 
-
-    /** @test */
-    public function does_not_trigger_on_alias_usage_without_import()
-    {
-        $file = <<<file
-<?php
-
-namespace Test;
-
-File::thisClassExistsInSameDirectoryButIsNotAFacade();
-file;
-
-        $lints = (new TLint)->lint(
-            new FullyQualifiedFacades($file)
-        );
-
-        $this->assertEmpty($lints);
-    }
-
     /** @test */
     public function does_not_trigger_on_facade_usage_with_import()
     {
@@ -185,6 +166,51 @@ class Relationships
         return factory(\$className)->create();
     }
 }
+file;
+
+        $lints = (new TLint)->lint(
+            new FullyQualifiedFacades($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function ignores_files_in_same_directory_with_same_name_as_facade_alias()
+    {
+        $file = <<<'file'
+<?php
+
+namespace App\Utilities;
+
+class Stuff
+{
+    public function doStuff()
+    {
+        return File::otherStuff();
+    }
+}
+file;
+
+        $lints = (new TLint)->lint(
+            new FullyQualifiedFacades($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+
+    /** @test */
+    public function ignores_unknown_aliases()
+    {
+        $file = <<<'file'
+<?php
+
+namespace Test;
+
+use Shortcut;
+
+return true;
 file;
 
         $lints = (new TLint)->lint(

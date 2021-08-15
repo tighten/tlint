@@ -149,7 +149,7 @@ file;
     }
 
     /** @test */
-    public function ignores_files_with_same_name_as_facade_alias()
+    public function ignores_files_in_same_directory_with_same_name_as_facade_alias()
     {
         $file = <<<'file'
 <?php
