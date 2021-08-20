@@ -18,8 +18,6 @@ namespace Test;
 
 use Cache;
 
-Cache::get('key');
-
 file;
 
         $lints = (new TLint)->lint(
@@ -36,8 +34,6 @@ file;
 <?php
 
 use Cache;
-
-Cache::get('key');
 
 file;
 
@@ -56,8 +52,6 @@ file;
 
 use Cache as Store;
 
-Store::get('key');
-
 file;
 
         $lints = (new TLint)->lint(
@@ -68,7 +62,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_facade_usage_with_import()
+    public function does_not_trigger_on_a_fully_qualified_facade()
     {
         $file = <<<file
 <?php
@@ -77,7 +71,6 @@ namespace Test;
 
 use Illuminate\Support\Facades\Hash;
 
-Hash::make('test');
 file;
 
         $lints = (new TLint)->lint(
@@ -88,27 +81,7 @@ file;
     }
 
     /** @test */
-    public function does_not_trigger_on_facade_usage_with_nova_import()
-    {
-        $file = <<<file
-<?php
-
-namespace Test;
-
-use Laravel\Nova\Fields\Password;
-
-Password::make('Password');
-file;
-
-        $lints = (new TLint)->lint(
-            new FullyQualifiedFacades($file)
-        );
-
-        $this->assertEmpty($lints);
-    }
-
-    /** @test */
-    public function does_not_trigger_on_facade_usage_with_custom_aliased_import()
+    public function does_not_trigger_on_custom_class_aliased_to_facade_name()
     {
         $file = <<<file
 <?php
@@ -117,7 +90,6 @@ namespace Test;
 
 use MyNamespace\MyClass as Config;
 
-Config::get('test');
 file;
 
         $lints = (new TLint)->lint(
@@ -137,7 +109,6 @@ namespace Test;
 
 use Illuminate\Support\Facades\{Config, Hash};
 
-Config::get('test');
 file;
 
         $lints = (new TLint)->lint(
@@ -148,24 +119,53 @@ file;
     }
 
     /** @test */
-    public function does_not_throw_on_variable_class_static_calls()
+    public function does_not_trigger_on_facade_usage_with_grouped_import_and_renamed_imports()
     {
         $file = <<<file
 <?php
 
 namespace Test;
 
-class Relationships
-{
-    static function randomOrCreate(\$className)
-    {
-        if (\$className::all()->count() > 0) {
-            return \$className::all()->random();
-        }
+use Illuminate\Support\Facades\{Config, Hash};
+use Some\Othere\Namespace\{Config as OtherConfig};
+use Some\Other\Namespace\File;
 
-        return factory(\$className)->create();
+file;
+
+        $lints = (new TLint)->lint(
+            new FullyQualifiedFacades($file)
+        );
+
+        $this->assertEmpty($lints);
     }
-}
+
+    /** @test */
+    public function ignores_unknown_aliases_in_namespaced_file()
+    {
+        $file = <<<'file'
+<?php
+
+namespace Test;
+
+use Shortcut;
+
+file;
+
+        $lints = (new TLint)->lint(
+            new FullyQualifiedFacades($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function ignores_unknown_aliases_in_non_namespaced_file()
+    {
+        $file = <<<'file'
+<?php
+
+use Shortcut;
+
 file;
 
         $lints = (new TLint)->lint(
@@ -190,27 +190,6 @@ class Stuff
         return File::otherStuff();
     }
 }
-file;
-
-        $lints = (new TLint)->lint(
-            new FullyQualifiedFacades($file)
-        );
-
-        $this->assertEmpty($lints);
-    }
-
-
-    /** @test */
-    public function ignores_unknown_aliases()
-    {
-        $file = <<<'file'
-<?php
-
-namespace Test;
-
-use Shortcut;
-
-return true;
 file;
 
         $lints = (new TLint)->lint(
