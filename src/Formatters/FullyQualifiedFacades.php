@@ -31,9 +31,9 @@ class FullyQualifiedFacades extends BaseFormatter
 
         $newStmts = $traverser->traverse($oldStmts);
 
-        if ($newStmts[0] instanceof Namespace_) {
+        if (count($newStmts) && $newStmts[0] instanceof Namespace_) {
             $newStmts[0]->stmts = $this->transformFacadesToFullyQualified($newStmts[0]->stmts);
-        } elseif (count($newStmts) && ($newStmts[0] instanceof Use_ || $newStmts[0] instanceof UseUse)) {
+        } else {
             $newStmts = $this->transformFacadesToFullyQualified($newStmts);
         }
 

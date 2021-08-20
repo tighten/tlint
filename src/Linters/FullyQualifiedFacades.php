@@ -19,23 +19,25 @@ class FullyQualifiedFacades extends BaseLinter
     {
         $traverser = new NodeTraverser;
 
-        $groupUseStatements = [];
+        $visitor = new FindingVisitor(function (Node $node) {
+            static $groupUse = [];
 
-        $visitor = new FindingVisitor(function (Node $node) use (&$groupUseStatements) {
             /**
-             * Get array of group use statement classes
+             * Build an array of group use statement classes (groups use FQNs)
              * Illuminate\Support\Facades\{Config, Hash} => ['Config', 'Hash']
              */
             if ($node instanceof Node\Stmt\GroupUse) {
                 foreach ($node->uses as $use) {
-                    $groupUseStatements[] = $use->name->toString();
+                    $groupUse[] = $use->name->toString();
                 }
             }
 
-            if ($node instanceof Node\Stmt\UseUse) {
-                if (! in_array($node->name->toString(), $groupUseStatements)) {
-                    return in_array($node->name->toString(), array_keys(static::$aliases));
-                }
+            /**
+             * Check if the node is a use statement and not a group use statement
+             * Return if use statement is a facade or not
+             */
+            if ($node instanceof Node\Stmt\UseUse && ! in_array($node->name->toString(), $groupUse)) {
+                return in_array($node->name->toString(), array_keys(static::$aliases));
             }
 
             return false;
