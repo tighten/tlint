@@ -223,7 +223,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `SpaceAfterSoleNotOperator`            | There should be a space after sole `!` operators                                                                                                                                                                                             |
 | `SpacesAroundBladeRenderContent`       | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}`                                                                                                                                                                            |
 | `TrailingCommasOnArrays`               | Multiline arrays should have trailing commas                                                                                                                                                                                                 |
-| `UseAnonymousMigrations`               | Prefer returning an anonymous class from migration files                                                                                                                                                                                      |
+| `UseAnonymousMigrations`               | Prefer returning an anonymous class from migration files                                                                                                                                                                                     |
 | `UseAuthHelperOverFacade`              | Prefer the `auth()` helper function over the `Auth` Facade.                                                                                                                                                                                  |
 | `UseConfigOverEnv`                     | Don’t use environment variables directly; instead, use them in config files and call config vars from code                                                                                                                                   |
 | `ViewWithOverArrayParameters`          | Prefer `view(...)->with(...)` over `view(..., [...])`.                                                                                                                                                                                       |
@@ -286,7 +286,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `NoDatesPropertyOnModels`           | Use `$casts` instead of `$dates` on Eloquent models.          |
 | `NoDocBlocksForMigrationUpDown`     | Removes doc blocks from the up and down method in migrations. |
 | `UnusedImports`                     | Removes unused import statements.                             |
-| `UseAnonymousMigrations`            | Prefer returning an anonymous class from migration files       |
+| `UseAnonymousMigrations`            | Prefer returning an anonymous class from migration files      |
 
 ### General PHP
 
