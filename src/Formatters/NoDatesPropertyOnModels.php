@@ -103,7 +103,9 @@ class NoDatesPropertyOnModels extends BaseFormatter
         }
 
         // Sort casts alphabetically
-        sort($newCasts);
+        uasort($newCasts, function ($a, $b) {
+            return $a->key->value <=> $b->key->value;
+        });
 
         // We have to return a *new* Property node here (even if there was
         // already a casts property) so the printer formats it correctly
