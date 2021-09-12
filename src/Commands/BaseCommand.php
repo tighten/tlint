@@ -25,7 +25,7 @@ abstract class BaseCommand extends Command
             json_decode(
                 is_file($configPath)
                     ? file_get_contents($configPath)
-                    : null,
+                    : '',
                 true
             ) ?? null
         );
