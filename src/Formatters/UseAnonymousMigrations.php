@@ -25,21 +25,33 @@ class UseAnonymousMigrations extends BaseFormatter
         $traverser = new NodeTraverser;
         $traverser->addVisitor(new CloningVisitor);
 
-        $originalStatements = $parser->parse($this->code);
-        $tokens = $lexer->getTokens();
-
-        $statements = array_map(function (Node $node) {
+        $className = null;
+        array_map(function (Node $node) use (&$className) {
             if (
                 $node instanceof Class_
                     && $node->extends->toString() === 'Migration'
                     && $node->name
             ) {
-                return new Return_(new New_($node));
+                $className = $node->name->toString();
             }
+        }, $traverser->traverse($parser->parse($this->code)));
 
-            return $node;
-        }, $traverser->traverse($originalStatements));
+        if ($className) {
+            $this->code = str_replace("class {$className}", 'return new class', $this->code);
+            $this->code = $this->str_lreplace('}', '};', $this->code);
+        }
 
-        return (new Standard)->printFormatPreserving($statements, $originalStatements, $tokens);
+        return $this->code;
+    }
+
+    public function str_lreplace($search, $replace, $subject)
+    {
+        $pos = strrpos($subject, $search);
+
+        if ($pos !== false) {
+            $subject = substr_replace($subject, $replace, $pos, strlen($search));
+        }
+
+        return $subject;
     }
 }
