@@ -9,7 +9,7 @@ use Tighten\TLint\TFormat;
 class UseAnonymousMigrationsTest extends TestCase
 {
     /** @test */
-    public function anonymizes_named_migration()
+    public function it_converts_named_migration_to_anonymous_migration()
     {
         $file = <<<file
 <?php

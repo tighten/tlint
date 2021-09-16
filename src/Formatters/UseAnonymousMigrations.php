@@ -2,16 +2,13 @@
 
 namespace Tighten\TLint\Formatters;
 
-use PhpParser\Node;
 use PhpParser\Lexer;
-use PhpParser\Parser;
-use PhpParser\NodeTraverser;
-use PhpParser\Node\Expr\New_;
+use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Return_;
-use Tighten\TLint\BaseFormatter;
-use PhpParser\PrettyPrinter\Standard;
+use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
+use PhpParser\Parser;
+use Tighten\TLint\BaseFormatter;
 use Tighten\TLint\Linters\Concerns\LintsMigrations;
 
 class UseAnonymousMigrations extends BaseFormatter
@@ -38,13 +35,13 @@ class UseAnonymousMigrations extends BaseFormatter
 
         if ($className) {
             $this->code = str_replace("class {$className}", 'return new class', $this->code);
-            $this->code = $this->str_lreplace('}', '};', $this->code);
+            $this->code = $this->str_replace_last('}', '};', $this->code);
         }
 
         return $this->code;
     }
 
-    public function str_lreplace($search, $replace, $subject)
+    public function str_replace_last($search, $replace, $subject)
     {
         $pos = strrpos($subject, $search);
 

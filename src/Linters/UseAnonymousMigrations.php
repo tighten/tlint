@@ -3,11 +3,11 @@
 namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
-use PhpParser\Parser;
-use PhpParser\NodeTraverser;
-use Tighten\TLint\BaseLinter;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
+use PhpParser\Parser;
+use Tighten\TLint\BaseLinter;
 use Tighten\TLint\Linters\Concerns\LintsMigrations;
 
 class UseAnonymousMigrations extends BaseLinter
