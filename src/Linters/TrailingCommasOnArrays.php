@@ -10,7 +10,7 @@ use Tighten\TLint\BaseLinter;
 
 class TrailingCommasOnArrays extends BaseLinter
 {
-    public const description = 'Multiline arrays should have trailing commas';
+    public const DESCRIPTION = 'Multiline arrays should have trailing commas';
 
     public function lint(Parser $parser)
     {

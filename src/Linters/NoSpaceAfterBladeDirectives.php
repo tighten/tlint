@@ -11,7 +11,7 @@ class NoSpaceAfterBladeDirectives extends BaseLinter
 {
     use LintsBladeTemplates;
 
-    public const description = 'No space between blade template directive names and the opening paren:'
+    public const DESCRIPTION = 'No space between blade template directive names and the opening paren:'
         . '`@section (` -> `@section(`';
 
     protected const NO_SPACE_AFTER = [

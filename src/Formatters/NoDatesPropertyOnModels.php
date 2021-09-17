@@ -23,7 +23,7 @@ class NoDatesPropertyOnModels extends BaseFormatter
 {
     use IdentifiesExtends;
 
-    public const description = 'Use `$casts` instead of `$dates` on Eloquent models.';
+    public const DESCRIPTION = 'Use `$casts` instead of `$dates` on Eloquent models.';
 
     public function format(Parser $parser, Lexer $lexer)
     {
