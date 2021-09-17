@@ -19,7 +19,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.3",
-        "symfony/var-dumper": "^5.3"
+        "symfony/var-dumper": "^5.3",
+        "friendsofphp/php-cs-fixer": "^3.1"
     },
     "autoload": {
         "psr-4": {
@@ -37,6 +38,7 @@
     "scripts": {
         "buildTestEnvironments": "./scripts/buildTestEnvironments.sh",
         "bumpVersion": "sed -i '' \"/TLINT_VERSION/ s/'v.*'/'$(git describe --abbrev=0 --tag)'/\" ./bin/tlint",
+        "fix": "php-cs-fixer fix -v",
         "generate-readme-tables": "php ./scripts/generateLintersFormattersTables.php",
         "runTests": "./scripts/runTests.sh",
         "update-fixture-app": [
