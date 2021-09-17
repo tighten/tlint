@@ -13,8 +13,8 @@
     "require": {
         "php": ">=7.3",
         "illuminate/view": "*",
-        "nikic/php-parser": "^4.10.3",
-        "symfony/console": "^4.3 || ^5.0",
+        "nikic/php-parser": "^4.12",
+        "symfony/console": "^4.4.30 || ^5.3.7",
         "symfony/process": "^4.3 || ^5.0"
     },
     "require-dev": {

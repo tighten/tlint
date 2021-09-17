@@ -142,7 +142,7 @@ class FormatCommand extends BaseCommand
     private function getFormatters($path)
     {
         $configPath = getcwd() . '/tformat.json';
-        $config = new Config(json_decode(is_file($configPath) ? file_get_contents($configPath) : null, true) ?? null);
+        $config = new Config(json_decode(is_file($configPath) ? file_get_contents($configPath) : '', true) ?? null);
 
         return array_filter($config->getFormatters(), function($className) use ($path) {
             return $className::appliesToPath($path);
