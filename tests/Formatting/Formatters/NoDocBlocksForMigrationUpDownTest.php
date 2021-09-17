@@ -9,7 +9,7 @@ use Tighten\TLint\TFormat;
 class NoDocBlocksForMigrationUpDownTest extends TestCase
 {
     /** @test */
-    function removes_up_and_down_docblocks()
+    public function removes_up_and_down_docblocks()
     {
         $file = <<<file
 <?php
@@ -72,10 +72,10 @@ file;
         $this->assertEquals($correctlyFormatted, $formatted);
     }
 
-        /** @test */
-        function doesnt_remove_other_migration_docblocks()
-        {
-            $file = <<<file
+    /** @test */
+    public function doesnt_remove_other_migration_docblocks()
+    {
+        $file = <<<file
 <?php
 
 class CreateBuyRequestsTable extends Migration
@@ -93,10 +93,10 @@ class CreateBuyRequestsTable extends Migration
 
 file;
 
-            $formatted = (new TFormat)->format(
-                new NoDocBlocksForMigrationUpDown($file)
-            );
+        $formatted = (new TFormat)->format(
+            new NoDocBlocksForMigrationUpDown($file)
+        );
 
-            $this->assertEquals($file, $formatted);
-        }
+        $this->assertEquals($file, $formatted);
+    }
 }

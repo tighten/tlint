@@ -9,7 +9,7 @@ use Tighten\TLint\TFormat;
 class NewLineAtEndOfFileTest extends TestCase
 {
     /** @test */
-    function adds_new_line_at_end_of_file()
+    public function adds_new_line_at_end_of_file()
     {
         $file = <<<file
 <?php
@@ -35,10 +35,10 @@ file;
         $this->assertEquals($correctlyFormatted, $formatted);
     }
 
-/** @test */
-function doesnt_adds_new_line_at_end_of_files_with_existing_new_lines()
-{
-    $file = <<<file
+    /** @test */
+    public function doesnt_adds_new_line_at_end_of_files_with_existing_new_lines()
+    {
+        $file = <<<file
 <?php
 
 class Stuff
@@ -47,11 +47,11 @@ class Stuff
 
 file;
 
-    $formatted = (new TFormat)->format(
-        new NewLineAtEndOfFile($file)
-    );
+        $formatted = (new TFormat)->format(
+            new NewLineAtEndOfFile($file)
+        );
 
-    $correctlyFormatted = <<<file
+        $correctlyFormatted = <<<file
 <?php
 
 class Stuff
@@ -60,6 +60,6 @@ class Stuff
 
 file;
 
-    $this->assertEquals($correctlyFormatted, $formatted);
-}
+        $this->assertEquals($correctlyFormatted, $formatted);
+    }
 }

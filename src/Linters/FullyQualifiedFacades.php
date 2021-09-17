@@ -13,7 +13,7 @@ class FullyQualifiedFacades extends BaseLinter
 {
     use IdentifiesFacades;
 
-    public const description = "Import facades using their full namespace.";
+    public const description = 'Import facades using their full namespace.';
 
     public function lint(Parser $parser)
     {

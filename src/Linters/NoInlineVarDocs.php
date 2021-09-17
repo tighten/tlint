@@ -28,8 +28,8 @@ class NoInlineVarDocs extends BaseLinter
 
         $traverser->traverse($parser->parse($this->code));
 
-
         $startLines = [];
+
         return array_filter($useStatementsVisitor->getFoundNodes(), function (Node $node) use (&$startLines) {
             if (in_array($node->getStartLine(), $startLines)) {
                 return false;

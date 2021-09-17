@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class TrailingCommasOnArraysTest extends TestCase
 {
     /** @test */
-    function catches_missing_trailing_comma()
+    public function catches_missing_trailing_comma()
     {
         $file = <<<file
 <?php
@@ -28,7 +28,7 @@ file;
     }
 
     /** @test */
-    function ignores_single_line_array()
+    public function ignores_single_line_array()
     {
         $file = <<<file
 <?php
@@ -44,7 +44,7 @@ file;
     }
 
     /** @test */
-    function ignores_empty_array()
+    public function ignores_empty_array()
     {
         $file = <<<file
 <?php
@@ -62,7 +62,7 @@ file;
     }
 
     /** @test */
-    function handles_trailing_comments()
+    public function handles_trailing_comments()
     {
         $file = <<<file
 <?php
@@ -81,7 +81,7 @@ file;
     }
 
     /** @test */
-    function handles_trailing_comments_with_comment_characters_in_values()
+    public function handles_trailing_comments_with_comment_characters_in_values()
     {
         $file = <<<file
 <?php
@@ -100,7 +100,7 @@ file;
     }
 
     /** @test */
-    function catches_multidimensional_arrays()
+    public function catches_multidimensional_arrays()
     {
         $file = <<<file
 <?php

@@ -15,7 +15,7 @@ class ModelMethodOrderAndClassThingsOrderTest extends TestCase
      * @test
      * @dataProvider modelFixtures
      */
-    function a_valid_sorted_model_passes_both_linters(string $file, string $extension): void
+    public function a_valid_sorted_model_passes_both_linters(string $file, string $extension): void
     {
         if ($extension === 'pending') {
             $this->markTestSkipped('Model fixture is flagged as pending.');
@@ -35,7 +35,7 @@ class ModelMethodOrderAndClassThingsOrderTest extends TestCase
         );
     }
 
-    function modelFixtures(): array
+    public function modelFixtures(): array
     {
         $models = [];
 
@@ -45,9 +45,15 @@ class ModelMethodOrderAndClassThingsOrderTest extends TestCase
         $directoryIterator = new RecursiveDirectoryIterator($dir);
         $iterator = new RecursiveIteratorIterator($directoryIterator);
         foreach ($iterator as $fileInfo) {
-            if (! $fileInfo->isFile()) continue;
-            if (! $fileInfo->isReadable()) continue;
-            if (! in_array($fileInfo->getExtension(), ['php', 'pending'])) continue;
+            if (! $fileInfo->isFile()) {
+                continue;
+            }
+            if (! $fileInfo->isReadable()) {
+                continue;
+            }
+            if (! in_array($fileInfo->getExtension(), ['php', 'pending'])) {
+                continue;
+            }
 
             $name = trim(str_replace([$dir, '.php'], '', $fileInfo->getPathname()), '/');
             $models[$name] = [file_get_contents($fileInfo->getPathname()), $fileInfo->getExtension()];

@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class ModelMethodOrderTest extends TestCase
 {
     /** @test */
-    function catches_wrong_order_for_model_methods()
+    public function catches_wrong_order_for_model_methods()
     {
         $file = file_get_contents(__DIR__ . '/../../fixtures/Models/Invalid/Thing.php');
 

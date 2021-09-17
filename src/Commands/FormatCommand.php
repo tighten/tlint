@@ -37,7 +37,7 @@ class FormatCommand extends BaseCommand
                 new InputOption(
                     'only',
                     null,
-                    InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                    InputOption::VALUE_REQUIRED|InputOption::VALUE_IS_ARRAY,
                     'The subset of formatters to use'
                 ),
             ]))
@@ -53,12 +53,13 @@ class FormatCommand extends BaseCommand
         $formatters = $this->getFormatters($file);
 
         if (! empty($only = $input->getOption('only'))) {
-            $formatters = array_filter($formatters, function($formatter) use ($only) {
+            $formatters = array_filter($formatters, function ($formatter) use ($only) {
                 foreach ($only as $filter) {
                     if (false !== strpos($formatter, $filter)) {
                         return true;
                     }
                 }
+
                 return false;
             });
         }
@@ -132,7 +133,7 @@ class FormatCommand extends BaseCommand
 
         if (! $this->thereWasChange) {
             $output->writeln([
-                "LGTM!",
+                'LGTM!',
             ]);
         }
 
@@ -144,7 +145,7 @@ class FormatCommand extends BaseCommand
         $configPath = getcwd() . '/tformat.json';
         $config = new Config(json_decode(is_file($configPath) ? file_get_contents($configPath) : '', true) ?? null);
 
-        return array_filter($config->getFormatters(), function($className) use ($path) {
+        return array_filter($config->getFormatters(), function ($className) use ($path) {
             return $className::appliesToPath($path);
         });
     }

@@ -8,7 +8,7 @@ use Tighten\TLint\Utils\ParsesGitOutput;
 class EmptyDiffDoesNotTriggerWarningTest extends TestCase
 {
     /** @test */
-    function gracefully_handles_empty_diff()
+    public function gracefully_handles_empty_diff()
     {
         $files = ParsesGitOutput::parseFilesFromGitDiffOutput('');
 

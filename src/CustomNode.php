@@ -6,7 +6,7 @@ use PhpParser\NodeAbstract;
 
 class CustomNode extends NodeAbstract
 {
-    public function getSubNodeNames() : array
+    public function getSubNodeNames(): array
     {
         return [];
     }

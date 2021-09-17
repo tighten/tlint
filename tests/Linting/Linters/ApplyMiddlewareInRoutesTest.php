@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class ApplyMiddlewareInRoutesTest extends TestCase
 {
     /** @test */
-    function catches_middleware_in_controllers()
+    public function catches_middleware_in_controllers()
     {
         $file = <<<file
 <?php
@@ -34,7 +34,7 @@ file;
     }
 
     /** @test */
-    function does_not_throw_on_methods_calls_on_instantiations()
+    public function does_not_throw_on_methods_calls_on_instantiations()
     {
         $file = <<<file
 <?php

@@ -110,7 +110,7 @@ class NoDatesPropertyOnModels extends BaseFormatter
         // We have to return a *new* Property node here (even if there was
         // already a casts property) so the printer formats it correctly
         return new Property(Class_::MODIFIER_PROTECTED, [
-            new PropertyProperty('casts', new Array_($newCasts, ['kind' => Array_::KIND_SHORT]))
+            new PropertyProperty('casts', new Array_($newCasts, ['kind' => Array_::KIND_SHORT])),
         ]);
     }
 

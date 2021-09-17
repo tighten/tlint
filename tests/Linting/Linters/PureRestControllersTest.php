@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class PureRestControllersTest extends TestCase
 {
     /** @test */
-    function catches_non_rest_public_methods_in_an_otherwise_restful_controller()
+    public function catches_non_rest_public_methods_in_an_otherwise_restful_controller()
     {
         $file = <<<file
 <?php
@@ -38,7 +38,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_non_restful_private_method()
+    public function does_not_trigger_on_non_restful_private_method()
     {
         $file = <<<file
 <?php

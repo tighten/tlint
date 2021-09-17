@@ -10,7 +10,7 @@ use Tighten\TLint\Commands\FormatCommand;
 class NoOpFormatterSaysLGTMTest extends TestCase
 {
     /** @test */
-    function no_op_says_lgtm()
+    public function no_op_says_lgtm()
     {
         $application = new Application;
 
@@ -35,11 +35,11 @@ file;
         file_put_contents($filePath, $file);
 
         $commandTester->execute([
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
             'file or directory' => $filePath,
         ]);
 
-        $this->assertStringContainsString("LGTM!", $commandTester->getDisplay());
+        $this->assertStringContainsString('LGTM!', $commandTester->getDisplay());
         $this->assertEquals(0, $commandTester->getStatusCode());
     }
 }

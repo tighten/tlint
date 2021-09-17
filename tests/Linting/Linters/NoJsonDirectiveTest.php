@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class NoJsonDirectiveTest extends TestCase
 {
     /** @test */
-    function catches_json_directive_usage()
+    public function catches_json_directive_usage()
     {
         $file = <<<file
         @extends('layouts.app')
