@@ -17,7 +17,7 @@ class ModelMethodOrder extends BaseLinter
     use IdentifiesModelMethodTypes;
     use IdentifiesExtends;
 
-    public const description = 'Model method order should be: booting > boot > booted > custom_static > relationships > scopes > accessors > mutators > custom';
+    public const DESCRIPTION = 'Model method order should be: booting > boot > booted > custom_static > relationships > scopes > accessors > mutators > custom';
 
     protected const METHOD_ORDER = [
         0 => 'booting',
@@ -101,7 +101,7 @@ class ModelMethodOrder extends BaseLinter
                 });
 
                 $this->setLintDescription(
-                    self::description . PHP_EOL
+                    self::DESCRIPTION . PHP_EOL
                     . 'Methods are expected to be ordered like:' . PHP_EOL
                     . implode(
                         PHP_EOL,

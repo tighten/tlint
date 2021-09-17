@@ -13,7 +13,7 @@ class RestControllersMethodOrder extends BaseLinter
 {
     use LintsControllers;
 
-    public const description = 'REST methods in controllers should match the ordering here:'
+    public const DESCRIPTION = 'REST methods in controllers should match the ordering here:'
         . ' https://laravel.com/docs/controllers#restful-partial-resource-routes';
 
     protected const RESTFUL_METHOD_NAMES = [

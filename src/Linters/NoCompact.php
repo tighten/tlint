@@ -14,7 +14,7 @@ class NoCompact extends BaseLinter
 {
     use LintsControllers;
 
-    public const description = 'There should be no calls to `compact()` in controllers';
+    public const DESCRIPTION = 'There should be no calls to `compact()` in controllers';
 
     public function lint(Parser $parser)
     {

@@ -15,7 +15,7 @@ class UseAnonymousMigrations extends BaseFormatter
 {
     use LintsMigrations;
 
-    public const description = 'Prefer anonymous class migrations.';
+    public const DESCRIPTION = 'Prefer anonymous class migrations.';
 
     public function format(Parser $parser, Lexer $lexer)
     {

@@ -39,7 +39,7 @@ file;
             'errors' => [
                 [
                     'line' => 3,
-                    'message' => '! ' . ConcatenationSpacing::description,
+                    'message' => '! ' . ConcatenationSpacing::DESCRIPTION,
                     'source' => 'ConcatenationSpacing',
                 ],
             ],

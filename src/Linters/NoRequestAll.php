@@ -12,7 +12,7 @@ use Tighten\TLint\BaseLinter;
 
 class NoRequestAll extends BaseLinter
 {
-    public const description = 'No `request()->all()`. Use `request()->only(...)` to retrieve specific input values.';
+    public const DESCRIPTION = 'No `request()->all()`. Use `request()->only(...)` to retrieve specific input values.';
 
     public function lint(Parser $parser)
     {

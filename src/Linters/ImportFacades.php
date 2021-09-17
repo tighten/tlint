@@ -14,7 +14,7 @@ class ImportFacades extends BaseLinter
 {
     use IdentifiesFacades;
 
-    public const description = "Import facades (don't use aliases).";
+    public const DESCRIPTION = "Import facades (don't use aliases).";
 
     public function lint(Parser $parser)
     {

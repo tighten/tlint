@@ -10,7 +10,7 @@ class NoUnusedImports extends BaseLinter
 {
     use IdentifiesImports;
 
-    public const description = 'There should be no unused imports.';
+    public const DESCRIPTION = 'There should be no unused imports.';
 
     public function lint(Parser $parser)
     {

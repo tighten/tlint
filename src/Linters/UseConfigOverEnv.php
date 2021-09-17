@@ -13,7 +13,7 @@ class UseConfigOverEnv extends BaseLinter
 {
     use LintsNonConfigFiles;
 
-    public const description = 'Don’t use environment variables directly; instead,'
+    public const DESCRIPTION = 'Don’t use environment variables directly; instead,'
         . ' use them in config files and call config vars from code';
 
     public function lint(Parser $parser)

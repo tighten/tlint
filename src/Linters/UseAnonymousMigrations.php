@@ -14,7 +14,7 @@ class UseAnonymousMigrations extends BaseLinter
 {
     use LintsMigrations;
 
-    public const description = 'Prefer anonymous class migrations.';
+    public const DESCRIPTION = 'Prefer anonymous class migrations.';
 
     public function lint(Parser $parser)
     {

@@ -11,7 +11,7 @@ class SpaceAfterBladeDirectives extends BaseLinter
 {
     use LintsBladeTemplates;
 
-    public const description = 'Put a space between blade control structure names and the opening paren:'
+    public const DESCRIPTION = 'Put a space between blade control structure names and the opening paren:'
         . '`@if(` -> `@if (`';
 
     protected const SPACE_AFTER = [

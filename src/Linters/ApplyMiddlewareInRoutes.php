@@ -13,7 +13,7 @@ class ApplyMiddlewareInRoutes extends BaseLinter
 {
     use LintsControllers;
 
-    public const description = 'Apply middleware in routes (not controllers).';
+    public const DESCRIPTION = 'Apply middleware in routes (not controllers).';
 
     public function lint(Parser $parser)
     {

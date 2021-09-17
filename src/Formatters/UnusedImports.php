@@ -11,7 +11,7 @@ class UnusedImports extends BaseFormatter
 {
     use IdentifiesImports;
 
-    public const description = 'Removes unused import statements.';
+    public const DESCRIPTION = 'Removes unused import statements.';
 
     public function format(Parser $parser, Lexer $lexer)
     {

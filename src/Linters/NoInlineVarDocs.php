@@ -10,7 +10,7 @@ use Tighten\TLint\BaseLinter;
 
 class NoInlineVarDocs extends BaseLinter
 {
-    public const description = 'No /** @var ClassName $var */ inline docs. [ref](https://github.com/tighten/tlint/issues/108)';
+    public const DESCRIPTION = 'No /** @var ClassName $var */ inline docs. [ref](https://github.com/tighten/tlint/issues/108)';
 
     public function lint(Parser $parser)
     {

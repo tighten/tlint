@@ -15,7 +15,7 @@ use Tighten\TLint\BaseFormatter;
 
 class AlphabeticalImports extends BaseFormatter
 {
-    public const description = 'Alphabetizes import statements.';
+    public const DESCRIPTION = 'Alphabetizes import statements.';
 
     public function format(Parser $parser, Lexer $lexer)
     {

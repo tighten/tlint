@@ -15,7 +15,7 @@ class RequestValidation extends BaseLinter
     use LintsControllers;
     use IdentifiesExtends;
 
-    public const description = 'Use `request()->validate(...)` helper function or extract a FormRequest instead of using'
+    public const DESCRIPTION = 'Use `request()->validate(...)` helper function or extract a FormRequest instead of using'
         . ' `$this->validate(...)` in controllers';
 
     public function lint(Parser $parser)

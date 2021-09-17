@@ -11,7 +11,7 @@ class SpacesAroundBladeRenderContent extends BaseLinter
 {
     use LintsBladeTemplates;
 
-    public const description = 'Spaces around blade rendered content:'
+    public const DESCRIPTION = 'Spaces around blade rendered content:'
         . '`{{1 + 1}}` -> `{{ 1 + 1 }}`';
 
     public function lint(Parser $parser)
