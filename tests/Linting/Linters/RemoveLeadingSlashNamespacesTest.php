@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class RemoveLeadingSlashNamespacesTest extends TestCase
 {
     /** @test */
-    function catches_leading_slashes_in_use_statements()
+    public function catches_leading_slashes_in_use_statements()
     {
         $file = <<<file
 <?php
@@ -29,7 +29,7 @@ file;
     }
 
     /** @test */
-    function catches_leading_slashes_in_static_calls()
+    public function catches_leading_slashes_in_static_calls()
     {
         $file = <<<file
 <?php
@@ -45,7 +45,7 @@ file;
     }
 
     /** @test */
-    function catches_leading_slashes_in_instantiations()
+    public function catches_leading_slashes_in_instantiations()
     {
         $file = <<<file
 <?php
@@ -61,7 +61,7 @@ file;
     }
 
     /** @test */
-    function does_not_throw_on_variable_class_static_calls()
+    public function does_not_throw_on_variable_class_static_calls()
     {
         $file = <<<file
 <?php
@@ -89,7 +89,7 @@ file;
     }
 
     /** @test */
-    function does_not_throw_when_calling_class_in_a_namespaced_file()
+    public function does_not_throw_when_calling_class_in_a_namespaced_file()
     {
         $file = <<<file
 <?php
@@ -110,7 +110,7 @@ file;
     }
 
     /** @test */
-    function catches_leading_slash_in_factories()
+    public function catches_leading_slash_in_factories()
     {
         $file = <<<file
 <?php

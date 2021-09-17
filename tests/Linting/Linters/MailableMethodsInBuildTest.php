@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class MailableMethodsInBuildTest extends TestCase
 {
     /** @test */
-    function catches_mailable_methods_in_constructor()
+    public function catches_mailable_methods_in_constructor()
     {
         $file = <<<file
 <?php
@@ -49,7 +49,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_methods_in_build()
+    public function does_not_trigger_on_methods_in_build()
     {
         $file = <<<file
 <?php
@@ -90,7 +90,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_non_mailable()
+    public function does_not_trigger_on_non_mailable()
     {
         $file = <<<file
 <?php

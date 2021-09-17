@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class NoUnusedImportsTest extends TestCase
 {
     /** @test */
-    function catches_unused_import()
+    public function catches_unused_import()
     {
         $file = <<<file
 <?php
@@ -31,7 +31,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_used_to_extend_class()
+    public function does_not_trigger_when_import_used_to_extend_class()
     {
         $file = <<<file
 <?php
@@ -53,7 +53,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_used_as_typehint()
+    public function does_not_trigger_when_import_used_as_typehint()
     {
         $file = <<<file
 <?php
@@ -74,7 +74,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_used_as_typehint_in_catch()
+    public function does_not_trigger_when_import_used_as_typehint_in_catch()
     {
         $file = <<<file
 <?php
@@ -97,7 +97,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_used_in_instanceof_check()
+    public function does_not_trigger_when_import_used_in_instanceof_check()
     {
         $file = <<<file
 <?php
@@ -118,7 +118,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_used_in_trait_use()
+    public function does_not_trigger_when_import_used_in_trait_use()
     {
         $file = <<<file
 <?php
@@ -141,7 +141,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_is_callable()
+    public function does_not_trigger_when_import_is_callable()
     {
         $file = <<<file
 <?php
@@ -160,7 +160,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_is_aliased()
+    public function does_not_trigger_when_import_is_aliased()
     {
         $file = <<<file
 <?php
@@ -181,7 +181,7 @@ file;
     }
 
     /** @test */
-    function handles_variable_class_static_const()
+    public function handles_variable_class_static_const()
     {
         $file = <<<file
 <?php
@@ -198,7 +198,7 @@ file;
     }
 
     /** @test */
-    function catches_unused_import_handles_variable_class_instantiation()
+    public function catches_unused_import_handles_variable_class_instantiation()
     {
         $file = <<<file
 <?php
@@ -220,7 +220,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_is_used_as_an_interface()
+    public function does_not_trigger_when_import_is_used_as_an_interface()
     {
         $file = <<<file
 <?php
@@ -241,7 +241,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_interface_import()
+    public function does_not_trigger_on_interface_import()
     {
         $file = <<<file
 <?php
@@ -262,7 +262,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_is_used_as_an_interface_along_with_extends()
+    public function does_not_trigger_when_import_is_used_as_an_interface_along_with_extends()
     {
         $file = <<<file
 <?php
@@ -285,7 +285,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_imported_functions()
+    public function does_not_trigger_on_imported_functions()
     {
         $file = <<<file
 <?php
@@ -304,7 +304,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_used_in_class_method_return_typehint()
+    public function does_not_trigger_when_used_in_class_method_return_typehint()
     {
         $file = <<<file
 <?php
@@ -329,7 +329,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_used_in_class_method_return_nullable_typehint()
+    public function does_not_trigger_when_used_in_class_method_return_nullable_typehint()
     {
         $file = <<<file
 <?php
@@ -354,7 +354,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_used_in_function_return_typehint()
+    public function does_not_trigger_when_used_in_function_return_typehint()
     {
         $file = <<<file
 <?php
@@ -376,7 +376,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_used_in_function_return_nullable_typehint()
+    public function does_not_trigger_when_used_in_function_return_nullable_typehint()
     {
         $file = <<<file
 <?php
@@ -398,7 +398,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_used_in_static_property_fetch()
+    public function does_not_trigger_when_used_in_static_property_fetch()
     {
         $file = <<<file
 <?php
@@ -420,7 +420,7 @@ file;
     }
 
     /** @test */
-    function handles_instanceof_for_dynamic_expressions()
+    public function handles_instanceof_for_dynamic_expressions()
     {
         $file = <<<file
 <?php
@@ -442,7 +442,7 @@ file;
     }
 
     /** @test */
-    function handles_nullable_parameters()
+    public function handles_nullable_parameters()
     {
         $file = <<<file
 <?php
@@ -466,7 +466,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_partial_use_statements()
+    public function does_not_trigger_on_partial_use_statements()
     {
         $file = <<<file
 <?php
@@ -494,7 +494,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_used_in_class_property_typehint()
+    public function does_not_trigger_when_used_in_class_property_typehint()
     {
         $file = <<<file
 <?php
@@ -516,7 +516,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_used_in_union_type_function_parameter_typehint()
+    public function does_not_trigger_when_import_used_in_union_type_function_parameter_typehint()
     {
         $file = <<<'file'
 <?php
@@ -533,7 +533,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_used_in_union_type_method_parameter_typehint()
+    public function does_not_trigger_when_import_used_in_union_type_method_parameter_typehint()
     {
         $file = <<<'file'
 <?php
@@ -554,7 +554,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_used_in_union_type_method_return_typehint()
+    public function does_not_trigger_when_import_used_in_union_type_method_return_typehint()
     {
         $file = <<<'file'
 <?php
@@ -574,7 +574,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_used_in_union_type_function_return_typehint()
+    public function does_not_trigger_when_import_used_in_union_type_function_return_typehint()
     {
         $file = <<<'file'
 <?php
@@ -591,7 +591,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_used_in_union_type_class_property_typehint()
+    public function does_not_trigger_when_import_used_in_union_type_class_property_typehint()
     {
         $file = <<<'file'
 <?php
@@ -608,7 +608,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_import_uses_attribute()
+    public function does_not_trigger_when_import_uses_attribute()
     {
         $file = <<<'file'
 <?php
@@ -636,7 +636,4 @@ file;
 
         $this->assertEmpty((new TLint)->lint(new NoUnusedImports($file)));
     }
-
-
 }
-

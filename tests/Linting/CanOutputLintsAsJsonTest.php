@@ -11,7 +11,7 @@ use Tighten\TLint\Linters\ConcatenationSpacing;
 class CanOutputLintsAsJsonTest extends TestCase
 {
     /** @test */
-    function can_use_json_flag_with_lints()
+    public function can_use_json_flag_with_lints()
     {
         $application = new Application;
         $command = new LintCommand;
@@ -30,7 +30,7 @@ file;
         file_put_contents($filePath, $file);
 
         $commandTester->execute([
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
             'file or directory' => $filePath,
             '--json' => true,
         ]);
@@ -48,7 +48,7 @@ file;
         $this->assertEquals(0, $commandTester->getStatusCode());
     }
     /** @test */
-    function can_use_json_flag_without_lints()
+    public function can_use_json_flag_without_lints()
     {
         $application = new Application;
         $command = new LintCommand;
@@ -67,7 +67,7 @@ file;
         file_put_contents($filePath, $file);
 
         $commandTester->execute([
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
             'file or directory' => $filePath,
             '--json' => true,
         ]);

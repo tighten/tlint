@@ -37,7 +37,7 @@ class AlphabeticalImports extends BaseLinter
             }, $useStatements);
 
             $alphabetical = $importStrings;
-            asort($alphabetical, SORT_STRING | SORT_FLAG_CASE);
+            asort($alphabetical, SORT_STRING|SORT_FLAG_CASE);
 
             return array_values($importStrings) !== array_values($alphabetical) ? [$useStatements[0]] : [];
         }

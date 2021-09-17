@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class RequestValidationTest extends TestCase
 {
     /** @test */
-    function catches_this_validate_method_usage()
+    public function catches_this_validate_method_usage()
     {
         $file = <<<file
 <?php
@@ -35,7 +35,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_helper_function_usage()
+    public function does_not_trigger_on_helper_function_usage()
     {
         $file = <<<file
 <?php
@@ -59,7 +59,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_using_request_variable_method()
+    public function does_not_trigger_when_using_request_variable_method()
     {
         $file = <<<file
 <?php
@@ -83,7 +83,7 @@ file;
     }
 
     /** @test */
-    function does_not_cause_php_notice_when_value_is_not_an_expression_with_a_name()
+    public function does_not_cause_php_notice_when_value_is_not_an_expression_with_a_name()
     {
         $file = <<<file
 <?php

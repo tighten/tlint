@@ -42,7 +42,7 @@ class BaseFormatter
         return $this->description = $description;
     }
 
-    public function getCode() : string
+    public function getCode(): string
     {
         return $this->code;
     }

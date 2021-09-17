@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class NoInlineVarDocsTest extends TestCase
 {
     /** @test */
-    function catches_inline_var_doc()
+    public function catches_inline_var_doc()
     {
         $file = <<<file
 <?php
@@ -29,7 +29,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_non_var_doc()
+    public function does_not_trigger_on_non_var_doc()
     {
         $file = <<<file
 <?php
@@ -49,7 +49,7 @@ file;
     }
 
     /** @test */
-    function only_triggers_once_for_per_doc()
+    public function only_triggers_once_for_per_doc()
     {
         $file = <<<file
 <?php

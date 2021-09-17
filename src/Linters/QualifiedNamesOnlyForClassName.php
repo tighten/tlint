@@ -24,7 +24,8 @@ class QualifiedNamesOnlyForClassName extends BaseLinter
 
         $fqcnNonClassName = new FindingVisitor(function (Node $node) {
             return ($node->name->name ?? null) !== 'class'
-                && ($node instanceof Node\Expr\StaticPropertyFetch
+                && (
+                    $node instanceof Node\Expr\StaticPropertyFetch
                     || $node instanceof Node\Expr\StaticCall
                     || $node instanceof Node\Expr\ClassConstFetch
                     || $node instanceof Node\Expr\New_

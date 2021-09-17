@@ -105,7 +105,7 @@ class ModelMethodOrder extends BaseLinter
                     . 'Methods are expected to be ordered like:' . PHP_EOL
                     . implode(
                         PHP_EOL,
-                        array_map(function(string $method, string $type) {
+                        array_map(function (string $method, string $type) {
                             return sprintf(' * %s() is matched as "%s"', $method, $type);
                         }, array_keys($methodTypesShouldBeOrderedLike), array_values($methodTypesShouldBeOrderedLike))
                     )

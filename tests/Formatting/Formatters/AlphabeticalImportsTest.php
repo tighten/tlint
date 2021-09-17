@@ -9,7 +9,7 @@ use Tighten\TLint\TFormat;
 class AlphabeticalImportsTest extends TestCase
 {
     /** @test */
-    function fixes_non_alphabetical_imports()
+    public function fixes_non_alphabetical_imports()
     {
         $file = <<<file
 <?php
@@ -37,7 +37,7 @@ file;
     }
 
     /** @test */
-    function fixes_non_alphabetical_imports_in_namespace()
+    public function fixes_non_alphabetical_imports_in_namespace()
     {
         $file = <<<file
 <?php
@@ -69,7 +69,7 @@ file;
     }
 
     /** @test */
-    function does_not_throw_when_require_is_the_first_expression()
+    public function does_not_throw_when_require_is_the_first_expression()
     {
         $file = <<<file
 <?php
@@ -97,7 +97,7 @@ file;
     }
 
     /** @test */
-    function works_with_function_imports()
+    public function works_with_function_imports()
     {
         $file = <<<file
 <?php
@@ -127,7 +127,7 @@ file;
     }
 
     /** @test */
-    function works_with_const_imports()
+    public function works_with_const_imports()
     {
         $file = <<<file
 <?php
@@ -157,7 +157,7 @@ file;
     }
 
     /** @test */
-    function orders_import_types_by_class_function_const_with_a_line_between()
+    public function orders_import_types_by_class_function_const_with_a_line_between()
     {
         $file = <<<file
 <?php
@@ -189,7 +189,7 @@ file;
     }
 
     /** @test */
-    function groups_types_of_imports_properly()
+    public function groups_types_of_imports_properly()
     {
         $file = <<<file
 <?php
@@ -223,7 +223,7 @@ file;
     }
 
     /** @test */
-    function does_nothing_when_group_imports_are_used()
+    public function does_nothing_when_group_imports_are_used()
     {
         $file = <<<file
 <?php
@@ -253,7 +253,7 @@ file;
     }
 
     /** @test */
-    function ignores_case_correctly()
+    public function ignores_case_correctly()
     {
         $file = <<<file
 <?php

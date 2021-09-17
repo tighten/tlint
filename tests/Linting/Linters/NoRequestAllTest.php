@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class NoRequestAllTest extends TestCase
 {
     /** @test */
-    function catches_request_all_with_variable()
+    public function catches_request_all_with_variable()
     {
         $file = <<<'file'
 <?php
@@ -34,8 +34,8 @@ file;
         $this->assertEquals(11, $lints[0]->getNode()->getLine());
     }
 
-        /** @test */
-    function catches_request_all_with_helper()
+    /** @test */
+    public function catches_request_all_with_helper()
     {
         $file = <<<'file'
 <?php
@@ -59,7 +59,7 @@ file;
     }
 
     /** @test */
-    function catches_request_all_with_facade()
+    public function catches_request_all_with_facade()
     {
         $file = <<<'file'
 <?php

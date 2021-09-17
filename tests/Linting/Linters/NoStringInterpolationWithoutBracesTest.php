@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class NoStringInterpolationWithoutBracesTest extends TestCase
 {
     /** @test */
-    function catches_string_interpolation_without_braces()
+    public function catches_string_interpolation_without_braces()
     {
         $file = <<<file
 <?php
@@ -27,7 +27,7 @@ file;
     }
 
     /** @test */
-    function catches_string_interpolation_without_braces_embedded()
+    public function catches_string_interpolation_without_braces_embedded()
     {
         $file = <<<file
 <?php
@@ -45,7 +45,7 @@ file;
     }
 
     /** @test */
-    function it_does_not_trigger_on_string_interpolation_with_braces()
+    public function it_does_not_trigger_on_string_interpolation_with_braces()
     {
         $file = <<<file
 <?php
@@ -63,7 +63,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_for_object_properties_with_braces()
+    public function does_not_trigger_for_object_properties_with_braces()
     {
         $file = <<<file
 <?php
@@ -79,7 +79,7 @@ file;
     }
 
     /** @test */
-    function does_trigger_for_object_properties_without_braces()
+    public function does_trigger_for_object_properties_without_braces()
     {
         $file = <<<file
 <?php
@@ -95,7 +95,7 @@ file;
     }
 
     /** @test */
-    function does_trigger_for_nested_object_properties_without_braces()
+    public function does_trigger_for_nested_object_properties_without_braces()
     {
         $file = <<<file
 <?php
@@ -111,7 +111,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_for_nested_object_properties_with_braces()
+    public function does_not_trigger_for_nested_object_properties_with_braces()
     {
         $file = <<<file
 <?php
@@ -127,7 +127,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_for_nested_object_properties_with_braces_word_variables()
+    public function does_not_trigger_for_nested_object_properties_with_braces_word_variables()
     {
         $file = <<<file
 <?php

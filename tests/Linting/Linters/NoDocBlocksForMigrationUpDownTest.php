@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class NoDocBlocksForMigrationUpDownTest extends TestCase
 {
     /** @test */
-    function catches_doc_blocks_on_up_and_down()
+    public function catches_doc_blocks_on_up_and_down()
     {
         $file = <<<file
 <?php

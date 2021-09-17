@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class UseAuthHelperOverFacadeTest extends TestCase
 {
     /** @test */
-    function catches_auth_facade_usage_in_views()
+    public function catches_auth_facade_usage_in_views()
     {
         $file = <<<file
    @extends('layouts.app')
@@ -29,7 +29,7 @@ file;
     }
 
     /** @test */
-    function catches_auth_facade_usage_in_code()
+    public function catches_auth_facade_usage_in_code()
     {
         $file = <<<file
 <?php
@@ -46,7 +46,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_non_facade_call()
+    public function does_not_trigger_on_non_facade_call()
     {
         $file = <<<file
 <?php
@@ -62,7 +62,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_calling_routes()
+    public function does_not_trigger_when_calling_routes()
     {
         $file = <<<file
 <?php
@@ -80,7 +80,7 @@ file;
     }
 
     /** @test */
-    function does_not_throw_when_file_contains_dynamic_class_variables()
+    public function does_not_throw_when_file_contains_dynamic_class_variables()
     {
         $file = <<<file
 <?php
@@ -108,7 +108,7 @@ file;
     }
 
     /** @test */
-    function does_not_throw_when_using_static_call_on_dynamic_variable()
+    public function does_not_throw_when_using_static_call_on_dynamic_variable()
     {
         $file = <<<file
 <?php
@@ -132,7 +132,7 @@ file;
     }
 
     /** @test */
-    function does_not_attempt_to_compile_x_component_tags()
+    public function does_not_attempt_to_compile_x_component_tags()
     {
         $file = <<<'file'
 <x-main-layout>

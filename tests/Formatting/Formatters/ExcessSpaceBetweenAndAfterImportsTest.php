@@ -9,7 +9,7 @@ use Tighten\TLint\TFormat;
 class ExcessSpaceBetweenAndAfterImportsTest extends TestCase
 {
     /** @test */
-    function removes_excess_space_after_imports()
+    public function removes_excess_space_after_imports()
     {
         $file = <<<file
 <?php
@@ -38,7 +38,7 @@ file;
     }
 
     /** @test */
-    function no_op_if_already_1_blank_line_after_imports()
+    public function no_op_if_already_1_blank_line_after_imports()
     {
         $file = <<<file
 <?php
@@ -59,9 +59,8 @@ file;
         $this->assertEquals($file, $formatted);
     }
 
-
     /** @test */
-    function does_not_remove_excess_space_before_imports()
+    public function does_not_remove_excess_space_before_imports()
     {
         $file = <<<file
 <?php
@@ -93,7 +92,7 @@ file;
     }
 
     /** @test */
-    function removes_excess_space_between_imports()
+    public function removes_excess_space_between_imports()
     {
         $file = <<<file
 <?php
@@ -122,7 +121,7 @@ file;
     }
 
     /** @test */
-    function does_not_alter_normal_code()
+    public function does_not_alter_normal_code()
     {
         $file = <<<file
 <?php

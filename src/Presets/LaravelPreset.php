@@ -7,7 +7,7 @@ use Tighten\TLint\Linters;
 
 class LaravelPreset implements PresetInterface
 {
-    public function getLinters() : array
+    public function getLinters(): array
     {
         return [
             Linters\AlphabeticalImports::class,
@@ -39,7 +39,7 @@ class LaravelPreset implements PresetInterface
         ];
     }
 
-    public function getFormatters() : array
+    public function getFormatters(): array
     {
         return [
             Formatters\AlphabeticalImports::class,

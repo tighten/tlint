@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class OneLineBetweenClassVisibilityChangesTest extends TestCase
 {
     /** @test */
-    function catches_missing_line_between_visibility_changes()
+    public function catches_missing_line_between_visibility_changes()
     {
         $file = <<<file
 <?php
@@ -31,7 +31,7 @@ file;
     }
 
     /** @test */
-    function catches_missing_line_between_visibility_changes_with_doc_block()
+    public function catches_missing_line_between_visibility_changes_with_doc_block()
     {
         $file = <<<file
 <?php
@@ -56,7 +56,7 @@ file;
     }
 
     /** @test */
-    function ignores_doc_block_between_visibility_changes()
+    public function ignores_doc_block_between_visibility_changes()
     {
         $file = <<<file
 <?php
@@ -82,7 +82,7 @@ file;
     }
 
     /** @test */
-    function catches_missing_line_between_visibility_changes_with_comment()
+    public function catches_missing_line_between_visibility_changes_with_comment()
     {
         $file = <<<'file'
 <?php
@@ -105,7 +105,7 @@ file;
     }
 
     /** @test */
-    function catches_missing_line_between_visibility_changes_with_two_comments()
+    public function catches_missing_line_between_visibility_changes_with_two_comments()
     {
         $file = <<<'file'
 <?php
@@ -129,7 +129,7 @@ file;
     }
 
     /** @test */
-    function catches_missing_line_between_visibility_changes_with_many_comments()
+    public function catches_missing_line_between_visibility_changes_with_many_comments()
     {
         $file = <<<'file'
 <?php
@@ -155,7 +155,7 @@ file;
     }
 
     /** @test */
-    function ignores_comment_below_space_between_visibility_changes()
+    public function ignores_comment_below_space_between_visibility_changes()
     {
         $file = <<<'file'
 <?php
@@ -179,7 +179,7 @@ file;
     }
 
     /** @test */
-    function ignores_comment_above_space_between_visibility_changes()
+    public function ignores_comment_above_space_between_visibility_changes()
     {
         $file = <<<'file'
 <?php
@@ -203,7 +203,7 @@ file;
     }
 
     /** @test */
-    function ignores_many_comments_between_visibility_changes()
+    public function ignores_many_comments_between_visibility_changes()
     {
         $file = <<<'file'
 <?php

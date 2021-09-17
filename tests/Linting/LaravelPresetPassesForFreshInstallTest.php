@@ -18,7 +18,7 @@ class LaravelPresetPassesForFreshInstallTest extends TestCase
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
             'file or directory' => '.',
         ]);
 
