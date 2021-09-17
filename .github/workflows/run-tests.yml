@@ -1,28 +1,27 @@
 name: Run tests
-
 on:
   push:
     branches: [main]
   pull_request:
   schedule:
     - cron: '0 0 * * *'
-
 jobs:
   test:
+    name: PHP ${{ matrix.php }}, ${{ matrix.dependency-version }}, ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         php: ['7.3', '7.4', '8.0', '8.1']
         os: [ubuntu-latest, macos-latest]
         dependency-version: [prefer-lowest, prefer-stable]
         include:
-          - phpunit: '9.*'
+          - phpunit: '^9.3'
           - php: '7.3'
-            phpunit: '8.*'
-
-    name: PHP ${{ matrix.php }}, ${{ matrix.dependency-version }}, ${{ matrix.os }}
-
-    runs-on: ${{ matrix.os }}
-
+            phpunit: '^8.0'
+          - php: '8.0'
+            symfony: '6.0.x-dev'
+          - php: '8.1'
+            symfony: '6.0.x-dev'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
@@ -36,7 +35,10 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - run: |
-          composer require phpunit/phpunit:${{ matrix.phpunit }} --no-update --no-interaction
+          composer require phpunit/phpunit:"${{ matrix.phpunit }}" --no-update --no-interaction
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
           composer require illuminate/view --with-all-dependencies --no-interaction
+      - if: ${{ startsWith(matrix.php, '8') }}
+        run: |
+          composer require symfony/console:"${{ matrix.symfony }}" symfony/process:"${{ matrix.symfony }}" --with-all-dependencies --no-interaction
       - run: vendor/bin/phpunit
