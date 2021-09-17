@@ -36,11 +36,9 @@
         "bin/tlint"
     ],
     "scripts": {
-        "buildTestEnvironments": "./scripts/buildTestEnvironments.sh",
         "bumpVersion": "sed -i '' \"/TLINT_VERSION/ s/'v.*'/'$(git describe --abbrev=0 --tag)'/\" ./bin/tlint",
         "fix": "php-cs-fixer fix -v",
         "generate-readme-tables": "php ./scripts/generateLintersFormattersTables.php",
-        "runTests": "./scripts/runTests.sh",
         "update-fixture-app": [
             "rm -rf ./tests/fixtures/laravel",
             "composer create-project laravel/laravel ./tests/fixtures/laravel",
