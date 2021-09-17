@@ -15,6 +15,7 @@ class TightenPreset implements PresetInterface
             Linters\ArrayParametersOverViewWith::class,
             Linters\ClassThingsOrder::class,
             Linters\ConcatenationSpacing::class,
+            Linters\FullyQualifiedFacades::class,
             Linters\MailableMethodsInBuild::class,
             Linters\NewLineAtEndOfFile::class,
             Linters\NoCompact::class,
@@ -46,6 +47,7 @@ class TightenPreset implements PresetInterface
         return [
             Formatters\AlphabeticalImports::class,
             Formatters\ExcessSpaceBetweenAndAfterImports::class,
+            Formatters\FullyQualifiedFacades::class,
             Formatters\NewLineAtEndOfFile::class,
             Formatters\NoDocBlocksForMigrationUpDown::class,
             Formatters\UnusedImports::class,
