@@ -8,6 +8,22 @@ Breaking changes are marked with ⚠️.
 
 ## [Unreleased]
 
+## [v6.1.0] - 2021-09-17
+
+**Added**
+
+- Added `UseAnonymousMigrations` linter and formatter to prefer [anonymous migrations](https://github.com/laravel/framework/pull/36906) ([added in Laravel 8.37.0](https://github.com/laravel/framework/blob/8.x/CHANGELOG-8.x.md#v8370-2021-04-13)) ([#259](https://github.com/tighten/tlint/pull/259)).
+- Added support for PHP 8.1 ([#260](https://github.com/tighten/tlint/pull/260)).
+- Added a `FullyQualifiedFacades` linter and formatter to ensure Facades are imported using their full namespace (replaces the `ImportFacades` formatter added in ([#216](https://github.com/tighten/tlint/pull/216)) that never worked) ([#255](https://github.com/tighten/tlint/pull/255)).
+
+**Changed**
+
+- Removed `ImportFacades` linter from Tighten preset ([#255](https://github.com/tighten/tlint/pull/255)).
+
+**Fixed**
+
+- Fixed false positive `OneLineBetweenClassVisibilityChanges` lints with some comments between constants and properties ([#264](https://github.com/tighten/tlint/pull/264)).
+
 ## [v6.0.3] - 2021-07-20
 
 **Changed**
@@ -42,7 +58,8 @@ Breaking changes are marked with ⚠️.
 
 For previous changes see the [Releases](https://github.com/tighten/tlint/releases) page.
 
-[Unreleased]: https://github.com/tighten/tlint/compare/v6.0.3...HEAD
+[Unreleased]: https://github.com/tighten/tlint/compare/v6.1.0...HEAD
+[v6.1.0]: https://github.com/tighten/tlint/compare/v6.0.3...v6.1.0
 [v6.0.3]: https://github.com/tighten/tlint/compare/v6.0.2...v6.0.3
 [v6.0.2]: https://github.com/tighten/tlint/compare/v6.0.1...v6.0.2
 [v6.0.1]: https://github.com/tighten/tlint/compare/v6.0.0...v6.0.1
