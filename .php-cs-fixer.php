@@ -4,7 +4,7 @@ use PhpCsFixer\Config;
 use Symfony\Component\Finder\Finder;
 
 $finder = Finder::create()->in(__DIR__)->name('*.php')
-    ->exclude(['tests/fixtures/laravel', 'vendor'])
+    ->exclude(['tests/fixtures', 'vendor'])
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
