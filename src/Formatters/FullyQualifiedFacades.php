@@ -5,6 +5,7 @@ namespace Tighten\TLint\Formatters;
 use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\Node\Name;
+use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use PhpParser\NodeTraverser;
@@ -14,7 +15,7 @@ use PhpParser\PrettyPrinter\Standard;
 use Tighten\TLint\BaseFormatter;
 use Tighten\TLint\Concerns\IdentifiesFacades;
 
-class ImportFacades extends BaseFormatter
+class FullyQualifiedFacades extends BaseFormatter
 {
     use IdentifiesFacades;
 
@@ -25,10 +26,23 @@ class ImportFacades extends BaseFormatter
         $traverser = new NodeTraverser;
         $traverser->addVisitor(new CloningVisitor);
 
-        $originalStatements = $parser->parse($this->code);
-        $tokens = $lexer->getTokens();
+        $oldStmts = $parser->parse($this->code);
+        $oldTokens = $lexer->getTokens();
 
-        $statements = array_map(function (Node $node) {
+        $newStmts = $traverser->traverse($oldStmts);
+
+        if (count($newStmts) && $newStmts[0] instanceof Namespace_) {
+            $newStmts[0]->stmts = $this->transformFacadesToFullyQualified($newStmts[0]->stmts);
+        } else {
+            $newStmts = $this->transformFacadesToFullyQualified($newStmts);
+        }
+
+        return (new Standard)->printFormatPreserving($newStmts, $oldStmts, $oldTokens);
+    }
+
+    private function transformFacadesToFullyQualified(array $stmts)
+    {
+        return array_map(function (Node $node) {
             if (
                 $node instanceof Use_
                 && array_key_exists((string) $node->uses[0]->name, static::$aliases)
@@ -37,8 +51,6 @@ class ImportFacades extends BaseFormatter
             }
 
             return $node;
-        }, $traverser->traverse($originalStatements));
-
-        return (new Standard)->printFormatPreserving($statements, $originalStatements, $tokens);
+        }, $stmts);
     }
 }
