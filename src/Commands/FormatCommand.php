@@ -53,7 +53,7 @@ class FormatCommand extends BaseCommand
         $formatters = $this->getFormatters($file);
 
         if (! empty($only = $input->getOption('only'))) {
-            $formatters = array_filter($formatters, function ($formatter) use ($only) {
+            $formatters = array_filter($this->getAllFormatters($file), function ($formatter) use ($only) {
                 foreach ($only as $filter) {
                     if (false !== strpos($formatter, $filter)) {
                         return true;
@@ -146,6 +146,18 @@ class FormatCommand extends BaseCommand
         $config = new Config(json_decode(is_file($configPath) ? file_get_contents($configPath) : '', true) ?? null);
 
         return array_filter($config->getFormatters(), function ($className) use ($path) {
+            return $className::appliesToPath($path);
+        });
+    }
+
+    private function getAllFormatters($path)
+    {
+        $formatters = [];
+        foreach (glob(__DIR__ . '/../Formatters/*.php') as $file) {
+            $formatters[] = 'Tighten\TLint\Formatters\\' . basename($file, '.php');
+        }
+
+        return array_filter($formatters, function ($className) use ($path) {
             return $className::appliesToPath($path);
         });
     }

@@ -55,7 +55,7 @@ class LintCommand extends BaseCommand
         $linters = $this->getLinters($file);
 
         if (! empty($only = $input->getOption('only'))) {
-            $linters = array_filter($linters, function ($linter) use ($only) {
+            $linters = array_filter($this->getAllLinters($file), function ($linter) use ($only) {
                 foreach ($only as $filter) {
                     if (false !== strpos($linter, $filter)) {
                         return true;
@@ -187,6 +187,18 @@ class LintCommand extends BaseCommand
     private function getLinters($path)
     {
         return array_filter($this->config->getLinters(), function ($className) use ($path) {
+            return $className::appliesToPath($path);
+        });
+    }
+
+    private function getAllLinters($path)
+    {
+        $linters = [];
+        foreach (glob(__DIR__ . '/../Linters/*.php') as $file) {
+            $linters[] = 'Tighten\TLint\Linters\\' . basename($file, '.php');
+        }
+
+        return array_filter($linters, function ($className) use ($path) {
             return $className::appliesToPath($path);
         });
     }

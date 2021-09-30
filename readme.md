@@ -83,7 +83,7 @@ tlint lint test.php --json
 Want to only run a single linter?
 
 ```
-tlint --only=UseConfigOverEnv
+tlint lint --only=UseConfigOverEnv
 ```
 
 ## Example Output
