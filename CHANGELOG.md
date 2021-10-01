@@ -8,6 +8,16 @@ Breaking changes are marked with ⚠️.
 
 ## [Unreleased]
 
+## [v6.2.0] - 2021-10-01
+
+**Added**
+
+- Added support for Symfony 6 ([#263](https://github.com/tighten/tlint/pull/263)).
+
+**Fixed**
+
+- Fixed `--only` argument to work with all linters/formatters (even the ones not in presets) ([#271](https://github.com/tighten/tlint/pull/271)).
+
 ## [v6.1.0] - 2021-09-17
 
 **Added**
@@ -58,7 +68,8 @@ Breaking changes are marked with ⚠️.
 
 For previous changes see the [Releases](https://github.com/tighten/tlint/releases) page.
 
-[Unreleased]: https://github.com/tighten/tlint/compare/v6.1.0...HEAD
+[Unreleased]: https://github.com/tighten/tlint/compare/v6.2.0...HEAD
+[v6.2.0]: https://github.com/tighten/tlint/compare/v6.1.0...v6.2.0
 [v6.1.0]: https://github.com/tighten/tlint/compare/v6.0.3...v6.1.0
 [v6.0.3]: https://github.com/tighten/tlint/compare/v6.0.2...v6.0.3
 [v6.0.2]: https://github.com/tighten/tlint/compare/v6.0.1...v6.0.2
