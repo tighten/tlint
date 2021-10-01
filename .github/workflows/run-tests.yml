@@ -40,5 +40,7 @@ jobs:
           composer require illuminate/view --with-all-dependencies --no-interaction
       - if: ${{ startsWith(matrix.php, '8') }}
         run: |
+          # Not ready for Symfony 6
+          composer remove friendsofphp/php-cs-fixer --dev --no-update
           composer require symfony/console:"${{ matrix.symfony }}" symfony/process:"${{ matrix.symfony }}" --with-all-dependencies --no-interaction
       - run: vendor/bin/phpunit
