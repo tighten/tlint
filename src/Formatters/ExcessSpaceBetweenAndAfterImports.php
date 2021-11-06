@@ -13,7 +13,7 @@ use Tighten\TLint\BaseFormatter;
 
 class ExcessSpaceBetweenAndAfterImports extends BaseFormatter
 {
-    public const description = 'Removes excess newlines around use statements.';
+    public const DESCRIPTION = 'Removes excess newlines around use statements.';
 
     public function format(Parser $parser, Lexer $lexer)
     {

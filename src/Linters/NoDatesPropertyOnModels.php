@@ -14,7 +14,7 @@ class NoDatesPropertyOnModels extends BaseLinter
 {
     use IdentifiesExtends;
 
-    public const description = 'The `$dates` property was deprecated in Laravel 8. Use `$casts` instead.';
+    public const DESCRIPTION = 'The `$dates` property was deprecated in Laravel 8. Use `$casts` instead.';
 
     public function lint(Parser $parser)
     {

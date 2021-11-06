@@ -10,7 +10,7 @@ use Tighten\TLint\Commands\FormatCommand;
 class ParseErrorDoesNotFormatTest extends TestCase
 {
     /** @test */
-    function gracefully_handles_parse_error()
+    public function gracefully_handles_parse_error()
     {
         $application = new Application;
 
@@ -36,7 +36,7 @@ file;
         file_put_contents($filePath, $file);
 
         $commandTester->execute([
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
             'file or directory' => $filePath,
         ]);
 

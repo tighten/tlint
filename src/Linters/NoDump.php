@@ -12,7 +12,7 @@ use Tighten\TLint\BaseLinter;
 
 class NoDump extends BaseLinter
 {
-    public const description = 'There should be no calls to `dd()` or `dump()` or `var_dump()`';
+    public const DESCRIPTION = 'There should be no calls to `dd()`, `dump()`, `ray()`, or `var_dump()`';
 
     public function lint(Parser $parser)
     {

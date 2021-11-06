@@ -8,7 +8,7 @@ use Tighten\TLint\TLint;
 
 class NoDumpTest extends TestCase
 {
-    static function codeToIgnore(): iterable
+    public static function codeToIgnore(): iterable
     {
         return [
             [
@@ -70,7 +70,7 @@ php,
         ];
     }
 
-    static function codeToTrigger(): iterable
+    public static function codeToTrigger(): iterable
     {
         return [
             [
@@ -133,7 +133,7 @@ php,
      * @test
      * @dataProvider codeToTrigger
      */
-    function does_trigger_on_call(string $file): void
+    public function does_trigger_on_call(string $file): void
     {
         $lints = (new TLint)->lint(
             new NoDump($file)
@@ -146,7 +146,7 @@ php,
      * @test
      * @dataProvider codeToIgnore
      */
-    function does_not_trigger_on_call_in_comments(string $file): void
+    public function does_not_trigger_on_call_in_comments(string $file): void
     {
         $lints = (new TLint)->lint(
             new NoDump($file)

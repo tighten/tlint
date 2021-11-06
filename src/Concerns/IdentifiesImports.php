@@ -36,9 +36,9 @@ trait IdentifiesImports
                 }
             }
 
-            if (property_exists($node, 'attrGroups')){
-                foreach ($node->attrGroups as $group){
-                    foreach ($group->attrs as $attribute){
+            if (property_exists($node, 'attrGroups')) {
+                foreach ($node->attrGroups as $group) {
+                    foreach ($group->attrs as $attribute) {
                         $used[] = $attribute->name->toString();
                     }
                 }

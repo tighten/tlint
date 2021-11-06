@@ -11,7 +11,7 @@ use Tighten\TLint\BaseLinter;
 
 class AlphabeticalImports extends BaseLinter
 {
-    public const description = 'Imports should be ordered alphabetically.';
+    public const DESCRIPTION = 'Imports should be ordered alphabetically.';
 
     public function lint(Parser $parser)
     {
@@ -37,7 +37,7 @@ class AlphabeticalImports extends BaseLinter
             }, $useStatements);
 
             $alphabetical = $importStrings;
-            asort($alphabetical, SORT_STRING | SORT_FLAG_CASE);
+            asort($alphabetical, SORT_STRING|SORT_FLAG_CASE);
 
             return array_values($importStrings) !== array_values($alphabetical) ? [$useStatements[0]] : [];
         }

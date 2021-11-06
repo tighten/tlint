@@ -11,7 +11,7 @@ class NoJsonDirective extends BaseLinter
 {
     use LintsBladeTemplates;
 
-    public const description = 'Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive:'
+    public const DESCRIPTION = 'Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive:'
         . ' `<vue-comp :values=\'@json($var)\'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{!! json_encode($var) !!}">`';
 
     public function lint(Parser $parser)

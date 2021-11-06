@@ -13,7 +13,7 @@ class MailableMethodsInBuild extends BaseLinter
 {
     use LintsMailables;
 
-    public const description = 'Mailable values (from and subject etc) should be set in build().';
+    public const DESCRIPTION = 'Mailable values (from and subject etc) should be set in build().';
 
     public function lint(Parser $parser)
     {

@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class RestControllersMethodOrderTest extends TestCase
 {
     /** @test */
-    function catches_wrong_order_rest_methods()
+    public function catches_wrong_order_rest_methods()
     {
         $file = <<<file
 <?php
@@ -40,7 +40,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_correctly_ordered_rest_methods()
+    public function does_not_trigger_on_correctly_ordered_rest_methods()
     {
         $file = <<<file
 <?php

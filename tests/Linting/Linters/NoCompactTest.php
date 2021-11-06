@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class NoCompactTest extends TestCase
 {
     /** @test */
-    function catches_compact_call()
+    public function catches_compact_call()
     {
         $file = <<<file
 <?php
@@ -27,7 +27,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_compact_call_in_comments()
+    public function does_not_trigger_on_compact_call_in_comments()
     {
         $file = <<<file
 <?php

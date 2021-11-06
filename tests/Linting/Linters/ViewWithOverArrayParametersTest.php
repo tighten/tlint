@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class ViewWithOverArrayParametersTest extends TestCase
 {
     /** @test */
-    function catches_array_parameters_with_view_in_controller_methods()
+    public function catches_array_parameters_with_view_in_controller_methods()
     {
         $file = <<<file
 <?php
@@ -33,7 +33,7 @@ file;
     }
 
     /** @test */
-    function catches_array_parameters_with_view_in_routes()
+    public function catches_array_parameters_with_view_in_routes()
     {
         $file = <<<file
 <?php
@@ -51,7 +51,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_variable_function_call()
+    public function does_not_trigger_on_variable_function_call()
     {
         $file = <<<file
 <?php

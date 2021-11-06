@@ -39,7 +39,7 @@ class LintCommand extends BaseCommand
                 new InputOption(
                     'only',
                     null,
-                    InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                    InputOption::VALUE_REQUIRED|InputOption::VALUE_IS_ARRAY,
                     'The subset of linters to use'
                 ),
             ]))
@@ -55,12 +55,13 @@ class LintCommand extends BaseCommand
         $linters = $this->getLinters($file);
 
         if (! empty($only = $input->getOption('only'))) {
-            $linters = array_filter($linters, function($linter) use ($only) {
+            $linters = array_filter($this->getAllLinters($file), function ($linter) use ($only) {
                 foreach ($only as $filter) {
                     if (false !== strpos($linter, $filter)) {
                         return true;
                     }
                 }
+
                 return false;
             });
         }
@@ -91,9 +92,9 @@ class LintCommand extends BaseCommand
 
         if ($input->getOption('json')) {
             return $this->outputLintsAsJson($output, $file, $lints);
-        } else {
-            return $this->outputLints($output, $file, $lints);
         }
+
+        return $this->outputLints($output, $file, $lints);
     }
 
     private function outputLintsAsJson(OutputInterface $output, $file, $lints)
@@ -130,7 +131,7 @@ class LintCommand extends BaseCommand
 
                 $output->writeln("<fg=yellow>{$title}</>");
                 if (! empty($lines)) {
-                    $output->writeln($lines, OutputInterface::OUTPUT_NORMAL | OutputInterface::VERBOSITY_VERBOSE);
+                    $output->writeln($lines, OutputInterface::OUTPUT_NORMAL|OutputInterface::VERBOSITY_VERBOSE);
                 }
                 $output->writeln("<fg=magenta>{$codeLine}</>");
             }
@@ -172,13 +173,11 @@ class LintCommand extends BaseCommand
             return self::LINTS_FOUND_OR_ERROR;
         }
 
-
-        if($input->getOption('json')) {
+        if ($input->getOption('json')) {
             return self::NO_LINTS_FOUND_OR_SUCCESS;
         }
 
-
-        if($finalResponseCode === self::NO_LINTS_FOUND_OR_SUCCESS) {
+        if ($finalResponseCode === self::NO_LINTS_FOUND_OR_SUCCESS) {
             $output->writeLn('LGTM!');
         }
 
@@ -187,7 +186,19 @@ class LintCommand extends BaseCommand
 
     private function getLinters($path)
     {
-        return array_filter($this->config->getLinters(), function($className) use ($path) {
+        return array_filter($this->config->getLinters(), function ($className) use ($path) {
+            return $className::appliesToPath($path);
+        });
+    }
+
+    private function getAllLinters($path)
+    {
+        $linters = [];
+        foreach (glob(__DIR__ . '/../Linters/*.php') as $file) {
+            $linters[] = 'Tighten\TLint\Linters\\' . basename($file, '.php');
+        }
+
+        return array_filter($linters, function ($className) use ($path) {
             return $className::appliesToPath($path);
         });
     }

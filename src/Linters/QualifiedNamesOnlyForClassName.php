@@ -10,7 +10,7 @@ use Tighten\TLint\BaseLinter;
 
 class QualifiedNamesOnlyForClassName extends BaseLinter
 {
-    public const description = 'Fully Qualified Class Names should only be used for accessing class names';
+    public const DESCRIPTION = 'Fully Qualified Class Names should only be used for accessing class names';
 
     public function lint(Parser $parser)
     {
@@ -24,7 +24,8 @@ class QualifiedNamesOnlyForClassName extends BaseLinter
 
         $fqcnNonClassName = new FindingVisitor(function (Node $node) {
             return ($node->name->name ?? null) !== 'class'
-                && ($node instanceof Node\Expr\StaticPropertyFetch
+                && (
+                    $node instanceof Node\Expr\StaticPropertyFetch
                     || $node instanceof Node\Expr\StaticCall
                     || $node instanceof Node\Expr\ClassConstFetch
                     || $node instanceof Node\Expr\New_

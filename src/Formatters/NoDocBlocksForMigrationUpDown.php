@@ -14,7 +14,7 @@ class NoDocBlocksForMigrationUpDown extends BaseFormatter
 {
     use LintsMigrations;
 
-    public const description = 'Removes doc blocks from the up and down method in migrations.';
+    public const DESCRIPTION = 'Removes doc blocks from the up and down method in migrations.';
 
     public function format(Parser $parser, Lexer $lexer)
     {

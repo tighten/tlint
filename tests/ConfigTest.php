@@ -13,31 +13,31 @@ use Tighten\TLint\Presets\TightenPreset;
 class ConfigTest extends TestCase
 {
     /** @test */
-    function tighten_preset_can_get_linters()
+    public function tighten_preset_can_get_linters()
     {
         $this->assertContains(Linters\AlphabeticalImports::class, (new TightenPreset)->getLinters());
     }
 
     /** @test */
-    function tighten_preset_can_get_formatters()
+    public function tighten_preset_can_get_formatters()
     {
         $this->assertContains(Formatters\AlphabeticalImports::class, (new TightenPreset)->getFormatters());
     }
 
     /** @test */
-    function laravel_preset_can_get_linters()
+    public function laravel_preset_can_get_linters()
     {
         $this->assertContains(Linters\AlphabeticalImports::class, (new LaravelPreset)->getLinters());
     }
 
     /** @test */
-    function laravel_preset_can_get_formatters()
+    public function laravel_preset_can_get_formatters()
     {
         $this->assertContains(Formatters\AlphabeticalImports::class, (new LaravelPreset)->getFormatters());
     }
 
     /** @test */
-    function disabling_a_linter_via_json_config_removes_it_when_filtered()
+    public function disabling_a_linter_via_json_config_removes_it_when_filtered()
     {
         $config = new Config(['disabled' => [Linters\AlphabeticalImports::class]]);
 
@@ -45,7 +45,7 @@ class ConfigTest extends TestCase
     }
 
     /** @test */
-    function default_preset_is_tighten()
+    public function default_preset_is_tighten()
     {
         $config = new Config(null);
 
@@ -53,7 +53,7 @@ class ConfigTest extends TestCase
     }
 
     /** @test */
-    function a_custom_preset_can_be_provided()
+    public function a_custom_preset_can_be_provided()
     {
         $config = new Config(['preset' => ConfigTestPreset::class]);
 

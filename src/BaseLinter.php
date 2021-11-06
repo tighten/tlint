@@ -7,7 +7,7 @@ use PhpParser\Parser;
 
 class BaseLinter
 {
-    public const description = 'No Description for Linter.';
+    public const DESCRIPTION = 'No Description for Linter.';
 
     protected $description;
     protected $filename;
@@ -16,7 +16,7 @@ class BaseLinter
 
     public function __construct($code, $filename = null)
     {
-        $this->description = static::description;
+        $this->description = static::DESCRIPTION;
         $this->filename = $filename;
         $this->code = $code;
         $this->codeLines = preg_split('/\r\n|\r|\n/', $code);
@@ -42,7 +42,7 @@ class BaseLinter
         return $this->description = $description;
     }
 
-    public function getCode() : string
+    public function getCode(): string
     {
         return $this->code;
     }

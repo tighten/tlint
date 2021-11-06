@@ -25,7 +25,7 @@ abstract class BaseCommand extends Command
             json_decode(
                 is_file($configPath)
                     ? file_get_contents($configPath)
-                    : null,
+                    : '',
                 true
             ) ?? null
         );
@@ -97,11 +97,12 @@ abstract class BaseCommand extends Command
     protected function isBlacklisted($filepath)
     {
         $DS = DIRECTORY_SEPARATOR;
-        return strpos($filepath, "vendor") !== false
-            || strpos($filepath, "node_modules") !== false
+
+        return strpos($filepath, 'vendor') !== false
+            || strpos($filepath, 'node_modules') !== false
             || strpos($filepath, "public{$DS}") !== false
             || strpos($filepath, "bootstrap{$DS}") !== false
-            || strpos($filepath, "server.php") !== false
+            || strpos($filepath, 'server.php') !== false
             || strpos($filepath, "app{$DS}Http{$DS}Middleware{$DS}RedirectIfAuthenticated.php") !== false
             || strpos($filepath, "app{$DS}Exceptions{$DS}Handler.php") !== false
             || strpos($filepath, "app{$DS}Http{$DS}Controllers{$DS}Auth") !== false

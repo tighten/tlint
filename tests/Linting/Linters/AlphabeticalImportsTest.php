@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class AlphabeticalImportsTest extends TestCase
 {
     /** @test */
-    function catches_non_alphabetical_imports_at_the_beginning_of_the_string()
+    public function catches_non_alphabetical_imports_at_the_beginning_of_the_string()
     {
         $file = <<<file
 <?php
@@ -28,7 +28,7 @@ file;
     }
 
     /** @test */
-    function catches_non_alphabetical_imports_anywhere_in_the_string()
+    public function catches_non_alphabetical_imports_anywhere_in_the_string()
     {
         $file = <<<file
 <?php
@@ -47,7 +47,7 @@ file;
     }
 
     /** @test */
-    function ignores_case_when_comparing_imports()
+    public function ignores_case_when_comparing_imports()
     {
         $file = <<<file
 <?php
@@ -66,7 +66,7 @@ file;
     }
 
     /** @test */
-    function handles_duplicate_base_imports()
+    public function handles_duplicate_base_imports()
     {
         $file = <<<file
 <?php

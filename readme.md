@@ -48,9 +48,9 @@ return view('view')
 
 > TLint also has more immediately useful lints that can supplement your editor/IDE such as:
 
--   `NoUnusedImports`
--   `TrailingCommasOnArrays`
--   And many more! (See below for full listing)
+- `NoUnusedImports`
+- `TrailingCommasOnArrays`
+- And many more! (See below for full listing)
 
 ## Usage
 
@@ -83,7 +83,7 @@ tlint lint test.php --json
 Want to only run a single linter?
 
 ```
-tlint --only=UseConfigOverEnv
+tlint lint --only=UseConfigOverEnv
 ```
 
 ## Example Output
@@ -97,7 +97,7 @@ Lints:
 5 : `    return view('test', ['test' => 'test']);``
 ```
 
-## Beta Support: Formatting
+## Formatting (Beta)
 
 Using the same conventions as above, but using the format command, you can auto-fix some lints:
 
@@ -144,7 +144,7 @@ class Preset implements PresetInterface
 
   public function getFormatters() : array
   {
-  	return [];
+    return [];
   }
 }
 ```
@@ -187,59 +187,123 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 
 ## Available Linters
 
-## General PHP
+| Linter | Description |
+| --- | --- |
+| `AlphabeticalImports` | Imports should be ordered alphabetically. |
+| `ApplyMiddlewareInRoutes` | Apply middleware in routes (not controllers). |
+| `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
+| `ClassThingsOrder` | Class "things" should follow the ordering presented in the [handbook](https://gist.github.com/mattstauffer/1178946cb585b17a3941dd0edcbce0c4). |
+| `ConcatenationNoSpacing` | There should be no space around `.` concatenations, and additional lines should always start with a `.` |
+| `ConcatenationSpacing` | There should be 1 space around `.` concatenations, and additional lines should always start with a `.` |
+| `FullyQualifiedFacades` | Import facades using their full namespace. |
+| `ImportFacades` | Import facades (don't use aliases). |
+| `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
+| `ModelMethodOrder` | Model method order should be: booting > boot > booted > custom_static > relationships > scopes > accessors > mutators > custom |
+| `NewLineAtEndOfFile` | File should end with a new line |
+| `NoCompact` | There should be no calls to `compact()` in controllers |
+| `NoDatesPropertyOnModels` | The `$dates` property was deprecated in Laravel 8. Use `$casts` instead. |
+| `NoDocBlocksForMigrationUpDown` | Remove doc blocks from the up and down method in migrations. |
+| `NoDump` | There should be no calls to `dd()`, `dump()`, `ray()`, or `var_dump()` |
+| `NoInlineVarDocs` | No /** @var ClassName $var */ inline docs. [ref](https://github.com/tighten/tlint/issues/108) |
+| `NoJsonDirective` | Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{{ json_encode($var) }}">` |
+| `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
+| `NoMethodVisibilityInTests` | There should be no method visibility in test methods. [ref](https://github.com/tighten/tlint/issues/106#issuecomment-537952774) |
+| `NoParensEmptyInstantiations` | No parenthesis on empty instantiations |
+| `NoRequestAll` | No `request()->all()`. Use `request()->only(...)` to retrieve specific input values. |
+| `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening paren:`@section (` -> `@section(` |
+| `NoStringInterpolationWithoutBraces` | Never use string interpolation without braces |
+| `NoUnusedImports` | There should be no unused imports. |
+| `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line |
+| `PureRestControllers` | You should not mix restful and non-restful public methods in a controller |
+| `QualifiedNamesOnlyForClassName` | Fully Qualified Class Names should only be used for accessing class names |
+| `RemoveLeadingSlashNamespaces` | Prefer `Namespace\...` over `\Namespace\...`. |
+| `RequestHelperFunctionWherePossible` | Use the request(...) helper function directly to access request values wherever possible |
+| `RequestValidation` | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
+| `RestControllersMethodOrder` | REST methods in controllers should match the ordering here: https://laravel.com/docs/controllers#restful-partial-resource-routes |
+| `SpaceAfterBladeDirectives` | Put a space between blade control structure names and the opening paren:`@if(` -> `@if (` |
+| `SpaceAfterSoleNotOperator` | There should be a space after sole `!` operators |
+| `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
+| `TrailingCommasOnArrays` | Multiline arrays should have trailing commas |
+| `UseAnonymousMigrations` | Prefer returning an anonymous class from migration files |
+| `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
+| `UseConfigOverEnv` | Don’t use environment variables directly; instead, use them in config files and call config vars from code |
+| `ViewWithOverArrayParameters` | Prefer `view(...)->with(...)` over `view(..., [...])`. |
 
--   No leading slashes in namespaces or static calls or instantiations. `RemoveLeadingSlashNamespaces`
--   Fully qualified class name only when it's being used a string (class name). `QualifiedNamesOnlyForClassName`
--   Class "things" should follow the ordering presented in the [handbook](https://gist.github.com/mattstauffer/1178946cb585b17a3941dd0edcbce0c4). `ClassThingsOrder`
--   Sort imports alphabetically `AlphabeticalImports`
--   Trailing commas on arrays `TrailingCommasOnArrays`
--   No parenthesis on empty instantiations `NoParensEmptyInstantiations`
--   Space after sole not operator `SpaceAfterSoleNotOperator`
--   One blank line between class constants / properties of different visibility `OneLineBetweenClassVisibilityChanges`
--   Never use string interpolation without braces `NoStringInterpolationWithoutBraces`
--   Spaces around concat operators, and start additional lines with concat `ConcatenationSpacing`
--   File should end with a new line `NewLineAtEndOfFile`
--   No /\*_ @var ClassName \$var _/ inline docs `NoInlineVarDocs` (https://github.com/tighten/tlint/issues/108)
--   There should be no unused imports `NoUnusedImports`
 
-## PHPUnit
+### General PHP
 
--   There should be no method visibility in test methods `NoMethodVisibilityInTests` (https://github.com/tighten/tlint/issues/106#issuecomment-537952774)
+- `AlphabeticalImports`
+- `ClassThingsOrder`
+- `ConcatenationSpacing`
+- `NewLineAtEndOfFile`
+- `NoInlineVarDocs`
+- `NoParensEmptyInstantiations`
+- `NoStringInterpolationWithoutBraces`
+- `NoUnusedImports`
+- `OneLineBetweenClassVisibilityChanges`
+- `QualifiedNamesOnlyForClassName`
+- `RemoveLeadingSlashNamespaces`
+- `SpaceAfterSoleNotOperator`
+- `TrailingCommasOnArrays`
 
-## Laravel
+### PHPUnit
 
--   Use with over array parameters in view(). `ViewWithOverArrayParameters`
--   Prefer `view(..., [...])` over `view(...)->with(...)`. `ArrayParametersOverViewWith`
--   Don’t use environment variables directly in code; instead, use them in config files and call config vars from code. `UseConfigOverEnv`
--   There should only be rest methods in an otherwise purely restful controller. `PureRestControllers`
--   Controller method order (rest methods follow docs). `RestControllersMethodOrder`
--   Use the simplest `request(...)` wherever possible. `RequestHelperFunctionWherePossible`
--   Use auth() helper over the Auth facade. `UseAuthHelperOverFacade`
--   Remove method docblocks in migrations. `NoDocBlocksForMigrationUpDown`
--   Import facades (don't use aliases). `ImportFacades`
--   Mailable values (from and subject etc) should be set in build(). `MailableMethodsInBuild`
--   No leading slashes on route paths. `NoLeadingSlashesOnRoutePaths`
--   Apply middleware in routes (not controllers). `ApplyMiddlewareInRoutes`
--   Model method order (relationships > scopes > accessors > mutators > boot). `ModelMethodOrder`
--   There should be no calls to `dd()`, `dump()`, `ray()`, or `var_dump()`. `NoDump`
--   Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers `RequestValidation`
--   Blade directive spacing conventions. `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
--   Spaces around blade rendered content `SpacesAroundBladeRenderContent`
--   Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{!! json_encode($var) !!}">` `NoJsonDirective`
+- `NoMethodVisibilityInTests`
 
-## Available Formatters (Beta Support)
+### Laravel
 
-### Notes about formatting
+- `ApplyMiddlewareInRoutes`
+- `ArrayParametersOverViewWith`
+- `FullyQualifiedFacades`
+- `ImportFacades`
+- `MailableMethodsInBuild`
+- `NoLeadingSlashesOnRoutePaths`
+- `ModelMethodOrder`
+- `NoDocBlocksForMigrationUpDown`
+- `NoDump`
+- `NoJsonDirective`
+- `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
+- `PureRestControllers`
+- `RequestHelperFunctionWherePossible`
+- `RequestValidation`
+- `RestControllersMethodOrder`
+- `SpacesAroundBladeRenderContent`
+- `UseAnonymousMigrations`
+- `UseAuthHelperOverFacade`
+- `UseConfigOverEnv`
+- `ViewWithOverArrayParameters`
 
--   Formatting is designed to alter the least amount of code possible.
--   Import related formatters are not designed to alter grouped imports.
+## Available Formatters (Beta)
 
-## General PHP
+**Notes about formatting**
 
--   Alphabetizes import statements `AlphabeticalImports`
--   Removes unused import statements `UnusedImports`
--   Removes excess newlines around use statements `ExcessSpaceBetweenAndAfterImports`
+- Formatting is designed to alter the least amount of code possible.
+- Import related formatters are not designed to alter grouped imports.
+
+| Formatter | Description |
+| --- | --- |
+| `AlphabeticalImports` | Alphabetizes import statements. |
+| `ExcessSpaceBetweenAndAfterImports` | Removes excess newlines around use statements. |
+| `FullyQualifiedFacades` | Import facades using their full namespace. |
+| `NewLineAtEndOfFile` | Applies a newline at the end of files. |
+| `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
+| `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
+| `UnusedImports` | Removes unused import statements. |
+| `UseAnonymousMigrations` | Prefer returning an anonymous class from migration files. |
+
+### General PHP
+
+- `AlphabeticalImports`
+- `ExcessSpaceBetweenAndAfterImports`
+- `NewLineAtEndOfFile`
+- `UnusedImports`
+
+### Laravel
+
+- `FullyQualifiedFacades`
+- `NoDatesPropertyOnModels`
+- `NoDocBlocksForMigrationUpDown`
+- `UseAnonymousMigrations`
 
 ## Contributing
 
@@ -251,8 +315,9 @@ If you discover any security related issues, please email hello@tighten.co inste
 
 ## Credits
 
--   [Logan Henson](https://github.com/loganhenson)
--   [All Contributors](../../contributors)
+- [Logan Henson](https://github.com/loganhenson)
+- [Jacob Baker-Kretzmar](https://github.com/bakerkretzmar)
+- [All Contributors](../../contributors)
 
 ## License
 

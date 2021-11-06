@@ -9,7 +9,7 @@ use Tighten\TLint\TFormat;
 class UnusedImportsTest extends TestCase
 {
     /** @test */
-    function removes_unused_imports()
+    public function removes_unused_imports()
     {
         $file = <<<file
 <?php
@@ -35,7 +35,7 @@ file;
     }
 
     /** @test */
-    function does_not_remove_group_imports()
+    public function does_not_remove_group_imports()
     {
         $file = <<<file
 <?php

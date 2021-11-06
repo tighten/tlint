@@ -18,6 +18,8 @@ class ClassThingsOrder extends BaseLinter
     use IdentifiesClassThings;
     use IdentifiesExtends;
 
+    public const DESCRIPTION = 'Class "things" should follow the ordering presented in the [handbook](https://gist.github.com/mattstauffer/1178946cb585b17a3941dd0edcbce0c4)';
+
     protected const THINGS_ORDER = [
         'trait use',
         'public static property',

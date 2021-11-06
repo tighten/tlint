@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class RequestHelperFunctionWherePossibleTest extends TestCase
 {
     /** @test */
-    function catches_get_method_usage()
+    public function catches_get_method_usage()
     {
         $file = <<<file
 <?php
@@ -33,7 +33,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_new_instance_method_calls()
+    public function does_not_trigger_on_new_instance_method_calls()
     {
         $file = <<<file
 <?php

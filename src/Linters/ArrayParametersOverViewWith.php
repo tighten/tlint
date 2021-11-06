@@ -18,7 +18,7 @@ class ArrayParametersOverViewWith extends BaseLinter
         LintsRoutesFiles::appliesToPath as pathIsRoute;
     }
 
-    public const description = 'Prefer `view(..., [...])` over `view(...)->with(...)`.';
+    public const DESCRIPTION = 'Prefer `view(..., [...])` over `view(...)->with(...)`.';
 
     public static function appliesToPath(string $path): bool
     {

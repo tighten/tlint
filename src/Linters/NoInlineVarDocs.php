@@ -10,14 +10,13 @@ use Tighten\TLint\BaseLinter;
 
 class NoInlineVarDocs extends BaseLinter
 {
-    public const description = 'No /** @var ClassName $var */ inline docs.';
+    public const DESCRIPTION = 'No /** @var ClassName $var */ inline docs. [ref](https://github.com/tighten/tlint/issues/108)';
 
     public function lint(Parser $parser)
     {
         $traverser = new NodeTraverser;
 
         $useStatementsVisitor = new FindingVisitor(function (Node $node) use (&$useStatements) {
-
             if ($node->getDocComment() && strpos($node->getDocComment()->getText(), ' @var ') !== false) {
                 return $node;
             }
@@ -29,8 +28,8 @@ class NoInlineVarDocs extends BaseLinter
 
         $traverser->traverse($parser->parse($this->code));
 
-
         $startLines = [];
+
         return array_filter($useStatementsVisitor->getFoundNodes(), function (Node $node) use (&$startLines) {
             if (in_array($node->getStartLine(), $startLines)) {
                 return false;

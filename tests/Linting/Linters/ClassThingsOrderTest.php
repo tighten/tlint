@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class ClassThingsOrderTest extends TestCase
 {
     /** @test */
-    function catches_wrong_order_for_class_things()
+    public function catches_wrong_order_for_class_things()
     {
         $file = <<<file
 <?php
@@ -58,7 +58,7 @@ file;
     }
 
     /** @test */
-    function identifies_constructor_method()
+    public function identifies_constructor_method()
     {
         $file = <<<file
 <?php
@@ -88,7 +88,7 @@ file;
     }
 
     /** @test */
-    function identifies_invoke_method()
+    public function identifies_invoke_method()
     {
         $file = <<<file
 <?php
@@ -118,7 +118,7 @@ file;
     }
 
     /** @test */
-    function handles_empty_class()
+    public function handles_empty_class()
     {
         $file = <<<file
 <?php
@@ -139,7 +139,7 @@ file;
     }
 
     /** @test */
-    function handles_magic_methods()
+    public function handles_magic_methods()
     {
         $file = <<<file
 <?php
@@ -168,7 +168,7 @@ file;
     }
 
     /** @test */
-    function triggers_when_static_method_is_above_constructor()
+    public function triggers_when_static_method_is_above_constructor()
     {
         $file = <<<file
 <?php
@@ -196,7 +196,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_setup_setup()
+    public function does_not_trigger_on_setup_setup()
     {
         $file = <<<file
 <?php
@@ -232,7 +232,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_phpunit_teardown()
+    public function does_not_trigger_on_phpunit_teardown()
     {
         $file = <<<file
 <?php

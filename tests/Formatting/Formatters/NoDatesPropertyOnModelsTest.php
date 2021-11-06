@@ -9,7 +9,7 @@ use Tighten\TLint\TFormat;
 class NoDatesPropertyOnModelsTest extends TestCase
 {
     /** @test */
-    function converts_dates_property_to_datetime_cast()
+    public function converts_dates_property_to_datetime_cast()
     {
         $file = <<<'file'
 <?php
@@ -37,7 +37,7 @@ file;
     }
 
     /** @test */
-    function adds_attributes_to_existing_casts()
+    public function adds_attributes_to_existing_casts()
     {
         $file = <<<'file'
 <?php
@@ -73,7 +73,7 @@ file;
      * @test
      * This is safe to do because $casts already takes precendence over $dates in Laravel.
      */
-    function drops_date_attributes_already_in_casts()
+    public function drops_date_attributes_already_in_casts()
     {
         $file = <<<'file'
 <?php
@@ -104,7 +104,7 @@ file;
     }
 
     /** @test */
-    function creates_casts_property_if_it_doesnt_exist()
+    public function creates_casts_property_if_it_doesnt_exist()
     {
         $file = <<<'file'
 <?php
@@ -130,7 +130,7 @@ file;
     }
 
     /** @test */
-    function orders_casts_alphabetically()
+    public function orders_casts_alphabetically()
     {
         $file = <<<'file'
 <?php
@@ -157,7 +157,7 @@ file;
     }
 
     /** @test */
-    function doesnt_error_on_custom_cast_classes()
+    public function doesnt_error_on_custom_cast_classes()
     {
         $file = <<<'file'
 <?php
@@ -191,7 +191,7 @@ file;
     }
 
     /** @test */
-    function doesnt_error_on_empty_dates()
+    public function doesnt_error_on_empty_dates()
     {
         $file = <<<'file'
 <?php

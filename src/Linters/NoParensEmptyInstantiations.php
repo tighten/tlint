@@ -10,7 +10,7 @@ use Tighten\TLint\BaseLinter;
 
 class NoParensEmptyInstantiations extends BaseLinter
 {
-    public const description = 'No parenthesis on empty instantiations';
+    public const DESCRIPTION = 'No parenthesis on empty instantiations';
 
     public function lint(Parser $parser)
     {
@@ -22,7 +22,7 @@ class NoParensEmptyInstantiations extends BaseLinter
                 && $node->class instanceof Node\Name
                 && strpos(
                     $this->getCodeLine($node->getAttributes()['startLine']),
-                    "new " . $node->class->toString() . '()'
+                    'new ' . $node->class->toString() . '()'
                 ) !== false;
         });
 

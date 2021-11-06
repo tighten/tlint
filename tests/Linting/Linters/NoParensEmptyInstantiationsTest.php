@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class NoParensEmptyInstantiationsTest extends TestCase
 {
     /** @test */
-    function catches_unnecessary_parens()
+    public function catches_unnecessary_parens()
     {
         $file = <<<file
 <?php
@@ -25,7 +25,7 @@ file;
     }
 
     /** @test */
-    function ignores_necessary_parens()
+    public function ignores_necessary_parens()
     {
         $file = <<<file
 <?php
@@ -41,7 +41,7 @@ file;
     }
 
     /** @test */
-    function works_when_instantiating_from_variable()
+    public function works_when_instantiating_from_variable()
     {
         $file = <<<file
 <?php

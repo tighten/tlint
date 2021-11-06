@@ -13,7 +13,7 @@ class NoDocBlocksForMigrationUpDown extends BaseLinter
 {
     use LintsMigrations;
 
-    public const description = 'Remove doc blocks from the up and down method in migrations.';
+    public const DESCRIPTION = 'Remove doc blocks from the up and down method in migrations.';
 
     public function lint(Parser $parser)
     {

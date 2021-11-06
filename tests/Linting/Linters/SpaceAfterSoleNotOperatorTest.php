@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class SpaceAfterSoleNotOperatorTest extends TestCase
 {
     /** @test */
-    function catches_missing_space()
+    public function catches_missing_space()
     {
         $file = <<<file
 <?php
@@ -27,7 +27,7 @@ file;
     }
 
     /** @test */
-    function catches_missing_space_in_elseif()
+    public function catches_missing_space_in_elseif()
     {
         $file = <<<file
 <?php
@@ -47,7 +47,7 @@ file;
     }
 
     /** @test */
-    function catches_missing_space_in_non_primary_condition()
+    public function catches_missing_space_in_non_primary_condition()
     {
         $file = <<<file
 <?php
@@ -65,7 +65,7 @@ file;
     }
 
     /** @test */
-    function catches_missing_space_with_function_call()
+    public function catches_missing_space_with_function_call()
     {
         $file = <<<file
 <?php
@@ -83,7 +83,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_when_combined_with_other_condition_operators()
+    public function does_not_trigger_when_combined_with_other_condition_operators()
     {
         $file = <<<file
 <?php

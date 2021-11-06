@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class NoDatesPropertyOnModelsTest extends TestCase
 {
     /** @test */
-    function lints_dates_property_on_model()
+    public function lints_dates_property_on_model()
     {
         $file = <<<'file'
 <?php
@@ -35,7 +35,7 @@ file;
     }
 
     /** @test */
-    function lints_dates_property_on_pivot_model()
+    public function lints_dates_property_on_pivot_model()
     {
         $file = <<<'file'
 <?php
@@ -58,7 +58,7 @@ file;
     }
 
     /** @test */
-    function lints_dates_property_on_authenticatable()
+    public function lints_dates_property_on_authenticatable()
     {
         $file = <<<'file'
 <?php
@@ -83,7 +83,7 @@ file;
     }
 
     /** @test */
-    function ignores_dates_property_on_non_model()
+    public function ignores_dates_property_on_non_model()
     {
         $file = <<<'file'
 <?php

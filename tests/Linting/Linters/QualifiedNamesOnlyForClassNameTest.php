@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class QualifiedNamesOnlyForClassNameTest extends TestCase
 {
     /** @test */
-    function catches_qualified_class_constant_calls()
+    public function catches_qualified_class_constant_calls()
     {
         $file = <<<file
 <?php
@@ -25,7 +25,7 @@ file;
     }
 
     /** @test */
-    function catches_qualified_static_property_access()
+    public function catches_qualified_static_property_access()
     {
         $file = <<<file
 <?php
@@ -41,7 +41,7 @@ file;
     }
 
     /** @test */
-    function catches_qualified_static_method_calls()
+    public function catches_qualified_static_method_calls()
     {
         $file = <<<file
 <?php
@@ -57,7 +57,7 @@ file;
     }
 
     /** @test */
-    function allows_qualified_class_name_access()
+    public function allows_qualified_class_name_access()
     {
         $file = <<<file
 <?php
@@ -73,7 +73,7 @@ file;
     }
 
     /** @test */
-    function catches_fully_qualified_instantiations()
+    public function catches_fully_qualified_instantiations()
     {
         $file = <<<file
 <?php
@@ -89,7 +89,7 @@ file;
     }
 
     /** @test */
-    function does_not_triggen_on_variable_class_instantiation()
+    public function does_not_triggen_on_variable_class_instantiation()
     {
         $file = <<<file
 <?php
@@ -106,7 +106,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_anonymous_class()
+    public function does_not_trigger_on_anonymous_class()
     {
         $file = <<<file
 <?php
@@ -122,7 +122,7 @@ file;
     }
 
     /** @test */
-    function catches_extends_fqcn()
+    public function catches_extends_fqcn()
     {
         $file = <<<file
 <?php
@@ -141,7 +141,7 @@ file;
     }
 
     /** @test */
-    function catches_extends_fqcn_no_leading_slash()
+    public function catches_extends_fqcn_no_leading_slash()
     {
         $file = <<<file
 <?php
@@ -160,7 +160,7 @@ file;
     }
 
     /** @test */
-    function catches_trait_qualified()
+    public function catches_trait_qualified()
     {
         $file = <<<file
 <?php
@@ -179,7 +179,7 @@ file;
     }
 
     /** @test */
-    function catches_trait_fully_qualified()
+    public function catches_trait_fully_qualified()
     {
         $file = <<<file
 <?php
@@ -198,7 +198,7 @@ file;
     }
 
     /** @test */
-    function does_not_throw_on_dynamic_class_instantiation()
+    public function does_not_throw_on_dynamic_class_instantiation()
     {
         $file = <<<file
 <?php

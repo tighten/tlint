@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class ImportFacadesTest extends TestCase
 {
     /** @test */
-    function does_not_trigger_when_file_is_not_namespaced()
+    public function does_not_trigger_when_file_is_not_namespaced()
     {
         $file = <<<file
 <?php
@@ -25,7 +25,7 @@ file;
     }
 
     /** @test */
-    function catches_alias_usage_without_import()
+    public function catches_alias_usage_without_import()
     {
         $file = <<<file
 <?php
@@ -43,7 +43,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_facade_usage_with_import()
+    public function does_not_trigger_on_facade_usage_with_import()
     {
         $file = <<<file
 <?php
@@ -63,7 +63,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_facade_usage_with_nova_import()
+    public function does_not_trigger_on_facade_usage_with_nova_import()
     {
         $file = <<<file
 <?php
@@ -83,7 +83,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_facade_usage_with_custom_aliased_import()
+    public function does_not_trigger_on_facade_usage_with_custom_aliased_import()
     {
         $file = <<<file
 <?php
@@ -103,7 +103,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_facade_usage_with_grouped_import()
+    public function does_not_trigger_on_facade_usage_with_grouped_import()
     {
         $file = <<<file
 <?php
@@ -123,7 +123,7 @@ file;
     }
 
     /** @test */
-    function does_not_throw_on_variable_class_static_calls()
+    public function does_not_throw_on_variable_class_static_calls()
     {
         $file = <<<file
 <?php

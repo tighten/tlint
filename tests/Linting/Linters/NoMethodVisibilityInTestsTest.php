@@ -9,7 +9,7 @@ use Tighten\TLint\TLint;
 class NoMethodVisibilityInTestsTest extends TestCase
 {
     /** @test */
-    function does_not_trigger_on_test_method_without_explicit_visibility()
+    public function does_not_trigger_on_test_method_without_explicit_visibility()
     {
         $file = <<<file
 <?php
@@ -35,7 +35,7 @@ file;
     }
 
     /** @test */
-    function catches_test_method_with_public_visibility()
+    public function catches_test_method_with_public_visibility()
     {
         $file = <<<file
 <?php
@@ -61,7 +61,7 @@ file;
     }
 
     /** @test */
-    function catches_test_method_with_protected_visibility()
+    public function catches_test_method_with_protected_visibility()
     {
         $file = <<<file
 <?php
@@ -87,7 +87,7 @@ file;
     }
 
     /** @test */
-    function catches_test_method_with_private_visibility()
+    public function catches_test_method_with_private_visibility()
     {
         $file = <<<file
 <?php
@@ -113,7 +113,7 @@ file;
     }
 
     /** @test */
-    function catches_static_test_method_with_public_visibility()
+    public function catches_static_test_method_with_public_visibility()
     {
         $file = <<<file
 <?php
@@ -139,7 +139,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_set_up_method()
+    public function does_not_trigger_on_set_up_method()
     {
         $file = <<<file
 <?php
@@ -164,7 +164,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_set_up_before_class_method()
+    public function does_not_trigger_on_set_up_before_class_method()
     {
         $file = <<<file
 <?php
@@ -189,7 +189,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_tear_down_method()
+    public function does_not_trigger_on_tear_down_method()
     {
         $file = <<<file
 <?php
@@ -214,7 +214,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_tear_down_after_class_method()
+    public function does_not_trigger_on_tear_down_after_class_method()
     {
         $file = <<<file
 <?php
@@ -239,7 +239,7 @@ file;
     }
 
     /** @test */
-    function does_not_trigger_on_non_test_case_class()
+    public function does_not_trigger_on_non_test_case_class()
     {
         $file = <<<file
 <?php

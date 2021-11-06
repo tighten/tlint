@@ -12,7 +12,7 @@ use Tighten\TLint\BaseLinter;
 
 class ConcatenationSpacing extends BaseLinter
 {
-    public const description = 'There should be 1 space around `.` concatenations, and additional lines should'
+    public const DESCRIPTION = 'There should be 1 space around `.` concatenations, and additional lines should'
         . ' always start with a `.`';
 
     public function lint(Parser $parser)

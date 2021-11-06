@@ -14,7 +14,7 @@ class NoMethodVisibilityInTests extends BaseLinter
 {
     use LintsTests;
 
-    public const description = 'There should be no method visibility in test methods.';
+    public const DESCRIPTION = 'There should be no method visibility in test methods. [ref](https://github.com/tighten/tlint/issues/106#issuecomment-537952774)';
 
     public function lint(Parser $parser)
     {
@@ -23,7 +23,7 @@ class NoMethodVisibilityInTests extends BaseLinter
         $visitor = new FindingVisitor(function (Node $node) {
             static $extends = null;
 
-            if ($node instanceof Class_)  {
+            if ($node instanceof Class_) {
                 $extends = $node->extends;
             }
 
