@@ -1,37 +1,34 @@
 <?php
 
-foreach (
-    [
-        __DIR__ . '/../../../../vendor/autoload.php',
-        __DIR__ . '/../../autoload.php',
-        __DIR__ . '/../vendor/autoload.php',
-        __DIR__ . '/vendor/autoload.php',
-    ] as $file) {
-    if (file_exists($file)) {
-        require $file;
+require __DIR__ . '/../vendor/autoload.php';
 
-        break;
-    }
-}
+$readme = __DIR__ . '/../readme.md';
 
-echo '| Linter | Description |' . "\n";
-echo '| --- | --- |' . "\n";
-
-$files = glob('./src/Linters/*.php');
-foreach ($files as $file) {
+$linters = collect(glob(__DIR__ . '/../src/Linters/*.php'))->reduce(function ($carry, $file) {
     $linter = new ReflectionClass('\Tighten\TLint\Linters\\' . basename($file, '.php'));
-    echo '| `' . $linter->getShortName() . '` | ' . $linter->getConstants()['description'] . ' |' . "\n";
-}
 
-echo "\n";
-echo "\n";
-echo "\n";
+    return <<<MD
+    {$carry}
+    | `{$linter->getShortName()}` | {$linter->getConstants()['DESCRIPTION']} |
+    MD;
+}, <<<MD
+| Linter | Description |
+| --- | --- |
+MD);
 
-echo '| Formatter | Description |' . "\n";
-echo '| --- | --- |' . "\n";
+$formatters = collect(glob(__DIR__ . '/../src/Formatters/*.php'))->reduce(function ($carry, $file) {
+    $formatter = new ReflectionClass('\Tighten\TLint\Formatters\\' . basename($file, '.php'));
 
-$files = glob('./src/Formatters/*.php');
-foreach ($files as $file) {
-    $linter = new ReflectionClass('\Tighten\TLint\Formatters\\' . basename($file, '.php'));
-    echo '| `' . $linter->getShortName() . '` | ' . $linter->getConstants()['description'] . ' |' . "\n";
-}
+    return <<<MD
+    {$carry}
+    | `{$formatter->getShortName()}` | {$formatter->getConstants()['DESCRIPTION']} |
+    MD;
+}, <<<MD
+| Formatter | Description |
+| --- | --- |
+MD);
+
+file_put_contents($readme, preg_replace([
+    '/(?<=<!-- linters -->\n)(.*)(?=\n<!-- \/linters -->)/',
+    '/(?<=<!-- formatters -->\n)(.*)(?=\n<!-- \/formatters -->)/',
+], [$linters, $formatters], file_get_contents($readme)));

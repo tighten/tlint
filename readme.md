@@ -187,6 +187,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 
 ## Available Linters
 
+<!-- linters -->
 | Linter | Description |
 | --- | --- |
 | `AlphabeticalImports` | Imports should be ordered alphabetically. |
@@ -228,7 +229,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
 | `UseConfigOverEnv` | Don’t use environment variables directly; instead, use them in config files and call config vars from code |
 | `ViewWithOverArrayParameters` | Prefer `view(...)->with(...)` over `view(..., [...])`. |
-
+<!-- /linters -->
 
 ### General PHP
 
@@ -280,6 +281,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - Formatting is designed to alter the least amount of code possible.
 - Import related formatters are not designed to alter grouped imports.
 
+<!-- formatters -->
 | Formatter | Description |
 | --- | --- |
 | `AlphabeticalImports` | Alphabetizes import statements. |
@@ -290,6 +292,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
 | `UnusedImports` | Removes unused import statements. |
 | `UseAnonymousMigrations` | Prefer returning an anonymous class from migration files. |
+<!-- /formatters -->
 
 ### General PHP
 
