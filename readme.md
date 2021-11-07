@@ -187,12 +187,13 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 
 ## Available Linters
 
+<!-- linters -->
 | Linter | Description |
 | --- | --- |
 | `AlphabeticalImports` | Imports should be ordered alphabetically. |
 | `ApplyMiddlewareInRoutes` | Apply middleware in routes (not controllers). |
 | `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
-| `ClassThingsOrder` | Class "things" should follow the ordering presented in the [handbook](https://gist.github.com/mattstauffer/1178946cb585b17a3941dd0edcbce0c4). |
+| `ClassThingsOrder` | Class "things" should follow the ordering presented in the [handbook](https://gist.github.com/mattstauffer/1178946cb585b17a3941dd0edcbce0c4) |
 | `ConcatenationNoSpacing` | There should be no space around `.` concatenations, and additional lines should always start with a `.` |
 | `ConcatenationSpacing` | There should be 1 space around `.` concatenations, and additional lines should always start with a `.` |
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
@@ -224,11 +225,11 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `SpaceAfterSoleNotOperator` | There should be a space after sole `!` operators |
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
 | `TrailingCommasOnArrays` | Multiline arrays should have trailing commas |
-| `UseAnonymousMigrations` | Prefer returning an anonymous class from migration files |
+| `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
 | `UseConfigOverEnv` | Don’t use environment variables directly; instead, use them in config files and call config vars from code |
 | `ViewWithOverArrayParameters` | Prefer `view(...)->with(...)` over `view(..., [...])`. |
-
+<!-- /linters -->
 
 ### General PHP
 
@@ -280,6 +281,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - Formatting is designed to alter the least amount of code possible.
 - Import related formatters are not designed to alter grouped imports.
 
+<!-- formatters -->
 | Formatter | Description |
 | --- | --- |
 | `AlphabeticalImports` | Alphabetizes import statements. |
@@ -289,7 +291,8 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
 | `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
 | `UnusedImports` | Removes unused import statements. |
-| `UseAnonymousMigrations` | Prefer returning an anonymous class from migration files. |
+| `UseAnonymousMigrations` | Prefer anonymous class migrations. |
+<!-- /formatters -->
 
 ### General PHP
 
