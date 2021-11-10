@@ -27,6 +27,6 @@ class UnusedImports extends BaseFormatter
             }
         }
 
-        return implode("\n", $codeLinesWithoutUnusedImportLines);
+        return implode(PHP_EOL, $codeLinesWithoutUnusedImportLines);
     }
 }

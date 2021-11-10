@@ -30,7 +30,7 @@ class NoDocBlocksForMigrationUpDown extends BaseFormatter
             }
         }
 
-        return implode("\n", $codeLinesWithoutUpDownMigrationDocBlocks);
+        return implode(PHP_EOL, $codeLinesWithoutUpDownMigrationDocBlocks);
     }
 
     private function getUpDownMigrationDocBlockLines(array $stmts): array

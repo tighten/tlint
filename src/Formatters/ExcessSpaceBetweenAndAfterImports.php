@@ -53,10 +53,10 @@ class ExcessSpaceBetweenAndAfterImports extends BaseFormatter
                     $codeLinesWithoutExcessSpace[] =
                         $codeLine
                         // Special case when there is only 1 use statement.
-                        . ($firstUseStatementLine === $lastUseStatementLine ? "\n" : '');
+                        . ($firstUseStatementLine === $lastUseStatementLine ? PHP_EOL : '');
                 } // Last use statement.
                 elseif ($line + 1 === $lastUseStatementLine) {
-                    $codeLinesWithoutExcessSpace[] = $codeLine . "\n";
+                    $codeLinesWithoutExcessSpace[] = $codeLine . PHP_EOL;
                 } // After use statement range.
                 elseif ($line + 1 > $lastUseStatementLine) {
                     if (trim($codeLine) !== '') {
@@ -71,7 +71,7 @@ class ExcessSpaceBetweenAndAfterImports extends BaseFormatter
                 }
             }
 
-            return implode("\n", $codeLinesWithoutExcessSpace);
+            return implode(PHP_EOL, $codeLinesWithoutExcessSpace);
         }
 
         return $this->code;

@@ -13,7 +13,7 @@ class NewLineAtEndOfFile extends BaseFormatter
     public function format(Parser $parser, Lexer $lexer)
     {
         if (end($this->codeLines) ?? null !== '') {
-            return $this->code . "\n";
+            return $this->code . PHP_EOL;
         }
 
         return $this->code;
