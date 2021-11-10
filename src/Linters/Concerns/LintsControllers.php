@@ -6,6 +6,8 @@ trait LintsControllers
 {
     public static function appliesToPath(string $path): bool
     {
-        return strpos($path, 'app/Http/Controllers') !== false;
+        $DS = DIRECTORY_SEPARATOR;
+
+        return strpos($path, "app{$DS}Http{$DS}Controllers") !== false;
     }
 }
