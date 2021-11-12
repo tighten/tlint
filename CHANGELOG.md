@@ -8,6 +8,14 @@ Breaking changes are marked with ⚠️.
 
 ## [Unreleased]
 
+## [v6.2.1] - 2021-11-12
+
+**Fixed**
+
+- Update suggested syntax of `NoJsonDirective` linter ([#272](https://github.com/tighten/tlint/pull/272)).
+- Use `DIRECTORY_SEPARATOR` for Windows compatibility ([#275](https://github.com/tighten/tlint/pull/275)).
+- Use `PHP_EOL` for Windows compatibility ([#276](https://github.com/tighten/tlint/pull/276)).
+
 ## [v6.2.0] - 2021-10-01
 
 **Added**
@@ -68,7 +76,8 @@ Breaking changes are marked with ⚠️.
 
 For previous changes see the [Releases](https://github.com/tighten/tlint/releases) page.
 
-[Unreleased]: https://github.com/tighten/tlint/compare/v6.2.0...HEAD
+[Unreleased]: https://github.com/tighten/tlint/compare/v6.2.1...HEAD
+[v6.2.1]: https://github.com/tighten/tlint/compare/v6.2.0...v6.2.1
 [v6.2.0]: https://github.com/tighten/tlint/compare/v6.1.0...v6.2.0
 [v6.1.0]: https://github.com/tighten/tlint/compare/v6.0.3...v6.1.0
 [v6.0.3]: https://github.com/tighten/tlint/compare/v6.0.2...v6.0.3
