@@ -14,14 +14,13 @@ jobs:
         php: ['7.3', '7.4', '8.0', '8.1']
         os: [ubuntu-latest, macos-latest]
         dependency-version: [prefer-lowest, prefer-stable]
-        include:
-          - phpunit: '^9.3'
+        # [['symfony/console', 'symfony/process'], ...]
+        symfony: [['^4.4.30', '^4.4'], ['^5.3.7', '^5.0'], ['^6.0', '^6.0']]
+        exclude:
           - php: '7.3'
-            phpunit: '^8.0'
-          - php: '8.0'
-            symfony: '6.0.x-dev'
-          - php: '8.1'
-            symfony: '6.0.x-dev'
+            symfony: ['^6.0', '^6.0']
+          - php: '7.4'
+            symfony: ['^6.0', '^6.0']
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
@@ -35,12 +34,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - run: |
-          composer require phpunit/phpunit:"${{ matrix.phpunit }}" --no-update --no-interaction
+          composer require symfony/console:${{ matrix.symfony[0] }} symfony/process:${{ matrix.symfony[1] }} --no-update --no-interaction
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
           composer require illuminate/view --with-all-dependencies --no-interaction
-      - if: ${{ startsWith(matrix.php, '8') }}
-        run: |
-          # Not ready for Symfony 6
-          composer remove friendsofphp/php-cs-fixer --dev --no-update
-          composer require symfony/console:"${{ matrix.symfony }}" symfony/process:"${{ matrix.symfony }}" --with-all-dependencies --no-interaction
       - run: vendor/bin/phpunit
