@@ -59,7 +59,7 @@ class NoDatesPropertyOnModels extends BaseFormatter
             }, $statements);
         }
 
-        return $this->printer()->printFormatPreserving($statements, $originalStatements, $lexer->getTokens());
+        return preg_replace('/\r?\n/', PHP_EOL, $this->printer()->printFormatPreserving($statements, $originalStatements, $lexer->getTokens()));
     }
 
     private function nodeFinderForModelProperty(string $attribute): Closure
