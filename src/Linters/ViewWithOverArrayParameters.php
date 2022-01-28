@@ -2,12 +2,10 @@
 
 namespace Tighten\TLint\Linters;
 
+use Closure;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
-use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 use Tighten\TLint\Linters\Concerns\LintsControllers;
 use Tighten\TLint\Linters\Concerns\LintsRoutesFiles;
@@ -26,21 +24,13 @@ class ViewWithOverArrayParameters extends BaseLinter
         return static::pathIsController($path) || static::pathIsRoute($path);
     }
 
-    public function lint(Parser $parser)
+    protected function visitor(): Closure
     {
-        $traverser = new NodeTraverser;
-
-        $visitor = new FindingVisitor(function (Node $node) {
+        return function (Node $node) {
             return $node instanceof FuncCall
                 && $node->name instanceof Node\Name
                 && $node->name->toString() === 'view'
                 && ($node->args[1]->value ?? null) instanceof Array_;
-        });
-
-        $traverser->addVisitor($visitor);
-
-        $traverser->traverse($parser->parse($this->code));
-
-        return $visitor->getFoundNodes();
+        };
     }
 }

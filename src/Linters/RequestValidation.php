@@ -3,8 +3,6 @@
 namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 use Tighten\TLint\Concerns\IdentifiesExtends;
@@ -15,16 +13,13 @@ class RequestValidation extends BaseLinter
     use LintsControllers;
     use IdentifiesExtends;
 
-    public const DESCRIPTION = 'Use `request()->validate(...)` helper function or extract a FormRequest instead of using'
-        . ' `$this->validate(...)` in controllers';
+    public const DESCRIPTION = 'Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers';
 
     public function lint(Parser $parser)
     {
-        $traverser = new NodeTraverser;
-
         $isController = false;
 
-        $visitor = new FindingVisitor(function (Node $node) use (&$isController) {
+        $visitor = $this->visitUsing($parser, function (Node $node) use (&$isController) {
             if (! $isController && $this->extends($node, 'Controller')) {
                 $isController = true;
             }
@@ -34,10 +29,6 @@ class RequestValidation extends BaseLinter
                 && $node->var->name === 'this'
                 && $node->name->name === 'validate';
         });
-
-        $traverser->addVisitor($visitor);
-
-        $traverser->traverse($parser->parse($this->code));
 
         return $isController ? $visitor->getFoundNodes() : [];
     }

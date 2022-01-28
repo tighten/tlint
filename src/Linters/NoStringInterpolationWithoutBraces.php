@@ -2,21 +2,17 @@
 
 namespace Tighten\TLint\Linters;
 
+use Closure;
 use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
-use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 
 class NoStringInterpolationWithoutBraces extends BaseLinter
 {
     public const DESCRIPTION = 'Never use string interpolation without braces';
 
-    public function lint(Parser $parser)
+    protected function visitor(): Closure
     {
-        $traverser = new NodeTraverser;
-
-        $visitor = new FindingVisitor(function (Node $node) use ($parser) {
+        return function (Node $node) {
             if ($node instanceof Node\Scalar\Encapsed) {
                 foreach ($node->parts as $part) {
                     if ($part instanceof Node\Expr\Variable) {
@@ -34,13 +30,7 @@ class NoStringInterpolationWithoutBraces extends BaseLinter
             }
 
             return false;
-        });
-
-        $traverser->addVisitor($visitor);
-
-        $traverser->traverse($parser->parse($this->code));
-
-        return $visitor->getFoundNodes();
+        };
     }
 
     private function constructPropertyFetchString($next, $string = '')

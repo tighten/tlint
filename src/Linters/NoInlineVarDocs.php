@@ -3,8 +3,6 @@
 namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 
@@ -14,9 +12,7 @@ class NoInlineVarDocs extends BaseLinter
 
     public function lint(Parser $parser)
     {
-        $traverser = new NodeTraverser;
-
-        $useStatementsVisitor = new FindingVisitor(function (Node $node) use (&$useStatements) {
+        $visitor = $this->visitUsing($parser, function (Node $node) {
             if ($node->getDocComment() && strpos($node->getDocComment()->getText(), ' @var ') !== false) {
                 return $node;
             }
@@ -24,13 +20,9 @@ class NoInlineVarDocs extends BaseLinter
             return false;
         });
 
-        $traverser->addVisitor($useStatementsVisitor);
-
-        $traverser->traverse($parser->parse($this->code));
-
         $startLines = [];
 
-        return array_filter($useStatementsVisitor->getFoundNodes(), function (Node $node) use (&$startLines) {
+        return array_filter($visitor->getFoundNodes(), function (Node $node) use (&$startLines) {
             if (in_array($node->getStartLine(), $startLines)) {
                 return false;
             }
