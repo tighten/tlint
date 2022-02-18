@@ -1,7 +1,7 @@
 name: Run tests
 on:
   push:
-    branches: [main]
+    branches: [main, ci]
   pull_request:
   schedule:
     - cron: '0 0 * * *'
@@ -36,5 +36,5 @@ jobs:
       - run: |
           composer require symfony/console:${{ matrix.symfony[0] }} symfony/process:${{ matrix.symfony[1] }} --no-update --no-interaction
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
-          composer require illuminate/view --with-all-dependencies --no-interaction
+          composer require illuminate/view:* --with-all-dependencies --no-interaction
       - run: vendor/bin/phpunit
