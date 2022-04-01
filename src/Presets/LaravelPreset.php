@@ -23,11 +23,8 @@ class LaravelPreset implements PresetInterface
             Linters\RequestValidation::class,
             Linters\RestControllersMethodOrder::class,
             Linters\SpaceAfterBladeDirectives::class,
-            Linters\SpaceAfterSoleNotOperator::class,
             Linters\SpacesAroundBladeRenderContent::class,
-            Linters\TrailingCommasOnArrays::class,
             Linters\UseAuthHelperOverFacade::class,
-            Linters\UseConfigOverEnv::class,
         ];
     }
 
