@@ -19,9 +19,10 @@ class NoRequestAll extends BaseLinter
         $traverser = new NodeTraverser;
 
         $traverser->addVisitor($visitor = new FindingVisitor(function (Node $node) {
-            return ($node instanceof MethodCall && (string) $node->var->name === 'request')
-                || ($node instanceof StaticCall && (string) $node->class === 'Request')
-                && $node->name->name === 'all';
+            $isRequestMethodCall = $node instanceof MethodCall && (string) $node->var->name === 'request';
+            $isRequestStaticCall = $node instanceof StaticCall && (string) $node->class === 'Request';
+
+            return ($isRequestMethodCall || $isRequestStaticCall) && $node->name->name === 'all';
         }));
 
         $traverser->traverse($parser->parse($this->code));
