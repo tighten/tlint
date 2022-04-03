@@ -8,6 +8,12 @@ Breaking changes are marked with ⚠️.
 
 ## [Unreleased]
 
+## [v6.2.2] - 2022-04-03
+
+**Fixed**
+
+- Fix `NoRequestAll` linter to allow other request methods by @driftingly in ([#286](https://github.com/tighten/tlint/pull/286)).
+
 ## [v6.2.1] - 2021-11-12
 
 **Fixed**
@@ -76,7 +82,8 @@ Breaking changes are marked with ⚠️.
 
 For previous changes see the [Releases](https://github.com/tighten/tlint/releases) page.
 
-[Unreleased]: https://github.com/tighten/tlint/compare/v6.2.1...HEAD
+[Unreleased]: https://github.com/tighten/tlint/compare/v6.2.2...HEAD
+[v6.2.2]: https://github.com/tighten/tlint/compare/v6.2.1...v6.2.2
 [v6.2.1]: https://github.com/tighten/tlint/compare/v6.2.0...v6.2.1
 [v6.2.0]: https://github.com/tighten/tlint/compare/v6.1.0...v6.2.0
 [v6.1.0]: https://github.com/tighten/tlint/compare/v6.0.3...v6.1.0
