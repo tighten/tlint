@@ -187,7 +187,7 @@ class LintCommand extends BaseCommand
     private function getLinters($path)
     {
         return array_filter($this->config->getLinters(), function ($className) use ($path) {
-            return $className::appliesToPath($path);
+            return $className::appliesToPath($path, $this->config->getPaths());
         });
     }
 
@@ -199,7 +199,7 @@ class LintCommand extends BaseCommand
         }
 
         return array_filter($linters, function ($className) use ($path) {
-            return $className::appliesToPath($path);
+            return $className::appliesToPath($path, $this->config->getPaths());
         });
     }
 }

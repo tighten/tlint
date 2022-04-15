@@ -146,7 +146,7 @@ class FormatCommand extends BaseCommand
         $config = new Config(json_decode(is_file($configPath) ? file_get_contents($configPath) : '', true) ?? null);
 
         return array_filter($config->getFormatters(), function ($className) use ($path) {
-            return $className::appliesToPath($path);
+            return $className::appliesToPath($path, $this->config->getPaths());
         });
     }
 
@@ -158,7 +158,7 @@ class FormatCommand extends BaseCommand
         }
 
         return array_filter($formatters, function ($className) use ($path) {
-            return $className::appliesToPath($path);
+            return $className::appliesToPath($path, $this->config->getPaths());
         });
     }
 }
