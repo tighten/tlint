@@ -46,11 +46,11 @@ return view('view')
 > In this case [TLint](https://github.com/tighten/tlint) will warn if you are not using the **B)** method.
 > This example is a sort of "meta layer" of code linting, allowing teams to avoid higher level sticking points of code review / discussions.
 
-> TLint also has more immediately useful lints that can supplement your editor/IDE such as:
+> TLint also has more immediately useful lints that can supplement your editor/IDE, see list below.
 
-- `NoUnusedImports`
-- `TrailingCommasOnArrays`
-- And many more! (See below for full listing)
+TLint is meant to be paired with other tooling and is designed to pick up where tools like [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) leave off.  If a linter/formatter is available in either of these tools its functionality will not be replicated here.
+
+One way to use TLint is through [Duster](https://github.com/tighten/duster/) which automatically installs and configures TLint and [Tighten Coding Standard](https://github.com/tighten/tighten-coding-standard/).
 
 ## Usage
 
@@ -130,21 +130,23 @@ You can also add your own custom preset and linters by providing a fully-qualifi
 ```php
 namespace App\Support\Linting;
 
-/** use ... */
+use Tighten\TLint\Presets\PresetInterface;
 
 class Preset implements PresetInterface
 {
   public function getLinters() : array
   {
     return [
-      PrefixTestsWithTest::class,
+      CustomLinter::class,
       ModelMethodOrder::class,
     ];
   }
 
   public function getFormatters() : array
   {
-    return [];
+    return [
+        CustomFormatter::class,
+    ];
   }
 }
 ```
@@ -188,8 +190,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 ## Available Linters
 
 <!-- linters -->
-| Linter | Description |
-| --- | --- |
 | Linter | Description |
 | --- | --- |
 | `ApplyMiddlewareInRoutes` | Apply middleware in routes (not controllers). |
