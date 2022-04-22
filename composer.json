@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "illuminate/view": "*",
         "nikic/php-parser": "^4.12",
         "symfony/console": "^4.4.30 || ^5.3.7 || ^6.0",
