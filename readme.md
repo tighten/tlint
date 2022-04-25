@@ -112,14 +112,20 @@ The Laravel preset is intended to match the conventions agreed upon by the Larav
 
 The default configuration is "tighten" flavored, but you may change this by adding a `tlint.json` file to your project's root directory with the following schema:
 
-> You may further customize the linters used by adding specific lint names to the `"disabled"` list (As shown below).
-> You may disable linting for specific directories by adding them to the `"excluded"` list (As shown below).
+> You may further customize the linters used by adding specific lint names to the `"disabled"` list.
+> You may disable linting for specific directories by adding them to the `"excluded"` list.
+> You may provide custom paths by adding them to the `"paths"` lists.
 
 ```json
 {
     "preset": "laravel",
     "disabled": ["NoInlineVarDocs"],
-    "excluded": ["tests/"]
+    "excluded": ["tests/"],
+    "paths": [
+        {
+            "controllers": ["app/Domain/Http/Controllers"]
+        }
+    ]
 }
 ```
 

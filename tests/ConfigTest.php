@@ -45,6 +45,40 @@ class ConfigTest extends TestCase
     }
 
     /** @test */
+    public function custom_paths_used_via_json_config()
+    {
+        $config = new Config(['paths' => ['controllers' => 'app/Domain/Http/Controllers']]);
+
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain/Http/Controllers/UserController.php', $config->getPaths()));
+        $this->assertFalse(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Http/Controllers/UserController.php', $config->getPaths()));
+    }
+
+    /** @test */
+    public function custom_paths_used_via_json_config_can_be_array()
+    {
+        $config = new Config(['paths' => ['controllers' => ['app/Domain1/Http/Controllers', 'app/Domain2/Http/Controllers']]]);
+
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain1/Http/Controllers/UserController.php', $config->getPaths()));
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain2/Http/Controllers/UserController.php', $config->getPaths()));
+        $this->assertFalse(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain3/Http/Controllers/UserController.php', $config->getPaths()));
+    }
+
+    /** @test */
+    public function custom_paths_used_via_json_config_can_be_empty()
+    {
+        $DS = DIRECTORY_SEPARATOR;
+
+        $config = new Config(['paths' => []]);
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+
+        $config = new Config(['paths' => null]);
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+
+        $config = new Config([]);
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+    }
+
+    /** @test */
     public function default_preset_is_tighten()
     {
         $config = new Config(null);
