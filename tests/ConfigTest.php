@@ -64,6 +64,21 @@ class ConfigTest extends TestCase
     }
 
     /** @test */
+    public function custom_paths_used_via_json_config_can_be_empty()
+    {
+        $DS = DIRECTORY_SEPARATOR;
+
+        $config = new Config(['paths' => []]);
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+
+        $config = new Config(['paths' => null]);
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+
+        $config = new Config([]);
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+    }
+
+    /** @test */
     public function default_preset_is_tighten()
     {
         $config = new Config(null);
