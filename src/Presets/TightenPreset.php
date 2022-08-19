@@ -24,6 +24,7 @@ class TightenPreset implements PresetInterface
             Linters\NoLeadingSlashesOnRoutePaths::class,
             Linters\NoSpaceAfterBladeDirectives::class,
             Linters\NoStringInterpolationWithoutBraces::class,
+            Linters\NoTestPrefixInTests::class,
             Linters\NoUnusedImports::class,
             Linters\OneLineBetweenClassVisibilityChanges::class,
             Linters\QualifiedNamesOnlyForClassName::class,
