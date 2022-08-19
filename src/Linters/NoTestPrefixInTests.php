@@ -30,6 +30,7 @@ class NoTestPrefixInTests extends BaseLinter
             return $extends
                 && $extends->toString() === 'TestCase'
                 && $node instanceof Node\Stmt\ClassMethod
+                && $node->isPublic()
                 && str_starts_with($node->name->toString(), 'test');
         });
 

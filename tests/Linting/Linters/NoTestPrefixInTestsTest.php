@@ -33,6 +33,30 @@ file;
 
         $this->assertEmpty($lints);
     }
+    /** @test */
+    public function does_not_trigger_on_private_method()
+    {
+        $file = <<<file
+<?php
+
+use PHPUnit\Framework\TestCase;
+
+class NoTestPrefixInTestsTest extends TestCase
+{
+    private function test_catches_test_method_with_prefix()
+    {
+
+    }
+}
+
+file;
+
+        $lints = (new TLint)->lint(
+            new NoTestPrefixInTests($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 
     /** @test */
     public function catches_snake_case_test_method_with_test_prefix()
