@@ -17,11 +17,12 @@ Breaking changes are marked with ⚠️.
 **Changed**
 
 - Move shared visitor setup into base Linter by @bakerkretzmar ([#281](https://github.com/tighten/tlint/pull/281)).
+- Update readme by @driftingly ([#295](https://github.com/tighten/tlint/pull/295)).
 
 **Removed**
 
-- Remove redundant linters and formatters by @driftingly ([#284](https://github.com/tighten/tlint/pull/284))
-- Drop support for PHP 7.3 and 7.4 by @driftingly ([#289](https://github.com/tighten/tlint/pull/289))
+- Remove redundant linters and formatters by @driftingly ([#284](https://github.com/tighten/tlint/pull/284)).
+- Drop support for PHP 7.3 and 7.4 by @driftingly ([#289](https://github.com/tighten/tlint/pull/289)).
 
 ## [v6.3.0] - 2022-04-25
 
