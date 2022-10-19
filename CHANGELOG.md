@@ -8,17 +8,50 @@ Breaking changes are marked with ⚠️.
 
 ## [Unreleased]
 
+## [v7.0.0] - 2022-10-19
+
+**Changed**
+
+- Updated presets to include FullyQualifiedFacades by @bakerkretzmar ([#265](https://github.com/tighten/tlint/pull/265)).
+- Move shared visitor setup into base Linter by @bakerkretzmar ([#281](https://github.com/tighten/tlint/pull/281)).
+- Update readme by @driftingly ([#295](https://github.com/tighten/tlint/pull/295)).
+- Update Laravel testing fixture by @driftingly ([#296](https://github.com/tighten/tlint/pull/296))
+
+**Removed**
+
+- Remove redundant linters and formatters by @driftingly ([#284](https://github.com/tighten/tlint/pull/284)).
+  - Linters
+    - AlphabeticalImports
+    - ClassThingsOrder
+    - ConcatenationNoSpacing
+    - ConcatenationSpacing
+    - ImportFacades
+    - NewLineAtEndOfFile
+    - NoCompact
+    - NoDump
+    - NoInlineVarDocs
+    - NoStringInterpolationWithoutBraces
+    - NoUnusedImports
+    - SpaceAfterSoleNotOperator
+    - TrailingCommasOnArrays
+    - UseConfigOverEnv
+  - Formatters
+    - AlphabeticalImports
+    - NewLineAtEndOfFile
+    - UnusedImports
+- Drop support for PHP 7.3 and 7.4 by @driftingly ([#289](https://github.com/tighten/tlint/pull/289)).
+
 ## [v6.3.0] - 2022-04-25
 
 **Added**
 
-- Add paths config option by @driftingly in ([#288](https://github.com/tighten/tlint/pull/288)).
+- Add paths config option by @driftingly ([#288](https://github.com/tighten/tlint/pull/288)).
 
 ## [v6.2.2] - 2022-04-03
 
 **Fixed**
 
-- Fix `NoRequestAll` linter to allow other request methods by @driftingly in ([#286](https://github.com/tighten/tlint/pull/286)).
+- Fix `NoRequestAll` linter to allow other request methods by @driftingly ([#286](https://github.com/tighten/tlint/pull/286)).
 
 ## [v6.2.1] - 2021-11-12
 
@@ -88,7 +121,8 @@ Breaking changes are marked with ⚠️.
 
 For previous changes see the [Releases](https://github.com/tighten/tlint/releases) page.
 
-[Unreleased]: https://github.com/tighten/tlint/compare/v6.3.0...HEAD
+[Unreleased]: https://github.com/tighten/tlint/compare/v7.0.0...HEAD
+[v7.0.0]: https://github.com/tighten/tlint/compare/v6.3.0...v7.0.0
 [v6.3.0]: https://github.com/tighten/tlint/compare/v6.2.2...v6.3.0
 [v6.2.2]: https://github.com/tighten/tlint/compare/v6.2.1...v6.2.2
 [v6.2.1]: https://github.com/tighten/tlint/compare/v6.2.0...v6.2.1

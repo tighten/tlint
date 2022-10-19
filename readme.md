@@ -6,6 +6,10 @@
 
 ## Install (Requires PHP 8.0+)
 
+>**Note**
+>While you can install and run TLint manually we highly recommend using [Duster](https://github.com/tighten/duster).
+>In addition to TLint Duster will install and configure Laravel Pint (with some Tighten preferences), PHP_CodeSniffer, and PHP CS Fixer.
+
 ```
 composer global require tightenco/tlint
 ```
@@ -15,6 +19,11 @@ composer global require tightenco/tlint
 ```
 composer global update tightenco/tlint
 ```
+
+### Upgrading from 6.x to 7.x
+
+TLint focuses on linting and formatting issues other tools are not able to catch.
+The `7.x` release removes a lot of lints and formatters already covered by the other tools in [Duster](https://github.com/tighten/duster).  If you need to add these back you can grab them from an earlier version of TLint and follow the [Custom Configuration](#custom-configuration--presets) documentation.
 
 ## What Is It?
 
@@ -52,6 +61,10 @@ TLint is meant to be paired with other tooling and is designed to pick up where 
 
 One way to use TLint is through [Duster](https://github.com/tighten/duster/) which automatically installs and configures TLint and [Tighten Coding Standard](https://github.com/tighten/tighten-coding-standard/).
 
+### How does TLint fit into the Tighten Standards Ecosystem?
+
+TLint is intended to work along side tools like Laravel Pint, to catch issues other tools can't. We recommend using [Duster](https://github.com/tighten/duster) to install and configure TLint with a suite of tools to provide the best coverage for your project.
+
 ## Usage
 
 For entire project (you must pass the lint command to use other options)
@@ -83,7 +96,7 @@ tlint lint test.php --json
 Want to only run a single linter?
 
 ```
-tlint lint --only=UseConfigOverEnv
+tlint lint --only=ArrayParametersOverViewWith
 ```
 
 ## Example Output
@@ -119,7 +132,7 @@ The default configuration is "tighten" flavored, but you may change this by addi
 ```json
 {
     "preset": "laravel",
-    "disabled": ["NoInlineVarDocs"],
+    "disabled": ["ArrayParametersOverViewWith"],
     "excluded": ["tests/"],
     "paths": [
         {
@@ -227,7 +240,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 
 ### General PHP
 
-- `ClassThingsOrder`
 - `NoParensEmptyInstantiations`
 - `OneLineBetweenClassVisibilityChanges`
 - `QualifiedNamesOnlyForClassName`
