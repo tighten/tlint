@@ -7,8 +7,7 @@
 ## Install (Requires PHP 8.0+)
 
 >**Note**
->While you can install and run TLint manually we highly recommend using [Duster](https://github.com/tighten/duster).
->In addition to TLint Duster will install and configure Laravel Pint (with some Tighten preferences), PHP_CodeSniffer, and PHP CS Fixer.
+>TLint is intended to work with the tools included in [Duster](https://github.com/tighten/duster). To receive the best coverage we recommend using Duster to install and configure TLint.
 
 ```
 composer global require tightenco/tlint
@@ -23,7 +22,7 @@ composer global update tightenco/tlint
 ### Upgrading from 6.x to 7.x
 
 TLint focuses on linting and formatting issues other tools are not able to catch.
-The `7.x` release removes a lot of lints and formatters already covered by the other tools in [Duster](https://github.com/tighten/duster).  If you need to add these back you can grab them from an earlier version of TLint and follow the [Custom Configuration](#custom-configuration--presets) documentation.
+The `7.x` release removes lints and formatters covered by tools in [Duster](https://github.com/tighten/duster).  If you need to add these back you can grab them from an earlier version of TLint and follow the [Custom Configuration](#custom-configuration--presets) documentation.
 
 ## What Is It?
 
@@ -52,18 +51,8 @@ return view('view')
     ->with('value', 'Hello, World!');
 ```
 
-> In this case [TLint](https://github.com/tighten/tlint) will warn if you are not using the **B)** method.
-> This example is a sort of "meta layer" of code linting, allowing teams to avoid higher level sticking points of code review / discussions.
-
-> TLint also has more immediately useful lints that can supplement your editor/IDE, see list below.
-
-TLint is meant to be paired with other tooling and is designed to pick up where tools like [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) leave off.  If a linter/formatter is available in either of these tools its functionality will not be replicated here.
-
-One way to use TLint is through [Duster](https://github.com/tighten/duster/) which automatically installs and configures TLint and [Tighten Coding Standard](https://github.com/tighten/tighten-coding-standard/).
-
-### How does TLint fit into the Tighten Standards Ecosystem?
-
-TLint is intended to work along side tools like Laravel Pint, to catch issues other tools can't. We recommend using [Duster](https://github.com/tighten/duster) to install and configure TLint with a suite of tools to provide the best coverage for your project.
+In this case TLint will warn if you are not using the **B)** method.
+This example is a sort of "meta layer" of code linting, allowing teams to avoid higher level sticking points of code review / discussions.
 
 ## Usage
 
