@@ -2,10 +2,8 @@
 
 namespace Tighten\TLint\Linters;
 
+use Closure;
 use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
-use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 use Tighten\TLint\Illuminate\BladeCompiler;
 use Tighten\TLint\Linters\Concerns\LintsBladeTemplates;
@@ -26,11 +24,9 @@ class UseAuthHelperOverFacade extends BaseLinter
         parent::__construct($code, $filename);
     }
 
-    public function lint(Parser $parser)
+    protected function visitor(): Closure
     {
-        $traverser = new NodeTraverser;
-
-        $visitor = new FindingVisitor(function (Node $node) {
+        return function (Node $node) {
             static $usesAuthFacade = false;
 
             if ($node instanceof Node\Stmt\UseUse && $node->name instanceof Node\Name) {
@@ -48,12 +44,6 @@ class UseAuthHelperOverFacade extends BaseLinter
                         && $node->class->toString() === 'Illuminate\Support\Facades\Auth'
                     ))
                 && ($node->class instanceof Node\Name && $node->name->name !== 'routes');
-        });
-
-        $traverser->addVisitor($visitor);
-
-        $traverser->traverse($parser->parse($this->code));
-
-        return $visitor->getFoundNodes();
+        };
     }
 }

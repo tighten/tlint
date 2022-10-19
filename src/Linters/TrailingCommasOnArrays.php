@@ -3,8 +3,6 @@
 namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 
@@ -14,11 +12,9 @@ class TrailingCommasOnArrays extends BaseLinter
 
     public function lint(Parser $parser)
     {
-        $traverser = new NodeTraverser;
-
         $missingTrailingCommas = [];
 
-        $visitor = new FindingVisitor(function (Node $node) use (&$missingTrailingCommas) {
+        $visitor = $this->visitUsing($parser, function (Node $node) use (&$missingTrailingCommas) {
             if ($node instanceof Node\Expr\Array_
                 && ! empty($node->items)
                 && ($node->getAttributes()['endLine'] - $node->getAttributes()['startLine'] > 0)) {
@@ -55,10 +51,6 @@ class TrailingCommasOnArrays extends BaseLinter
 
             return false;
         });
-
-        $traverser->addVisitor($visitor);
-
-        $traverser->traverse($parser->parse($this->code));
 
         if (! empty($missingTrailingCommas)) {
             return array_map(function (Node $node) {

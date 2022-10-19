@@ -2,11 +2,9 @@
 
 namespace Tighten\TLint\Linters;
 
+use Closure;
 use PhpParser\Node;
 use PhpParser\Node\Name;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
-use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 use Tighten\TLint\Concerns\IdentifiesFacades;
 
@@ -16,11 +14,9 @@ class ImportFacades extends BaseLinter
 
     public const DESCRIPTION = "Import facades (don't use aliases).";
 
-    public function lint(Parser $parser)
+    protected function visitor(): Closure
     {
-        $traverser = new NodeTraverser;
-
-        $visitor = new FindingVisitor(function (Node $node) {
+        return function (Node $node) {
             static $hasNamespace = false;
 
             if ($node instanceof Node\Stmt\Namespace_) {
@@ -46,12 +42,6 @@ class ImportFacades extends BaseLinter
                 && in_array($node->class->toString(), array_keys(static::$aliases))
                 && ! in_array($node->class->toString(), $useAliases)
                 && ! in_array(static::$aliases[$node->class->toString()], $useNames);
-        });
-
-        $traverser->addVisitor($visitor);
-
-        $traverser->traverse($parser->parse($this->code));
-
-        return $visitor->getFoundNodes();
+        };
     }
 }

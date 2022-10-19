@@ -6,9 +6,6 @@ use Closure;
 use Exception;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
-use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 use Tighten\TLint\Concerns\IdentifiesClassThings;
 use Tighten\TLint\Concerns\IdentifiesExtends;
@@ -73,11 +70,9 @@ class ClassThingsOrder extends BaseLinter
         ];
     }
 
-    public function lint(Parser $parser)
+    protected function visitor(): Closure
     {
-        $traverser = new NodeTraverser;
-
-        $visitor = new FindingVisitor(function (Node $node) {
+        return function (Node $node) {
             if ($node instanceof Class_) {
                 $thingTypes = array_map(function ($stmt) {
                     foreach ($this->tests as $label => $test) {
@@ -107,12 +102,6 @@ class ClassThingsOrder extends BaseLinter
             }
 
             return false;
-        });
-
-        $traverser->addVisitor($visitor);
-
-        $traverser->traverse($parser->parse($this->code));
-
-        return $visitor->getFoundNodes();
+        };
     }
 }

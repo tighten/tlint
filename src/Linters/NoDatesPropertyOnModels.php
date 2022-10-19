@@ -2,11 +2,9 @@
 
 namespace Tighten\TLint\Linters;
 
+use Closure;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
-use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 use Tighten\TLint\Concerns\IdentifiesExtends;
 
@@ -16,11 +14,9 @@ class NoDatesPropertyOnModels extends BaseLinter
 
     public const DESCRIPTION = 'The `$dates` property was deprecated in Laravel 8. Use `$casts` instead.';
 
-    public function lint(Parser $parser)
+    protected function visitor(): Closure
     {
-        $traverser = new NodeTraverser;
-
-        $traverser->addVisitor($visitor = new FindingVisitor(function (Node $node) {
+        return function (Node $node) use (&$model) {
             static $model = false;
 
             if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
@@ -28,10 +24,6 @@ class NoDatesPropertyOnModels extends BaseLinter
             }
 
             return $model && $node instanceof Property && (string) $node->props[0]->name === 'dates';
-        }));
-
-        $traverser->traverse($parser->parse($this->code));
-
-        return $visitor->getFoundNodes();
+        };
     }
 }
