@@ -11,11 +11,7 @@ trait LintsControllers
         $appPaths = isset($configPaths['controllers']) ? $configPaths['controllers'] : "app{$DS}Http{$DS}Controllers";
 
         if (is_array($appPaths)) {
-            return (bool) array_filter(
-                array_map(function ($appPath) use ($path) {
-                    return strpos($path, $appPath) !== false;
-                }, $appPaths)
-            );
+            return (bool) array_filter(array_map(fn ($appPath) => strpos($path, $appPath) !== false, $appPaths));
         }
 
         return strpos($path, $appPaths) !== false;
