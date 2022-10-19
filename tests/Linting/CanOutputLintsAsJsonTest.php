@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Tighten\TLint\Commands\LintCommand;
-use Tighten\TLint\Linters\ConcatenationSpacing;
+use Tighten\TLint\Linters\OneLineBetweenClassVisibilityChanges;
 
 class CanOutputLintsAsJsonTest extends TestCase
 {
@@ -21,7 +21,11 @@ class CanOutputLintsAsJsonTest extends TestCase
         $file = <<<file
 <?php
 
-echo 'a'.'b';
+class Test
+{
+    public \$test1;
+    private \$test2;
+}
 
 file;
 
@@ -38,9 +42,9 @@ file;
         $this->assertEquals([
             'errors' => [
                 [
-                    'line' => 3,
-                    'message' => '! ' . ConcatenationSpacing::DESCRIPTION,
-                    'source' => 'ConcatenationSpacing',
+                    'line' => 6,
+                    'message' => '! ' . OneLineBetweenClassVisibilityChanges::DESCRIPTION,
+                    'source' => 'OneLineBetweenClassVisibilityChanges',
                 ],
             ],
         ], json_decode($commandTester->getDisplay(), true));
