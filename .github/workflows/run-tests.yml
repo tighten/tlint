@@ -4,7 +4,7 @@ on:
     branches: [main, ci]
   pull_request:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 jobs:
   test:
     name: PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony[0] }}, ${{ matrix.dependencies }}, ${{ matrix.os }}
@@ -12,14 +12,14 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu, macos, windows]
-        php: ['7.3', '7.4', '8.0', '8.1']
-        symfony: [[4, '^4.4.30', '^4.4.20'], [5, '^5.3.7', '^5.0.9'], [6, '^6.0', '^6.0']]
+        php: ["8.0", "8.1"]
+        symfony:
+          [
+            [4, "^4.4.30", "^4.4.20"],
+            [5, "^5.3.7", "^5.0.9"],
+            [6, "^6.0", "^6.0"],
+          ]
         dependencies: [lowest, stable]
-        exclude:
-          - php: '7.3'
-            symfony: [6, '^6.0', '^6.0']
-          - php: '7.4'
-            symfony: [6, '^6.0', '^6.0']
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2

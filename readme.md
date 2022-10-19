@@ -50,11 +50,11 @@ return view('view')
 > In this case [TLint](https://github.com/tighten/tlint) will warn if you are not using the **B)** method.
 > This example is a sort of "meta layer" of code linting, allowing teams to avoid higher level sticking points of code review / discussions.
 
-> TLint also has more immediately useful lints that can supplement your editor/IDE such as:
+> TLint also has more immediately useful lints that can supplement your editor/IDE, see list below.
 
-- `NoUnusedImports`
-- `TrailingCommasOnArrays`
-- And many more! (See below for full listing)
+TLint is meant to be paired with other tooling and is designed to pick up where tools like [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) leave off.  If a linter/formatter is available in either of these tools its functionality will not be replicated here.
+
+One way to use TLint is through [Duster](https://github.com/tighten/duster/) which automatically installs and configures TLint and [Tighten Coding Standard](https://github.com/tighten/tighten-coding-standard/).
 
 ### How does TLint fit into the Tighten Standards Ecosystem?
 
@@ -144,21 +144,23 @@ You can also add your own custom preset and linters by providing a fully-qualifi
 ```php
 namespace App\Support\Linting;
 
-/** use ... */
+use Tighten\TLint\Presets\PresetInterface;
 
 class Preset implements PresetInterface
 {
   public function getLinters() : array
   {
     return [
-      PrefixTestsWithTest::class,
+      CustomLinter::class,
       ModelMethodOrder::class,
     ];
   }
 
   public function getFormatters() : array
   {
-    return [];
+    return [
+        CustomFormatter::class,
+    ];
   }
 }
 ```
@@ -204,30 +206,19 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 <!-- linters -->
 | Linter | Description |
 | --- | --- |
-| `AlphabeticalImports` | Imports should be ordered alphabetically. |
 | `ApplyMiddlewareInRoutes` | Apply middleware in routes (not controllers). |
 | `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
-| `ClassThingsOrder` | Class "things" should follow the ordering presented in the [handbook](https://gist.github.com/mattstauffer/1178946cb585b17a3941dd0edcbce0c4) |
-| `ConcatenationNoSpacing` | There should be no space around `.` concatenations, and additional lines should always start with a `.` |
-| `ConcatenationSpacing` | There should be 1 space around `.` concatenations, and additional lines should always start with a `.` |
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
-| `ImportFacades` | Import facades (don't use aliases). |
 | `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
 | `ModelMethodOrder` | Model method order should be: booting > boot > booted > custom_static > relationships > scopes > accessors > mutators > custom |
-| `NewLineAtEndOfFile` | File should end with a new line |
-| `NoCompact` | There should be no calls to `compact()` in controllers |
 | `NoDatesPropertyOnModels` | The `$dates` property was deprecated in Laravel 8. Use `$casts` instead. |
 | `NoDocBlocksForMigrationUpDown` | Remove doc blocks from the up and down method in migrations. |
-| `NoDump` | There should be no calls to `dd()`, `dump()`, `ray()`, or `var_dump()` |
-| `NoInlineVarDocs` | No /** @var ClassName $var */ inline docs. [ref](https://github.com/tighten/tlint/issues/108) |
 | `NoJsonDirective` | Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{!! json_encode($var) !!}">` |
 | `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
 | `NoMethodVisibilityInTests` | There should be no method visibility in test methods. [ref](https://github.com/tighten/tlint/issues/106#issuecomment-537952774) |
 | `NoParensEmptyInstantiations` | No parenthesis on empty instantiations |
 | `NoRequestAll` | No `request()->all()`. Use `request()->only(...)` to retrieve specific input values. |
 | `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening paren:`@section (` -> `@section(` |
-| `NoStringInterpolationWithoutBraces` | Never use string interpolation without braces |
-| `NoUnusedImports` | There should be no unused imports. |
 | `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line |
 | `PureRestControllers` | You should not mix restful and non-restful public methods in a controller |
 | `QualifiedNamesOnlyForClassName` | Fully Qualified Class Names should only be used for accessing class names |
@@ -236,30 +227,19 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `RequestValidation` | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
 | `RestControllersMethodOrder` | REST methods in controllers should match the ordering here: https://laravel.com/docs/controllers#restful-partial-resource-routes |
 | `SpaceAfterBladeDirectives` | Put a space between blade control structure names and the opening paren:`@if(` -> `@if (` |
-| `SpaceAfterSoleNotOperator` | There should be a space after sole `!` operators |
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
-| `TrailingCommasOnArrays` | Multiline arrays should have trailing commas |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
-| `UseConfigOverEnv` | Don’t use environment variables directly; instead, use them in config files and call config vars from code |
 | `ViewWithOverArrayParameters` | Prefer `view(...)->with(...)` over `view(..., [...])`. |
 <!-- /linters -->
 
 ### General PHP
 
-- `AlphabeticalImports`
 - `ClassThingsOrder`
-- `ConcatenationSpacing`
-- `NewLineAtEndOfFile`
-- `NoInlineVarDocs`
 - `NoParensEmptyInstantiations`
-- `NoStringInterpolationWithoutBraces`
-- `NoUnusedImports`
 - `OneLineBetweenClassVisibilityChanges`
 - `QualifiedNamesOnlyForClassName`
 - `RemoveLeadingSlashNamespaces`
-- `SpaceAfterSoleNotOperator`
-- `TrailingCommasOnArrays`
 
 ### PHPUnit
 
@@ -270,12 +250,10 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `ApplyMiddlewareInRoutes`
 - `ArrayParametersOverViewWith`
 - `FullyQualifiedFacades`
-- `ImportFacades`
 - `MailableMethodsInBuild`
 - `NoLeadingSlashesOnRoutePaths`
 - `ModelMethodOrder`
 - `NoDocBlocksForMigrationUpDown`
-- `NoDump`
 - `NoJsonDirective`
 - `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
 - `PureRestControllers`
@@ -285,7 +263,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `SpacesAroundBladeRenderContent`
 - `UseAnonymousMigrations`
 - `UseAuthHelperOverFacade`
-- `UseConfigOverEnv`
 - `ViewWithOverArrayParameters`
 
 ## Available Formatters (Beta)
@@ -298,22 +275,16 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 <!-- formatters -->
 | Formatter | Description |
 | --- | --- |
-| `AlphabeticalImports` | Alphabetizes import statements. |
 | `ExcessSpaceBetweenAndAfterImports` | Removes excess newlines around use statements. |
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
-| `NewLineAtEndOfFile` | Applies a newline at the end of files. |
 | `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
 | `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
-| `UnusedImports` | Removes unused import statements. |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 <!-- /formatters -->
 
 ### General PHP
 
-- `AlphabeticalImports`
 - `ExcessSpaceBetweenAndAfterImports`
-- `NewLineAtEndOfFile`
-- `UnusedImports`
 
 ### Laravel
 
