@@ -10,18 +10,35 @@ Breaking changes are marked with ⚠️.
 
 ## [v7.0.0] - 2022-10-19
 
-**Added**
-
-- Add FullyQualifiedFacades to Tighten and Laravel presets by @bakerkretzmar ([#265](https://github.com/tighten/tlint/pull/265)).
-
 **Changed**
 
+- Updated presets to include FullyQualifiedFacades by @bakerkretzmar ([#265](https://github.com/tighten/tlint/pull/265)).
 - Move shared visitor setup into base Linter by @bakerkretzmar ([#281](https://github.com/tighten/tlint/pull/281)).
 - Update readme by @driftingly ([#295](https://github.com/tighten/tlint/pull/295)).
+- Update Laravel testing fixture by @driftingly ([#296](https://github.com/tighten/tlint/pull/296))
 
 **Removed**
 
 - Remove redundant linters and formatters by @driftingly ([#284](https://github.com/tighten/tlint/pull/284)).
+  - Linters
+    - AlphabeticalImports
+    - ClassThingsOrder
+    - ConcatenationNoSpacing
+    - ConcatenationSpacing
+    - ImportFacades
+    - NewLineAtEndOfFile
+    - NoCompact
+    - NoDump
+    - NoInlineVarDocs
+    - NoStringInterpolationWithoutBraces
+    - NoUnusedImports
+    - SpaceAfterSoleNotOperator
+    - TrailingCommasOnArrays
+    - UseConfigOverEnv
+  - Formatters
+    - AlphabeticalImports
+    - NewLineAtEndOfFile
+    - UnusedImports
 - Drop support for PHP 7.3 and 7.4 by @driftingly ([#289](https://github.com/tighten/tlint/pull/289)).
 
 ## [v6.3.0] - 2022-04-25

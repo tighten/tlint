@@ -20,6 +20,11 @@ composer global require tightenco/tlint
 composer global update tightenco/tlint
 ```
 
+### Upgrading from 6.x to 7.x
+
+TLint focuses on linting and formatting issues other tools are not able to catch.
+The `7.x` release removes a lot of lints and formatters already covered by the other tools in [Duster](https://github.com/tighten/duster).  If you need to add these back you can grab them from an earlier version of TLint and follow the [Custom Configuration](#custom-configuration--presets) documentation.
+
 ## What Is It?
 
 This is an opinionated code linter (with growing support for auto-formatting!) for Tighten flavored code conventions for Laravel and PHP.
@@ -91,7 +96,7 @@ tlint lint test.php --json
 Want to only run a single linter?
 
 ```
-tlint lint --only=UseConfigOverEnv
+tlint lint --only=ArrayParametersOverViewWith
 ```
 
 ## Example Output
@@ -127,7 +132,7 @@ The default configuration is "tighten" flavored, but you may change this by addi
 ```json
 {
     "preset": "laravel",
-    "disabled": ["NoInlineVarDocs"],
+    "disabled": ["ArrayParametersOverViewWith"],
     "excluded": ["tests/"],
     "paths": [
         {
@@ -235,7 +240,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 
 ### General PHP
 
-- `ClassThingsOrder`
 - `NoParensEmptyInstantiations`
 - `OneLineBetweenClassVisibilityChanges`
 - `QualifiedNamesOnlyForClassName`
