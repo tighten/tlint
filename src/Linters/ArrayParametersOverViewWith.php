@@ -20,9 +20,9 @@ class ArrayParametersOverViewWith extends BaseLinter
 
     public const DESCRIPTION = 'Prefer `view(..., [...])` over `view(...)->with(...)`.';
 
-    public static function appliesToPath(string $path): bool
+    public static function appliesToPath(string $path, array $configPaths): bool
     {
-        return static::pathIsController($path) || static::pathIsRoute($path);
+        return static::pathIsController($path, $configPaths) || static::pathIsRoute($path, $configPaths);
     }
 
     public function lint(Parser $parser)
