@@ -11,6 +11,7 @@ class LaravelPreset implements PresetInterface
         return [
             Linters\ApplyMiddlewareInRoutes::class,
             Linters\ArrayParametersOverViewWith::class,
+            Linters\FullyQualifiedFacades::class,
             Linters\MailableMethodsInBuild::class,
             Linters\NoDatesPropertyOnModels::class,
             Linters\NoLeadingSlashesOnRoutePaths::class,
@@ -30,6 +31,8 @@ class LaravelPreset implements PresetInterface
 
     public function getFormatters(): array
     {
-        return [];
+        return [
+            Formatters\FullyQualifiedFacades::class
+        ];
     }
 }

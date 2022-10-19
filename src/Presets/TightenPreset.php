@@ -12,6 +12,7 @@ class TightenPreset implements PresetInterface
         return [
             Linters\ApplyMiddlewareInRoutes::class,
             Linters\ArrayParametersOverViewWith::class,
+            Linters\FullyQualifiedFacades::class,
             Linters\MailableMethodsInBuild::class,
             Linters\NoDatesPropertyOnModels::class,
             Linters\NoDocBlocksForMigrationUpDown::class,
@@ -34,6 +35,7 @@ class TightenPreset implements PresetInterface
     {
         return [
             Formatters\ExcessSpaceBetweenAndAfterImports::class,
+            Formatters\FullyQualifiedFacades::class,
             Formatters\NoDocBlocksForMigrationUpDown::class,
         ];
     }
