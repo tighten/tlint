@@ -22,7 +22,7 @@ class BaseFormatter
         $this->codeLines = preg_split('/\r\n|\r|\n/', $code);
     }
 
-    public static function appliesToPath(string $path): bool
+    public static function appliesToPath(string $path, array $configPaths): bool
     {
         return true;
     }

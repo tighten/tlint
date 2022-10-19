@@ -11,6 +11,7 @@ class Config
     protected $preset;
     protected $linters;
     protected $formatters;
+    protected $paths = [];
     protected $excluded = [];
 
     public function __construct($jsonConfigContents)
@@ -19,6 +20,10 @@ class Config
 
         if (isset($jsonConfigContents['excluded']) && is_array($jsonConfigContents['excluded'])) {
             $this->excluded = $jsonConfigContents['excluded'];
+        }
+
+        if (isset($jsonConfigContents['paths']) && is_array($jsonConfigContents['paths'])) {
+            $this->paths = $jsonConfigContents['paths'];
         }
 
         $this->linters = $this->buildLinterList($jsonConfigContents ?? []);
@@ -43,6 +48,11 @@ class Config
     public function getPreset(): PresetInterface
     {
         return $this->preset;
+    }
+
+    public function getPaths(): array
+    {
+        return $this->paths;
     }
 
     public function getExcluded(): array
