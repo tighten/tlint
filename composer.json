@@ -11,14 +11,14 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "illuminate/view": "*",
-        "nikic/php-parser": "^4.12",
+        "nikic/php-parser": "^4.15",
         "symfony/console": "^4.4.30 || ^5.3.7 || ^6.0",
         "symfony/process": "^4.4.20 || ^5.0.9 || ^6.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.5.16 || ^9.0",
+        "phpunit/phpunit": "^9.0",
         "symfony/var-dumper": "^5.0",
         "friendsofphp/php-cs-fixer": "^3.1"
     },

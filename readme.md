@@ -4,7 +4,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/tlint.svg?style=flat-square)](https://packagist.org/packages/tightenco/tlint)
 
-## Install (Requires PHP 7.4+)
+## Install (Requires PHP 8.0+)
 
 ```
 composer global require tightenco/tlint
