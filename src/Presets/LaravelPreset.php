@@ -15,6 +15,7 @@ class LaravelPreset implements PresetInterface
             Linters\ArrayParametersOverViewWith::class,
             Linters\ClassThingsOrder::class,
             Linters\ConcatenationNoSpacing::class,
+            Linters\FullyQualifiedFacades::class,
             Linters\MailableMethodsInBuild::class,
             Linters\NewLineAtEndOfFile::class,
             Linters\NoCompact::class,
@@ -43,6 +44,7 @@ class LaravelPreset implements PresetInterface
     {
         return [
             Formatters\AlphabeticalImports::class,
+            Formatters\FullyQualifiedFacades::class,
             Formatters\NewLineAtEndOfFile::class,
         ];
     }
