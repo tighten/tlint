@@ -4,7 +4,11 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/tlint.svg?style=flat-square)](https://packagist.org/packages/tightenco/tlint)
 
-## Install (Requires PHP 7.3+)
+## Install (Requires PHP 8.0+)
+
+>**Note**
+>While you can install and run TLint manually we highly recommend using [Duster](https://github.com/tighten/duster).
+>In addition to TLint Duster will install and configure Laravel Pint (with some Tighten preferences), PHP_CodeSniffer, and PHP CS Fixer.
 
 ```
 composer global require tightenco/tlint
@@ -51,6 +55,10 @@ return view('view')
 - `NoUnusedImports`
 - `TrailingCommasOnArrays`
 - And many more! (See below for full listing)
+
+### How does TLint fit into the Tighten Standards Ecosystem?
+
+TLint is intended to work along side tools like Laravel Pint, to catch issues other tools can't. We recommend using [Duster](https://github.com/tighten/duster) to install and configure TLint with a suite of tools to provide the best coverage for your project.
 
 ## Usage
 
