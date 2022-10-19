@@ -4,7 +4,6 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use Tighten\TLint\Config;
-use Tighten\TLint\Formatters;
 use Tighten\TLint\Linters;
 use Tighten\TLint\Presets\LaravelPreset;
 use Tighten\TLint\Presets\PresetInterface;
@@ -15,33 +14,67 @@ class ConfigTest extends TestCase
     /** @test */
     public function tighten_preset_can_get_linters()
     {
-        $this->assertContains(Linters\AlphabeticalImports::class, (new TightenPreset)->getLinters());
+        $this->assertNotEmpty((new TightenPreset)->getLinters());
     }
 
     /** @test */
     public function tighten_preset_can_get_formatters()
     {
-        $this->assertContains(Formatters\AlphabeticalImports::class, (new TightenPreset)->getFormatters());
+        $this->assertNotEmpty((new TightenPreset)->getFormatters());
     }
 
     /** @test */
     public function laravel_preset_can_get_linters()
     {
-        $this->assertContains(Linters\AlphabeticalImports::class, (new LaravelPreset)->getLinters());
+        $this->assertNotEmpty((new LaravelPreset)->getLinters());
     }
 
     /** @test */
     public function laravel_preset_can_get_formatters()
     {
-        $this->assertContains(Formatters\AlphabeticalImports::class, (new LaravelPreset)->getFormatters());
+        $this->assertIsArray((new LaravelPreset)->getFormatters());
     }
 
     /** @test */
     public function disabling_a_linter_via_json_config_removes_it_when_filtered()
     {
-        $config = new Config(['disabled' => [Linters\AlphabeticalImports::class]]);
+        $config = new Config(['disabled' => [Linters\ApplyMiddlewareInRoutes::class]]);
 
-        $this->assertNotContains(Linters\AlphabeticalImports::class, $config->getLinters());
+        $this->assertNotContains(Linters\ApplyMiddlewareInRoutes::class, $config->getLinters());
+    }
+
+    /** @test */
+    public function custom_paths_used_via_json_config()
+    {
+        $config = new Config(['paths' => ['controllers' => 'app/Domain/Http/Controllers']]);
+
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain/Http/Controllers/UserController.php', $config->getPaths()));
+        $this->assertFalse(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Http/Controllers/UserController.php', $config->getPaths()));
+    }
+
+    /** @test */
+    public function custom_paths_used_via_json_config_can_be_array()
+    {
+        $config = new Config(['paths' => ['controllers' => ['app/Domain1/Http/Controllers', 'app/Domain2/Http/Controllers']]]);
+
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain1/Http/Controllers/UserController.php', $config->getPaths()));
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain2/Http/Controllers/UserController.php', $config->getPaths()));
+        $this->assertFalse(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain3/Http/Controllers/UserController.php', $config->getPaths()));
+    }
+
+    /** @test */
+    public function custom_paths_used_via_json_config_can_be_empty()
+    {
+        $DS = DIRECTORY_SEPARATOR;
+
+        $config = new Config(['paths' => []]);
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+
+        $config = new Config(['paths' => null]);
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+
+        $config = new Config([]);
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
     }
 
     /** @test */
