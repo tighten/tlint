@@ -201,7 +201,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `ApplyMiddlewareInRoutes` | Apply middleware in routes (not controllers). |
 | `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
-| `ImportFacades` | Import facades (don't use aliases). |
 | `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
 | `ModelMethodOrder` | Model method order should be: booting > boot > booted > custom_static > relationships > scopes > accessors > mutators > custom |
 | `NoDatesPropertyOnModels` | The `$dates` property was deprecated in Laravel 8. Use `$casts` instead. |
@@ -243,7 +242,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `ApplyMiddlewareInRoutes`
 - `ArrayParametersOverViewWith`
 - `FullyQualifiedFacades`
-- `ImportFacades`
 - `MailableMethodsInBuild`
 - `NoLeadingSlashesOnRoutePaths`
 - `ModelMethodOrder`
