@@ -4,8 +4,6 @@ namespace Tighten\TLint\Linters;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 
@@ -15,11 +13,9 @@ class OneLineBetweenClassVisibilityChanges extends BaseLinter
 
     public function lint(Parser $parser)
     {
-        $traverser = new NodeTraverser;
-
         $notSeparatedByBlankLine = [];
 
-        $visitor = new FindingVisitor(function (Node $node) use (&$notSeparatedByBlankLine) {
+        $this->visitUsing($parser, function (Node $node) use (&$notSeparatedByBlankLine) {
             if ($node instanceof Class_) {
                 $previousNode = null;
 
@@ -71,10 +67,6 @@ class OneLineBetweenClassVisibilityChanges extends BaseLinter
 
             return false;
         });
-
-        $traverser->addVisitor($visitor);
-
-        $traverser->traverse($parser->parse($this->code));
 
         return $notSeparatedByBlankLine;
     }

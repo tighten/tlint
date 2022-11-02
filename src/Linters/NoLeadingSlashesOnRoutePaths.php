@@ -2,10 +2,8 @@
 
 namespace Tighten\TLint\Linters;
 
+use Closure;
 use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
-use PhpParser\Parser;
 use Tighten\TLint\BaseLinter;
 use Tighten\TLint\Linters\Concerns\LintsRoutesFiles;
 
@@ -15,23 +13,15 @@ class NoLeadingSlashesOnRoutePaths extends BaseLinter
 
     public const DESCRIPTION = 'No leading slashes on route paths.';
 
-    public function lint(Parser $parser)
+    protected function visitor(): Closure
     {
-        $traverser = new NodeTraverser;
-
-        $visitor = new FindingVisitor(function (Node $node) {
+        return function (Node $node) {
             return $node instanceof Node\Expr\StaticCall
                 && ($node->class instanceof Node\Name && $node->class->toString() === 'Route')
                 && isset($node->args[0])
                 && $node->args[0]->value instanceof Node\Scalar\String_
                 && strpos($node->args[0]->value->value, '/') === 0
                 && strlen($node->args[0]->value->value) > 1;
-        });
-
-        $traverser->addVisitor($visitor);
-
-        $traverser->traverse($parser->parse($this->code));
-
-        return $visitor->getFoundNodes();
+        };
     }
 }
