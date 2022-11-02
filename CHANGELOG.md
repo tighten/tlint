@@ -8,7 +8,7 @@ Breaking changes are marked with ⚠️.
 
 ## [Unreleased]
 
-## [v7.0.0] - 2022-10-19
+## [v7.0.0] - 2022-11-02
 
 **Changed**
 
