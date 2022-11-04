@@ -34,7 +34,6 @@ class TightenPreset implements PresetInterface
     public function getFormatters(): array
     {
         return [
-            Formatters\ExcessSpaceBetweenAndAfterImports::class,
             Formatters\FullyQualifiedFacades::class,
             Formatters\NoDocBlocksForMigrationUpDown::class,
         ];
