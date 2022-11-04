@@ -8,6 +8,12 @@ Breaking changes are marked with ⚠️.
 
 ## [Unreleased]
 
+## [v7.0.1] - 2022-11-04
+
+**Removed**
+
+- Remove excess space formatter by @driftingly ([#298](https://github.com/tighten/tlint/pull/298)).
+
 ## [v7.0.0] - 2022-11-02
 
 **Changed**
@@ -121,7 +127,8 @@ Breaking changes are marked with ⚠️.
 
 For previous changes see the [Releases](https://github.com/tighten/tlint/releases) page.
 
-[Unreleased]: https://github.com/tighten/tlint/compare/v7.0.0...HEAD
+[Unreleased]: https://github.com/tighten/tlint/compare/v7.0.1...HEAD
+[v7.0.1]: https://github.com/tighten/tlint/compare/v7.0.0...v7.0.1
 [v7.0.0]: https://github.com/tighten/tlint/compare/v6.3.0...v7.0.0
 [v6.3.0]: https://github.com/tighten/tlint/compare/v6.2.2...v6.3.0
 [v6.2.2]: https://github.com/tighten/tlint/compare/v6.2.1...v6.2.2
