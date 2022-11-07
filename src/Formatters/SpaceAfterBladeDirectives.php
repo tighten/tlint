@@ -1,17 +1,17 @@
 <?php
 
-namespace Tighten\TLint\Linters;
+namespace Tighten\TLint\Formatters;
 
+use PhpParser\Lexer;
 use PhpParser\Parser;
-use Tighten\TLint\BaseLinter;
-use Tighten\TLint\CustomNode;
+use Tighten\TLint\BaseFormatter;
 use Tighten\TLint\Linters\Concerns\LintsBladeTemplates;
 
-class SpaceAfterBladeDirectives extends BaseLinter
+class SpaceAfterBladeDirectives extends BaseFormatter
 {
     use LintsBladeTemplates;
 
-    public const DESCRIPTION = 'Put a space between blade control structure names and the opening paren:'
+    public const DESCRIPTION = 'Puts a space between blade control structure names and the opening paren:'
         . '`@if(` -> `@if (`';
 
     protected const SPACE_AFTER = [
@@ -24,10 +24,8 @@ class SpaceAfterBladeDirectives extends BaseLinter
         'while',
     ];
 
-    public function lint(Parser $parser)
+    public function format(Parser $parser, Lexer $lexer): string
     {
-        $foundNodes = [];
-
         foreach ($this->getCodeLines() as $line => $codeLine) {
             $matches = [];
 
@@ -39,10 +37,10 @@ class SpaceAfterBladeDirectives extends BaseLinter
             );
 
             if (in_array($matches[1] ?? null, self::SPACE_AFTER) && ($matches[2] ?? null) === '') {
-                $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
+                $this->code = str_replace($matches[0], "@{$matches[1]} {$matches[3]}", $this->code);
             }
         }
 
-        return $foundNodes;
+        return $this->code;
     }
 }
