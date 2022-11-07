@@ -46,9 +46,19 @@ class BaseLinter
         return $this->description = $description;
     }
 
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
     public function getCode(): string
     {
         return $this->code;
+    }
+
+    public function getCodeLines()
+    {
+        return $this->codeLines;
     }
 
     public function getCodeLine(int $line)
@@ -65,16 +75,6 @@ class BaseLinter
             },
             ''
         );
-    }
-
-    public function getCodeLines()
-    {
-        return $this->codeLines;
-    }
-
-    public function getFilename()
-    {
-        return $this->filename;
     }
 
     protected function visitor(): Closure
