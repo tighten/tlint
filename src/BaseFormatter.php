@@ -42,13 +42,23 @@ class BaseFormatter
         return $this->description = $description;
     }
 
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
     public function getCode(): string
     {
         return $this->code;
     }
 
-    public function getFilename()
+    public function getCodeLines()
     {
-        return $this->filename;
+        return $this->codeLines;
+    }
+
+    public function getCodeLine(int $line)
+    {
+        return $this->getCodeLines()[$line - 1];
     }
 }
