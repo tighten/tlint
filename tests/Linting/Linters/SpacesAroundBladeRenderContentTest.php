@@ -21,6 +21,33 @@ file;
 
         $this->assertEquals(1, $lints[0]->getNode()->getLine());
     }
+    /** @test */
+    public function catches_missing_spaces_around_blade_render_content_after_correctly_spaced()
+    {
+        $file = <<<file
+{{ 1 + 1 }} {{1 + 1}}
+file;
+
+        $lints = (new TLint)->lint(
+            new SpacesAroundBladeRenderContent($file)
+        );
+
+        $this->assertEquals(1, $lints[0]->getNode()->getLine());
+    }
+
+    /** @test */
+    public function catches_extra_spaces_around_blade_render_content()
+    {
+        $file = <<<file
+        {{1 + 1    }}
+file;
+
+        $lints = (new TLint)->lint(
+            new SpacesAroundBladeRenderContent($file)
+        );
+
+        $this->assertEquals(1, $lints[0]->getNode()->getLine());
+    }
 
     /** @test */
     public function catches_missing_spaces_around_raw_blade_render_content()

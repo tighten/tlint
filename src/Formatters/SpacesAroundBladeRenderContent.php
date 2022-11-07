@@ -1,24 +1,22 @@
 <?php
 
-namespace Tighten\TLint\Linters;
+namespace Tighten\TLint\Formatters;
 
+use PhpParser\Lexer;
 use PhpParser\Parser;
-use Tighten\TLint\BaseLinter;
-use Tighten\TLint\CustomNode;
+use Tighten\TLint\BaseFormatter;
 use Tighten\TLint\Linters\Concerns\LintsBladeTemplates;
 
-class SpacesAroundBladeRenderContent extends BaseLinter
+class SpacesAroundBladeRenderContent extends BaseFormatter
 {
     use LintsBladeTemplates;
 
     public const DESCRIPTION = 'Spaces around blade rendered content:'
         . '`{{1 + 1}}` -> `{{ 1 + 1 }}`';
 
-    public function lint(Parser $parser)
+    public function format(Parser $parser, Lexer $lexer)
     {
-        $foundNodes = [];
-
-        foreach ($this->getCodeLines() as $line => $codeLine) {
+        foreach ($this->getCodeLines() as $codeLine) {
             $matchesNormal = [];
 
             preg_match_all(
@@ -31,8 +29,9 @@ class SpacesAroundBladeRenderContent extends BaseLinter
             foreach ($matchesNormal as $match) {
                 if (isset($match[1])
                     && (substr($match[1], 0, 2) !== '--')
-                    && $match[0] !== '{{ ' . $match[1] . ' }}') {
-                    $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
+                    && $match[0] !== '{{ ' . $match[1] . ' }}'
+                ) {
+                    $this->code = str_replace($match[0], '{{ ' . $match[1] . ' }}', $this->code);
                 }
             }
 
@@ -47,11 +46,11 @@ class SpacesAroundBladeRenderContent extends BaseLinter
 
             foreach ($matchesRaw as $match) {
                 if (isset($match[1]) && $match[0] !== '{!! ' . $match[1] . ' !!}') {
-                    $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
+                    $this->code = str_replace($match[0], '{!! ' . $match[1] . ' !!}', $this->code);
                 }
             }
         }
 
-        return $foundNodes;
+        return $this->code;
     }
 }
