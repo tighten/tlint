@@ -59,9 +59,9 @@ file;
     /** @test */
     public function it_adds_space_to_for_statement()
     {
-        $file = <<<file
-@for(\$i = 0; \$i < 10; \$i++)
-    The current value is {{ \$i }}
+        $file = <<<'file'
+@for($i = 0; $i < 10; $i++)
+    The current value is {{ $i }}
 @endfor
 file;
 
@@ -69,9 +69,9 @@ file;
             new SpaceAfterBladeDirectives($file)
         );
 
-        $correctlyFormatted = <<<file
-@for (\$i = 0; \$i < 10; \$i++)
-    The current value is {{ \$i }}
+        $correctlyFormatted = <<<'file'
+@for ($i = 0; $i < 10; $i++)
+    The current value is {{ $i }}
 @endfor
 file;
 
@@ -81,9 +81,9 @@ file;
     /** @test */
     public function it_adds_space_to_foreach_statement()
     {
-        $file = <<<file
-@foreach(\$users as \$user)
-    <li>{{ \$user->name }}</li>
+        $file = <<<'file'
+@foreach($users as $user)
+    <li>{{ $user->name }}</li>
 @endforeach
 file;
 
@@ -91,9 +91,9 @@ file;
             new SpaceAfterBladeDirectives($file)
         );
 
-        $correctlyFormatted = <<<file
-@foreach (\$users as \$user)
-    <li>{{ \$user->name }}</li>
+        $correctlyFormatted = <<<'file'
+@foreach ($users as $user)
+    <li>{{ $user->name }}</li>
 @endforeach
 file;
 
@@ -103,9 +103,9 @@ file;
     /** @test */
     public function it_adds_space_to_forelse_statement()
     {
-        $file = <<<file
-@forelse(\$users as \$user)
-    <li>{{ \$user->name }}</li>
+        $file = <<<'file'
+@forelse($users as $user)
+    <li>{{ $user->name }}</li>
 @empty
     <p>No users</p>
 @endforelse
@@ -115,9 +115,9 @@ file;
             new SpaceAfterBladeDirectives($file)
         );
 
-        $correctlyFormatted = <<<file
-@forelse (\$users as \$user)
-    <li>{{ \$user->name }}</li>
+        $correctlyFormatted = <<<'file'
+@forelse ($users as $user)
+    <li>{{ $user->name }}</li>
 @empty
     <p>No users</p>
 @endforelse
@@ -151,9 +151,9 @@ file;
     /** @test */
     public function it_ignores_correctly_spaced_directives()
     {
-        $file = <<<file
-@ foreach(\$users as \$user)
-    <li>{{ \$user->name }}</li>
+        $file = <<<'file'
+@foreach ($users as $user)
+    <li>{{ $user->name }}</li>
 @endforeach
 file;
 
@@ -167,27 +167,31 @@ file;
     /** @test */
     public function it_adds_space_to_kitchen_sink()
     {
-        $file = <<<file
+        $file = <<<'file'
 @if(true)
     This is true.
 @elseif(false)
     This is false.
-@endforeach
+@endif
+
+@if(true) @if($inline) Inline @endif @endif
 
 @unless(true)
     This isn't true.
-@endforeach
+@endunless
 
-@for(\$i = 0; \$i < 10; \$i++)
-    The current value is {{ \$i }}
+@for($i = 0; $i < 10; $i++)
+    The current value is {{ $i }}
 @endfor
 
-@foreach(\$users as \$user)
-    <li>{{ \$user->name }}</li>
+@foreach($users as $user)
+    @foreach($user->emails as $email)
+        <li>{{ $email }}</li>
+    @endforeach
 @endforeach
 
-@forelse(\$users as \$user)
-    <li>{{ \$user->name }}</li>
+@forelse($users as $user)
+    <li>{{ $user->name }}</li>
 @empty
     <p>No users</p>
 @endforelse
@@ -201,27 +205,31 @@ file;
             new SpaceAfterBladeDirectives($file)
         );
 
-        $correctlyFormatted = <<<file
+        $correctlyFormatted = <<<'file'
 @if (true)
     This is true.
 @elseif (false)
     This is false.
-@endforeach
+@endif
+
+@if (true) @if ($inline) Inline @endif @endif
 
 @unless (true)
     This isn't true.
-@endforeach
+@endunless
 
-@for (\$i = 0; \$i < 10; \$i++)
-    The current value is {{ \$i }}
+@for ($i = 0; $i < 10; $i++)
+    The current value is {{ $i }}
 @endfor
 
-@foreach (\$users as \$user)
-    <li>{{ \$user->name }}</li>
+@foreach ($users as $user)
+    @foreach ($user->emails as $email)
+        <li>{{ $email }}</li>
+    @endforeach
 @endforeach
 
-@forelse (\$users as \$user)
-    <li>{{ \$user->name }}</li>
+@forelse ($users as $user)
+    <li>{{ $user->name }}</li>
 @empty
     <p>No users</p>
 @endforelse
