@@ -61,4 +61,11 @@ class BaseFormatter
     {
         return $this->getCodeLines()[$line - 1];
     }
+
+    public function replaceCodeLine(int $line, string $replacement): string
+    {
+        $this->codeLines[$line - 1] = $replacement;
+
+        return implode(PHP_EOL, $this->codeLines);
+    }
 }
