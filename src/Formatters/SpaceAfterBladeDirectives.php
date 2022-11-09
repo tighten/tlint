@@ -6,38 +6,35 @@ use PhpParser\Lexer;
 use PhpParser\Parser;
 use Tighten\TLint\BaseFormatter;
 use Tighten\TLint\Linters\Concerns\LintsBladeTemplates;
+use Tighten\TLint\Linters\SpaceAfterBladeDirectives as Linter;
 
 class SpaceAfterBladeDirectives extends BaseFormatter
 {
     use LintsBladeTemplates;
 
-    public const DESCRIPTION = 'Puts a space between blade control structure names and the opening paren:'
-        . '`@if(` -> `@if (`';
-
-    protected const SPACE_AFTER = [
-        'if',
-        'elseif',
-        'unless',
-        'for',
-        'foreach',
-        'forelse',
-        'while',
-    ];
+    public const DESCRIPTION = Linter::DESCRIPTION;
 
     public function format(Parser $parser, Lexer $lexer): string
     {
-        foreach ($this->getCodeLines() as $line => $codeLine) {
+        foreach ($this->getCodeLines() as $codeLine) {
             $matches = [];
 
-            // https://github.com/illuminate/view/blob/master/Compilers/BladeCompiler.php#L500
-            preg_match(
-                '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x',
+            preg_match_all(
+                Linter::DIRECTIVE_SEARCH,
                 $codeLine,
-                $matches
+                $matches,
+                PREG_SET_ORDER
             );
 
-            if (in_array($matches[1] ?? null, self::SPACE_AFTER) && ($matches[2] ?? null) === '') {
-                $this->code = str_replace($matches[0], "@{$matches[1]} {$matches[3]}", $this->code);
+            foreach($matches as $match) {
+                if (in_array($match[1] ?? null, Linter::SPACE_AFTER) && ($match[2] ?? null) === '') {
+
+                    $updatedCodeLine = str_replace($match[0], "@{$match[1]} {$match[3]}", $codeLine);
+
+                    $this->code = str_replace($codeLine, $updatedCodeLine, $this->code);
+
+                    $codeLine = $updatedCodeLine;
+                }
             }
         }
 
