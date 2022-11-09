@@ -16,7 +16,7 @@ class SpaceAfterBladeDirectives extends BaseFormatter
 
     public function format(Parser $parser, Lexer $lexer): string
     {
-        foreach ($this->getCodeLines() as $codeLine) {
+        foreach ($this->getCodeLines() as $index => $codeLine) {
             $matches = [];
 
             preg_match_all(
@@ -29,11 +29,9 @@ class SpaceAfterBladeDirectives extends BaseFormatter
             foreach($matches as $match) {
                 if (in_array($match[1] ?? null, Linter::SPACE_AFTER) && ($match[2] ?? null) === '') {
 
-                    $updatedCodeLine = str_replace($match[0], "@{$match[1]} {$match[3]}", $codeLine);
+                    $codeLine = str_replace($match[0], "@{$match[1]} {$match[3]}", $codeLine);
 
-                    $this->code = str_replace($codeLine, $updatedCodeLine, $this->code);
-
-                    $codeLine = $updatedCodeLine;
+                    $this->code = $this->replaceCodeLine($index + 1, $codeLine);
                 }
             }
         }
