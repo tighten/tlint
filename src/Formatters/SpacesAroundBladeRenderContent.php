@@ -6,21 +6,21 @@ use PhpParser\Lexer;
 use PhpParser\Parser;
 use Tighten\TLint\BaseFormatter;
 use Tighten\TLint\Linters\Concerns\LintsBladeTemplates;
+use Tighten\TLint\Linters\SpacesAroundBladeRenderContent as Linter;
 
 class SpacesAroundBladeRenderContent extends BaseFormatter
 {
     use LintsBladeTemplates;
 
-    public const DESCRIPTION = 'Spaces around blade rendered content:'
-        . '`{{1 + 1}}` -> `{{ 1 + 1 }}`';
+    public const DESCRIPTION = Linter::DESCRIPTION;
 
     public function format(Parser $parser, Lexer $lexer)
     {
-        foreach ($this->getCodeLines() as $codeLine) {
+        foreach ($this->getCodeLines() as $index => $codeLine) {
             $matchesNormal = [];
 
             preg_match_all(
-                '/\{\{\s*(.+?)\s*\}\}/',
+                Linter::SEARCH_NORMAL,
                 $codeLine,
                 $matchesNormal,
                 PREG_SET_ORDER
@@ -31,14 +31,16 @@ class SpacesAroundBladeRenderContent extends BaseFormatter
                     && (substr($match[1], 0, 2) !== '--')
                     && $match[0] !== '{{ ' . $match[1] . ' }}'
                 ) {
-                    $this->code = str_replace($match[0], '{{ ' . $match[1] . ' }}', $this->code);
+                    $codeLine = str_replace($match[0], '{{ ' . $match[1] . ' }}', $codeLine);
+
+                    $this->code = $this->replaceCodeLine($index + 1, $codeLine);
                 }
             }
 
             $matchesRaw = [];
 
             preg_match_all(
-                '/\{\!\!\s*(.+?)\s*\!\!\}/',
+                Linter::SEARCH_RAW,
                 $codeLine,
                 $matchesRaw,
                 PREG_SET_ORDER
@@ -46,7 +48,9 @@ class SpacesAroundBladeRenderContent extends BaseFormatter
 
             foreach ($matchesRaw as $match) {
                 if (isset($match[1]) && $match[0] !== '{!! ' . $match[1] . ' !!}') {
-                    $this->code = str_replace($match[0], '{!! ' . $match[1] . ' !!}', $this->code);
+                    $codeLine = str_replace($match[0], '{!! ' . $match[1] . ' !!}', $codeLine);
+
+                    $this->code = $this->replaceCodeLine($index + 1, $codeLine);
                 }
             }
         }

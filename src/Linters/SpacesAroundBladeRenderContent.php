@@ -14,6 +14,10 @@ class SpacesAroundBladeRenderContent extends BaseLinter
     public const DESCRIPTION = 'Spaces around blade rendered content:'
         . '`{{1 + 1}}` -> `{{ 1 + 1 }}`';
 
+    public const SEARCH_NORMAL = '/\{\{\s*(.+?)\s*\}\}/';
+
+    public const SEARCH_RAW = '/\{\!\!\s*(.+?)\s*\!\!\}/';
+
     public function lint(Parser $parser)
     {
         $foundNodes = [];
@@ -22,7 +26,7 @@ class SpacesAroundBladeRenderContent extends BaseLinter
             $matchesNormal = [];
 
             preg_match_all(
-                '/\{\{\s*(.+?)\s*\}\}/',
+                self::SEARCH_NORMAL,
                 $codeLine,
                 $matchesNormal,
                 PREG_SET_ORDER
@@ -39,7 +43,7 @@ class SpacesAroundBladeRenderContent extends BaseLinter
             $matchesRaw = [];
 
             preg_match_all(
-                '/\{\!\!\s*(.+?)\s*\!\!\}/',
+                self::SEARCH_RAW,
                 $codeLine,
                 $matchesRaw,
                 PREG_SET_ORDER
