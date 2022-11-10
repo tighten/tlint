@@ -16,7 +16,7 @@ class SpaceAfterBladeDirectivesTest extends TestCase
     This is true.
 @elseif(false)
     This is false.
-@endforeach
+@endif
 file;
 
         $lints = (new TLint)->lint(
@@ -33,7 +33,7 @@ file;
         $file = <<<file
 @unless(true)
     This isn't true.
-@endforeach
+@endunless
 file;
 
         $lints = (new TLint)->lint(

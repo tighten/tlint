@@ -16,7 +16,7 @@ class SpaceAfterBladeDirectivesTest extends TestCase
     This is true.
 @elseif(false)
     This is false.
-@endforeach
+@endif
 file;
 
         $formatted = (new TFormat)->format(
@@ -28,7 +28,7 @@ file;
     This is true.
 @elseif (false)
     This is false.
-@endforeach
+@endif
 file;
 
         $this->assertEquals($correctlyFormatted, $formatted);
@@ -40,7 +40,7 @@ file;
         $file = <<<file
 @unless(true)
     This isn't true.
-@endforeach
+@endunless
 file;
 
         $formatted = (new TFormat)->format(
@@ -50,7 +50,7 @@ file;
         $correctlyFormatted = <<<file
 @unless (true)
     This isn't true.
-@endforeach
+@endunless
 file;
 
         $this->assertEquals($correctlyFormatted, $formatted);
