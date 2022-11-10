@@ -15,7 +15,6 @@ class LaravelPreset implements PresetInterface
             Linters\MailableMethodsInBuild::class,
             Linters\NoDatesPropertyOnModels::class,
             Linters\NoLeadingSlashesOnRoutePaths::class,
-            Linters\NoParensEmptyInstantiations::class,
             Linters\NoSpaceAfterBladeDirectives::class,
             Linters\OneLineBetweenClassVisibilityChanges::class,
             Linters\QualifiedNamesOnlyForClassName::class,
