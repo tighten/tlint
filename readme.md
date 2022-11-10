@@ -272,6 +272,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
 | `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
+| `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
 <!-- /formatters -->
 
 ### Laravel
@@ -280,6 +281,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `NoDatesPropertyOnModels`
 - `NoDocBlocksForMigrationUpDown`
 - `UseAnonymousMigrations`
+- `UseAuthHelperOverFacade`
 
 ## Contributing
 
