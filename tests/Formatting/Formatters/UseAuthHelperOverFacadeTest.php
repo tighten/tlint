@@ -41,18 +41,22 @@ file;
     /** @test */
     public function catches_auth_facade_usage_in_code()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 use Illuminate\Support\Facades\Auth;
 
 echo Auth::user()->name;
+echo Auth::user()->projects()->count();
+Auth::login($user);
 file;
 
-        $correctlyFormatted = <<<file
+        $correctlyFormatted = <<<'file'
 <?php
 use Illuminate\Support\Facades\Auth;
 
 echo auth()->user()->name;
+echo auth()->user()->projects()->count();
+auth()->login($user);
 file;
 
         $formatted = (new TFormat)->format(
@@ -60,6 +64,24 @@ file;
         );
 
         $this->assertEquals($correctlyFormatted, $formatted);
+    }
+
+    /** @test */
+    public function does_not_trigger_on_non_auth_call()
+    {
+        $file = <<<file
+<?php
+
+use Some\Other\AuthClass as Auth;
+
+echo Auth::user()->name;
+file;
+
+        $formatted = (new TFormat)->format(
+            new UseAuthHelperOverFacade($file, '.php')
+        );
+
+        $this->assertEquals($file, $formatted);
     }
 
     /** @test */
