@@ -14,24 +14,33 @@ class NoSpaceAfterBladeDirectives extends BaseLinter
     public const DESCRIPTION = 'No space between blade template directive names and the opening paren:'
         . '`@section (` -> `@section(`';
 
-    protected const NO_SPACE_AFTER = [
-        'endif',
-        'else',
+    // https://github.com/illuminate/view/blob/master/Compilers/BladeCompiler.php#L500
+    public const DIRECTIVE_SEARCH = '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x';
+
+    public const NO_SPACE_AFTER = [
+        'auth',
         'section',
-        'show',
+        'hasSection',
+        'sectionMissing',
         'yield',
         'extends',
-        'parent',
-        'verbatim',
+        'isset',
         'empty',
-        'continue',
-        'break',
-        'php',
         'include',
         'includeIf',
+        'includeWhen',
+        'includeUnless',
+        'includeFirst',
         'each',
         'push',
+        'pushOnce',
         'stack',
+        'class',
+        'checked',
+        'selected',
+        'required',
+        'readonly',
+        'disabled',
     ];
 
     public function lint(Parser $parser)
@@ -41,15 +50,17 @@ class NoSpaceAfterBladeDirectives extends BaseLinter
         foreach ($this->getCodeLines() as $line => $codeLine) {
             $matches = [];
 
-            // https://github.com/illuminate/view/blob/master/Compilers/BladeCompiler.php#L271
-            preg_match(
-                '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x',
+            preg_match_all(
+                self::DIRECTIVE_SEARCH,
                 $codeLine,
-                $matches
+                $matches,
+                PREG_SET_ORDER
             );
 
-            if (in_array($matches[1] ?? null, self::NO_SPACE_AFTER) && ($matches[2] ?? null) !== '') {
-                $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
+            foreach($matches as $match) {
+                if (in_array($match[1] ?? null, self::NO_SPACE_AFTER) && ($match[2] ?? null) !== '') {
+                    $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
+                }
             }
         }
 

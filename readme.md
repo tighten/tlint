@@ -271,6 +271,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
 | `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
 | `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
+| `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening parenthesis. |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 <!-- /formatters -->
 
@@ -279,6 +280,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `FullyQualifiedFacades`
 - `NoDatesPropertyOnModels`
 - `NoDocBlocksForMigrationUpDown`
+- `NoSpaceAfterBladeDirectives`
 - `UseAnonymousMigrations`
 
 ## Contributing
