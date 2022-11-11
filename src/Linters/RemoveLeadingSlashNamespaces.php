@@ -2,6 +2,7 @@
 
 namespace Tighten\TLint\Linters;
 
+use Illuminate\Support\Str;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
@@ -23,14 +24,14 @@ class RemoveLeadingSlashNamespaces extends BaseLinter
                 || $node instanceof Node\Expr\ClassConstFetch
             )
                 && $node->class instanceof Node\Name
-                && strpos($this->getCodeLine($node->getLine()), '\\' . $node->class->toString()) !== false
-                && substr(rtrim($this->getCodeLine($node->getLine()), ',; '), -7) !== '::class';
+                && Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->class->toString())
+                && ! Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->class->toString() . '::class');
         });
 
         $useStatementsVisitor = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Stmt\UseUse
                 && $node->name instanceof Node\Name
-                && strpos($this->getCodeLine($node->getLine()), '\\' . $node->name->toString()) !== false;
+                && Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->name->toString());
         });
 
         $traverser->addVisitor($classVisitor);
