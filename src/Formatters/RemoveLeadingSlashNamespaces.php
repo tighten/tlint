@@ -114,7 +114,9 @@ class RemoveLeadingSlashNamespaces extends BaseFormatter
                     return null;
                 }
 
-                if (Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->class->toString() . '::class')) {
+                if (Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->class->toString() . '::class')
+                    && ! Str::contains($this->codeLines[$node->getLine() - 1], 'factory')
+                ) {
                     return null;
                 }
 

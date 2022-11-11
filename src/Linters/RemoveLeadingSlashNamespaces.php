@@ -25,7 +25,8 @@ class RemoveLeadingSlashNamespaces extends BaseLinter
             )
                 && $node->class instanceof Node\Name
                 && Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->class->toString())
-                && ! Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->class->toString() . '::class');
+                && (! Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->class->toString() . '::class')
+                || Str::contains($this->codeLines[$node->getLine() - 1], 'factory'));
         });
 
         $useStatementsVisitor = new FindingVisitor(function (Node $node) {

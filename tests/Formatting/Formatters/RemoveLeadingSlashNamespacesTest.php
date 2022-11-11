@@ -128,4 +128,36 @@ file;
 
         $this->assertEquals($file, $formatted);
     }
+
+    /** @test */
+    public function catches_leading_slash_in_factories()
+    {
+        $file = <<<'file'
+<?php
+
+$factory->define(App\S::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => factory(App\User::class),
+        'version_id' => factory(\App\J\V::class),
+    ];
+});
+file;
+
+$correctlyFormatted = <<<'file'
+<?php
+
+$factory->define(App\S::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => factory(App\User::class),
+        'version_id' => factory(App\J\V::class),
+    ];
+});
+file;
+
+        $formatted = (new TFormat)->format(
+            new RemoveLeadingSlashNamespaces($file, '.php')
+        );
+
+        $this->assertEquals($correctlyFormatted, $formatted);
+    }
 }
