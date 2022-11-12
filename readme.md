@@ -207,7 +207,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `NoDocBlocksForMigrationUpDown` | Remove doc blocks from the up and down method in migrations. |
 | `NoJsonDirective` | Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{!! json_encode($var) !!}">` |
 | `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
-| `NoMethodVisibilityInTests` | There should be no method visibility in test methods. [ref](https://github.com/tighten/tlint/issues/106#issuecomment-537952774) |
 | `NoRequestAll` | No `request()->all()`. Use `request()->only(...)` to retrieve specific input values. |
 | `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening paren:`@section (` -> `@section(` |
 | `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line |
@@ -228,10 +227,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `OneLineBetweenClassVisibilityChanges`
 - `QualifiedNamesOnlyForClassName`
 - `RemoveLeadingSlashNamespaces`
-
-### PHPUnit
-
-- `NoMethodVisibilityInTests`
 
 ### Laravel
 
