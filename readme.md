@@ -269,6 +269,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | Formatter | Description |
 | --- | --- |
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
+| `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
 | `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
 | `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
@@ -277,6 +278,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 ### Laravel
 
 - `FullyQualifiedFacades`
+- `MailableMethodsInBuild`
 - `NoDatesPropertyOnModels`
 - `NoDocBlocksForMigrationUpDown`
 - `UseAnonymousMigrations`
