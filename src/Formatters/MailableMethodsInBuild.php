@@ -39,7 +39,8 @@ class MailableMethodsInBuild extends BaseFormatter
         $traverser->addVisitor($buildVisitor);
         $newStmts = $traverser->traverse($newStmts);
 
-        return (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens());
+
+        return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
     }
 
     private function constructorVisitor(): NodeVisitorAbstract
