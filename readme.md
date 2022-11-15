@@ -215,7 +215,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `RemoveLeadingSlashNamespaces` | Prefer `Namespace\...` over `\Namespace\...`. |
 | `RequestHelperFunctionWherePossible` | Use the request(...) helper function directly to access request values wherever possible |
 | `RequestValidation` | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
-| `RestControllersMethodOrder` | REST methods in controllers should match the ordering here: https://laravel.com/docs/controllers#restful-partial-resource-routes |
 | `SpaceAfterBladeDirectives` | Put a space between blade control structure names and the opening paren:`@if(` -> `@if (` |
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
@@ -241,7 +240,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `PureRestControllers`
 - `RequestHelperFunctionWherePossible`
 - `RequestValidation`
-- `RestControllersMethodOrder`
 - `SpacesAroundBladeRenderContent`
 - `UseAnonymousMigrations`
 - `UseAuthHelperOverFacade`
