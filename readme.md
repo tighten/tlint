@@ -224,7 +224,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
-| `ViewWithOverArrayParameters` | Prefer `view(...)->with(...)` over `view(..., [...])`. |
 <!-- /linters -->
 
 ### General PHP
@@ -256,7 +255,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `SpacesAroundBladeRenderContent`
 - `UseAnonymousMigrations`
 - `UseAuthHelperOverFacade`
-- `ViewWithOverArrayParameters`
 
 ## Available Formatters (Beta)
 
