@@ -146,7 +146,6 @@ class Preset implements PresetInterface
   {
     return [
       CustomLinter::class,
-      ModelMethodOrder::class,
     ];
   }
 
@@ -204,7 +203,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
 | `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
-| `ModelMethodOrder` | Model method order should be: booting > boot > booted > custom_static > relationships > scopes > accessors > mutators > custom |
 | `NoDatesPropertyOnModels` | The `$dates` property was deprecated in Laravel 8. Use `$casts` instead. |
 | `NoDocBlocksForMigrationUpDown` | Remove doc blocks from the up and down method in migrations. |
 | `NoJsonDirective` | Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{!! json_encode($var) !!}">` |
@@ -243,7 +241,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `FullyQualifiedFacades`
 - `MailableMethodsInBuild`
 - `NoLeadingSlashesOnRoutePaths`
-- `ModelMethodOrder`
 - `NoDocBlocksForMigrationUpDown`
 - `NoJsonDirective`
 - `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
