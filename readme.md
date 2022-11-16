@@ -268,6 +268,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 <!-- formatters -->
 | Formatter | Description |
 | --- | --- |
+| `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
 | `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
 | `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
@@ -276,6 +277,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 
 ### Laravel
 
+- `ArrayParametersOverViewWith`
 - `FullyQualifiedFacades`
 - `NoDatesPropertyOnModels`
 - `NoDocBlocksForMigrationUpDown`
