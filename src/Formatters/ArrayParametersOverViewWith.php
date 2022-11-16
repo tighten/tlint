@@ -30,10 +30,8 @@ class ArrayParametersOverViewWith extends BaseFormatter
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
 
-        $visitor = $this->visitor();
-
         $traverser = new NodeTraverser;
-        $traverser->addVisitor($visitor);
+        $traverser->addVisitor($this->visitor());
         $newStmts = $traverser->traverse($newStmts);
 
         return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
@@ -44,16 +42,9 @@ class ArrayParametersOverViewWith extends BaseFormatter
         return new class() extends NodeVisitorAbstract
         {
             public $viewWith = [];
-            public $nodesToRemove = [];
-
-            public function getNodesToRemove(): array
-            {
-                return $this->nodesToRemove;
-            }
 
             public function beforeTraverse(array $nodes) {
                 $this->viewWith = [];
-                $this->nodesToRemove = [];
 
                 return null;
             }
@@ -62,7 +53,6 @@ class ArrayParametersOverViewWith extends BaseFormatter
             {
                 $this->forViewChain($node, function ($node) {
                     $this->viewWith[] = [$node->getArgs()[0], $node->getArgs()[1]];
-                    $this->nodesToRemove[] = $node;
                 });
 
                 if (! $node instanceof Node\Expr\FuncCall) {
@@ -81,10 +71,6 @@ class ArrayParametersOverViewWith extends BaseFormatter
                     return null;
                 }
 
-                $viewWith = $this->viewWith;
-
-                $this->viewWith = [];
-
                 return new Node\Expr\FuncCall(
                     new Node\Name('view'),
                     [
@@ -94,7 +80,7 @@ class ArrayParametersOverViewWith extends BaseFormatter
                                 $viewWith[1]->value,
                                 $viewWith[0]->value,
                             );
-                        }, array_reverse($viewWith)), [
+                        }, array_reverse($this->viewWith)), [
                             'kind' => Node\Expr\Array_::KIND_SHORT,
                         ])),
                     ]
@@ -103,6 +89,8 @@ class ArrayParametersOverViewWith extends BaseFormatter
 
             public function leaveNode(Node $node)
             {
+                $this->viewWith = [];
+
                 return $this->forViewChain($node, function ($node) {
                     return $node->var;
                 });

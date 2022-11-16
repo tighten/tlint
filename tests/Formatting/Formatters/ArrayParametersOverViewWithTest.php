@@ -142,4 +142,70 @@ file;
 
         $this->assertSame($expected, $formatted);
     }
+
+    /** @test */
+    public function catches_multiple_view_with_usage_in_controller_methods()
+    {
+        $file = <<<file
+<?php
+
+namespace App;
+
+class Controller
+{
+    function index()
+    {
+        return view('test.index')->with('first', 'yes');
+    }
+
+    function show()
+    {
+        return view('test.show', ['first' => 'yes']);
+    }
+
+    function create()
+    {
+        return view('test.create');
+    }
+
+    function edit()
+    {
+        return view('test.edit')->with('first', 'yes')->with('second', 'no');
+    }
+}
+file;
+
+        $expected = <<<file
+<?php
+
+namespace App;
+
+class Controller
+{
+    function index()
+    {
+        return view('test.index', ['first' => 'yes']);
+    }
+
+    function show()
+    {
+        return view('test.show', ['first' => 'yes']);
+    }
+
+    function create()
+    {
+        return view('test.create');
+    }
+
+    function edit()
+    {
+        return view('test.edit', ['first' => 'yes', 'second' => 'no']);
+    }
+}
+file;
+
+        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
+
+        $this->assertSame($expected, $formatted);
+    }
 }
