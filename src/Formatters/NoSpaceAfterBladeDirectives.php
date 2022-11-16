@@ -6,12 +6,14 @@ use Illuminate\Support\Str;
 use PhpParser\Lexer;
 use PhpParser\Parser;
 use Tighten\TLint\BaseFormatter;
-use Tighten\TLint\Linters\Concerns\LintsBladeTemplates;
 use Tighten\TLint\Linters\NoSpaceAfterBladeDirectives as Linter;
 
 class NoSpaceAfterBladeDirectives extends BaseFormatter
 {
-    use LintsBladeTemplates;
+    public static function appliesToPath(string $path, array $configPaths): bool
+    {
+        return Linter::appliesToPath($path, $configPaths);
+    }
 
     public const DESCRIPTION = Linter::DESCRIPTION;
 
