@@ -11,12 +11,14 @@ use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
 use Tighten\TLint\BaseFormatter;
-use Tighten\TLint\Linters\Concerns\LintsRoutesFiles;
 use Tighten\TLint\Linters\RemoveLeadingSlashNamespaces as Linter;
 
 class RemoveLeadingSlashNamespaces extends BaseFormatter
 {
-    use LintsRoutesFiles;
+    public static function appliesToPath(string $path, array $configPaths): bool
+    {
+        return Linter::appliesToPath($path, $configPaths);
+    }
 
     public const DESCRIPTION = Linter::DESCRIPTION;
 
