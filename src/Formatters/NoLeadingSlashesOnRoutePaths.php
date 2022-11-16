@@ -12,12 +12,14 @@ use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard;
 use Tighten\TLint\BaseFormatter;
-use Tighten\TLint\Linters\Concerns\LintsRoutesFiles;
 use Tighten\TLint\Linters\NoLeadingSlashesOnRoutePaths as Linter;
 
 class NoLeadingSlashesOnRoutePaths extends BaseFormatter
 {
-    use LintsRoutesFiles;
+    public static function appliesToPath(string $path, array $configPaths): bool
+    {
+        return Linter::appliesToPath($path, $configPaths);
+    }
 
     public const DESCRIPTION = Linter::DESCRIPTION;
 
