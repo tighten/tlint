@@ -103,13 +103,8 @@ class ArrayParametersOverViewWith extends BaseFormatter
 
             public function leaveNode(Node $node)
             {
-                return $this->forViewChain($node, function ($node, $parent) {
-                    if ($parent instanceof Node\Expr\FuncCall
-                    && $parent->name instanceof Node\Name
-                    && $parent->name->toString() === 'view'
-                    ) {
-                        return $node->var;
-                    }
+                return $this->forViewChain($node, function ($node) {
+                    return $node->var;
                 });
             }
 
@@ -130,7 +125,7 @@ class ArrayParametersOverViewWith extends BaseFormatter
                         && $parent->name instanceof Node\Name
                         && $parent->name->toString() === 'view'
                     ) {
-                        return $callback($node, $parent);
+                        return $callback($node);
                     }
                 }
             }
