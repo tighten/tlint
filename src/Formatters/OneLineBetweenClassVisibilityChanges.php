@@ -36,7 +36,7 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
         $traverser->addVisitor($this->visitor());
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\ +?\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\ *\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
     }
 
     private function visitor(): NodeVisitorAbstract
