@@ -10,12 +10,14 @@ use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard;
 use Tighten\TLint\BaseFormatter;
-use Tighten\TLint\Linters\Concerns\LintsRoutesFiles;
 use Tighten\TLint\Linters\MailableMethodsInBuild as Linter;
 
 class MailableMethodsInBuild extends BaseFormatter
 {
-    use LintsRoutesFiles;
+    public static function appliesToPath(string $path, array $configPaths): bool
+    {
+        return Linter::appliesToPath($path, $configPaths);
+    }
 
     public const DESCRIPTION = Linter::DESCRIPTION;
 
@@ -38,7 +40,6 @@ class MailableMethodsInBuild extends BaseFormatter
         $traverser = new NodeTraverser;
         $traverser->addVisitor($buildVisitor);
         $newStmts = $traverser->traverse($newStmts);
-
 
         return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
     }
