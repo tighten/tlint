@@ -4,7 +4,7 @@ namespace Tighten\TLint;
 
 use PhpParser\Node;
 
-class Base
+abstract class AbstractBase
 {
     public const DESCRIPTION = 'No Description.';
 

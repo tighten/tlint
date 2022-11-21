@@ -9,7 +9,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 
-class BaseLinter extends Base
+class BaseLinter extends AbstractBase
 {
     public function lint(Parser $parser)
     {
