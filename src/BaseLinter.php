@@ -9,28 +9,8 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;
 
-class BaseLinter
+class BaseLinter extends AbstractBase
 {
-    public const DESCRIPTION = 'No Description for Linter.';
-
-    protected $description;
-    protected $filename;
-    protected $code;
-    protected $codeLines;
-
-    public function __construct($code, $filename = null)
-    {
-        $this->description = static::DESCRIPTION;
-        $this->filename = $filename;
-        $this->code = $code;
-        $this->codeLines = preg_split('/\r\n|\r|\n/', $code);
-    }
-
-    public static function appliesToPath(string $path, array $configPaths): bool
-    {
-        return true;
-    }
-
     public function lint(Parser $parser)
     {
         return $this->traverseAutomatically($parser);
@@ -44,37 +24,6 @@ class BaseLinter
     public function setLintDescription(string $description)
     {
         return $this->description = $description;
-    }
-
-    public function getCode(): string
-    {
-        return $this->code;
-    }
-
-    public function getCodeLine(int $line)
-    {
-        return $this->getCodeLines()[$line - 1];
-    }
-
-    public function getCodeLinesFromNode(Node $node)
-    {
-        return array_reduce(
-            range($node->getStartLine(), $node->getEndLine()),
-            function ($carry, $line) {
-                return $carry . $this->getCodeLine($line);
-            },
-            ''
-        );
-    }
-
-    public function getCodeLines()
-    {
-        return $this->codeLines;
-    }
-
-    public function getFilename()
-    {
-        return $this->filename;
     }
 
     protected function visitor(): Closure
