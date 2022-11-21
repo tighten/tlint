@@ -23,7 +23,6 @@ class TightenPreset implements PresetInterface
             Linters\RemoveLeadingSlashNamespaces::class,
             Linters\RequestHelperFunctionWherePossible::class,
             Linters\RequestValidation::class,
-            Linters\RestControllersMethodOrder::class,
             Linters\SpaceAfterBladeDirectives::class,
             Linters\SpacesAroundBladeRenderContent::class,
             Linters\UseAuthHelperOverFacade::class,

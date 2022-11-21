@@ -146,7 +146,6 @@ class Preset implements PresetInterface
   {
     return [
       CustomLinter::class,
-      ModelMethodOrder::class,
     ];
   }
 
@@ -204,12 +203,10 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
 | `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
-| `ModelMethodOrder` | Model method order should be: booting > boot > booted > custom_static > relationships > scopes > accessors > mutators > custom |
 | `NoDatesPropertyOnModels` | The `$dates` property was deprecated in Laravel 8. Use `$casts` instead. |
 | `NoDocBlocksForMigrationUpDown` | Remove doc blocks from the up and down method in migrations. |
 | `NoJsonDirective` | Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{!! json_encode($var) !!}">` |
 | `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
-| `NoMethodVisibilityInTests` | There should be no method visibility in test methods. [ref](https://github.com/tighten/tlint/issues/106#issuecomment-537952774) |
 | `NoRequestAll` | No `request()->all()`. Use `request()->only(...)` to retrieve specific input values. |
 | `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening paren:`@section (` -> `@section(` |
 | `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line |
@@ -218,12 +215,10 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `RemoveLeadingSlashNamespaces` | Prefer `Namespace\...` over `\Namespace\...`. |
 | `RequestHelperFunctionWherePossible` | Use the request(...) helper function directly to access request values wherever possible |
 | `RequestValidation` | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
-| `RestControllersMethodOrder` | REST methods in controllers should match the ordering here: https://laravel.com/docs/controllers#restful-partial-resource-routes |
 | `SpaceAfterBladeDirectives` | Put a space between blade control structure names and the opening paren:`@if(` -> `@if (` |
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
-| `ViewWithOverArrayParameters` | Prefer `view(...)->with(...)` over `view(..., [...])`. |
 <!-- /linters -->
 
 ### General PHP
@@ -232,10 +227,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `QualifiedNamesOnlyForClassName`
 - `RemoveLeadingSlashNamespaces`
 
-### PHPUnit
-
-- `NoMethodVisibilityInTests`
-
 ### Laravel
 
 - `ApplyMiddlewareInRoutes`
@@ -243,18 +234,15 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `FullyQualifiedFacades`
 - `MailableMethodsInBuild`
 - `NoLeadingSlashesOnRoutePaths`
-- `ModelMethodOrder`
 - `NoDocBlocksForMigrationUpDown`
 - `NoJsonDirective`
 - `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
 - `PureRestControllers`
 - `RequestHelperFunctionWherePossible`
 - `RequestValidation`
-- `RestControllersMethodOrder`
 - `SpacesAroundBladeRenderContent`
 - `UseAnonymousMigrations`
 - `UseAuthHelperOverFacade`
-- `ViewWithOverArrayParameters`
 
 ## Available Formatters (Beta)
 
