@@ -11,7 +11,7 @@ class RequestHelperFunctionWherePossibleTest extends TestCase
     /** @test */
     public function catches_get_method_usage()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -25,7 +25,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new RequestHelperFunctionWherePossible($file)
         );
 
@@ -35,14 +35,14 @@ file;
     /** @test */
     public function does_not_trigger_on_new_instance_method_calls()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 (new TableBuilder(new TablePresenter()))
         ->column();
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new RequestHelperFunctionWherePossible($file)
         );
 

@@ -32,7 +32,7 @@ class LaravelPreset implements PresetInterface
     public function getFormatters(): array
     {
         return [
-            Formatters\FullyQualifiedFacades::class
+            Formatters\FullyQualifiedFacades::class,
         ];
     }
 }
