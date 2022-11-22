@@ -35,13 +35,13 @@ class UseAnonymousMigrations extends BaseFormatter
 
         if ($className) {
             $this->code = str_replace("class {$className}", 'return new class', $this->code);
-            $this->code = $this->str_replace_last('}', '};', $this->code);
+            $this->code = $this->strReplaceLast('}', '};', $this->code);
         }
 
         return $this->code;
     }
 
-    public function str_replace_last($search, $replace, $subject)
+    public function strReplaceLast($search, $replace, $subject)
     {
         $pos = strrpos($subject, $search);
 
