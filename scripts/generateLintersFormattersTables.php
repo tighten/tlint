@@ -11,7 +11,7 @@ $linters = collect(glob(__DIR__ . '/../src/Linters/*.php'))->reduce(function ($c
     {$carry}
     | `{$linter->getShortName()}` | {$linter->getConstants()['DESCRIPTION']} |
     MD;
-}, <<<MD
+}, <<<'MD'
 | Linter | Description |
 | --- | --- |
 MD);
@@ -23,7 +23,7 @@ $formatters = collect(glob(__DIR__ . '/../src/Formatters/*.php'))->reduce(functi
     {$carry}
     | `{$formatter->getShortName()}` | {$formatter->getConstants()['DESCRIPTION']} |
     MD;
-}, <<<MD
+}, <<<'MD'
 | Formatter | Description |
 | --- | --- |
 MD);

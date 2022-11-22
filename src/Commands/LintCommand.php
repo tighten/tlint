@@ -39,11 +39,51 @@ class LintCommand extends BaseCommand
                 new InputOption(
                     'only',
                     null,
-                    InputOption::VALUE_REQUIRED|InputOption::VALUE_IS_ARRAY,
+                    InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
                     'The subset of linters to use'
                 ),
             ]))
             ->setHelp('This command allows you to lint a php/laravel file/directory.');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $fileOrDirectory = $this->resolveFileOrDirectory($input->getArgument('file or directory'));
+        $finalResponseCode = self::NO_LINTS_FOUND_OR_SUCCESS;
+
+        if ($this->isBlacklisted($fileOrDirectory)) {
+            return self::NO_LINTS_FOUND_OR_SUCCESS;
+        }
+
+        if (is_file($fileOrDirectory)) {
+            $finalResponseCode = $this->lintFile($input, $output, $fileOrDirectory);
+        } elseif (is_dir($fileOrDirectory)) {
+            try {
+                foreach ($this->filesInDir($fileOrDirectory, 'php', $input->getOption('diff')) as $file) {
+                    if ($this->lintFile($input, $output, $file) === 1) {
+                        $finalResponseCode = self::LINTS_FOUND_OR_ERROR;
+                    }
+                }
+            } catch (ProcessFailedException $e) {
+                $output->writeln('Not a git repository (or any of the parent directories)');
+
+                $finalResponseCode = self::LINTS_FOUND_OR_ERROR;
+            }
+        } else {
+            $output->writeln('No file or directory found at ' . $input->getArgument('file or directory'));
+
+            return self::LINTS_FOUND_OR_ERROR;
+        }
+
+        if ($input->getOption('json')) {
+            return self::NO_LINTS_FOUND_OR_SUCCESS;
+        }
+
+        if ($finalResponseCode === self::NO_LINTS_FOUND_OR_SUCCESS) {
+            $output->writeLn('LGTM!');
+        }
+
+        return $finalResponseCode;
     }
 
     private function lintFile(InputInterface $input, OutputInterface $output, $file)
@@ -66,7 +106,7 @@ class LintCommand extends BaseCommand
             });
         }
 
-        $tighten = new TLint;
+        $tighten = new TLint();
 
         $lints = [];
 
@@ -131,7 +171,7 @@ class LintCommand extends BaseCommand
 
                 $output->writeln("<fg=yellow>{$title}</>");
                 if (! empty($lines)) {
-                    $output->writeln($lines, OutputInterface::OUTPUT_NORMAL|OutputInterface::VERBOSITY_VERBOSE);
+                    $output->writeln($lines, OutputInterface::OUTPUT_NORMAL | OutputInterface::VERBOSITY_VERBOSE);
                 }
                 $output->writeln("<fg=magenta>{$codeLine}</>");
             }
@@ -142,46 +182,6 @@ class LintCommand extends BaseCommand
         }
 
         return self::NO_LINTS_FOUND_OR_SUCCESS;
-    }
-
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $fileOrDirectory = $this->resolveFileOrDirectory($input->getArgument('file or directory'));
-        $finalResponseCode = self::NO_LINTS_FOUND_OR_SUCCESS;
-
-        if ($this->isBlacklisted($fileOrDirectory)) {
-            return self::NO_LINTS_FOUND_OR_SUCCESS;
-        }
-
-        if (is_file($fileOrDirectory)) {
-            $finalResponseCode = $this->lintFile($input, $output, $fileOrDirectory);
-        } elseif (is_dir($fileOrDirectory)) {
-            try {
-                foreach ($this->filesInDir($fileOrDirectory, 'php', $input->getOption('diff')) as $file) {
-                    if ($this->lintFile($input, $output, $file) === 1) {
-                        $finalResponseCode = self::LINTS_FOUND_OR_ERROR;
-                    }
-                }
-            } catch (ProcessFailedException $e) {
-                $output->writeln('Not a git repository (or any of the parent directories)');
-
-                $finalResponseCode = self::LINTS_FOUND_OR_ERROR;
-            }
-        } else {
-            $output->writeln('No file or directory found at ' . $input->getArgument('file or directory'));
-
-            return self::LINTS_FOUND_OR_ERROR;
-        }
-
-        if ($input->getOption('json')) {
-            return self::NO_LINTS_FOUND_OR_SUCCESS;
-        }
-
-        if ($finalResponseCode === self::NO_LINTS_FOUND_OR_SUCCESS) {
-            $output->writeLn('LGTM!');
-        }
-
-        return $finalResponseCode;
     }
 
     private function getLinters($path)

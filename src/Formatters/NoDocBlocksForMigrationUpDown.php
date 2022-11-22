@@ -35,7 +35,7 @@ class NoDocBlocksForMigrationUpDown extends BaseFormatter
 
     private function getUpDownMigrationDocBlockLines(array $stmts): array
     {
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
         $lines = [];
 
         $visitor = new FindingVisitor(function (Node $node) use (&$lines) {

@@ -48,7 +48,7 @@ abstract class BaseCommand extends Command
 
     protected function getDiffedFilesInDir()
     {
-        $process = new Process([(new ExecutableFinder)->find('git'), 'diff', '--name-only', '--diff-filter=ACMRTUXB']);
+        $process = new Process([(new ExecutableFinder())->find('git'), 'diff', '--name-only', '--diff-filter=ACMRTUXB']);
         $process->run();
 
         if (! $process->isSuccessful()) {

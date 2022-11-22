@@ -11,7 +11,7 @@ class PureRestControllersTest extends TestCase
     /** @test */
     public function catches_non_rest_public_methods_in_an_otherwise_restful_controller()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -30,7 +30,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new PureRestControllers($file)
         );
 
@@ -40,7 +40,7 @@ file;
     /** @test */
     public function does_not_trigger_on_non_restful_private_method()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -59,7 +59,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new PureRestControllers($file)
         );
 

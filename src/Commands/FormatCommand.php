@@ -37,69 +37,11 @@ class FormatCommand extends BaseCommand
                 new InputOption(
                     'only',
                     null,
-                    InputOption::VALUE_REQUIRED|InputOption::VALUE_IS_ARRAY,
+                    InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
                     'The subset of formatters to use'
                 ),
             ]))
             ->setHelp('This command allows you to format a php/laravel file/directory.');
-    }
-
-    private function formatFile(InputInterface $input, OutputInterface $output, $file)
-    {
-        if ($this->isBlacklisted($file)) {
-            return self::SUCCESS;
-        }
-
-        $formatters = $this->getFormatters($file);
-
-        if (! empty($only = $input->getOption('only'))) {
-            $formatters = array_filter($this->getAllFormatters($file), function ($formatter) use ($only) {
-                foreach ($only as $filter) {
-                    if (false !== strpos($formatter, $filter)) {
-                        return true;
-                    }
-                }
-
-                return false;
-            });
-        }
-
-        $tighten = new TFormat;
-
-        $initialFileContents = file_get_contents($file);
-        $formattedFileContents = $initialFileContents;
-
-        foreach ($formatters as $formatterClass) {
-            $formatterInstance = new $formatterClass(
-                $formattedFileContents,
-                $file
-            );
-
-            try {
-                $formattedFileContents = $tighten->format($formatterInstance);
-            } catch (Error $e) {
-                $output->writeln([
-                    "Error for {$file}: ",
-                    $e->getMessage(),
-                ]);
-
-                return self::ERROR;
-            }
-        }
-
-        if ($initialFileContents === $formattedFileContents) {
-            return self::SUCCESS;
-        }
-
-        $this->thereWasChange = true;
-
-        file_put_contents($file, $formattedFileContents);
-
-        $output->writeln([
-            "Formatted {$file}",
-        ]);
-
-        return self::SUCCESS;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -138,6 +80,64 @@ class FormatCommand extends BaseCommand
         }
 
         return $finalResponseCode;
+    }
+
+    private function formatFile(InputInterface $input, OutputInterface $output, $file)
+    {
+        if ($this->isBlacklisted($file)) {
+            return self::SUCCESS;
+        }
+
+        $formatters = $this->getFormatters($file);
+
+        if (! empty($only = $input->getOption('only'))) {
+            $formatters = array_filter($this->getAllFormatters($file), function ($formatter) use ($only) {
+                foreach ($only as $filter) {
+                    if (false !== strpos($formatter, $filter)) {
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+        }
+
+        $tighten = new TFormat();
+
+        $initialFileContents = file_get_contents($file);
+        $formattedFileContents = $initialFileContents;
+
+        foreach ($formatters as $formatterClass) {
+            $formatterInstance = new $formatterClass(
+                $formattedFileContents,
+                $file
+            );
+
+            try {
+                $formattedFileContents = $tighten->format($formatterInstance);
+            } catch (Error $e) {
+                $output->writeln([
+                    "Error for {$file}: ",
+                    $e->getMessage(),
+                ]);
+
+                return self::ERROR;
+            }
+        }
+
+        if ($initialFileContents === $formattedFileContents) {
+            return self::SUCCESS;
+        }
+
+        $this->thereWasChange = true;
+
+        file_put_contents($file, $formattedFileContents);
+
+        $output->writeln([
+            "Formatted {$file}",
+        ]);
+
+        return self::SUCCESS;
     }
 
     private function getFormatters($path)
