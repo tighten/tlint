@@ -27,7 +27,7 @@ class ControllerA extends Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new RequestValidation($file)
         );
 
@@ -37,7 +37,7 @@ file;
     /** @test */
     public function does_not_trigger_on_helper_function_usage()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 class TestController extends Controller
@@ -51,7 +51,7 @@ class TestController extends Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new RequestValidation($file)
         );
 
@@ -61,21 +61,21 @@ file;
     /** @test */
     public function does_not_trigger_when_using_request_variable_method()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
 
 class ControllerA extends Controller
 {
-    public function store(ARequest \$request)
+    public function store(ARequest $request)
     {
-        \$request->validate([]);
+        $request->validate([]);
     }
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new RequestValidation($file)
         );
 
@@ -85,7 +85,7 @@ file;
     /** @test */
     public function does_not_cause_php_notice_when_value_is_not_an_expression_with_a_name()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -100,7 +100,7 @@ class ControllerA extends Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new RequestValidation($file)
         );
 

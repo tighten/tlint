@@ -17,7 +17,7 @@ class QualifiedNamesOnlyForClassNameTest extends TestCase
 var_dump(Thing\Things::const);
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -33,7 +33,7 @@ file;
 var_dump(Thing\Things::\$thing);
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -49,7 +49,7 @@ file;
 var_dump(Thing\Things::get());
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -65,7 +65,7 @@ file;
 var_dump(Thing\Things::class);
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -81,7 +81,7 @@ file;
 echo new Thing\Thing();
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -91,14 +91,14 @@ file;
     /** @test */
     public function does_not_triggen_on_variable_class_instantiation()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
-\$thing = 'OK::class';
-echo new \$thing;
+$thing = 'OK::class';
+echo new $thing;
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -108,13 +108,13 @@ file;
     /** @test */
     public function does_not_trigger_on_anonymous_class()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 var_dump(new class () {});
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -133,7 +133,7 @@ file;
         }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -152,7 +152,7 @@ file;
         }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -171,7 +171,7 @@ file;
         }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -190,7 +190,7 @@ file;
         }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 
@@ -214,7 +214,7 @@ class Stripe extends Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new QualifiedNamesOnlyForClassName($file)
         );
 

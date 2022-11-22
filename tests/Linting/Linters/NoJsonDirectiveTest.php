@@ -11,7 +11,7 @@ class NoJsonDirectiveTest extends TestCase
     /** @test */
     public function catches_json_directive_usage()
     {
-        $file = <<<file
+        $file = <<<'file'
         @extends('layouts.app')
 
         @section('content')
@@ -22,7 +22,7 @@ class NoJsonDirectiveTest extends TestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoJsonDirective($file)
         );
 

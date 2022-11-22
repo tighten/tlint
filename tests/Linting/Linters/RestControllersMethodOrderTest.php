@@ -11,7 +11,7 @@ class RestControllersMethodOrderTest extends TestCase
     /** @test */
     public function catches_wrong_order_rest_methods()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -32,7 +32,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new RestControllersMethodOrder($file)
         );
 
@@ -42,7 +42,7 @@ file;
     /** @test */
     public function does_not_trigger_on_correctly_ordered_rest_methods()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -61,7 +61,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new RestControllersMethodOrder($file)
         );
 
