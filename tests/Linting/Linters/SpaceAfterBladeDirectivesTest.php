@@ -11,7 +11,7 @@ class SpaceAfterBladeDirectivesTest extends TestCase
     /** @test */
     public function it_catches_missing_space_if_statement()
     {
-        $file = <<<file
+        $file = <<<'file'
 @if(true)
     This is true.
 @elseif(false)
@@ -19,7 +19,7 @@ class SpaceAfterBladeDirectivesTest extends TestCase
 @endif
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -30,13 +30,13 @@ file;
     /** @test */
     public function it_catches_missing_space_unless_statement()
     {
-        $file = <<<file
+        $file = <<<'file'
 @unless(true)
     This isn't true.
 @endunless
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -52,7 +52,7 @@ file;
 @endfor
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -68,7 +68,7 @@ file;
 @endforeach
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -86,7 +86,7 @@ file;
 @endforelse
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -96,13 +96,13 @@ file;
     /** @test */
     public function it_catches_missing_space_while_statement()
     {
-        $file = <<<file
+        $file = <<<'file'
 @while(true)
     <p>I'm looping forever.</p>
 @endwhile
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -118,7 +118,7 @@ file;
 @endforeach
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -162,7 +162,7 @@ file;
 @endwhile
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
