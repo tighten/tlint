@@ -48,8 +48,8 @@ class ConfigTest extends TestCase
     {
         $config = new Config(['paths' => ['controllers' => 'app/Domain/Http/Controllers']]);
 
-        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain/Http/Controllers/UserController.php', $config->getPaths()));
-        $this->assertFalse(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Http/Controllers/UserController.php', $config->getPaths()));
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain/Http/Controllers/UserController.php', $config->paths));
+        $this->assertFalse(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Http/Controllers/UserController.php', $config->paths));
     }
 
     /** @test */
@@ -57,9 +57,9 @@ class ConfigTest extends TestCase
     {
         $config = new Config(['paths' => ['controllers' => ['app/Domain1/Http/Controllers', 'app/Domain2/Http/Controllers']]]);
 
-        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain1/Http/Controllers/UserController.php', $config->getPaths()));
-        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain2/Http/Controllers/UserController.php', $config->getPaths()));
-        $this->assertFalse(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain3/Http/Controllers/UserController.php', $config->getPaths()));
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain1/Http/Controllers/UserController.php', $config->paths));
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain2/Http/Controllers/UserController.php', $config->paths));
+        $this->assertFalse(Linters\ApplyMiddlewareInRoutes::appliesToPath('app/Domain3/Http/Controllers/UserController.php', $config->paths));
     }
 
     /** @test */
@@ -68,13 +68,13 @@ class ConfigTest extends TestCase
         $DS = DIRECTORY_SEPARATOR;
 
         $config = new Config(['paths' => []]);
-        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->paths));
 
         $config = new Config(['paths' => null]);
-        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->paths));
 
         $config = new Config([]);
-        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->getPaths()));
+        $this->assertTrue(Linters\ApplyMiddlewareInRoutes::appliesToPath("app{$DS}Http{$DS}Controllers{$DS}UserController.php", $config->paths));
     }
 
     /** @test */

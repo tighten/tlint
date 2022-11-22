@@ -14,8 +14,8 @@ use Tighten\TLint\Utils\ParsesGitOutput;
 
 abstract class BaseCommand extends Command
 {
-    protected $cwd;
-    protected $config;
+    public $cwd;
+    public $config;
 
     public function __construct(string $cwd = null)
     {
@@ -83,7 +83,7 @@ abstract class BaseCommand extends Command
 
     protected function isExcluded(string $filepath): bool
     {
-        foreach ($this->config->getExcluded() as $excluded) {
+        foreach ($this->config->excluded as $excluded) {
             $excludedPath = $this->resolveFileOrDirectory($excluded);
 
             if ($excludedPath && strpos($filepath, $this->resolveFileOrDirectory($excluded)) === 0) {
