@@ -11,8 +11,9 @@ class Config
     protected $preset;
     protected $linters;
     protected $formatters;
-    protected $paths = [];
-    protected $excluded = [];
+
+    public $paths = [];
+    public $excluded = [];
 
     public function __construct($jsonConfigContents)
     {
@@ -48,16 +49,6 @@ class Config
     public function getPreset(): PresetInterface
     {
         return $this->preset;
-    }
-
-    public function getPaths(): array
-    {
-        return $this->paths;
-    }
-
-    public function getExcluded(): array
-    {
-        return $this->excluded;
     }
 
     public function getLinters(): array
