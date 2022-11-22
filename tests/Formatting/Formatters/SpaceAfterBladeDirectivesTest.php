@@ -11,7 +11,7 @@ class SpaceAfterBladeDirectivesTest extends TestCase
     /** @test */
     public function it_adds_space_to_if_statement()
     {
-        $file = <<<file
+        $file = <<<'file'
 @if(true)
     This is true.
 @elseif(false)
@@ -19,11 +19,11 @@ class SpaceAfterBladeDirectivesTest extends TestCase
 @endif
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpaceAfterBladeDirectives($file)
         );
 
-        $correctlyFormatted = <<<file
+        $correctlyFormatted = <<<'file'
 @if (true)
     This is true.
 @elseif (false)
@@ -37,17 +37,17 @@ file;
     /** @test */
     public function it_adds_space_to_unless_statement()
     {
-        $file = <<<file
+        $file = <<<'file'
 @unless(true)
     This isn't true.
 @endunless
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpaceAfterBladeDirectives($file)
         );
 
-        $correctlyFormatted = <<<file
+        $correctlyFormatted = <<<'file'
 @unless (true)
     This isn't true.
 @endunless
@@ -65,7 +65,7 @@ file;
 @endfor
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -87,7 +87,7 @@ file;
 @endforeach
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -111,7 +111,7 @@ file;
 @endforelse
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -129,17 +129,17 @@ file;
     /** @test */
     public function it_adds_space_to_while_statement()
     {
-        $file = <<<file
+        $file = <<<'file'
 @while(true)
     <p>I'm looping forever.</p>
 @endwhile
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpaceAfterBladeDirectives($file)
         );
 
-        $correctlyFormatted = <<<file
+        $correctlyFormatted = <<<'file'
 @while (true)
     <p>I'm looping forever.</p>
 @endwhile
@@ -157,7 +157,7 @@ file;
 @endforeach
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -201,7 +201,7 @@ file;
 @endwhile
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpaceAfterBladeDirectives($file)
         );
 

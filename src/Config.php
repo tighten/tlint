@@ -8,12 +8,12 @@ use Tighten\TLint\Presets\TightenPreset;
 
 class Config
 {
+    public $paths = [];
+    public $excluded = [];
+
     protected $preset;
     protected $linters;
     protected $formatters;
-
-    public $paths = [];
-    public $excluded = [];
 
     public function __construct($jsonConfigContents)
     {

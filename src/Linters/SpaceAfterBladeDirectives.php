@@ -41,12 +41,11 @@ class SpaceAfterBladeDirectives extends BaseLinter
                 PREG_SET_ORDER
             );
 
-            foreach($matches as $match) {
+            foreach ($matches as $match) {
                 if (in_array($match[1] ?? null, self::SPACE_AFTER) && ($match[2] ?? null) === '') {
                     $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
                 }
             }
-
         }
 
         return $foundNodes;
