@@ -11,32 +11,33 @@ class SpacesAroundBladeRenderContentTest extends TestCase
     /** @test */
     public function catches_missing_spaces_around_blade_render_content()
     {
-        $file = <<<file
+        $file = <<<'file'
 {{1 + 1}}
 file;
 
-        $correctlyFormatted = <<<file
+        $correctlyFormatted = <<<'file'
 {{ 1 + 1 }}
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
         $this->assertEquals($correctlyFormatted, $formatted);
     }
+
     /** @test */
     public function catches_missing_spaces_around_blade_render_content_after_correctly_spaced()
     {
-        $file = <<<file
+        $file = <<<'file'
 {{ 1 + 1 }} {{1 + 1}}
 file;
 
-        $correctlyFormatted = <<<file
+        $correctlyFormatted = <<<'file'
 {{ 1 + 1 }} {{ 1 + 1 }}
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -46,15 +47,15 @@ file;
     /** @test */
     public function catches_extra_spaces_around_blade_render_content()
     {
-        $file = <<<file
+        $file = <<<'file'
 {{1 + 1    }}
 file;
 
-        $correctlyFormatted = <<<file
+        $correctlyFormatted = <<<'file'
 {{ 1 + 1 }}
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -72,7 +73,7 @@ file;
 {!! $a !!}
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -86,7 +87,7 @@ file;
 {!! $a !!}
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -96,11 +97,11 @@ file;
     /** @test */
     public function does_not_trigger_when_spaces_are_placed_correctly()
     {
-        $file = <<<file
+        $file = <<<'file'
 {{ 1 + 1 }}
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -110,13 +111,13 @@ file;
     /** @test */
     public function does_not_trigger_on_multiline_renders()
     {
-        $file = <<<file
+        $file = <<<'file'
 {{
 1 + 1
 }}
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -126,11 +127,11 @@ file;
     /** @test */
     public function does_not_trigger_on_blade_comment()
     {
-        $file = <<<file
+        $file = <<<'file'
 {{-- This comment will not be present in the rendered HTML --}}
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -161,7 +162,7 @@ file;
 </div>
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new SpacesAroundBladeRenderContent($file)
         );
 

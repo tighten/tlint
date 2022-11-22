@@ -9,12 +9,12 @@ use Tighten\TLint\Linters\SpacesAroundBladeRenderContent as Linter;
 
 class SpacesAroundBladeRenderContent extends BaseFormatter
 {
+    public const DESCRIPTION = Linter::DESCRIPTION;
+
     public static function appliesToPath(string $path, array $configPaths): bool
     {
         return Linter::appliesToPath($path, $configPaths);
     }
-
-    public const DESCRIPTION = Linter::DESCRIPTION;
 
     public function format(Parser $parser, Lexer $lexer)
     {
