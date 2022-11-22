@@ -11,17 +11,17 @@ class SpaceAfterBladeDirectivesTest extends TestCase
     /** @test */
     public function catches_missing_space_after_directives()
     {
-        $file = <<<file
+        $file = <<<'file'
         @if(true)
 
         @endif
 
-        @foreach(\$thing as \$things)
+        @foreach($thing as $things)
 
         @endforeach
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new SpaceAfterBladeDirectives($file)
         );
 

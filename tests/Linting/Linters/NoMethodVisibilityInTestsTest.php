@@ -27,7 +27,7 @@ class NoMethodVisibilityInTestsTest extends TestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoMethodVisibilityInTests($file)
         );
 
@@ -53,7 +53,7 @@ class NoMethodVisibilityInTestsTest extends TestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoMethodVisibilityInTests($file)
         );
 
@@ -79,7 +79,7 @@ class NoMethodVisibilityInTestsTest extends TestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoMethodVisibilityInTests($file)
         );
 
@@ -105,7 +105,7 @@ class NoMethodVisibilityInTestsTest extends TestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoMethodVisibilityInTests($file)
         );
 
@@ -131,7 +131,7 @@ class NoMethodVisibilityInTestsTest extends TestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoMethodVisibilityInTests($file)
         );
 
@@ -156,7 +156,7 @@ class NoMethodVisibilityInTestsTest extends TestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoMethodVisibilityInTests($file)
         );
 
@@ -181,7 +181,7 @@ class NoMethodVisibilityInTestsTest extends TestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoMethodVisibilityInTests($file)
         );
 
@@ -206,7 +206,7 @@ class NoMethodVisibilityInTestsTest extends TestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoMethodVisibilityInTests($file)
         );
 
@@ -231,7 +231,7 @@ class NoMethodVisibilityInTestsTest extends TestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoMethodVisibilityInTests($file)
         );
 
@@ -241,7 +241,7 @@ file;
     /** @test */
     public function does_not_trigger_on_non_test_case_class()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 class NoMethodVisibilityInTestsTest extends NonTestCase
@@ -255,7 +255,7 @@ class NoMethodVisibilityInTestsTest extends NonTestCase
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoMethodVisibilityInTests($file)
         );
 

@@ -19,8 +19,8 @@ class UseAnonymousMigrations extends BaseFormatter
 
     public function format(Parser $parser, Lexer $lexer)
     {
-        $traverser = new NodeTraverser;
-        $traverser->addVisitor(new CloningVisitor);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new CloningVisitor());
 
         $className = null;
         array_map(function (Node $node) use (&$className) {

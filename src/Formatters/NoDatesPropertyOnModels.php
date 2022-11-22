@@ -27,20 +27,20 @@ class NoDatesPropertyOnModels extends BaseFormatter
 
     public function format(Parser $parser, Lexer $lexer)
     {
-        $traverser = new NodeTraverser;
-        $traverser->addVisitor(new CloningVisitor);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new CloningVisitor());
 
         $originalStatements = $parser->parse($this->code);
         $statements = $traverser->traverse($originalStatements);
 
-        $nodeFinder = new NodeFinder;
+        $nodeFinder = new NodeFinder();
         $dates = $nodeFinder->findFirst($statements, $this->nodeFinderForModelProperty('dates'));
         $casts = $nodeFinder->findFirst($statements, $this->nodeFinderForModelProperty('casts'));
 
         if ($dates) {
             $newCasts = $this->addDatesToCasts($dates, $casts);
 
-            $statements = array_map(function (Node $node) use ($casts, $newCasts) {
+            $statements = array_map(function (Node $node) use ($newCasts) {
                 if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
                     // Replace the dates with the new casts and remove any existing casts (necessary so
                     // that we know where to put the new casts if there weren't any already)
@@ -116,7 +116,8 @@ class NoDatesPropertyOnModels extends BaseFormatter
 
     private function printer(): Standard
     {
-        return new class extends Standard {
+        return new class() extends Standard
+        {
             // Force all arrays to be printed in multiline style
             protected function pMaybeMultiline(array $nodes, bool $trailingComma = true)
             {

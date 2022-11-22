@@ -11,7 +11,7 @@ class ViewWithOverArrayParametersTest extends TestCase
     /** @test */
     public function catches_array_parameters_with_view_in_controller_methods()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -25,7 +25,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new ViewWithOverArrayParameters($file)
         );
 
@@ -43,7 +43,7 @@ file;
 });
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new ViewWithOverArrayParameters($file)
         );
 
@@ -53,13 +53,13 @@ file;
     /** @test */
     public function does_not_trigger_on_variable_function_call()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
-\$thing();
+$thing();
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new ViewWithOverArrayParameters($file)
         );
 

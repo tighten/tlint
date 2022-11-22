@@ -40,7 +40,7 @@ class Config
             throw new InvalidArgumentException("The preset '{$preset}' does not exist or does not implement the PresetInterface.");
         }
 
-        $this->preset = new $preset;
+        $this->preset = new $preset();
 
         return $this;
     }
