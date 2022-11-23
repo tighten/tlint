@@ -43,7 +43,7 @@ class ControllerA extends Controller
 }
 file;
 
-        $formatted = (new TFormat)->format(new RequestValidation($file));
+        $formatted = (new TFormat())->format(new RequestValidation($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -65,7 +65,7 @@ class TestController extends Controller
 }
 file;
 
-        $formatted = (new TFormat)->format(new RequestValidation($file));
+        $formatted = (new TFormat())->format(new RequestValidation($file));
 
         $this->assertSame($file, $formatted);
     }
@@ -87,7 +87,7 @@ class ControllerA extends Controller
 }
 file;
 
-        $formatted = (new TFormat)->format(new RequestValidation($file));
+        $formatted = (new TFormat())->format(new RequestValidation($file));
 
         $this->assertSame($file, $formatted);
     }
@@ -110,7 +110,7 @@ class ControllerA extends Controller
 }
 file;
 
-        $formatted = (new TFormat)->format(new RequestValidation($file));
+        $formatted = (new TFormat())->format(new RequestValidation($file));
 
         $this->assertSame($file, $formatted);
     }
