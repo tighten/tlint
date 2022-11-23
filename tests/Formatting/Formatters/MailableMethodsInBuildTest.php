@@ -69,7 +69,7 @@ class SendGarageLink extends Mailable
 }
 file;
 
-        $formatted = (new TFormat)->format(new MailableMethodsInBuild($file));
+        $formatted = (new TFormat())->format(new MailableMethodsInBuild($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -108,7 +108,7 @@ class SendGarageLink extends Mailable
 
 file;
 
-        $formatted = (new TFormat)->format(new MailableMethodsInBuild($file));
+        $formatted = (new TFormat())->format(new MailableMethodsInBuild($file));
 
         $this->assertSame($file, $formatted);
     }
@@ -147,7 +147,7 @@ class SendGarageLink
 
 file;
 
-        $formatted = (new TFormat)->format(new MailableMethodsInBuild($file));
+        $formatted = (new TFormat())->format(new MailableMethodsInBuild($file));
 
         $this->assertSame($file, $formatted);
     }

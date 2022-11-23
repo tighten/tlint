@@ -14,34 +14,34 @@ use Tighten\TLint\Linters\MailableMethodsInBuild as Linter;
 
 class MailableMethodsInBuild extends BaseFormatter
 {
+    public const DESCRIPTION = Linter::DESCRIPTION;
+
     public static function appliesToPath(string $path, array $configPaths): bool
     {
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public const DESCRIPTION = Linter::DESCRIPTION;
-
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser;
-        $traverser->addVisitor(new CloningVisitor);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new CloningVisitor());
 
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
 
         $constructorVisitor = $this->constructorVisitor();
 
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
         $traverser->addVisitor($constructorVisitor);
         $newStmts = $traverser->traverse($newStmts);
 
         $buildVisitor = $this->buildVisitor($constructorVisitor->getMoveStmts());
 
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
         $traverser->addVisitor($buildVisitor);
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\r?\n/', PHP_EOL, (new Standard())->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
     }
 
     private function constructorVisitor(): NodeVisitorAbstract
@@ -57,7 +57,8 @@ class MailableMethodsInBuild extends BaseFormatter
                 return $this->moveStmts;
             }
 
-            public function beforeTraverse(array $nodes) {
+            public function beforeTraverse(array $nodes)
+            {
                 $this->extendsMailable = false;
 
                 return null;
@@ -130,7 +131,8 @@ class MailableMethodsInBuild extends BaseFormatter
                 $this->moveStmts = $moveStmts;
             }
 
-            public function beforeTraverse(array $nodes) {
+            public function beforeTraverse(array $nodes)
+            {
                 $this->extendsMailable = false;
 
                 return null;
@@ -138,7 +140,7 @@ class MailableMethodsInBuild extends BaseFormatter
 
             public function enterNode(Node $node): Node|int|null
             {
-                if(! $this->moveStmts) {
+                if (! $this->moveStmts) {
                     return null;
                 }
 
