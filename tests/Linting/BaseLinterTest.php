@@ -12,13 +12,14 @@ class BaseLinterTest extends TestCase
     /** @test */
     public function throw_exception_if_neither_lint_or_visitor_methods_are_overridden()
     {
-        $linter = new class('') extends BaseLinter {
+        $linter = new class('') extends BaseLinter
+        {
             public const DESCRIPTION = 'Test linter';
         };
 
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Custom linters must override either the `lint` or `visitor` method.');
 
-        (new TLint)->lint($linter);
+        (new TLint())->lint($linter);
     }
 }

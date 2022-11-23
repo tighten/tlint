@@ -11,7 +11,7 @@ class ArrayParametersOverViewWithTest extends TestCase
     /** @test */
     public function catches_view_with_method_usage_in_controller_methods()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -25,7 +25,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new ArrayParametersOverViewWith($file)
         );
 
@@ -43,7 +43,7 @@ file;
 });
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new ArrayParametersOverViewWith($file)
         );
 
