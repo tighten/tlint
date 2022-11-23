@@ -1,7 +1,0 @@
-{
-    "preset": "tighten",
-    "excluded": [
-        "src/Illuminate/",
-        "tests/fixtures/"
-    ]
-}

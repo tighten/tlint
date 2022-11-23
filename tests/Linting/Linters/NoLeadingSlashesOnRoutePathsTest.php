@@ -11,7 +11,7 @@ class NoLeadingSlashesOnRoutePathsTest extends TestCase
     /** @test */
     public function catches_leading_slashes_on_top_level_routes()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 Route::get('/home', function () {
@@ -19,7 +19,7 @@ Route::get('/home', function () {
 });
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoLeadingSlashesOnRoutePaths($file)
         );
 
@@ -29,7 +29,7 @@ file;
     /** @test */
     public function catches_leading_slashes_in_route_groups()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 Route::group(['middleware' => 'auth'], function () {
@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoLeadingSlashesOnRoutePaths($file)
         );
 
@@ -49,7 +49,7 @@ file;
     /** @test */
     public function does_not_trigger_on_otherwise_empty_paths()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 Route::get('/', function () {
@@ -57,7 +57,7 @@ Route::get('/', function () {
 });
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoLeadingSlashesOnRoutePaths($file)
         );
 
@@ -67,15 +67,15 @@ file;
     /** @test */
     public function does_not_throw_on_dynamic_calls()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
-Route::get('/', function (\$class) {
-    return  \$class::test();
+Route::get('/', function ($class) {
+    return  $class::test();
 });
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoLeadingSlashesOnRoutePaths($file)
         );
 

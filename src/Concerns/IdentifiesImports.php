@@ -19,7 +19,7 @@ trait IdentifiesImports
 
     private function getUnusedImportNodes(array $stmts)
     {
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
 
         $groupUseStatements = [];
         $useStatements = [];

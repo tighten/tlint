@@ -272,6 +272,9 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
 | `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
 | `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
+| `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
+| `SpaceAfterBladeDirectives` | Puts a space between blade control structure names and the opening parenthesis |
+| `SpacesAroundBladeRenderContent` | Spaces around blade rendered content. |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 <!-- /formatters -->
 
@@ -281,6 +284,9 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `MailableMethodsInBuild`
 - `NoDatesPropertyOnModels`
 - `NoDocBlocksForMigrationUpDown`
+- `NoLeadingSlashesOnRoutePaths`
+- `SpaceAfterBladeDirectives`
+- `SpacesAroundBladeRenderContent`
 - `UseAnonymousMigrations`
 
 ## Contributing

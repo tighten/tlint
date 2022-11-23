@@ -84,7 +84,7 @@ class BaseLinter
 
     protected function visitUsing(Parser $parser, Closure $callback): FindingVisitor
     {
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
         $traverser->addVisitor($visitor = new FindingVisitor($callback));
         $traverser->traverse($parser->parse($this->code));
 
