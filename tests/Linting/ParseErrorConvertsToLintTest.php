@@ -12,12 +12,12 @@ class ParseErrorConvertsToLintTest extends TestCase
     /** @test */
     public function gracefully_handles_parse_error()
     {
-        $application = new Application;
-        $command = new LintCommand;
+        $application = new Application();
+        $command = new LintCommand();
         $application->add($command);
         $commandTester = new CommandTester($command);
 
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;

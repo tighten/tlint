@@ -21,7 +21,7 @@ use Storage;
 
 file;
 
-        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+        $formatted = (new TFormat())->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
 <?php
@@ -47,7 +47,7 @@ use Storage;
 
 file;
 
-        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+        $formatted = (new TFormat())->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
 <?php
@@ -76,7 +76,7 @@ use Tests\TestCase;
 
 file;
 
-        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+        $formatted = (new TFormat())->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
 <?php
@@ -108,7 +108,7 @@ use Tests\TestCase;
 
 file;
 
-        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+        $formatted = (new TFormat())->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
 <?php
@@ -137,7 +137,7 @@ use Str;
 
 file;
 
-        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+        $formatted = (new TFormat())->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
 <?php
@@ -164,7 +164,7 @@ use App\{ User, Post };
 
 file;
 
-        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+        $formatted = (new TFormat())->format(new FullyQualifiedFacades($file));
 
         $this->assertSame($file, $formatted);
     }
@@ -181,7 +181,7 @@ use Shortcut;
 
 file;
 
-        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+        $formatted = (new TFormat())->format(new FullyQualifiedFacades($file));
 
         $this->assertSame($file, $formatted);
     }
@@ -203,7 +203,7 @@ class Stuff
 }
 file;
 
-        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+        $formatted = (new TFormat())->format(new FullyQualifiedFacades($file));
 
         $this->assertSame($file, $formatted);
     }
