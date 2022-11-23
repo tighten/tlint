@@ -14,13 +14,17 @@ class SpaceAfterBladeDirectives extends BaseLinter
     public const DESCRIPTION = 'Put a space between blade control structure names and the opening paren:'
         . '`@if(` -> `@if (`';
 
-    protected const SPACE_AFTER = [
+    // https://github.com/illuminate/view/blob/master/Compilers/BladeCompiler.php#L500
+    public const DIRECTIVE_SEARCH = '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x';
+
+    public const SPACE_AFTER = [
         'if',
         'elseif',
+        'unless',
         'for',
         'foreach',
-        'unless',
         'forelse',
+        'while',
     ];
 
     public function lint(Parser $parser)
@@ -30,15 +34,17 @@ class SpaceAfterBladeDirectives extends BaseLinter
         foreach ($this->getCodeLines() as $line => $codeLine) {
             $matches = [];
 
-            // https://github.com/illuminate/view/blob/master/Compilers/BladeCompiler.php#L271
-            preg_match(
-                '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x',
+            preg_match_all(
+                self::DIRECTIVE_SEARCH,
                 $codeLine,
-                $matches
+                $matches,
+                PREG_SET_ORDER
             );
 
-            if (in_array($matches[1] ?? null, self::SPACE_AFTER) && ($matches[2] ?? null) === '') {
-                $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
+            foreach ($matches as $match) {
+                if (in_array($match[1] ?? null, self::SPACE_AFTER) && ($match[2] ?? null) === '') {
+                    $foundNodes[] = new CustomNode(['startLine' => $line + 1]);
+                }
             }
         }
 
