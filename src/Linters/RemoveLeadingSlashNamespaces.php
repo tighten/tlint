@@ -14,7 +14,7 @@ class RemoveLeadingSlashNamespaces extends BaseLinter
 
     public function lint(Parser $parser)
     {
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
 
         $classVisitor = new FindingVisitor(function (Node $node) {
             return (

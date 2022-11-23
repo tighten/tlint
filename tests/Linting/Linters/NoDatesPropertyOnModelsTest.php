@@ -29,7 +29,7 @@ class Post extends Model
 }
 file;
 
-        $lints = (new TLint)->lint(new NoDatesPropertyOnModels($file));
+        $lints = (new TLint())->lint(new NoDatesPropertyOnModels($file));
 
         $this->assertEquals(9, $lints[0]->getNode()->getLine());
     }
@@ -52,7 +52,7 @@ class AuthorPost extends Pivot
 }
 file;
 
-        $lints = (new TLint)->lint(new NoDatesPropertyOnModels($file));
+        $lints = (new TLint())->lint(new NoDatesPropertyOnModels($file));
 
         $this->assertEquals(11, $lints[0]->getNode()->getLine());
     }
@@ -77,7 +77,7 @@ class User extends Authenticatable
 }
 file;
 
-        $lints = (new TLint)->lint(new NoDatesPropertyOnModels($file));
+        $lints = (new TLint())->lint(new NoDatesPropertyOnModels($file));
 
         $this->assertEquals(13, $lints[0]->getNode()->getLine());
     }
@@ -96,6 +96,6 @@ class Birthday
 }
 file;
 
-        $this->assertEmpty((new TLint)->lint(new NoDatesPropertyOnModels($file)));
+        $this->assertEmpty((new TLint())->lint(new NoDatesPropertyOnModels($file)));
     }
 }

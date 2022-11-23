@@ -11,13 +11,13 @@ class NoParensEmptyInstantiationsTest extends TestCase
     /** @test */
     public function catches_unnecessary_parens()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
-\$ok = new Thing();
+$ok = new Thing();
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoParensEmptyInstantiations($file)
         );
 
@@ -27,13 +27,13 @@ file;
     /** @test */
     public function ignores_necessary_parens()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
-\$ok = new Thing(1, 2);
+$ok = new Thing(1, 2);
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoParensEmptyInstantiations($file)
         );
 
@@ -43,14 +43,14 @@ file;
     /** @test */
     public function works_when_instantiating_from_variable()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
-\$class = Thing::class;
-\$ok = new \$class;
+$class = Thing::class;
+$ok = new $class;
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new NoParensEmptyInstantiations($file)
         );
 
