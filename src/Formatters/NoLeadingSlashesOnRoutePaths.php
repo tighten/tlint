@@ -16,60 +16,60 @@ use Tighten\TLint\Linters\NoLeadingSlashesOnRoutePaths as Linter;
 
 class NoLeadingSlashesOnRoutePaths extends BaseFormatter
 {
+    public const DESCRIPTION = Linter::DESCRIPTION;
+
     public static function appliesToPath(string $path, array $configPaths): bool
     {
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public const DESCRIPTION = Linter::DESCRIPTION;
-
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser;
-        $traverser->addVisitor(new CloningVisitor);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new CloningVisitor());
 
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
 
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
         $traverser->addVisitor($this->visitor());
 
         $newStmts = $traverser->traverse($newStmts);
 
-        return (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens());
+        return (new Standard())->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens());
     }
 
     private function visitor(): NodeVisitorAbstract
     {
-        return new class extends NodeVisitorAbstract
+        return new class() extends NodeVisitorAbstract
         {
             public function enterNode(Node $node): Node|int|null
             {
-                if (! $node instanceof Node\Expr\StaticCall){
+                if (! $node instanceof Node\Expr\StaticCall) {
                     return null;
                 }
 
-                if (! $node->class instanceof Node\Name){
+                if (! $node->class instanceof Node\Name) {
                     return null;
                 }
 
-                if ($node->class->toString() !== 'Route'){
+                if ($node->class->toString() !== 'Route') {
                     return null;
                 }
 
-                if (! isset($node->args[0])){
+                if (! isset($node->args[0])) {
                     return null;
                 }
 
-                if (! $node->args[0]->value instanceof Node\Scalar\String_){
+                if (! $node->args[0]->value instanceof Node\Scalar\String_) {
                     return null;
                 }
 
-                if (! Str::startsWith($node->args[0]->value->value, '/')){
+                if (! Str::startsWith($node->args[0]->value->value, '/')) {
                     return null;
                 }
 
-                if ($node->args[0]->value->value === '/'){
+                if ($node->args[0]->value->value === '/') {
                     return null;
                 }
 
