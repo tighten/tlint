@@ -29,7 +29,7 @@ class UserController
 }
 file;
 
-        $lints = (new TLint)->lint(new NoRequestAll($file));
+        $lints = (new TLint())->lint(new NoRequestAll($file));
 
         $this->assertEquals(11, $lints[0]->getNode()->getLine());
     }
@@ -53,7 +53,7 @@ class UserController
 }
 file;
 
-        $lints = (new TLint)->lint(new NoRequestAll($file));
+        $lints = (new TLint())->lint(new NoRequestAll($file));
 
         $this->assertEquals(9, $lints[0]->getNode()->getLine());
     }
@@ -79,7 +79,7 @@ class UserController
 }
 file;
 
-        $lints = (new TLint)->lint(new NoRequestAll($file));
+        $lints = (new TLint())->lint(new NoRequestAll($file));
 
         $this->assertEquals(11, $lints[0]->getNode()->getLine());
     }
@@ -99,7 +99,7 @@ Route::get('/user', function (Request $request) {
 });
 file;
 
-        $lints = (new TLint)->lint(new NoRequestAll($file));
+        $lints = (new TLint())->lint(new NoRequestAll($file));
 
         $this->assertEmpty($lints);
     }

@@ -11,7 +11,7 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
     /** @test */
     public function catches_missing_line_between_visibility_changes()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -19,11 +19,11 @@ namespace App;
 class Thing
 {
     protected const OK = 1;
-    private \$ok;
+    private $ok;
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -33,7 +33,7 @@ file;
     /** @test */
     public function catches_missing_line_between_visibility_changes_with_doc_block()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -44,11 +44,11 @@ class Thing
     /**
      * The description of something.
      */
-    private \$ok;
+    private $ok;
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -58,7 +58,7 @@ file;
     /** @test */
     public function ignores_doc_block_between_visibility_changes()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -70,11 +70,11 @@ class Thing
     /**
      * The description of something.
      */
-    private \$ok;
+    private $ok;
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -97,7 +97,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -121,7 +121,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -147,7 +147,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -171,7 +171,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -195,7 +195,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -225,7 +225,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 

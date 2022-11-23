@@ -41,7 +41,7 @@ class SendGarageLink extends Mailable
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new MailableMethodsInBuild($file)
         );
 
@@ -82,7 +82,7 @@ class SendGarageLink extends Mailable
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new MailableMethodsInBuild($file)
         );
 
@@ -123,7 +123,7 @@ class SendGarageLink
 
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new MailableMethodsInBuild($file)
         );
 
