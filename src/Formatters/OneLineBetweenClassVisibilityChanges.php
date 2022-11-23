@@ -17,26 +17,26 @@ use Tighten\TLint\Linters\OneLineBetweenClassVisibilityChanges as Linter;
 
 class OneLineBetweenClassVisibilityChanges extends BaseFormatter
 {
+    public const DESCRIPTION = Linter::DESCRIPTION;
+
     public static function appliesToPath(string $path, array $configPaths): bool
     {
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public const DESCRIPTION = Linter::DESCRIPTION;
-
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser;
-        $traverser->addVisitor(new CloningVisitor);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new CloningVisitor());
 
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
 
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
         $traverser->addVisitor($this->visitor());
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\ *\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\ *\r?\n/', PHP_EOL, (new Standard())->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
     }
 
     private function visitor(): NodeVisitorAbstract
@@ -45,7 +45,8 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
         {
             private $previousNode;
 
-            public function beforeTraverse(array $nodes) {
+            public function beforeTraverse(array $nodes)
+            {
                 $this->previousNode = null;
 
                 return null;
@@ -60,18 +61,21 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
                 // Ignore the very first node
                 if (is_null($this->previousNode)) {
                     $this->previousNode = $node;
+
                     return null;
                 }
 
                 // Ignore nodes with exactly the same visibility
                 if ($this->previousNode->flags === $node->flags) {
                     $this->previousNode = $node;
+
                     return null;
                 }
 
                 // Ignore nodes separated by exactly one blank line and no comments
                 if ($node->getStartLine() - $this->previousNode->getEndLine() === 2 && empty($node->getComments())) {
                     $this->previousNode = $node;
+
                     return null;
                 }
 
@@ -88,6 +92,7 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
                     // Ignore nodes separated by comments when there is exactly one blank line within the comments
                     if (count(array_diff($allLinesBetweenNodes, $commentLines)) === 1) {
                         $this->previousNode = $node;
+
                         return null;
                     }
                 }

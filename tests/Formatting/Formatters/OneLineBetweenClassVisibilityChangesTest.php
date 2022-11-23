@@ -36,7 +36,7 @@ class Thing
 }
 file;
 
-        $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+        $formatted = (new TFormat())->format(new OneLineBetweenClassVisibilityChanges($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -75,7 +75,7 @@ class Thing
 }
 file;
 
-        $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+        $formatted = (new TFormat())->format(new OneLineBetweenClassVisibilityChanges($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -99,7 +99,7 @@ class Thing
 }
 file;
 
-        $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+        $formatted = (new TFormat())->format(new OneLineBetweenClassVisibilityChanges($file));
 
         $this->assertSame($file, $formatted);
     }
@@ -134,7 +134,7 @@ class Thing
 }
 file;
 
-        $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+        $formatted = (new TFormat())->format(new OneLineBetweenClassVisibilityChanges($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -171,7 +171,7 @@ class Thing
 }
 file;
 
-        $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+        $formatted = (new TFormat())->format(new OneLineBetweenClassVisibilityChanges($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -212,7 +212,7 @@ class Thing
 }
 file;
 
-        $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+        $formatted = (new TFormat())->format(new OneLineBetweenClassVisibilityChanges($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -234,7 +234,7 @@ class Thing
 }
 file;
 
-        $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+        $formatted = (new TFormat())->format(new OneLineBetweenClassVisibilityChanges($file));
 
         $this->assertSame($file, $formatted);
     }
@@ -256,7 +256,7 @@ class Thing
 }
 file;
 
-        $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+        $formatted = (new TFormat())->format(new OneLineBetweenClassVisibilityChanges($file));
 
         $this->assertSame($file, $formatted);
     }
@@ -284,7 +284,7 @@ class Thing
 }
 file;
 
-        $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+        $formatted = (new TFormat())->format(new OneLineBetweenClassVisibilityChanges($file));
 
         $this->assertSame($file, $formatted);
     }
