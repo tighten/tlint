@@ -13,7 +13,7 @@ class ModelMethodOrderTest extends TestCase
     {
         $file = file_get_contents(__DIR__ . '/../../fixtures/Models/Invalid/Thing.php');
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new ModelMethodOrder($file)
         );
 
