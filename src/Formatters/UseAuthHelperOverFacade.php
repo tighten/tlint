@@ -59,6 +59,11 @@ class UseAuthHelperOverFacade extends BaseFormatter
         parent::__construct($code, $filename);
     }
 
+    public static function appliesToPath(string $path, array $configPaths): bool
+    {
+        return Linter::appliesToPath($path, $configPaths);
+    }
+
     public function format(Parser $parser, Lexer $lexer)
     {
         if ($this->bladeCode) {
@@ -100,27 +105,28 @@ class UseAuthHelperOverFacade extends BaseFormatter
 
     private function formatCode(string $code, Parser $parser, Lexer $lexer)
     {
-        $traverser = new NodeTraverser;
-        $traverser->addVisitor(new CloningVisitor);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new CloningVisitor());
 
         $oldStmts = $parser->parse($code);
         $newStmts = $traverser->traverse($oldStmts);
 
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
         $traverser->addVisitor($this->visitor());
 
         $newStmts = $traverser->traverse($newStmts);
 
-        return (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens());
+        return (new Standard())->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens());
     }
 
     private function visitor(): NodeVisitorAbstract
     {
-        return new class extends NodeVisitorAbstract
+        return new class() extends NodeVisitorAbstract
         {
             private bool $useAuthFacade = false;
 
-            public function beforeTraverse(array $nodes) {
+            public function beforeTraverse(array $nodes)
+            {
                 $this->useAuthFacade = false;
 
                 return null;
@@ -134,7 +140,7 @@ class UseAuthHelperOverFacade extends BaseFormatter
                     }
                 }
 
-                if (! $node instanceof Node\Expr\StaticCall){
+                if (! $node instanceof Node\Expr\StaticCall) {
                     return null;
                 }
 

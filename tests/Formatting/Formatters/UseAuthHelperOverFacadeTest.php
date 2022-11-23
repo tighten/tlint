@@ -11,7 +11,7 @@ class UseAuthHelperOverFacadeTest extends TestCase
     /** @test */
     public function catches_auth_facade_usage_in_views()
     {
-        $file = <<<file
+        $file = <<<'file'
 @extends('layouts.app')
 @if (!\Illuminate\Support\Facades\Auth::check())
     <label for="email">Email</label>
@@ -21,7 +21,7 @@ class UseAuthHelperOverFacadeTest extends TestCase
 @endif
 file;
 
-        $correctlyFormatted = <<<file
+        $correctlyFormatted = <<<'file'
 @extends('layouts.app')
 @if (!auth()->check())
     <label for="email">Email</label>
@@ -31,7 +31,7 @@ file;
 @endif
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new UseAuthHelperOverFacade($file, '.blade.php')
         );
 
@@ -59,7 +59,7 @@ echo auth()->user()->projects()->count();
 auth()->login($user);
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -69,7 +69,7 @@ file;
     /** @test */
     public function does_not_trigger_on_non_auth_call()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 use Some\Other\AuthClass as Auth;
@@ -77,7 +77,7 @@ use Some\Other\AuthClass as Auth;
 echo Auth::user()->name;
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -87,13 +87,13 @@ file;
     /** @test */
     public function does_not_trigger_on_non_facade_call()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 echo Auth::nonFacadeMethod()->value;
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -103,7 +103,7 @@ file;
     /** @test */
     public function does_not_trigger_when_calling_routes()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 use Illuminate\Support\Facades\Auth;
@@ -111,7 +111,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -121,25 +121,25 @@ file;
     /** @test */
     public function does_not_throw_when_file_contains_dynamic_class_variables()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App\Newsboard\Factory;
 
 class Relationships
 {
-    static function randomOrCreate(\$className)
+    static function randomOrCreate($className)
     {
-        if (\$className::all()->count() > 0) {
-            return \$className::all()->random();
+        if ($className::all()->count() > 0) {
+            return $className::all()->random();
         }
 
-        return factory(\$className)->create();
+        return factory($className)->create();
     }
 }
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -149,21 +149,21 @@ file;
     /** @test */
     public function does_not_throw_when_using_static_call_on_dynamic_variable()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 use Illuminate\Support\Facades\Auth;
 
 class Test
 {
-    static function test(\$class)
+    static function test($class)
     {
-        \$class::test();
+        $class::test();
     }
 }
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -179,7 +179,7 @@ file;
 </x-main-layout>
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new UseAuthHelperOverFacade($file, '.blade.php')
         );
 

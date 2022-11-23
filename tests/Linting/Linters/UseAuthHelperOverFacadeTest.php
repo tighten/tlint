@@ -56,7 +56,7 @@ file;
     echo Auth::user()->name;
     file;
 
-            $lints = (new TLint)->lint(
+            $lints = (new TLint())->lint(
                 new UseAuthHelperOverFacade($file, '.php')
             );
 
