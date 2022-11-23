@@ -15,17 +15,17 @@ use Tighten\TLint\Linters\RemoveLeadingSlashNamespaces as Linter;
 
 class RemoveLeadingSlashNamespaces extends BaseFormatter
 {
+    public const DESCRIPTION = Linter::DESCRIPTION;
+
     public static function appliesToPath(string $path, array $configPaths): bool
     {
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public const DESCRIPTION = Linter::DESCRIPTION;
-
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser;
-        $traverser->addVisitor(new CloningVisitor);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new CloningVisitor());
 
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
@@ -33,7 +33,7 @@ class RemoveLeadingSlashNamespaces extends BaseFormatter
         $useStatementsVisitor = $this->useStatementVisitor($this->getCodeLines());
         $classVisitor = $this->classVisitor($this->getCodeLines());
 
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
         $traverser->addVisitor($useStatementsVisitor);
         $traverser->addVisitor($classVisitor);
 

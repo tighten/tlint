@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 echo test;
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new RemoveLeadingSlashNamespaces($file, '.php')
         );
 
@@ -51,7 +51,7 @@ file;
 echo Auth::user()->name;
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new RemoveLeadingSlashNamespaces($file, '.php')
         );
 
@@ -73,7 +73,7 @@ file;
 echo new User();
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new RemoveLeadingSlashNamespaces($file, '.php')
         );
 
@@ -101,7 +101,7 @@ class Relationships
 }
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new RemoveLeadingSlashNamespaces($file, '.php')
         );
 
@@ -122,7 +122,7 @@ class User extends BaseResource
 }
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new RemoveLeadingSlashNamespaces($file, '.php')
         );
 
@@ -143,7 +143,7 @@ $factory->define(App\S::class, function (Faker\Generator $faker) {
 });
 file;
 
-$correctlyFormatted = <<<'file'
+        $correctlyFormatted = <<<'file'
 <?php
 
 $factory->define(App\S::class, function (Faker\Generator $faker) {
@@ -154,7 +154,7 @@ $factory->define(App\S::class, function (Faker\Generator $faker) {
 });
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new RemoveLeadingSlashNamespaces($file, '.php')
         );
 
