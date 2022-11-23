@@ -15,28 +15,28 @@ use Tighten\TLint\Linters\RequestHelperFunctionWherePossible as Linter;
 
 class RequestHelperFunctionWherePossible extends BaseFormatter
 {
+    public const DESCRIPTION = Linter::DESCRIPTION;
+
     public static function appliesToPath(string $path, array $configPaths): bool
     {
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public const DESCRIPTION = Linter::DESCRIPTION;
-
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser;
-        $traverser->addVisitor(new CloningVisitor);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new CloningVisitor());
 
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
 
         $visitor = $this->visitor();
 
-        $traverser = new NodeTraverser;
+        $traverser = new NodeTraverser();
         $traverser->addVisitor($visitor);
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\r?\n/', PHP_EOL, (new Standard())->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
     }
 
     private function visitor(): NodeVisitorAbstract
@@ -45,7 +45,8 @@ class RequestHelperFunctionWherePossible extends BaseFormatter
         {
             public $requestGet = null;
 
-            public function beforeTraverse(array $nodes) {
+            public function beforeTraverse(array $nodes)
+            {
                 $this->requestGet = null;
 
                 return null;
