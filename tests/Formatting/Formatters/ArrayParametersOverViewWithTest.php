@@ -11,7 +11,7 @@ class ArrayParametersOverViewWithTest extends TestCase
     /** @test */
     public function catches_view_with_method_usage_in_controller_methods()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -25,7 +25,7 @@ class Controller
 }
 file;
 
-        $expected = <<<file
+        $expected = <<<'file'
 <?php
 
 namespace App;
@@ -39,7 +39,7 @@ class Controller
 }
 file;
 
-        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
+        $formatted = (new TFormat())->format(new ArrayParametersOverViewWith($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -47,7 +47,7 @@ file;
     /** @test */
     public function catches_view_with_chained_method_usage_in_controller_methods()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -61,7 +61,7 @@ class Controller
 }
 file;
 
-        $expected = <<<file
+        $expected = <<<'file'
 <?php
 
 namespace App;
@@ -75,7 +75,7 @@ class Controller
 }
 file;
 
-        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
+        $formatted = (new TFormat())->format(new ArrayParametersOverViewWith($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -83,7 +83,7 @@ file;
     /** @test */
     public function catches_view_with_chained_new_lines_method_usage_in_controller_methods()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -100,7 +100,7 @@ class Controller
 }
 file;
 
-        $expected = <<<file
+        $expected = <<<'file'
 <?php
 
 namespace App;
@@ -114,7 +114,7 @@ class Controller
 }
 file;
 
-        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
+        $formatted = (new TFormat())->format(new ArrayParametersOverViewWith($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -138,7 +138,7 @@ file;
 });
 file;
 
-        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
+        $formatted = (new TFormat())->format(new ArrayParametersOverViewWith($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -146,7 +146,7 @@ file;
     /** @test */
     public function catches_multiple_view_with_usage_in_controller_methods()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -175,7 +175,7 @@ class Controller
 }
 file;
 
-        $expected = <<<file
+        $expected = <<<'file'
 <?php
 
 namespace App;
@@ -204,7 +204,7 @@ class Controller
 }
 file;
 
-        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
+        $formatted = (new TFormat())->format(new ArrayParametersOverViewWith($file));
 
         $this->assertSame($expected, $formatted);
     }
