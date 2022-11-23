@@ -8,11 +8,12 @@ use Tighten\TLint\Presets\TightenPreset;
 
 class Config
 {
+    public $paths = [];
+    public $excluded = [];
+
     protected $preset;
     protected $linters;
     protected $formatters;
-    protected $paths = [];
-    protected $excluded = [];
 
     public function __construct($jsonConfigContents)
     {
@@ -40,7 +41,7 @@ class Config
             throw new InvalidArgumentException("The preset '{$preset}' does not exist or does not implement the PresetInterface.");
         }
 
-        $this->preset = new $preset;
+        $this->preset = new $preset();
 
         return $this;
     }
@@ -48,16 +49,6 @@ class Config
     public function getPreset(): PresetInterface
     {
         return $this->preset;
-    }
-
-    public function getPaths(): array
-    {
-        return $this->paths;
-    }
-
-    public function getExcluded(): array
-    {
-        return $this->excluded;
     }
 
     public function getLinters(): array

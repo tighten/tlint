@@ -31,7 +31,7 @@ class CreateBuyRequestsTable extends Migration
 
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new UseAnonymousMigrations($file)
         );
 
@@ -81,7 +81,7 @@ return new class extends Migration
 
 file;
 
-        $formatted = (new TFormat)->format(
+        $formatted = (new TFormat())->format(
             new UseAnonymousMigrations($file)
         );
 
