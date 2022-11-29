@@ -6,12 +6,9 @@ use Closure;
 use PhpParser\Node;
 use Tighten\TLint\BaseLinter;
 use Tighten\TLint\Illuminate\BladeCompiler;
-use Tighten\TLint\Linters\Concerns\LintsBladeTemplates;
 
 class UseAuthHelperOverFacade extends BaseLinter
 {
-    use LintsBladeTemplates;
-
     public const DESCRIPTION = 'Prefer the `auth()` helper function over the `Auth` Facade.';
 
     public function __construct($code, $filename = null)
