@@ -268,23 +268,33 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 <!-- formatters -->
 | Formatter | Description |
 | --- | --- |
+| `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
+| `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
 | `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
 | `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
 | `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening parenthesis. |
+| `RemoveLeadingSlashNamespaces` | Prefer `Namespace\...` over `\Namespace\...`. |
 | `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
+| `RequestValidation` | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
 | `SpaceAfterBladeDirectives` | Puts a space between blade control structure names and the opening parenthesis |
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content. |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 <!-- /formatters -->
 
+### General PHP
+- `RemoveLeadingSlashNamespaces`
+
 ### Laravel
 
+- `ArrayParametersOverViewWith`
 - `FullyQualifiedFacades`
+- `MailableMethodsInBuild`
 - `NoDatesPropertyOnModels`
 - `NoDocBlocksForMigrationUpDown`
 - `NoSpaceAfterBladeDirectives`
 - `NoLeadingSlashesOnRoutePaths`
+- `RequestValidation`
 - `SpaceAfterBladeDirectives`
 - `SpacesAroundBladeRenderContent`
 - `UseAnonymousMigrations`
