@@ -280,6 +280,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `SpaceAfterBladeDirectives` | Puts a space between blade control structure names and the opening parenthesis |
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content. |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
+| `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
 <!-- /formatters -->
 
 ### General PHP
@@ -298,6 +299,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `SpaceAfterBladeDirectives`
 - `SpacesAroundBladeRenderContent`
 - `UseAnonymousMigrations`
+- `UseAuthHelperOverFacade`
 
 ## Contributing
 
