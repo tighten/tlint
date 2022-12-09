@@ -276,6 +276,7 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening parenthesis. |
 | `RemoveLeadingSlashNamespaces` | Prefer `Namespace\...` over `\Namespace\...`. |
 | `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
+| `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line. |
 | `RequestValidation` | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
 | `SpaceAfterBladeDirectives` | Puts a space between blade control structure names and the opening parenthesis |
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content. |
@@ -284,6 +285,8 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 <!-- /formatters -->
 
 ### General PHP
+
+- `OneLineBetweenClassVisibilityChanges`
 - `RemoveLeadingSlashNamespaces`
 
 ### Laravel
