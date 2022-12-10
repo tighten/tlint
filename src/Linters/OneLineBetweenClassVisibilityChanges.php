@@ -27,18 +27,21 @@ class OneLineBetweenClassVisibilityChanges extends BaseLinter
                     // Ignore the very first node
                     if (is_null($previousNode)) {
                         $previousNode = $node;
+
                         continue;
                     }
 
                     // Ignore nodes with exactly the same visibility
                     if ($previousNode->flags === $node->flags) {
                         $previousNode = $node;
+
                         continue;
                     }
 
                     // Ignore nodes separated by exactly one blank line and no comments
                     if ($node->getStartLine() - $previousNode->getEndLine() === 2 && empty($node->getComments())) {
                         $previousNode = $node;
+
                         continue;
                     }
 
@@ -55,6 +58,7 @@ class OneLineBetweenClassVisibilityChanges extends BaseLinter
                         // Ignore nodes separated by comments when there is exactly one blank line within the comments
                         if (count(array_diff($allLinesBetweenNodes, $commentLines)) === 1) {
                             $previousNode = $node;
+
                             continue;
                         }
                     }

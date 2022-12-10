@@ -21,7 +21,7 @@ class UseAuthHelperOverFacadeTest extends TestCase
     @endif
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new UseAuthHelperOverFacade($file, '.blade.php')
         );
 
@@ -38,23 +38,41 @@ use Illuminate\Support\Facades\Auth;
 echo Auth::user()->name;
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
         $this->assertEquals(4, $lints[0]->getNode()->getLine());
     }
 
+        /** @test */
+        public function does_not_trigger_on_non_auth_call()
+        {
+            $file = <<<file
+    <?php
+
+    use Some\Other\AuthClass as Auth;
+
+    echo Auth::user()->name;
+    file;
+
+            $lints = (new TLint())->lint(
+                new UseAuthHelperOverFacade($file, '.php')
+            );
+
+            $this->assertEmpty($lints);
+        }
+
     /** @test */
     public function does_not_trigger_on_non_facade_call()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 echo Auth::nonFacadeMethod()->value;
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -72,7 +90,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -100,7 +118,7 @@ class Relationships
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -124,7 +142,7 @@ class Test
 }
 file;
 
-        $lints = (new TLint)->lint(
+        $lints = (new TLint())->lint(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -140,6 +158,6 @@ file;
 </x-main-layout>
 file;
 
-        $this->assertEmpty((new TLint)->lint(new UseAuthHelperOverFacade($file, '.blade.php')));
+        $this->assertEmpty((new TLint())->lint(new UseAuthHelperOverFacade($file, '.blade.php')));
     }
 }
