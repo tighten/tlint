@@ -4,7 +4,6 @@ namespace Tighten\TLint;
 
 use Closure;
 use LogicException;
-use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\Parser;

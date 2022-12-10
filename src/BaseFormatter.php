@@ -12,13 +12,20 @@ class BaseFormatter extends AbstractBase
         return $this->code;
     }
 
-    public function getFormatDescription()
+    public function getFormatDescription(): string
     {
         return $this->description;
     }
 
-    public function setFormatDescription(string $description)
+    public function setFormatDescription(string $description): string
     {
         return $this->description = $description;
+    }
+
+    public function replaceCodeLine(int $line, string $replacement): string
+    {
+        $this->codeLines[$line - 1] = $replacement;
+
+        return implode(PHP_EOL, $this->codeLines);
     }
 }

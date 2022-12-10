@@ -16,7 +16,7 @@ class SpacesAroundBladeRenderContent extends BaseFormatter
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public function format(Parser $parser, Lexer $lexer)
+    public function format(Parser $parser, Lexer $lexer): string
     {
         foreach ($this->getCodeLines() as $index => $codeLine) {
             $matchesNormal = [];
