@@ -33,8 +33,20 @@ class TightenPreset implements PresetInterface
     public function getFormatters(): array
     {
         return [
+            Formatters\ArrayParametersOverViewWith::class,
             Formatters\FullyQualifiedFacades::class,
+            Formatters\MailableMethodsInBuild::class,
+            Formatters\NoDatesPropertyOnModels::class,
             Formatters\NoDocBlocksForMigrationUpDown::class,
+            Formatters\NoLeadingSlashesOnRoutePaths::class,
+            Formatters\NoSpaceAfterBladeDirectives::class,
+            Formatters\OneLineBetweenClassVisibilityChanges::class,
+            Formatters\RemoveLeadingSlashNamespaces::class,
+            Formatters\RequestHelperFunctionWherePossible::class,
+            Formatters\RequestValidation::class,
+            Formatters\SpaceAfterBladeDirectives::class,
+            Formatters\SpacesAroundBladeRenderContent::class,
+            Formatters\UseAuthHelperOverFacade::class,
         ];
     }
 }
