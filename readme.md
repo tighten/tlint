@@ -22,7 +22,7 @@ composer global update tightenco/tlint
 ### Upgrading from 7.x to 8.x
 
 A significant number of formatters were added between the 7.x and 8.x releases.
-If you would like gradually role these out or disable them all together you can use the `disabled` setting in your `tlint.json` config.
+If you want to roll these out gradually or disable them altogether, you can use the `disabled` setting in your `tlint.json` config.
 
 ### Upgrading from 6.x to 7.x
 
