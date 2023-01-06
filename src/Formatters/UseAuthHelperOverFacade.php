@@ -148,7 +148,7 @@ class UseAuthHelperOverFacade extends BaseFormatter
                     return null;
                 }
 
-                if (! $this->useAuthFacade && $node->class->toString() === 'Auth') {
+                if ($this->useAuthFacade && $node->class->toString() !== 'Auth') {
                     return null;
                 }
 

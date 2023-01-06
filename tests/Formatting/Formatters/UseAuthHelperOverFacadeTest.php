@@ -48,6 +48,8 @@ use Illuminate\Support\Facades\Auth;
 echo Auth::user()->name;
 echo Auth::user()->projects()->count();
 Auth::login($user);
+
+RateLimiter::clear($this->throttleKey());
 file;
 
         $correctlyFormatted = <<<'file'
@@ -57,6 +59,8 @@ use Illuminate\Support\Facades\Auth;
 echo auth()->user()->name;
 echo auth()->user()->projects()->count();
 auth()->login($user);
+
+RateLimiter::clear($this->throttleKey());
 file;
 
         $formatted = (new TFormat())->format(
