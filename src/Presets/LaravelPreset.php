@@ -3,6 +3,7 @@
 namespace Tighten\TLint\Presets;
 
 use Tighten\TLint\Linters;
+use Tighten\TLint\Formatters;
 
 class LaravelPreset implements PresetInterface
 {
@@ -15,14 +16,12 @@ class LaravelPreset implements PresetInterface
             Linters\MailableMethodsInBuild::class,
             Linters\NoDatesPropertyOnModels::class,
             Linters\NoLeadingSlashesOnRoutePaths::class,
-            Linters\NoParensEmptyInstantiations::class,
             Linters\NoSpaceAfterBladeDirectives::class,
             Linters\OneLineBetweenClassVisibilityChanges::class,
             Linters\QualifiedNamesOnlyForClassName::class,
             Linters\RemoveLeadingSlashNamespaces::class,
             Linters\RequestHelperFunctionWherePossible::class,
             Linters\RequestValidation::class,
-            Linters\RestControllersMethodOrder::class,
             Linters\SpaceAfterBladeDirectives::class,
             Linters\SpacesAroundBladeRenderContent::class,
             Linters\UseAuthHelperOverFacade::class,
@@ -32,7 +31,19 @@ class LaravelPreset implements PresetInterface
     public function getFormatters(): array
     {
         return [
+            Formatters\ArrayParametersOverViewWith::class,
             Formatters\FullyQualifiedFacades::class,
+            Formatters\MailableMethodsInBuild::class,
+            Formatters\NoDatesPropertyOnModels::class,
+            Formatters\NoLeadingSlashesOnRoutePaths::class,
+            Formatters\NoSpaceAfterBladeDirectives::class,
+            Formatters\OneLineBetweenClassVisibilityChanges::class,
+            Formatters\RemoveLeadingSlashNamespaces::class,
+            Formatters\RequestHelperFunctionWherePossible::class,
+            Formatters\RequestValidation::class,
+            Formatters\SpaceAfterBladeDirectives::class,
+            Formatters\SpacesAroundBladeRenderContent::class,
+            Formatters\UseAuthHelperOverFacade::class,
         ];
     }
 }

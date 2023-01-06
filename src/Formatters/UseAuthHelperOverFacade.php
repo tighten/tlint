@@ -64,7 +64,7 @@ class UseAuthHelperOverFacade extends BaseFormatter
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public function format(Parser $parser, Lexer $lexer)
+    public function format(Parser $parser, Lexer $lexer): string
     {
         if ($this->bladeCode) {
             return $this->formatBlade($parser, $lexer);

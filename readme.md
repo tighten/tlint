@@ -19,6 +19,11 @@ composer global require tightenco/tlint
 composer global update tightenco/tlint
 ```
 
+### Upgrading from 7.x to 8.x
+
+A significant number of formatters were added between the 7.x and 8.x releases.
+If you want to roll these out gradually or disable them altogether, you can use the `disabled` setting in your `tlint.json` config.
+
 ### Upgrading from 6.x to 7.x
 
 TLint focuses on linting and formatting issues other tools are not able to catch.
@@ -146,7 +151,6 @@ class Preset implements PresetInterface
   {
     return [
       CustomLinter::class,
-      ModelMethodOrder::class,
     ];
   }
 
@@ -204,13 +208,10 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
 | `FullyQualifiedFacades` | Import facades using their full namespace. |
 | `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
-| `ModelMethodOrder` | Model method order should be: booting > boot > booted > custom_static > relationships > scopes > accessors > mutators > custom |
 | `NoDatesPropertyOnModels` | The `$dates` property was deprecated in Laravel 8. Use `$casts` instead. |
 | `NoDocBlocksForMigrationUpDown` | Remove doc blocks from the up and down method in migrations. |
 | `NoJsonDirective` | Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{!! json_encode($var) !!}">` |
 | `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
-| `NoMethodVisibilityInTests` | There should be no method visibility in test methods. [ref](https://github.com/tighten/tlint/issues/106#issuecomment-537952774) |
-| `NoParensEmptyInstantiations` | No parenthesis on empty instantiations |
 | `NoRequestAll` | No `request()->all()`. Use `request()->only(...)` to retrieve specific input values. |
 | `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening paren:`@section (` -> `@section(` |
 | `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line |
@@ -219,24 +220,17 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `RemoveLeadingSlashNamespaces` | Prefer `Namespace\...` over `\Namespace\...`. |
 | `RequestHelperFunctionWherePossible` | Use the request(...) helper function directly to access request values wherever possible |
 | `RequestValidation` | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
-| `RestControllersMethodOrder` | REST methods in controllers should match the ordering here: https://laravel.com/docs/controllers#restful-partial-resource-routes |
 | `SpaceAfterBladeDirectives` | Put a space between blade control structure names and the opening paren:`@if(` -> `@if (` |
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
-| `ViewWithOverArrayParameters` | Prefer `view(...)->with(...)` over `view(..., [...])`. |
 <!-- /linters -->
 
 ### General PHP
 
-- `NoParensEmptyInstantiations`
 - `OneLineBetweenClassVisibilityChanges`
 - `QualifiedNamesOnlyForClassName`
 - `RemoveLeadingSlashNamespaces`
-
-### PHPUnit
-
-- `NoMethodVisibilityInTests`
 
 ### Laravel
 
@@ -245,18 +239,15 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `FullyQualifiedFacades`
 - `MailableMethodsInBuild`
 - `NoLeadingSlashesOnRoutePaths`
-- `ModelMethodOrder`
 - `NoDocBlocksForMigrationUpDown`
 - `NoJsonDirective`
 - `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
 - `PureRestControllers`
 - `RequestHelperFunctionWherePossible`
 - `RequestValidation`
-- `RestControllersMethodOrder`
 - `SpacesAroundBladeRenderContent`
 - `UseAnonymousMigrations`
 - `UseAuthHelperOverFacade`
-- `ViewWithOverArrayParameters`
 
 ## Available Formatters (Beta)
 
@@ -273,14 +264,14 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
 | `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
 | `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
-| `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening parenthesis. |
-| `RemoveLeadingSlashNamespaces` | Prefer `Namespace\...` over `\Namespace\...`. |
 | `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
-| `RequestHelperFunctionWherePossible` | Use the request(...) helper function directly to access request values wherever possible. |
-| `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line. |
+| `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening paren:`@section (` -> `@section(` |
+| `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line |
+| `RemoveLeadingSlashNamespaces` | Prefer `Namespace\...` over `\Namespace\...`. |
+| `RequestHelperFunctionWherePossible` | Use the request(...) helper function directly to access request values wherever possible |
 | `RequestValidation` | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
-| `SpaceAfterBladeDirectives` | Puts a space between blade control structure names and the opening parenthesis |
-| `SpacesAroundBladeRenderContent` | Spaces around blade rendered content. |
+| `SpaceAfterBladeDirectives` | Put a space between blade control structure names and the opening paren:`@if(` -> `@if (` |
+| `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
 <!-- /formatters -->
@@ -297,8 +288,8 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `MailableMethodsInBuild`
 - `NoDatesPropertyOnModels`
 - `NoDocBlocksForMigrationUpDown`
-- `NoSpaceAfterBladeDirectives`
 - `NoLeadingSlashesOnRoutePaths`
+- `NoSpaceAfterBladeDirectives`
 - `RequestHelperFunctionWherePossible`
 - `RequestValidation`
 - `SpaceAfterBladeDirectives`

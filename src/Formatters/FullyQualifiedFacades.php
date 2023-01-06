@@ -21,7 +21,7 @@ class FullyQualifiedFacades extends BaseFormatter
 
     public const DESCRIPTION = 'Import facades using their full namespace.';
 
-    public function format(Parser $parser, Lexer $lexer)
+    public function format(Parser $parser, Lexer $lexer): string
     {
         $traverser = new NodeTraverser();
         $traverser->addVisitor(new CloningVisitor());

@@ -16,7 +16,7 @@ class NoDocBlocksForMigrationUpDown extends BaseFormatter
 
     public const DESCRIPTION = 'Removes doc blocks from the up and down method in migrations.';
 
-    public function format(Parser $parser, Lexer $lexer)
+    public function format(Parser $parser, Lexer $lexer): string
     {
         $oldStmts = $parser->parse($this->code);
 

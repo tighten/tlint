@@ -25,7 +25,7 @@ class NoDatesPropertyOnModels extends BaseFormatter
 
     public const DESCRIPTION = 'Use `$casts` instead of `$dates` on Eloquent models.';
 
-    public function format(Parser $parser, Lexer $lexer)
+    public function format(Parser $parser, Lexer $lexer): string
     {
         $traverser = new NodeTraverser();
         $traverser->addVisitor(new CloningVisitor());
