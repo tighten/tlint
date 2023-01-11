@@ -43,12 +43,14 @@ file;
 <?php
 
 echo \Auth::user()->name;
+echo \SomeOther\Class\Auth::user()->name;
 file;
 
         $correctlyFormatted = <<<'file'
 <?php
 
 echo Auth::user()->name;
+echo SomeOther\Class\Auth::user()->name;
 file;
 
         $formatted = (new TFormat())->format(
@@ -65,12 +67,14 @@ file;
 <?php
 
 echo new \User();
+echo new \SomeOther\Class\AuthUser();
 file;
 
         $correctlyFormatted = <<<'file'
 <?php
 
 echo new User();
+echo new SomeOther\Class\AuthUser();
 file;
 
         $formatted = (new TFormat())->format(
@@ -78,6 +82,33 @@ file;
         );
 
         $this->assertEquals($correctlyFormatted, $formatted);
+    }
+
+    /** @test */
+    public function does_not_catch_false_positives()
+    {
+        $file = <<<'file'
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        Validator::extend('recaptcha', 'App\Validators\ReCaptchaValidator@validate');
+    }
+}
+file;
+
+        $formatted = (new TFormat())->format(
+            new RemoveLeadingSlashNamespaces($file, '.php')
+        );
+
+        $this->assertEquals($file, $formatted);
     }
 
     /** @test */
