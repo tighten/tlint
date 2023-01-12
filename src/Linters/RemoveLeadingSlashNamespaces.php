@@ -18,21 +18,37 @@ class RemoveLeadingSlashNamespaces extends BaseLinter
         $traverser = new NodeTraverser();
 
         $classVisitor = new FindingVisitor(function (Node $node) {
-            return (
-                $node instanceof Node\Expr\New_
-                || $node instanceof Node\Expr\StaticCall
-                || $node instanceof Node\Expr\ClassConstFetch
-            )
-                && $node->class instanceof Node\Name
-                && Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->class->toString())
-                && (! Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->class->toString() . '::class')
-                || Str::contains($this->codeLines[$node->getLine() - 1], 'factory'));
+            if (! $node instanceof Node\Expr\New_
+                && ! $node instanceof Node\Expr\StaticCall
+                && ! $node instanceof Node\Expr\ClassConstFetch
+            ) {
+                return false;
+            }
+
+            if (! $node->class instanceof Node\Name) {
+                return false;
+            }
+
+            if (Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->class->toString() . '::class')
+                && ! Str::contains($this->codeLines[$node->getLine() - 1], 'factory')
+            ) {
+                return false;
+            }
+
+            return Str::matchAll('/(' . preg_quote('\\' . $node->class->toString()) . ')[(:@]{1}/', $this->codeLines[$node->getLine() - 1])
+                ->isNotEmpty();
         });
 
         $useStatementsVisitor = new FindingVisitor(function (Node $node) {
-            return $node instanceof Node\Stmt\UseUse
-                && $node->name instanceof Node\Name
-                && Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->name->toString());
+            if (! $node instanceof Node\Stmt\UseUse) {
+                return false;
+            }
+
+            if (! $node->name instanceof Node\Name) {
+                return false;
+            }
+
+            return Str::contains($this->codeLines[$node->getLine() - 1], '\\' . $node->name->toString());
         });
 
         $traverser->addVisitor($classVisitor);
