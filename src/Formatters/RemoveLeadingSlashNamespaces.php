@@ -10,6 +10,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
+use PhpParser\PrettyPrinter\Standard;
 use Tighten\TLint\BaseFormatter;
 use Tighten\TLint\Linters\RemoveLeadingSlashNamespaces as Linter;
 
@@ -37,15 +38,44 @@ class RemoveLeadingSlashNamespaces extends BaseFormatter
         $traverser->addVisitor($useStatementsVisitor);
         $traverser->addVisitor($classVisitor);
 
-        $newStmts = $traverser->traverse($newStmts);
+        $traverser->traverse($newStmts);
 
         $replacements = $useStatementsVisitor->getReplacements() + $classVisitor->getReplacements();
+
+        $imports = $classVisitor->getNewUseStatements();
 
         collect($replacements)->each(function ($replacement, $line) {
             $this->code = $this->replaceCodeLine($line, $replacement);
         });
 
-        return $this->code;
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new CloningVisitor());
+
+        $oldStmts = $parser->parse($this->code);
+        $oldTokens = $lexer->getTokens();
+
+        $newStmts = $traverser->traverse($oldStmts);
+
+        $newStmts = collect($newStmts)->map(function($stmts) use ($imports) {
+            if ($stmts instanceof Node\Stmt\Namespace_) {
+
+                $originalImports = collect($stmts->stmts)->flatMap(function ($node) {
+                    if ($node instanceof Node\Stmt\GroupUse || $node instanceof Node\Stmt\Use_) {
+                        return collect($node->uses)->map(fn ($use) => $use->name->toString())->toArray();
+                    }
+                });
+
+                $imports = collect($imports)->diff($originalImports)->map(function($import) {
+                    return new Node\Stmt\Use_([new Node\Stmt\UseUse(new Node\Name($import))]);
+                })->toArray();
+
+                $stmts->stmts = [...$imports, ...$stmts->stmts];
+            }
+
+            return $stmts;
+        })->filter()->toArray();
+
+        return (new Standard)->printFormatPreserving($newStmts, $oldStmts, $oldTokens);
     }
 
     private function useStatementVisitor($codeLines): NodeVisitorAbstract
@@ -91,6 +121,8 @@ class RemoveLeadingSlashNamespaces extends BaseFormatter
         {
             public $replaceLines = [];
 
+            public $useStatements = [];
+
             private $codeLines = [];
 
             public function __construct($codeLines)
@@ -101,6 +133,18 @@ class RemoveLeadingSlashNamespaces extends BaseFormatter
             public function getReplacements()
             {
                 return $this->replaceLines;
+            }
+
+            public function getNewUseStatements()
+            {
+                return $this->useStatements;
+            }
+
+            public function beforeTraverse(array $nodes)
+            {
+                $this->useStatements = [];
+
+                return null;
             }
 
             public function enterNode(Node $node): Node|int|null
@@ -123,7 +167,10 @@ class RemoveLeadingSlashNamespaces extends BaseFormatter
                 }
 
                 Str::matchAll('/(' . preg_quote('\\' . $node->class->toString()) . ')[(:@]{1}/', $this->codeLines[$node->getLine() - 1])
-                    ->each(fn($match) => $this->replaceLines[$node->getLine()] = Str::replace($match, $node->class->toString(), $this->codeLines[$node->getLine() - 1]));
+                    ->each(function($match) use ($node) {
+                        $this->useStatements[] = $node->class->toString();
+                        $this->replaceLines[$node->getLine()] = Str::replace($match, $node->class->toString(), $this->codeLines[$node->getLine() - 1]);
+                    });
 
                 return $node;
             }

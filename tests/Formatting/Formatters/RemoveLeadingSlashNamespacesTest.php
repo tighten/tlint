@@ -14,19 +14,35 @@ class RemoveLeadingSlashNamespacesTest extends TestCase
         $file = <<<file
 <?php
 
+namespace App;
+
 use \Tighten\TLint;
 use \PHPUnit\Framework\TestCase;
 
-echo test;
+class TestClass
+{
+    public function test()
+    {
+        echo test;
+    }
+}
 file;
 
         $correctlyFormatted = <<<'file'
 <?php
 
+namespace App;
+
 use Tighten\TLint;
 use PHPUnit\Framework\TestCase;
 
-echo test;
+class TestClass
+{
+    public function test()
+    {
+        echo test;
+    }
+}
 file;
 
         $formatted = (new TFormat())->format(
@@ -39,18 +55,47 @@ file;
     /** @test */
     public function catches_leading_slashes_in_static_calls()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
-echo \Auth::user()->name;
-echo \SomeOther\Class\Auth::user()->name;
+namespace App;
+
+use Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        $name = \Auth::user()->name;
+        $realName = \SomeOther\Class\Auth::user()->name;
+
+        $zip = new \ZipArchive;
+    }
+}
 file;
 
         $correctlyFormatted = <<<'file'
 <?php
 
-echo Auth::user()->name;
-echo SomeOther\Class\Auth::user()->name;
+namespace App;
+
+use SomeOther\Class\Auth;
+use Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        $name = Auth::user()->name;
+        $realName = SomeOther\Class\Auth::user()->name;
+
+        $zip = new \ZipArchive;
+    }
+}
 file;
 
         $formatted = (new TFormat())->format(
