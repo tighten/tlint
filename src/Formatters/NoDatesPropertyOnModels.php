@@ -27,13 +27,13 @@ class NoDatesPropertyOnModels extends BaseFormatter
 
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor(new CloningVisitor());
+        $traverser = new NodeTraverser;
+        $traverser->addVisitor(new CloningVisitor);
 
         $originalStatements = $parser->parse($this->code);
         $statements = $traverser->traverse($originalStatements);
 
-        $nodeFinder = new NodeFinder();
+        $nodeFinder = new NodeFinder;
         $dates = $nodeFinder->findFirst($statements, $this->nodeFinderForModelProperty('dates'));
         $casts = $nodeFinder->findFirst($statements, $this->nodeFinderForModelProperty('casts'));
 
@@ -116,7 +116,7 @@ class NoDatesPropertyOnModels extends BaseFormatter
 
     private function printer(): Standard
     {
-        return new class() extends Standard
+        return new class extends Standard
         {
             // Force all arrays to be printed in multiline style
             protected function pMaybeMultiline(array $nodes, bool $trailingComma = true)

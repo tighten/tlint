@@ -20,7 +20,7 @@ use \PHPUnit\Framework\TestCase;
 echo test;
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RemoveLeadingSlashNamespaces($file)
         );
 
@@ -37,7 +37,7 @@ file;
 echo \Auth::user()->name;
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RemoveLeadingSlashNamespaces($file)
         );
 
@@ -53,7 +53,7 @@ file;
 echo new \User();
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RemoveLeadingSlashNamespaces($file)
         );
 
@@ -81,7 +81,7 @@ class Relationships
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RemoveLeadingSlashNamespaces($file)
         );
 
@@ -102,7 +102,7 @@ class User extends BaseResource
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RemoveLeadingSlashNamespaces($file)
         );
 
@@ -123,7 +123,7 @@ file;
 });
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RemoveLeadingSlashNamespaces($file)
         );
 

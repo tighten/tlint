@@ -15,7 +15,7 @@ class SpacesAroundBladeRenderContentTest extends TestCase
         {{1 + 1}}
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -29,7 +29,7 @@ file;
 {{ 1 + 1 }} {{1 + 1}}
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -43,7 +43,7 @@ file;
         {{1 + 1    }}
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -57,7 +57,7 @@ file;
         {!!$a!!}
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -71,7 +71,7 @@ file;
         {!! $a !!}
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -85,7 +85,7 @@ file;
         {{ 1 + 1 }}
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -101,7 +101,7 @@ file;
         }}
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -115,7 +115,7 @@ file;
 {{-- This comment will not be present in the rendered HTML --}}
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpacesAroundBladeRenderContent($file)
         );
 

@@ -5,6 +5,11 @@ namespace Tighten\TLint\Formatters;
 use Closure;
 use PhpParser\Lexer;
 use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Name;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\NodeVisitorAbstract;
@@ -24,22 +29,22 @@ class ArrayParametersOverViewWith extends BaseFormatter
 
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor(new CloningVisitor());
+        $traverser = new NodeTraverser;
+        $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
 
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
         $traverser->addVisitor($this->visitor());
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\r?\n/', PHP_EOL, (new Standard())->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
     }
 
     private function visitor(): NodeVisitorAbstract
     {
-        return new class() extends NodeVisitorAbstract
+        return new class extends NodeVisitorAbstract
         {
             public $viewWith = [];
 
@@ -72,17 +77,17 @@ class ArrayParametersOverViewWith extends BaseFormatter
                     return null;
                 }
 
-                return new Node\Expr\FuncCall(
-                    new Node\Name('view'),
+                return new FuncCall(
+                    new Name('view'),
                     [
                         $node->getArgs()[0],
-                        new Node\Arg(new Node\Expr\Array_(array_map(function ($viewWith) {
-                            return new Node\Expr\ArrayItem(
+                        new Arg(new Array_(array_map(function ($viewWith) {
+                            return new ArrayItem(
                                 $viewWith[1]->value,
                                 $viewWith[0]->value,
                             );
                         }, array_reverse($this->viewWith)), [
-                            'kind' => Node\Expr\Array_::KIND_SHORT,
+                            'kind' => Array_::KIND_SHORT,
                         ])),
                     ]
                 );

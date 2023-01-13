@@ -13,8 +13,8 @@ class CanOutputLintsAsJsonTest extends TestCase
     /** @test */
     public function can_use_json_flag_with_lints()
     {
-        $application = new Application();
-        $command = new LintCommand();
+        $application = new Application;
+        $command = new LintCommand;
         $application->add($command);
         $commandTester = new CommandTester($command);
 
@@ -55,8 +55,8 @@ file;
     /** @test */
     public function can_use_json_flag_without_lints()
     {
-        $application = new Application();
-        $command = new LintCommand();
+        $application = new Application;
+        $command = new LintCommand;
         $application->add($command);
         $commandTester = new CommandTester($command);
 

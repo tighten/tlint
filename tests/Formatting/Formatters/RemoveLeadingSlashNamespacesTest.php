@@ -45,7 +45,7 @@ class TestClass
 }
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new RemoveLeadingSlashNamespaces($file, '.php')
         );
 
@@ -80,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
 }
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new RemoveLeadingSlashNamespaces($file, '.php')
         );
 

@@ -26,22 +26,22 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
 
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor(new CloningVisitor());
+        $traverser = new NodeTraverser;
+        $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
 
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
         $traverser->addVisitor($this->visitor());
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\ *\r?\n/', PHP_EOL, (new Standard())->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\ *\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
     }
 
     private function visitor(): NodeVisitorAbstract
     {
-        return new class() extends NodeVisitorAbstract
+        return new class extends NodeVisitorAbstract
         {
             private $previousNode;
 

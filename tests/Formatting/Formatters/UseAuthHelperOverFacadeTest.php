@@ -31,7 +31,7 @@ file;
 @endif
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new UseAuthHelperOverFacade($file, '.blade.php')
         );
 
@@ -63,7 +63,7 @@ auth()->login($user);
 RateLimiter::clear($this->throttleKey());
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -81,7 +81,7 @@ use Some\Other\AuthClass as Auth;
 echo Auth::user()->name;
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -97,7 +97,7 @@ file;
 echo Auth::nonFacadeMethod()->value;
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -115,7 +115,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -143,7 +143,7 @@ class Relationships
 }
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -167,7 +167,7 @@ class Test
 }
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -183,7 +183,7 @@ file;
 </x-main-layout>
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new UseAuthHelperOverFacade($file, '.blade.php')
         );
 

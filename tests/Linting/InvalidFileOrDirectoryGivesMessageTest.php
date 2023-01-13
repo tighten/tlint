@@ -12,7 +12,7 @@ class InvalidFileOrDirectoryGivesMessageTest extends TestCase
     /** @test */
     public function gracefully_handles_non_existent_file()
     {
-        $application = new Application();
+        $application = new Application;
         $command = new LintCommand(__DIR__);
         $application->add($command);
         $commandTester = new CommandTester($command);
@@ -29,7 +29,7 @@ class InvalidFileOrDirectoryGivesMessageTest extends TestCase
     /** @test */
     public function gracefully_handles_non_existent_directory()
     {
-        $application = new Application();
+        $application = new Application;
         $command = new LintCommand(__DIR__);
         $application->add($command);
         $commandTester = new CommandTester($command);

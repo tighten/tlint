@@ -19,7 +19,7 @@ Route::get('/home', function () {
 });
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new NoLeadingSlashesOnRoutePaths($file)
         );
 
@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new NoLeadingSlashesOnRoutePaths($file)
         );
 
@@ -57,7 +57,7 @@ Route::get('/', function () {
 });
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new NoLeadingSlashesOnRoutePaths($file)
         );
 
@@ -75,7 +75,7 @@ Route::get('/', function ($class) {
 });
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new NoLeadingSlashesOnRoutePaths($file)
         );
 

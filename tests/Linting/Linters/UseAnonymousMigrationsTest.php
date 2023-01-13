@@ -31,7 +31,7 @@ class CreateBuyRequestsTable extends Migration
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new UseAnonymousMigrations($file)
         );
 
@@ -61,7 +61,7 @@ return new class extends Migration
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new UseAnonymousMigrations($file)
         );
 

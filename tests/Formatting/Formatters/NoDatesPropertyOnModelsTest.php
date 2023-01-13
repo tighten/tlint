@@ -33,7 +33,7 @@ class Post extends Model
 }
 file;
 
-        $this->assertSame($expected, (new TFormat())->format(new NoDatesPropertyOnModels($file)));
+        $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
     }
 
     /** @test */
@@ -66,7 +66,7 @@ class Post extends Model
 }
 file;
 
-        $this->assertSame($expected, (new TFormat())->format(new NoDatesPropertyOnModels($file)));
+        $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
     }
 
     /**
@@ -100,7 +100,7 @@ class Page extends Model
 }
 file;
 
-        $this->assertSame($expected, (new TFormat())->format(new NoDatesPropertyOnModels($file)));
+        $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
     }
 
     /** @test */
@@ -126,7 +126,7 @@ class User extends Authenticatable
 }
 file;
 
-        $this->assertSame($expected, (new TFormat())->format(new NoDatesPropertyOnModels($file)));
+        $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
     }
 
     /** @test */
@@ -153,7 +153,7 @@ class User extends Authenticatable
 }
 file;
 
-        $this->assertSame($expected, (new TFormat())->format(new NoDatesPropertyOnModels($file)));
+        $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
     }
 
     /** @test */
@@ -187,7 +187,7 @@ class User extends Authenticatable
 }
 file;
 
-        $this->assertSame($expected, (new TFormat())->format(new NoDatesPropertyOnModels($file)));
+        $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
     }
 
     /** @test */
@@ -216,6 +216,6 @@ class User extends Authenticatable
 }
 file;
 
-        $this->assertSame($expected, (new TFormat())->format(new NoDatesPropertyOnModels($file)));
+        $this->assertSame($expected, (new TFormat)->format(new NoDatesPropertyOnModels($file)));
     }
 }

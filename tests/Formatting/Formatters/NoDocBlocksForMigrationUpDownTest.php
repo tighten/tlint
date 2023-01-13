@@ -43,7 +43,7 @@ class CreateBuyRequestsTable extends Migration
 
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new NoDocBlocksForMigrationUpDown($file)
         );
 
@@ -93,7 +93,7 @@ class CreateBuyRequestsTable extends Migration
 
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new NoDocBlocksForMigrationUpDown($file)
         );
 

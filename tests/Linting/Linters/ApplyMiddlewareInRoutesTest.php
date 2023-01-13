@@ -26,7 +26,7 @@ class BuyRequestController extends Controller
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new ApplyMiddlewareInRoutes($file)
         );
 
@@ -51,7 +51,7 @@ class BuyRequestController extends Controller
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new ApplyMiddlewareInRoutes($file)
         );
 

@@ -5,6 +5,8 @@ namespace Tighten\TLint\Formatters;
 use Closure;
 use PhpParser\Lexer;
 use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Name;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\NodeVisitorAbstract;
@@ -24,24 +26,24 @@ class RequestHelperFunctionWherePossible extends BaseFormatter
 
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor(new CloningVisitor());
+        $traverser = new NodeTraverser;
+        $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
 
         $visitor = $this->visitor();
 
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
         $traverser->addVisitor($visitor);
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\r?\n/', PHP_EOL, (new Standard())->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
     }
 
     private function visitor(): NodeVisitorAbstract
     {
-        return new class() extends NodeVisitorAbstract
+        return new class extends NodeVisitorAbstract
         {
             public $requestGet = null;
 
@@ -74,8 +76,8 @@ class RequestHelperFunctionWherePossible extends BaseFormatter
                     return null;
                 }
 
-                return new Node\Expr\FuncCall(
-                    new Node\Name('request'),
+                return new FuncCall(
+                    new Name('request'),
                     [
                         $this->requestGet,
                     ]

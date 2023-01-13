@@ -13,25 +13,25 @@ class ConfigTest extends TestCase
     /** @test */
     public function tighten_preset_can_get_linters()
     {
-        $this->assertNotEmpty((new TightenPreset())->getLinters());
+        $this->assertNotEmpty((new TightenPreset)->getLinters());
     }
 
     /** @test */
     public function tighten_preset_can_get_formatters()
     {
-        $this->assertNotEmpty((new TightenPreset())->getFormatters());
+        $this->assertNotEmpty((new TightenPreset)->getFormatters());
     }
 
     /** @test */
     public function laravel_preset_can_get_linters()
     {
-        $this->assertNotEmpty((new LaravelPreset())->getLinters());
+        $this->assertNotEmpty((new LaravelPreset)->getLinters());
     }
 
     /** @test */
     public function laravel_preset_can_get_formatters()
     {
-        $this->assertIsArray((new LaravelPreset())->getFormatters());
+        $this->assertIsArray((new LaravelPreset)->getFormatters());
     }
 
     /** @test */

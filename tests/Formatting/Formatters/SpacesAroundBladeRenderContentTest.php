@@ -19,7 +19,7 @@ file;
 {{ 1 + 1 }}
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -37,7 +37,7 @@ file;
 {{ 1 + 1 }} {{ 1 + 1 }}
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -55,7 +55,7 @@ file;
 {{ 1 + 1 }}
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -73,7 +73,7 @@ file;
 {!! $a !!}
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -87,7 +87,7 @@ file;
 {!! $a !!}
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -101,7 +101,7 @@ file;
 {{ 1 + 1 }}
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -117,7 +117,7 @@ file;
 }}
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -131,7 +131,7 @@ file;
 {{-- This comment will not be present in the rendered HTML --}}
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpacesAroundBladeRenderContent($file)
         );
 
@@ -162,7 +162,7 @@ file;
 </div>
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpacesAroundBladeRenderContent($file)
         );
 

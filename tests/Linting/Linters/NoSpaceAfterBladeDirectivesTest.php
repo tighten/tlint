@@ -21,7 +21,7 @@ class NoSpaceAfterBladeDirectivesTest extends TestCase
         </div>
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new NoSpaceAfterBladeDirectives($file)
         );
 

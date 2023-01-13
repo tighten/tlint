@@ -23,15 +23,15 @@ class RemoveLeadingSlashNamespaces extends BaseFormatter
 
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor(new CloningVisitor());
+        $traverser = new NodeTraverser;
+        $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
 
         $useStatementsVisitor = $this->useStatementVisitor($this->getCodeLines());
 
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
         $traverser->addVisitor($useStatementsVisitor);
 
         $traverser->traverse($newStmts);

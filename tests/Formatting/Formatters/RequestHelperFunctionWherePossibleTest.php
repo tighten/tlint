@@ -39,7 +39,7 @@ class Controller
 }
 file;
 
-        $formatted = (new TFormat())->format(new RequestHelperFunctionWherePossible($file));
+        $formatted = (new TFormat)->format(new RequestHelperFunctionWherePossible($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -65,7 +65,7 @@ class Controller
 }
 file;
 
-        $formatted = (new TFormat())->format(new RequestHelperFunctionWherePossible($file));
+        $formatted = (new TFormat)->format(new RequestHelperFunctionWherePossible($file));
 
         $this->assertSame($file, $formatted);
     }

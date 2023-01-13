@@ -12,9 +12,9 @@ class ParseErrorDoesNotFormatTest extends TestCase
     /** @test */
     public function gracefully_handles_parse_error()
     {
-        $application = new Application();
+        $application = new Application;
 
-        $command = new FormatCommand();
+        $command = new FormatCommand;
         $application->add($command);
         $commandTester = new CommandTester($command);
 

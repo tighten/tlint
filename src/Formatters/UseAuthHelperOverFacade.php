@@ -4,6 +4,7 @@ namespace Tighten\TLint\Formatters;
 
 use PhpParser\Lexer;
 use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name;
 use PhpParser\NodeTraverser;
@@ -105,23 +106,23 @@ class UseAuthHelperOverFacade extends BaseFormatter
 
     private function formatCode(string $code, Parser $parser, Lexer $lexer)
     {
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor(new CloningVisitor());
+        $traverser = new NodeTraverser;
+        $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($code);
         $newStmts = $traverser->traverse($oldStmts);
 
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
         $traverser->addVisitor($this->visitor());
 
         $newStmts = $traverser->traverse($newStmts);
 
-        return (new Standard())->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens());
+        return (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens());
     }
 
     private function visitor(): NodeVisitorAbstract
     {
-        return new class() extends NodeVisitorAbstract
+        return new class extends NodeVisitorAbstract
         {
             private bool $useAuthFacade = false;
 
@@ -160,7 +161,7 @@ class UseAuthHelperOverFacade extends BaseFormatter
                     return null;
                 }
 
-                return new MethodCall(new Node\Expr\FuncCall(new Name('auth')), $node->name, $node->args);
+                return new MethodCall(new FuncCall(new Name('auth')), $node->name, $node->args);
             }
         };
     }

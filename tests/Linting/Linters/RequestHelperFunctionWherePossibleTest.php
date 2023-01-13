@@ -25,7 +25,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RequestHelperFunctionWherePossible($file)
         );
 
@@ -42,7 +42,7 @@ file;
         ->column();
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RequestHelperFunctionWherePossible($file)
         );
 

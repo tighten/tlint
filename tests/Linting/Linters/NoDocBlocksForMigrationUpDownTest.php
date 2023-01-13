@@ -43,7 +43,7 @@ class CreateBuyRequestsTable extends Migration
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new NoDocBlocksForMigrationUpDown($file)
         );
 
