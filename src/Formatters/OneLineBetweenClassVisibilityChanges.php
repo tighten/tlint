@@ -54,6 +54,12 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
 
             public function enterNode(Node $node)
             {
+                if ($node instanceof Node\Stmt\Class_) {
+                    $this->previousNode = null;
+
+                    return null;
+                }
+
                 if (! $node instanceof ClassConst && ! $node instanceof Property) {
                     return null;
                 }
