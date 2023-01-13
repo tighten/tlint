@@ -20,7 +20,8 @@
     "require-dev": {
         "phpunit/phpunit": "^9.0",
         "spatie/ray": "^1.36",
-        "symfony/var-dumper": "^5.0"
+        "symfony/var-dumper": "^5.0",
+        "tightenco/duster": "^0.5.5"
     },
     "autoload": {
         "psr-4": {
@@ -44,6 +45,12 @@
             "composer create-project laravel/laravel ./tests/fixtures/laravel",
             "echo '{\"preset\":\"laravel\"}' > ./tests/fixtures/laravel/tlint.json",
             "rm -rf ./tests/fixtures/laravel/composer.lock"
+        ],
+        "lint": [
+            "vendor/bin/duster"
+        ],
+        "fix": [
+            "vendor/bin/duster --fix"
         ]
     },
     "config": {

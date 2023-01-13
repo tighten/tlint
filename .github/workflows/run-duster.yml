@@ -1,0 +1,14 @@
+name: Run Duster
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  duster:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: "Duster"
+        uses: tighten/duster-action@v1
