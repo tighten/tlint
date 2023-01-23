@@ -19,7 +19,7 @@ class SpaceAfterBladeDirectivesTest extends TestCase
 @endif
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -43,7 +43,7 @@ file;
 @endunless
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -65,7 +65,7 @@ file;
 @endfor
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -87,7 +87,7 @@ file;
 @endforeach
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -111,7 +111,7 @@ file;
 @endforelse
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -135,7 +135,7 @@ file;
 @endwhile
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -157,7 +157,7 @@ file;
 @endforeach
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -201,7 +201,7 @@ file;
 @endwhile
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new SpaceAfterBladeDirectives($file)
         );
 

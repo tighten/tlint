@@ -14,7 +14,7 @@ class QualifiedNamesOnlyForClassName extends BaseLinter
 
     public function lint(Parser $parser)
     {
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
 
         $fqcnExtends = new FindingVisitor(function (Node $node) {
             return $node instanceof Node\Stmt\Class_

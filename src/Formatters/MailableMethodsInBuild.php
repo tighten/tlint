@@ -4,6 +4,7 @@ namespace Tighten\TLint\Formatters;
 
 use PhpParser\Lexer;
 use PhpParser\Node;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\NodeVisitorAbstract;
@@ -23,30 +24,30 @@ class MailableMethodsInBuild extends BaseFormatter
 
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor(new CloningVisitor());
+        $traverser = new NodeTraverser;
+        $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($this->code);
         $newStmts = $traverser->traverse($oldStmts);
 
         $constructorVisitor = $this->constructorVisitor();
 
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
         $traverser->addVisitor($constructorVisitor);
         $newStmts = $traverser->traverse($newStmts);
 
         $buildVisitor = $this->buildVisitor($constructorVisitor->getMoveStmts());
 
-        $traverser = new NodeTraverser();
+        $traverser = new NodeTraverser;
         $traverser->addVisitor($buildVisitor);
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\r?\n/', PHP_EOL, (new Standard())->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
     }
 
     private function constructorVisitor(): NodeVisitorAbstract
     {
-        return new class() extends NodeVisitorAbstract
+        return new class extends NodeVisitorAbstract
         {
             private bool $extendsMailable = false;
 
@@ -103,7 +104,7 @@ class MailableMethodsInBuild extends BaseFormatter
                     return false;
                 })->toArray();
 
-                return new Node\Stmt\ClassMethod(
+                return new ClassMethod(
                     '__construct',
                     [
                         'flags' => $node->flags,
@@ -163,7 +164,7 @@ class MailableMethodsInBuild extends BaseFormatter
                     return null;
                 }
 
-                return new Node\Stmt\ClassMethod(
+                return new ClassMethod(
                     'build',
                     [
                         'flags' => $node->flags,

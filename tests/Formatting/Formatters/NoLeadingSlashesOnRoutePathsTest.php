@@ -27,7 +27,7 @@ Route::get('home', function () {
 });
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new NoLeadingSlashesOnRoutePaths($file, '.php')
         );
 
@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new NoLeadingSlashesOnRoutePaths($file, '.php')
         );
 
@@ -75,7 +75,7 @@ Route::get('/', function () {
 });
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new NoLeadingSlashesOnRoutePaths($file, '.php')
         );
 
@@ -93,7 +93,7 @@ Route::get('/', function ($class) {
 });
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new NoLeadingSlashesOnRoutePaths($file, '.php')
         );
 

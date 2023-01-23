@@ -19,7 +19,7 @@ class SpaceAfterBladeDirectivesTest extends TestCase
 @endif
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -36,7 +36,7 @@ file;
 @endunless
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -52,7 +52,7 @@ file;
 @endfor
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -68,7 +68,7 @@ file;
 @endforeach
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -86,7 +86,7 @@ file;
 @endforelse
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -102,7 +102,7 @@ file;
 @endwhile
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -118,7 +118,7 @@ file;
 @endforeach
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
         );
 
@@ -162,7 +162,7 @@ file;
 @endwhile
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
         );
 

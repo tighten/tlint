@@ -106,7 +106,7 @@ class LintCommand extends BaseCommand
             });
         }
 
-        $tighten = new TLint();
+        $tighten = new TLint;
 
         $lints = [];
 

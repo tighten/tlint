@@ -20,6 +20,6 @@ class BaseLinterTest extends TestCase
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Custom linters must override either the `lint` or `visitor` method.');
 
-        (new TLint())->lint($linter);
+        (new TLint)->lint($linter);
     }
 }

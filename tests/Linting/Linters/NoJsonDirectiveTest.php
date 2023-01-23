@@ -22,7 +22,7 @@ class NoJsonDirectiveTest extends TestCase
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new NoJsonDirective($file)
         );
 

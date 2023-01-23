@@ -39,7 +39,7 @@ class NoSpaceAfterBladeDirectivesTest extends TestCase
 @endauth
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new NoSpaceAfterBladeDirectives($file)
         );
 
@@ -111,7 +111,7 @@ file;
 @endwhile
 file;
 
-        $formatted = (new TFormat())->format(
+        $formatted = (new TFormat)->format(
             new NoSpaceAfterBladeDirectives($file)
         );
 

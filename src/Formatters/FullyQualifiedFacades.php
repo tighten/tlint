@@ -23,8 +23,8 @@ class FullyQualifiedFacades extends BaseFormatter
 
     public function format(Parser $parser, Lexer $lexer): string
     {
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor(new CloningVisitor());
+        $traverser = new NodeTraverser;
+        $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($this->code);
         $oldTokens = $lexer->getTokens();
@@ -37,7 +37,7 @@ class FullyQualifiedFacades extends BaseFormatter
             $newStmts = $this->transformFacadesToFullyQualified($newStmts);
         }
 
-        return (new Standard())->printFormatPreserving($newStmts, $oldStmts, $oldTokens);
+        return (new Standard)->printFormatPreserving($newStmts, $oldStmts, $oldTokens);
     }
 
     private function transformFacadesToFullyQualified(array $stmts)

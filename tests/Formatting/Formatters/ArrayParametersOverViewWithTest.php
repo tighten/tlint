@@ -39,7 +39,7 @@ class Controller
 }
 file;
 
-        $formatted = (new TFormat())->format(new ArrayParametersOverViewWith($file));
+        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -75,7 +75,7 @@ class Controller
 }
 file;
 
-        $formatted = (new TFormat())->format(new ArrayParametersOverViewWith($file));
+        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -114,7 +114,7 @@ class Controller
 }
 file;
 
-        $formatted = (new TFormat())->format(new ArrayParametersOverViewWith($file));
+        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -138,7 +138,7 @@ file;
 });
 file;
 
-        $formatted = (new TFormat())->format(new ArrayParametersOverViewWith($file));
+        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
 
         $this->assertSame($expected, $formatted);
     }
@@ -204,7 +204,7 @@ class Controller
 }
 file;
 
-        $formatted = (new TFormat())->format(new ArrayParametersOverViewWith($file));
+        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
 
         $this->assertSame($expected, $formatted);
     }

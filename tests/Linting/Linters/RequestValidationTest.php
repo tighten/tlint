@@ -27,7 +27,7 @@ class ControllerA extends Controller
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RequestValidation($file)
         );
 
@@ -51,7 +51,7 @@ class TestController extends Controller
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RequestValidation($file)
         );
 
@@ -75,7 +75,7 @@ class ControllerA extends Controller
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RequestValidation($file)
         );
 
@@ -100,7 +100,7 @@ class ControllerA extends Controller
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new RequestValidation($file)
         );
 

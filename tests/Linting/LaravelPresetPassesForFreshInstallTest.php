@@ -12,7 +12,7 @@ class LaravelPresetPassesForFreshInstallTest extends TestCase
     /** @test */
     public function no_lints_when_using_laravel_preset()
     {
-        $application = new Application();
+        $application = new Application;
         $command = new LintCommand(__DIR__ . '/../fixtures/laravel/');
         $application->add($command);
         $commandTester = new CommandTester($command);

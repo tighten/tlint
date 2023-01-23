@@ -20,7 +20,7 @@ use Cache;
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 
@@ -37,7 +37,7 @@ use Cache;
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 
@@ -54,7 +54,7 @@ use Cache as Store;
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 
@@ -73,7 +73,7 @@ use Illuminate\Support\Facades\Hash;
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 
@@ -92,7 +92,7 @@ use MyNamespace\MyClass as Config;
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 
@@ -111,7 +111,7 @@ use Illuminate\Support\Facades\{Config, Hash};
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 
@@ -132,7 +132,7 @@ use Some\Other\Namespace\File;
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 
@@ -151,7 +151,7 @@ use Shortcut;
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 
@@ -168,7 +168,7 @@ use Shortcut;
 
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 
@@ -192,7 +192,7 @@ class Stuff
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
         );
 

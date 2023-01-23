@@ -30,7 +30,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new PureRestControllers($file)
         );
 
@@ -59,7 +59,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new PureRestControllers($file)
         );
 

@@ -102,7 +102,7 @@ class FormatCommand extends BaseCommand
             });
         }
 
-        $tighten = new TFormat();
+        $tighten = new TFormat;
 
         $initialFileContents = file_get_contents($file);
         $formattedFileContents = $initialFileContents;

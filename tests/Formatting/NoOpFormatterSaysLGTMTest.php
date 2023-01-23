@@ -12,9 +12,9 @@ class NoOpFormatterSaysLGTMTest extends TestCase
     /** @test */
     public function no_op_says_lgtm()
     {
-        $application = new Application();
+        $application = new Application;
 
-        $command = new FormatCommand();
+        $command = new FormatCommand;
         $application->add($command);
         $commandTester = new CommandTester($command);
 

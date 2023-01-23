@@ -21,7 +21,7 @@ class UseAuthHelperOverFacadeTest extends TestCase
     @endif
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new UseAuthHelperOverFacade($file, '.blade.php')
         );
 
@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Auth;
 echo Auth::user()->name;
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -56,7 +56,7 @@ file;
     echo Auth::user()->name;
     file;
 
-            $lints = (new TLint())->lint(
+            $lints = (new TLint)->lint(
                 new UseAuthHelperOverFacade($file, '.php')
             );
 
@@ -72,7 +72,7 @@ file;
 echo Auth::nonFacadeMethod()->value;
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -90,7 +90,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -118,7 +118,7 @@ class Relationships
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -142,7 +142,7 @@ class Test
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new UseAuthHelperOverFacade($file, '.php')
         );
 
@@ -158,6 +158,6 @@ file;
 </x-main-layout>
 file;
 
-        $this->assertEmpty((new TLint())->lint(new UseAuthHelperOverFacade($file, '.blade.php')));
+        $this->assertEmpty((new TLint)->lint(new UseAuthHelperOverFacade($file, '.blade.php')));
     }
 }

@@ -25,7 +25,7 @@ class Controller
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new ArrayParametersOverViewWith($file)
         );
 
@@ -43,7 +43,7 @@ file;
 });
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new ArrayParametersOverViewWith($file)
         );
 

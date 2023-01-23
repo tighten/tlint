@@ -23,7 +23,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -48,7 +48,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -74,7 +74,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -97,7 +97,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -121,7 +121,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -147,7 +147,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -171,7 +171,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -195,7 +195,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
@@ -225,7 +225,7 @@ class Thing
 }
 file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
         );
 
