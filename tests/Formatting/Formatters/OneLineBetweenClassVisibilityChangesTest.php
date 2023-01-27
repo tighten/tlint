@@ -288,4 +288,53 @@ file;
 
         $this->assertSame($file, $formatted);
     }
+
+   /** @test */
+   public function catches_missing_line_between_visibility_changes_in_anon_class()
+   {
+       $file = <<<'file'
+<?php
+
+namespace App;
+
+class Thing
+{
+    public $test;
+
+    public function getThing(): NodeVisitorAbstract
+    {
+        return new class extends NodeVisitorAbstract
+        {
+            protected const OK = 1;
+            private $ok;
+        };
+    }
+}
+file;
+
+       $expected = <<<'file'
+<?php
+
+namespace App;
+
+class Thing
+{
+    public $test;
+
+    public function getThing(): NodeVisitorAbstract
+    {
+        return new class extends NodeVisitorAbstract
+        {
+            protected const OK = 1;
+
+            private $ok;
+        };
+    }
+}
+file;
+
+       $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+
+       $this->assertSame($expected, $formatted);
+   }
 }
