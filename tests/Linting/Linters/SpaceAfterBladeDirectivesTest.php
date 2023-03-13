@@ -177,4 +177,24 @@ file;
         $this->assertEquals(23, $lints[8]->getNode()->getLine());
         $this->assertEquals(29, $lints[9]->getNode()->getLine());
     }
+
+    /** @test */
+    public function it_catches_directives_spanning_multiple_lines()
+    {
+        $file = <<<'file'
+@foreach([
+    Laravel\Memberships\Membership::MEMBER_ROLE,
+    Laravel\Memberships\Membership::SUPERVISION_ROLE,
+    Laravel\Memberships\Membership::ADMIN_ROLE,
+    ] as $role)
+    <option value="{{ $role }}">{{ $role }}</option>
+@endforeach
+file;
+
+        $lints = (new TLint)->lint(
+            new SpaceAfterBladeDirectives($file)
+        );
+
+        $this->assertEquals(1, $lints[0]->getNode()->getLine());
+    }
 }

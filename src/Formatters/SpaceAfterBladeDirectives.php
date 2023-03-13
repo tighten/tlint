@@ -24,11 +24,18 @@ class SpaceAfterBladeDirectives extends BaseFormatter
             preg_match_all(
                 Linter::DIRECTIVE_SEARCH,
                 $codeLine,
-                $matches,
-                PREG_SET_ORDER
+                $matches
             );
 
-            foreach ($matches as $match) {
+            for ($i = 0; isset($matches[0][$i]); $i++) {
+                $match = [
+                    $matches[0][$i],
+                    $matches[1][$i],
+                    $matches[2][$i],
+                    $matches[3][$i] ?: null,
+                    $matches[4][$i] ?: null,
+                ];
+
                 if (in_array($match[1] ?? null, Linter::SPACE_AFTER) && ($match[2] ?? null) === '') {
                     $codeLine = str_replace($match[0], "@{$match[1]} {$match[3]}", $codeLine);
 

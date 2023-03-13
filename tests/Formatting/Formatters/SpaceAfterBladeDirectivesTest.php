@@ -241,4 +241,34 @@ file;
 
         $this->assertEquals($correctlyFormatted, $formatted);
     }
+
+    /** @test */
+    public function it_fixes_directives_spanning_multiple_lines()
+    {
+        $file = <<<'file'
+@foreach([
+    Laravel\Memberships\Membership::MEMBER_ROLE,
+    Laravel\Memberships\Membership::SUPERVISION_ROLE,
+    Laravel\Memberships\Membership::ADMIN_ROLE,
+    ] as $role)
+    <option value="{{ $role }}">{{ $role }}</option>
+@endforeach
+file;
+
+        $formatted = (new TFormat)->format(
+            new SpaceAfterBladeDirectives($file)
+        );
+
+        $correctlyFormatted = <<<'file'
+@foreach ([
+    Laravel\Memberships\Membership::MEMBER_ROLE,
+    Laravel\Memberships\Membership::SUPERVISION_ROLE,
+    Laravel\Memberships\Membership::ADMIN_ROLE,
+    ] as $role)
+    <option value="{{ $role }}">{{ $role }}</option>
+@endforeach
+file;
+
+        $this->assertEquals($correctlyFormatted, $formatted);
+    }
 }
