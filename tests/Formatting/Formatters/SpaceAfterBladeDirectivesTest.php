@@ -155,6 +155,10 @@ file;
 @foreach ($users as $user)
     <li>{{ $user->name }}</li>
 @endforeach
+
+@auth
+    <p>Authenticated</p>
+@endauth
 file;
 
         $formatted = (new TFormat)->format(
