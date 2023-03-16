@@ -11,7 +11,7 @@ class MailableMethodsInBuildTest extends TestCase
     /** @test */
     public function catches_mailable_methods_in_constructor()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App\Mail;
@@ -24,18 +24,19 @@ class SendGarageLink extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public \$url;
+    public $url;
 
-    public function __construct(\$url)
+    public function __construct($url)
     {
-        \$this->url = \$url;
-        \$this->from('noreply@delivermyride.com', config('name'));
-        \$this->subject(config('name') . ' Garage');
+        $this->url = $url;
+        $this->from('noreply@delivermyride.com', config('name'));
+        $this->subject(config('name') . ' Garage');
+        /* Test PhpParser\Node\Stmt\Nop */
     }
 
     public function build()
     {
-        return \$this->view('auth.emails.email-login');
+        return $this->view('auth.emails.email-login');
     }
 }
 
@@ -51,7 +52,7 @@ file;
     /** @test */
     public function does_not_trigger_on_methods_in_build()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App\Mail;
@@ -64,19 +65,20 @@ class SendGarageLink extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public \$url;
+    public $url;
 
-    public function __construct(\$url)
+    public function __construct($url)
     {
-        \$this->url = \$url;
+        $this->url = $url;
+        /* Test PhpParser\Node\Stmt\Nop */
     }
 
     public function build()
     {
-        \$this->from('noreply@delivermyride.com', config('name'));
-        \$this->subject(config('name') . ' Garage');
+        $this->from('noreply@delivermyride.com', config('name'));
+        $this->subject(config('name') . ' Garage');
 
-        return \$this->view('auth.emails.email-login');
+        return $this->view('auth.emails.email-login');
     }
 }
 
@@ -92,7 +94,7 @@ file;
     /** @test */
     public function does_not_trigger_on_non_mailable()
     {
-        $file = <<<file
+        $file = <<<'file'
 <?php
 
 namespace App\Mail;
@@ -105,19 +107,19 @@ class SendGarageLink
 {
     use Queueable, SerializesModels;
 
-    public \$url;
+    public $url;
 
-    public function __construct(\$url)
+    public function __construct($url)
     {
-        \$this->url = \$url;
-        \$this->subject(config('name') . ' Garage');
+        $this->url = $url;
+        $this->subject(config('name') . ' Garage');
     }
 
     public function build()
     {
-        \$this->from('noreply@delivermyride.com', config('name'));
+        $this->from('noreply@delivermyride.com', config('name'));
 
-        return \$this->view('auth.emails.email-login');
+        return $this->view('auth.emails.email-login');
     }
 }
 
