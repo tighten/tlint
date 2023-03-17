@@ -12,6 +12,6 @@ class EmptyDiffDoesNotTriggerWarningTest extends TestCase
     {
         $files = ParsesGitOutput::parseFilesFromGitDiffOutput('');
 
-        $this->assertCount(0, $files);
+        $this->assertCount(0, iterator_to_array($files));
     }
 }
