@@ -87,7 +87,7 @@ class MailableMethodsInBuild extends BaseFormatter
                 }
 
                 $stmts = collect($node->getStmts())->filter(function ($stmt) {
-                    if (! $stmt->expr) {
+                    if (! $stmt instanceof Node\Stmt\Expression) {
                         return true;
                     }
 

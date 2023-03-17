@@ -31,6 +31,7 @@ class SendGarageLink extends Mailable
         $this->url = $url;
         $this->from('noreply@delivermyride.com', config('name'));
         $this->subject(config('name') . ' Garage');
+        /* Test PhpParser\Node\Stmt\Nop */
     }
 
     public function build()
@@ -58,6 +59,7 @@ class SendGarageLink extends Mailable
     public function __construct($url)
     {
         $this->url = $url;
+        /* Test PhpParser\Node\Stmt\Nop */
     }
 
     public function build()
