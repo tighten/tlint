@@ -22,8 +22,6 @@ class LaravelPresetPassesForFreshInstallTest extends TestCase
             'file or directory' => '.',
         ]);
 
-        dd($commandTester->getDisplay());
-
         $this->assertEquals(0, $commandTester->getStatusCode());
     }
 }
