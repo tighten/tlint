@@ -9,6 +9,6 @@ jobs:
   duster:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: "Duster"
         uses: tighten/duster-action@v1
