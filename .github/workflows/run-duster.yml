@@ -10,5 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: "Duster"
+      - name: "duster"
         uses: tighten/duster-action@v1
+        with:
+          args: lint
