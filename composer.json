@@ -38,8 +38,6 @@
         "bin/tlint"
     ],
     "scripts": {
-        "bumpVersion": "sed -i '' \"/TLINT_VERSION/ s/'v.*'/'$(git describe --abbrev=0 --tag)'/\" ./bin/tlint",
-        "generate-readme-tables": "php ./scripts/generateLintersFormattersTables.php",
         "update-fixture-app": [
             "rm -rf ./tests/fixtures/laravel",
             "composer create-project laravel/laravel ./tests/fixtures/laravel",
