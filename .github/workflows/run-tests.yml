@@ -12,13 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu, macos, windows]
-        php: ["8.0", "8.1", "8.2"]
-        symfony:
-          [
-            [4, "^4.4.30", "^4.4.20"],
-            [5, "^5.3.7", "^5.0.9"],
-            [6, "^6.0", "^6.0"],
-          ]
+        php: ["8.1", "8.2"]
         dependencies: [lowest, stable]
     steps:
       - uses: actions/checkout@v2
@@ -33,7 +27,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - run: |
-          composer require symfony/console:${{ matrix.symfony[1] }} symfony/process:${{ matrix.symfony[2] }} --no-update --no-interaction
           composer update --prefer-${{ matrix.dependencies }} --prefer-dist --no-interaction
           composer require illuminate/view:* --with-all-dependencies --no-interaction
       - run: vendor/bin/phpunit
