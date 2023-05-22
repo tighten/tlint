@@ -1,16 +1,17 @@
 name: Run Duster
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
+    push:
+        branches: main
+    pull_request:
 
 jobs:
   duster:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-      - name: "duster"
-        uses: tighten/duster-action@v1
+      - name: "Duster"
+        uses: tighten/duster-action@v2
         with:
           args: lint
