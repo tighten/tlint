@@ -4,20 +4,33 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/tlint.svg?style=flat-square)](https://packagist.org/packages/tightenco/tlint)
 
-## Install (Requires PHP 8.0+)
+## Install (Requires PHP 8.1+)
 
 >**Note**
 >TLint is intended to work with the tools included in [Duster](https://github.com/tighten/duster). To receive the best coverage we recommend using Duster to install and configure TLint.
 
-```
+```bash
+# Include in project
+composer require tightenco/tlint --dev
+
+# Include globally
 composer global require tightenco/tlint
 ```
 
 ## Upgrade
 
-```
+```bash
+# Upgrade in project
+composer update tightenco/tlint
+
+#Upgrade globally
 composer global update tightenco/tlint
 ```
+
+### Upgrading from 8.x to 9.x
+
+TLint 9 requires PHP >= 8.1.
+`tformat.json` has been dropped in favor of a single `tlint.json` file.
 
 ### Upgrading from 7.x to 8.x
 
@@ -201,7 +214,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 
 ## Available Linters
 
-<!-- linters -->
 | Linter | Description |
 | --- | --- |
 | `ApplyMiddlewareInRoutes` | Apply middleware in routes (not controllers). |
@@ -224,7 +236,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
-<!-- /linters -->
 
 ### General PHP
 
@@ -256,7 +267,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - Formatting is designed to alter the least amount of code possible.
 - Import related formatters are not designed to alter grouped imports.
 
-<!-- formatters -->
 | Formatter | Description |
 | --- | --- |
 | `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
@@ -274,7 +284,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
-<!-- /formatters -->
 
 ### General PHP
 
@@ -309,6 +318,7 @@ If you discover any security related issues, please email hello@tighten.co inste
 
 - [Logan Henson](https://github.com/loganhenson)
 - [Jacob Baker-Kretzmar](https://github.com/bakerkretzmar)
+- [Anthony Clark](https://github.com/driftingly)
 - [All Contributors](../../contributors)
 
 ## License
