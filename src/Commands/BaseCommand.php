@@ -100,13 +100,6 @@ abstract class BaseCommand extends Command
 
         return strpos($filepath, 'vendor') !== false
             || strpos($filepath, 'node_modules') !== false
-            || strpos($filepath, "public{$DS}") !== false
-            || strpos($filepath, "bootstrap{$DS}") !== false
-            || strpos($filepath, 'server.php') !== false
-            || strpos($filepath, "app{$DS}Http{$DS}Middleware{$DS}RedirectIfAuthenticated.php") !== false
-            || strpos($filepath, "app{$DS}Exceptions{$DS}Handler.php") !== false
-            || strpos($filepath, "app{$DS}Http{$DS}Controllers{$DS}Auth") !== false
-            || strpos($filepath, "app{$DS}Http{$DS}Kernel.php") !== false
             || strpos($filepath, "storage{$DS}framework{$DS}views") !== false
             || $this->isExcluded($filepath);
     }

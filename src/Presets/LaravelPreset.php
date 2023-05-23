@@ -18,13 +18,11 @@ class LaravelPreset implements PresetInterface
             Linters\NoLeadingSlashesOnRoutePaths::class,
             Linters\NoSpaceAfterBladeDirectives::class,
             Linters\OneLineBetweenClassVisibilityChanges::class,
-            Linters\QualifiedNamesOnlyForClassName::class,
             Linters\RemoveLeadingSlashNamespaces::class,
             Linters\RequestHelperFunctionWherePossible::class,
             Linters\RequestValidation::class,
             Linters\SpaceAfterBladeDirectives::class,
             Linters\SpacesAroundBladeRenderContent::class,
-            Linters\UseAuthHelperOverFacade::class,
         ];
     }
 
@@ -43,7 +41,6 @@ class LaravelPreset implements PresetInterface
             Formatters\RequestValidation::class,
             Formatters\SpaceAfterBladeDirectives::class,
             Formatters\SpacesAroundBladeRenderContent::class,
-            Formatters\UseAuthHelperOverFacade::class,
         ];
     }
 }
