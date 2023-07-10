@@ -30,7 +30,20 @@ composer global update tightenco/tlint
 ### Upgrading from 8.x to 9.x
 
 TLint 9 requires PHP >= 8.1.
+
 `tformat.json` has been dropped in favor of a single `tlint.json` file.
+
+Now linting the following files and directories:
+
+- `public/`
+- `bootstrap/`
+- `server.php`
+- `app/Http/Middleware/RedirectIfAuthenticated.php`
+- `Exceptions/Handler.php`
+- `app/Http/Controllers/Auth/`
+- `app/Http/Kernel.php`
+
+To continue excluding these files and directories add them to your `tlint.json` file under `excluded`.
 
 ### Upgrading from 7.x to 8.x
 
