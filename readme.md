@@ -117,7 +117,7 @@ Lints:
 5 : `    return view('test', ['test' => 'test']);``
 ```
 
-## Formatting (Beta)
+## Formatting
 
 Using the same conventions as above, but using the format command, you can auto-fix some lints:
 
@@ -248,7 +248,7 @@ This lets you define custom linting/formatting functionality, or modify the exis
 - `UseAnonymousMigrations`
 - `UseAuthHelperOverFacade`
 
-## Available Formatters (Beta)
+## Available Formatters
 
 **Notes about formatting**
 
