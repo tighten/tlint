@@ -4,20 +4,46 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/tlint.svg?style=flat-square)](https://packagist.org/packages/tightenco/tlint)
 
-## Install (Requires PHP 8.0+)
+## Install (Requires PHP 8.1+)
 
 >**Note**
 >TLint is intended to work with the tools included in [Duster](https://github.com/tighten/duster). To receive the best coverage we recommend using Duster to install and configure TLint.
 
-```
+```bash
+# Include in project
+composer require tightenco/tlint --dev
+
+# Include globally
 composer global require tightenco/tlint
 ```
 
 ## Upgrade
 
-```
+```bash
+# Upgrade in project
+composer update tightenco/tlint
+
+#Upgrade globally
 composer global update tightenco/tlint
 ```
+
+### Upgrading from 8.x to 9.x
+
+TLint 9 requires PHP >= 8.1.
+
+`tformat.json` has been dropped in favor of a single `tlint.json` file.
+
+Now linting the following files and directories:
+
+- `public/`
+- `bootstrap/`
+- `server.php`
+- `app/Http/Middleware/RedirectIfAuthenticated.php`
+- `Exceptions/Handler.php`
+- `app/Http/Controllers/Auth/`
+- `app/Http/Kernel.php`
+
+To continue excluding these files and directories add them to your `tlint.json` file under `excluded`.
 
 ### Upgrading from 7.x to 8.x
 
@@ -104,7 +130,7 @@ Lints:
 5 : `    return view('test', ['test' => 'test']);``
 ```
 
-## Formatting (Beta)
+## Formatting
 
 Using the same conventions as above, but using the format command, you can auto-fix some lints:
 
@@ -171,19 +197,7 @@ Then your config could look like:
 }
 ```
 
-This lets you define whatever custom linting functionality, or modify the existing linters to your liking.
-
-## Formatting Configuration (Beta)
-
-Similar to linting there are two "preset" styles for formatting: Laravel & Tighten.
-
-The default configuration is "tighten", but you may change this by adding a `tformat.json` file to your project's root directory with the following schema:
-
-```json
-{
-    "preset": "laravel"
-}
-```
+This lets you define custom linting/formatting functionality, or modify the existing linters/formatters to your liking.
 
 ## Editor Integrations
 
@@ -201,7 +215,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 
 ## Available Linters
 
-<!-- linters -->
 | Linter | Description |
 | --- | --- |
 | `ApplyMiddlewareInRoutes` | Apply middleware in routes (not controllers). |
@@ -224,7 +237,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
-<!-- /linters -->
 
 ### General PHP
 
@@ -249,14 +261,13 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 - `UseAnonymousMigrations`
 - `UseAuthHelperOverFacade`
 
-## Available Formatters (Beta)
+## Available Formatters
 
 **Notes about formatting**
 
 - Formatting is designed to alter the least amount of code possible.
 - Import related formatters are not designed to alter grouped imports.
 
-<!-- formatters -->
 | Formatter | Description |
 | --- | --- |
 | `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
@@ -274,7 +285,6 @@ The default configuration is "tighten", but you may change this by adding a `tfo
 | `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
 | `UseAnonymousMigrations` | Prefer anonymous class migrations. |
 | `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
-<!-- /formatters -->
 
 ### General PHP
 
@@ -309,6 +319,7 @@ If you discover any security related issues, please email hello@tighten.co inste
 
 - [Logan Henson](https://github.com/loganhenson)
 - [Jacob Baker-Kretzmar](https://github.com/bakerkretzmar)
+- [Anthony Clark](https://github.com/driftingly)
 - [All Contributors](../../contributors)
 
 ## License
