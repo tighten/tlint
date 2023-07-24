@@ -45,10 +45,10 @@ file;
         $this->assertEquals(4, $lints[0]->getNode()->getLine());
     }
 
-        /** @test */
-        public function does_not_trigger_on_non_auth_call()
-        {
-            $file = <<<file
+    /** @test */
+    public function does_not_trigger_on_non_auth_call()
+    {
+        $file = <<<file
     <?php
 
     use Some\Other\AuthClass as Auth;
@@ -56,12 +56,12 @@ file;
     echo Auth::user()->name;
     file;
 
-            $lints = (new TLint)->lint(
-                new UseAuthHelperOverFacade($file, '.php')
-            );
+        $lints = (new TLint)->lint(
+            new UseAuthHelperOverFacade($file, '.php')
+        );
 
-            $this->assertEmpty($lints);
-        }
+        $this->assertEmpty($lints);
+    }
 
     /** @test */
     public function does_not_trigger_on_non_facade_call()
