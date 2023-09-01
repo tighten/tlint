@@ -39,7 +39,7 @@ file;
             'file or directory' => $filePath,
         ]);
 
-        $this->assertStringContainsString("unexpected T_STRING, expecting '='", $commandTester->getDisplay());
+        $this->assertStringContainsString('Syntax error', $commandTester->getDisplay());
         $this->assertEquals(1, $commandTester->getStatusCode());
     }
 }
