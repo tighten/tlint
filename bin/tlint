@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-const TLINT_VERSION = 'v9.0.0';
+const TLINT_VERSION = 'v9.1.0';
 
 foreach (
     [

@@ -2,6 +2,8 @@
 
 namespace Tighten\TLint\Commands;
 
+use DOMDocument;
+use DOMElement;
 use PhpParser\Error;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -17,6 +19,7 @@ class LintCommand extends BaseCommand
 {
     private const NO_LINTS_FOUND_OR_SUCCESS = 0;
     private const LINTS_FOUND_OR_ERROR = 1;
+    private DOMElement $checkstyle;
 
     protected function configure()
     {
@@ -37,6 +40,9 @@ class LintCommand extends BaseCommand
                     'json'
                 ),
                 new InputOption(
+                    'checkstyle'
+                ),
+                new InputOption(
                     'only',
                     null,
                     InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
@@ -53,6 +59,13 @@ class LintCommand extends BaseCommand
 
         if ($this->isBlacklisted($fileOrDirectory)) {
             return self::NO_LINTS_FOUND_OR_SUCCESS;
+        }
+
+        if ($input->getOption('checkstyle')) {
+            $dom = new DOMDocument('1.0', 'UTF-8');
+            $this->checkstyle = $dom->createElement('checkstyle');
+            $this->checkstyle->setAttribute('version', '3.7.2');
+            $dom->appendChild($this->checkstyle);
         }
 
         if (is_file($fileOrDirectory)) {
@@ -76,6 +89,13 @@ class LintCommand extends BaseCommand
         }
 
         if ($input->getOption('json')) {
+            return self::NO_LINTS_FOUND_OR_SUCCESS;
+        }
+
+        if ($input->getOption('checkstyle')) {
+            $dom->formatOutput = true;
+            $output->write($dom->saveXML());
+
             return self::NO_LINTS_FOUND_OR_SUCCESS;
         }
 
@@ -134,6 +154,10 @@ class LintCommand extends BaseCommand
             return $this->outputLintsAsJson($output, $file, $lints);
         }
 
+        if ($input->getOption('checkstyle')) {
+            return $this->outputLintsAsCheckstyle($output, $file, $lints);
+        }
+
         return $this->outputLints($output, $file, $lints);
     }
 
@@ -152,6 +176,31 @@ class LintCommand extends BaseCommand
         $output->writeln(json_encode([
             'errors' => $errors,
         ]));
+
+        return self::NO_LINTS_FOUND_OR_SUCCESS;
+    }
+
+    private function outputLintsAsCheckstyle(OutputInterface $output, $file, $lints)
+    {
+        if (! empty($lints)) {
+            foreach ($lints as $lint) {
+                $fileNode = $this->checkstyle->ownerDocument->createElement('file');
+                $fileNode->setAttribute('name', $file);
+                $this->checkstyle->appendChild($fileNode);
+
+                $title = explode(PHP_EOL, (string) $lint)[0];
+
+                $errorNode = $this->checkstyle->ownerDocument->createElement('error');
+                $errorNode->setAttribute('line', $lint->getNode()->getStartLine());
+                $errorNode->setAttribute('severity', 'error');
+                $errorNode->setAttribute('message', $title);
+                $errorNode->setAttribute('source', basename(str_replace('\\', '/', get_class($lint->getLinter()))));
+
+                $fileNode->appendChild($errorNode);
+            }
+
+            return self::LINTS_FOUND_OR_ERROR;
+        }
 
         return self::NO_LINTS_FOUND_OR_SUCCESS;
     }

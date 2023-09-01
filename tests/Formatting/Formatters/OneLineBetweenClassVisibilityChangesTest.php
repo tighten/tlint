@@ -289,10 +289,10 @@ file;
         $this->assertSame($file, $formatted);
     }
 
-   /** @test */
-   public function catches_missing_line_between_visibility_changes_in_anon_class()
-   {
-       $file = <<<'file'
+    /** @test */
+    public function catches_missing_line_between_visibility_changes_in_anon_class()
+    {
+        $file = <<<'file'
 <?php
 
 namespace App;
@@ -312,7 +312,7 @@ class Thing
 }
 file;
 
-       $expected = <<<'file'
+        $expected = <<<'file'
 <?php
 
 namespace App;
@@ -333,8 +333,8 @@ class Thing
 }
 file;
 
-       $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
+        $formatted = (new TFormat)->format(new OneLineBetweenClassVisibilityChanges($file));
 
-       $this->assertSame($expected, $formatted);
-   }
+        $this->assertSame($expected, $formatted);
+    }
 }

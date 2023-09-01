@@ -113,6 +113,11 @@ Want the output from a file as JSON? (Primarily used for integration with editor
 tlint lint test.php --json
 ```
 
+Want the output from a file as a [checkstyle XML report](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/v3.22.0/doc/schemas/fix/checkstyle.xsd)? (Primarily used with CI tools like [reviewdog](https://github.com/reviewdog/reviewdog) and [cs2pr](https://github.com/staabm/annotate-pull-request-from-checkstyle))
+```
+tlint lint test.php --checkstyle
+```
+
 Want to only run a single linter?
 
 ```
