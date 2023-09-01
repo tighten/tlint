@@ -10,8 +10,8 @@ use Tighten\TLint\Linters\Concerns\LintsControllers;
 
 class RequestValidation extends BaseLinter
 {
-    use LintsControllers;
     use IdentifiesExtends;
+    use LintsControllers;
 
     public const DESCRIPTION = 'Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers';
 
