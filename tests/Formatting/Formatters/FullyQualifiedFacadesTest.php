@@ -207,4 +207,35 @@ file;
 
         $this->assertSame($file, $formatted);
     }
+
+    /** @test */
+    public function it_does_not_cause_duplicate_import_statements()
+    {
+        $file = <<<'file'
+<?php
+
+namespace Test;
+
+use Eloquent;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+
+file;
+
+        $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
+
+        $expected = <<<'file'
+<?php
+
+namespace Test;
+
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+
+file;
+
+        $this->assertSame($expected, $formatted);
+    }
 }

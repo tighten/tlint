@@ -4,7 +4,7 @@ namespace Tighten\TLint\Concerns;
 
 trait IdentifiesFacades
 {
-    private static $aliases = [
+    public static $aliases = [
         'App' => 'Illuminate\Support\Facades\App',
         'Arr' => 'Illuminate\Support\Arr',
         'Artisan' => 'Illuminate\Support\Facades\Artisan',
