@@ -114,4 +114,26 @@ file;
 
         $this->assertSame($file, $formatted);
     }
+
+    /** @test */
+    public function it_ignores_classes_that_do_not_extend_controller()
+    {
+        $file = <<<'file'
+<?php
+
+namespace App;
+
+class ControllerA extends NotController
+{
+    public function store()
+    {
+        $this->validate(['name' => 'required'], ['name.required' => 'Name is required']);
+    }
+}
+file;
+
+        $formatted = (new TFormat)->format(new RequestValidation($file));
+
+        $this->assertSame($file, $formatted);
+    }
 }

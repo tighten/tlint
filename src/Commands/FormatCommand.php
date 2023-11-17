@@ -93,7 +93,7 @@ class FormatCommand extends BaseCommand
         if (! empty($only = $input->getOption('only'))) {
             $formatters = array_filter($this->getAllFormatters($file), function ($formatter) use ($only) {
                 foreach ($only as $filter) {
-                    if (false !== strpos($formatter, $filter)) {
+                    if (strpos($formatter, $filter) !== false) {
                         return true;
                     }
                 }
