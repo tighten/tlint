@@ -43,8 +43,28 @@ class RequestValidation extends BaseFormatter
     {
         return new class extends NodeVisitorAbstract
         {
+            private bool $extendsController = false;
+
+            public function beforeTraverse(array $nodes)
+            {
+                $this->extendsController = false;
+
+                return null;
+            }
+
             public function enterNode(Node $node): Node|int|null
             {
+                if ($node instanceof Node\Stmt\Class_
+                    && ! empty($node->extends)
+                    && $node->extends->toString() === 'Controller'
+                ) {
+                    $this->extendsController = true;
+                }
+
+                if (! $this->extendsController) {
+                    return null;
+                }
+
                 if (! $node instanceof Node\Expr\MethodCall) {
                     return null;
                 }
