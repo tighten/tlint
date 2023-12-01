@@ -23,6 +23,8 @@ class NoDatesPropertyOnModels extends BaseFormatter
 {
     use IdentifiesExtends;
 
+    protected bool $model = false;
+
     public const DESCRIPTION = 'Use `$casts` instead of `$dates` on Eloquent models.';
 
     public function format(Parser $parser, Lexer $lexer): string
@@ -64,14 +66,13 @@ class NoDatesPropertyOnModels extends BaseFormatter
 
     private function nodeFinderForModelProperty(string $attribute): Closure
     {
-        static $model = false;
+        return function (Node $node) use ($attribute) {
 
-        return function (Node $node) use ($attribute, &$model) {
             if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
-                $model = true;
+                $this->model = true;
             }
 
-            return $model && $node instanceof Property && (string) $node->props[0]->name === $attribute;
+            return $this->model && $node instanceof Property && (string) $node->props[0]->name === $attribute;
         };
     }
 

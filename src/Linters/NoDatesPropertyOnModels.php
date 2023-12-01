@@ -12,18 +12,18 @@ class NoDatesPropertyOnModels extends BaseLinter
 {
     use IdentifiesExtends;
 
+    protected bool $model = false;
+
     public const DESCRIPTION = 'The `$dates` property was deprecated in Laravel 8. Use `$casts` instead.';
 
     protected function visitor(): Closure
     {
-        static $model = false;
-
-        return function (Node $node) use (&$model) {
+        return function (Node $node) {
             if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
-                $model = true;
+                $this->model = true;
             }
 
-            return $model && $node instanceof Property && (string) $node->props[0]->name === 'dates';
+            return $this->model && $node instanceof Property && (string) $node->props[0]->name === 'dates';
         };
     }
 }
