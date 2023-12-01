@@ -12,9 +12,9 @@ class NoDatesPropertyOnModels extends BaseLinter
 {
     use IdentifiesExtends;
 
-    protected bool $model = false;
-
     public const DESCRIPTION = 'The `$dates` property was deprecated in Laravel 8. Use `$casts` instead.';
+
+    protected bool $model = false;
 
     protected function visitor(): Closure
     {
