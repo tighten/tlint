@@ -16,9 +16,9 @@ class NoDatesPropertyOnModels extends BaseLinter
 
     protected function visitor(): Closure
     {
-        return function (Node $node) use (&$model) {
-            static $model = false;
+        static $model = false;
 
+        return function (Node $node) use (&$model) {
             if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
                 $model = true;
             }
