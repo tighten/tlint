@@ -64,9 +64,9 @@ class NoDatesPropertyOnModels extends BaseFormatter
 
     private function nodeFinderForModelProperty(string $attribute): Closure
     {
-        return function (Node $node) use ($attribute) {
-            static $model = false;
+        static $model = false;
 
+        return function (Node $node) use ($attribute, &$model) {
             if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
                 $model = true;
             }
