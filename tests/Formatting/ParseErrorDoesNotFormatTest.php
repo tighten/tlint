@@ -27,7 +27,7 @@ class Thing
 {
     const OK
 
-    retunr 1
+    retunr a
 }
 file;
 
