@@ -9,36 +9,6 @@ use Tighten\TLint\TFormat;
 class UseAuthHelperOverFacadeTest extends TestCase
 {
     /** @test */
-    public function catches_auth_facade_usage_in_views()
-    {
-        $file = <<<'file'
-@extends('layouts.app')
-@if (!\Illuminate\Support\Facades\Auth::check())
-    <label for="email">Email</label>
-    <input id="email" class="form-control" type="email" name="email" required>
-@else
-    <input id="email" type="hidden" name="email" value="{{ auth()->user()->email }}" required>
-@endif
-file;
-
-        $correctlyFormatted = <<<'file'
-@extends('layouts.app')
-@if (!auth()->check())
-    <label for="email">Email</label>
-    <input id="email" class="form-control" type="email" name="email" required>
-@else
-    <input id="email" type="hidden" name="email" value="{{ auth()->user()->email }}" required>
-@endif
-file;
-
-        $formatted = (new TFormat)->format(
-            new UseAuthHelperOverFacade($file, '.blade.php')
-        );
-
-        $this->assertEquals($correctlyFormatted, $formatted);
-    }
-
-    /** @test */
     public function catches_auth_facade_usage_in_code()
     {
         $file = <<<'file'

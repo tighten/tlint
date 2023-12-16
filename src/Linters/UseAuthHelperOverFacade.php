@@ -5,21 +5,10 @@ namespace Tighten\TLint\Linters;
 use Closure;
 use PhpParser\Node;
 use Tighten\TLint\BaseLinter;
-use Tighten\TLint\Illuminate\BladeCompiler;
 
 class UseAuthHelperOverFacade extends BaseLinter
 {
     public const DESCRIPTION = 'Prefer the `auth()` helper function over the `Auth` Facade.';
-
-    public function __construct($code, $filename = null)
-    {
-        if (preg_match('/\.blade\.php$/i', $filename)) {
-            $bladeCompiler = new BladeCompiler(null, sys_get_temp_dir());
-            $code = $bladeCompiler->compileString($code);
-        }
-
-        parent::__construct($code, $filename);
-    }
 
     protected function visitor(): Closure
     {
