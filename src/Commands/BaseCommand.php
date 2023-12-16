@@ -17,7 +17,7 @@ abstract class BaseCommand extends Command
     public $cwd;
     public $config;
 
-    public function __construct(string $cwd = null)
+    public function __construct(?string $cwd = null)
     {
         $this->cwd = $cwd;
         $configPath = $this->resolveFileOrDirectory('tlint.json');

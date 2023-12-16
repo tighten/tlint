@@ -76,7 +76,7 @@ class NoDatesPropertyOnModels extends BaseFormatter
         };
     }
 
-    private function addDatesToCasts(Property $dates, Property $casts = null): Property
+    private function addDatesToCasts(Property $dates, ?Property $casts = null): Property
     {
         // Get the names of all the existing date attributes
         $dateAttributes = array_map(function ($item) {
