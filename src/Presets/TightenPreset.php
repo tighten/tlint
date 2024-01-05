@@ -25,7 +25,6 @@ class TightenPreset implements PresetInterface
             Linters\RequestValidation::class,
             Linters\SpaceAfterBladeDirectives::class,
             Linters\SpacesAroundBladeRenderContent::class,
-            Linters\UseAuthHelperOverFacade::class,
             Linters\NoJsonDirective::class,
         ];
     }
@@ -46,7 +45,6 @@ class TightenPreset implements PresetInterface
             Formatters\RequestValidation::class,
             Formatters\SpaceAfterBladeDirectives::class,
             Formatters\SpacesAroundBladeRenderContent::class,
-            Formatters\UseAuthHelperOverFacade::class,
         ];
     }
 }
