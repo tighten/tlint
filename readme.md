@@ -6,8 +6,8 @@
 
 ## Install (Requires PHP 8.1+)
 
->**Note**
->TLint is intended to work with the tools included in [Duster](https://github.com/tighten/duster). To receive the best coverage we recommend using Duster to install and configure TLint.
+> **Note**
+> TLint is intended to work with the tools included in [Duster](https://github.com/tighten/duster). To receive the best coverage we recommend using Duster to install and configure TLint.
 
 ```bash
 # Include in project
@@ -35,13 +35,13 @@ TLint 9 requires PHP >= 8.1.
 
 Now linting the following files and directories:
 
-- `public/`
-- `bootstrap/`
-- `server.php`
-- `app/Http/Middleware/RedirectIfAuthenticated.php`
-- `Exceptions/Handler.php`
-- `app/Http/Controllers/Auth/`
-- `app/Http/Kernel.php`
+-   `public/`
+-   `bootstrap/`
+-   `server.php`
+-   `app/Http/Middleware/RedirectIfAuthenticated.php`
+-   `Exceptions/Handler.php`
+-   `app/Http/Controllers/Auth/`
+-   `app/Http/Kernel.php`
 
 To continue excluding these files and directories add them to your `tlint.json` file under `excluded`.
 
@@ -53,7 +53,7 @@ If you want to roll these out gradually or disable them altogether, you can use 
 ### Upgrading from 6.x to 7.x
 
 TLint focuses on linting and formatting issues other tools are not able to catch.
-The `7.x` release removes lints and formatters covered by tools in [Duster](https://github.com/tighten/duster).  If you need to add these back you can grab them from an earlier version of TLint and follow the [Custom Configuration](#custom-configuration--presets) documentation.
+The `7.x` release removes lints and formatters covered by tools in [Duster](https://github.com/tighten/duster). If you need to add these back you can grab them from an earlier version of TLint and follow the [Custom Configuration](#custom-configuration--presets) documentation.
 
 ## What Is It?
 
@@ -114,6 +114,7 @@ tlint lint test.php --json
 ```
 
 Want the output from a file as a [checkstyle XML report](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/v3.22.0/doc/schemas/fix/checkstyle.xsd)? (Primarily used with CI tools like [reviewdog](https://github.com/reviewdog/reviewdog) and [cs2pr](https://github.com/staabm/annotate-pull-request-from-checkstyle))
+
 ```
 tlint lint test.php --checkstyle
 ```
@@ -220,97 +221,93 @@ This lets you define custom linting/formatting functionality, or modify the exis
 
 ## Available Linters
 
-| Linter | Description |
-| --- | --- |
-| `ApplyMiddlewareInRoutes` | Apply middleware in routes (not controllers). |
-| `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
-| `FullyQualifiedFacades` | Import facades using their full namespace. |
-| `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
-| `NoDatesPropertyOnModels` | The `$dates` property was deprecated in Laravel 8. Use `$casts` instead. |
-| `NoDocBlocksForMigrationUpDown` | Remove doc blocks from the up and down method in migrations. |
-| `NoJsonDirective` | Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{!! json_encode($var) !!}">` |
-| `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
-| `NoRequestAll` | No `request()->all()`. Use `request()->only(...)` to retrieve specific input values. |
-| `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening paren:`@section (` -> `@section(` |
-| `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line |
-| `PureRestControllers` | You should not mix restful and non-restful public methods in a controller |
-| `QualifiedNamesOnlyForClassName` | Fully Qualified Class Names should only be used for accessing class names |
-| `RemoveLeadingSlashNamespaces` | Prefer `Namespace\...` over `\Namespace\...`. |
-| `RequestHelperFunctionWherePossible` | Use the request(...) helper function directly to access request values wherever possible |
-| `RequestValidation` | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
-| `SpaceAfterBladeDirectives` | Put a space between blade control structure names and the opening paren:`@if(` -> `@if (` |
-| `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
-| `UseAnonymousMigrations` | Prefer anonymous class migrations. |
-| `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
+| Linter                                 | Description                                                                                                                                                                                                                                    |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ApplyMiddlewareInRoutes`              | Apply middleware in routes (not controllers).                                                                                                                                                                                                  |
+| `ArrayParametersOverViewWith`          | Prefer `view(..., [...])` over `view(...)->with(...)`.                                                                                                                                                                                         |
+| `FullyQualifiedFacades`                | Import facades using their full namespace.                                                                                                                                                                                                     |
+| `MailableMethodsInBuild`               | Mailable values (from and subject etc) should be set in build().                                                                                                                                                                               |
+| `NoDatesPropertyOnModels`              | The `$dates` property was deprecated in Laravel 8. Use `$casts` instead.                                                                                                                                                                       |
+| `NoDocBlocksForMigrationUpDown`        | Remove doc blocks from the up and down method in migrations.                                                                                                                                                                                   |
+| `NoJsonDirective`                      | Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{!! json_encode($var) !!}">` |
+| `NoLeadingSlashesOnRoutePaths`         | No leading slashes on route paths.                                                                                                                                                                                                             |
+| `NoRequestAll`                         | No `request()->all()`. Use `request()->only(...)` to retrieve specific input values.                                                                                                                                                           |
+| `NoSpaceAfterBladeDirectives`          | No space between blade template directive names and the opening paren:`@section (` -> `@section(`                                                                                                                                              |
+| `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line                                                                                                                                                                        |
+| `PureRestControllers`                  | You should not mix restful and non-restful public methods in a controller                                                                                                                                                                      |
+| `QualifiedNamesOnlyForClassName`       | Fully Qualified Class Names should only be used for accessing class names                                                                                                                                                                      |
+| `RemoveLeadingSlashNamespaces`         | Prefer `Namespace\...` over `\Namespace\...`.                                                                                                                                                                                                  |
+| `RequestHelperFunctionWherePossible`   | Use the request(...) helper function directly to access request values wherever possible                                                                                                                                                       |
+| `RequestValidation`                    | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers                                                                                                                 |
+| `SpaceAfterBladeDirectives`            | Put a space between blade control structure names and the opening paren:`@if(` -> `@if (`                                                                                                                                                      |
+| `SpacesAroundBladeRenderContent`       | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}`                                                                                                                                                                              |
+| `UseAnonymousMigrations`               | Prefer anonymous class migrations.                                                                                                                                                                                                             |
 
 ### General PHP
 
-- `OneLineBetweenClassVisibilityChanges`
-- `QualifiedNamesOnlyForClassName`
-- `RemoveLeadingSlashNamespaces`
+-   `OneLineBetweenClassVisibilityChanges`
+-   `QualifiedNamesOnlyForClassName`
+-   `RemoveLeadingSlashNamespaces`
 
 ### Laravel
 
-- `ApplyMiddlewareInRoutes`
-- `ArrayParametersOverViewWith`
-- `FullyQualifiedFacades`
-- `MailableMethodsInBuild`
-- `NoLeadingSlashesOnRoutePaths`
-- `NoDocBlocksForMigrationUpDown`
-- `NoJsonDirective`
-- `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
-- `PureRestControllers`
-- `RequestHelperFunctionWherePossible`
-- `RequestValidation`
-- `SpacesAroundBladeRenderContent`
-- `UseAnonymousMigrations`
-- `UseAuthHelperOverFacade`
+-   `ApplyMiddlewareInRoutes`
+-   `ArrayParametersOverViewWith`
+-   `FullyQualifiedFacades`
+-   `MailableMethodsInBuild`
+-   `NoLeadingSlashesOnRoutePaths`
+-   `NoDocBlocksForMigrationUpDown`
+-   `NoJsonDirective`
+-   `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
+-   `PureRestControllers`
+-   `RequestHelperFunctionWherePossible`
+-   `RequestValidation`
+-   `SpacesAroundBladeRenderContent`
+-   `UseAnonymousMigrations`
 
 ## Available Formatters
 
 **Notes about formatting**
 
-- Formatting is designed to alter the least amount of code possible.
-- Import related formatters are not designed to alter grouped imports.
+-   Formatting is designed to alter the least amount of code possible.
+-   Import related formatters are not designed to alter grouped imports.
 
-| Formatter | Description |
-| --- | --- |
-| `ArrayParametersOverViewWith` | Prefer `view(..., [...])` over `view(...)->with(...)`. |
-| `FullyQualifiedFacades` | Import facades using their full namespace. |
-| `MailableMethodsInBuild` | Mailable values (from and subject etc) should be set in build(). |
-| `NoDatesPropertyOnModels` | Use `$casts` instead of `$dates` on Eloquent models. |
-| `NoDocBlocksForMigrationUpDown` | Removes doc blocks from the up and down method in migrations. |
-| `NoLeadingSlashesOnRoutePaths` | No leading slashes on route paths. |
-| `NoSpaceAfterBladeDirectives` | No space between blade template directive names and the opening paren:`@section (` -> `@section(` |
-| `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line |
-| `RemoveLeadingSlashNamespaces` | Prefer `Namespace\...` over `\Namespace\...`. |
-| `RequestHelperFunctionWherePossible` | Use the request(...) helper function directly to access request values wherever possible |
-| `RequestValidation` | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
-| `SpaceAfterBladeDirectives` | Put a space between blade control structure names and the opening paren:`@if(` -> `@if (` |
-| `SpacesAroundBladeRenderContent` | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}` |
-| `UseAnonymousMigrations` | Prefer anonymous class migrations. |
-| `UseAuthHelperOverFacade` | Prefer the `auth()` helper function over the `Auth` Facade. |
+| Formatter                              | Description                                                                                                                    |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `ArrayParametersOverViewWith`          | Prefer `view(..., [...])` over `view(...)->with(...)`.                                                                         |
+| `FullyQualifiedFacades`                | Import facades using their full namespace.                                                                                     |
+| `MailableMethodsInBuild`               | Mailable values (from and subject etc) should be set in build().                                                               |
+| `NoDatesPropertyOnModels`              | Use `$casts` instead of `$dates` on Eloquent models.                                                                           |
+| `NoDocBlocksForMigrationUpDown`        | Removes doc blocks from the up and down method in migrations.                                                                  |
+| `NoLeadingSlashesOnRoutePaths`         | No leading slashes on route paths.                                                                                             |
+| `NoSpaceAfterBladeDirectives`          | No space between blade template directive names and the opening paren:`@section (` -> `@section(`                              |
+| `OneLineBetweenClassVisibilityChanges` | Class members of differing visibility must be separated by a blank line                                                        |
+| `RemoveLeadingSlashNamespaces`         | Prefer `Namespace\...` over `\Namespace\...`.                                                                                  |
+| `RequestHelperFunctionWherePossible`   | Use the request(...) helper function directly to access request values wherever possible                                       |
+| `RequestValidation`                    | Use `request()->validate(...)` helper function or extract a FormRequest instead of using `$this->validate(...)` in controllers |
+| `SpaceAfterBladeDirectives`            | Put a space between blade control structure names and the opening paren:`@if(` -> `@if (`                                      |
+| `SpacesAroundBladeRenderContent`       | Spaces around blade rendered content:`{{1 + 1}}` -> `{{ 1 + 1 }}`                                                              |
+| `UseAnonymousMigrations`               | Prefer anonymous class migrations.                                                                                             |
 
 ### General PHP
 
-- `OneLineBetweenClassVisibilityChanges`
-- `RemoveLeadingSlashNamespaces`
+-   `OneLineBetweenClassVisibilityChanges`
+-   `RemoveLeadingSlashNamespaces`
 
 ### Laravel
 
-- `ArrayParametersOverViewWith`
-- `FullyQualifiedFacades`
-- `MailableMethodsInBuild`
-- `NoDatesPropertyOnModels`
-- `NoDocBlocksForMigrationUpDown`
-- `NoLeadingSlashesOnRoutePaths`
-- `NoSpaceAfterBladeDirectives`
-- `RequestHelperFunctionWherePossible`
-- `RequestValidation`
-- `SpaceAfterBladeDirectives`
-- `SpacesAroundBladeRenderContent`
-- `UseAnonymousMigrations`
-- `UseAuthHelperOverFacade`
+-   `ArrayParametersOverViewWith`
+-   `FullyQualifiedFacades`
+-   `MailableMethodsInBuild`
+-   `NoDatesPropertyOnModels`
+-   `NoDocBlocksForMigrationUpDown`
+-   `NoLeadingSlashesOnRoutePaths`
+-   `NoSpaceAfterBladeDirectives`
+-   `RequestHelperFunctionWherePossible`
+-   `RequestValidation`
+-   `SpaceAfterBladeDirectives`
+-   `SpacesAroundBladeRenderContent`
+-   `UseAnonymousMigrations`
 
 ## Contributing
 
@@ -322,10 +319,10 @@ If you discover any security related issues, please email hello@tighten.co inste
 
 ## Credits
 
-- [Logan Henson](https://github.com/loganhenson)
-- [Jacob Baker-Kretzmar](https://github.com/bakerkretzmar)
-- [Anthony Clark](https://github.com/driftingly)
-- [All Contributors](../../contributors)
+-   [Logan Henson](https://github.com/loganhenson)
+-   [Jacob Baker-Kretzmar](https://github.com/bakerkretzmar)
+-   [Anthony Clark](https://github.com/driftingly)
+-   [All Contributors](../../contributors)
 
 ## License
 
