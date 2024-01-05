@@ -220,4 +220,18 @@ file;
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function does_not_trigger_on_blade_files()
+    {
+        $file = <<<'file'
+            <?php $propertyTypeOptions = array_merge(['' => 'Select a property type'], App\Models\Property::$types); ?>
+        file;
+
+        $lints = (new TLint())->lint(
+            new QualifiedNamesOnlyForClassName($file, '.blade.php')
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
