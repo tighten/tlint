@@ -228,7 +228,7 @@ file;
             <?php $propertyTypeOptions = array_merge(['' => 'Select a property type'], App\Models\Property::$types); ?>
         file;
 
-        $lints = (new TLint())->lint(
+        $lints = (new TLint)->lint(
             new QualifiedNamesOnlyForClassName($file, '.blade.php')
         );
 
