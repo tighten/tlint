@@ -12,18 +12,18 @@ class RequestHelperFunctionWherePossibleTest extends TestCase
     public function catches_get_method_usage()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Controller
-{
-    public function index()
-    {
-        return SavedVehicle::findOrFail(request()->get('savedVehicleId'));
-    }
-}
-file;
+            class Controller
+            {
+                public function index()
+                {
+                    return SavedVehicle::findOrFail(request()->get('savedVehicleId'));
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new RequestHelperFunctionWherePossible($file)
@@ -36,11 +36,11 @@ file;
     public function does_not_trigger_on_new_instance_method_calls()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-(new TableBuilder(new TablePresenter()))
-        ->column();
-file;
+            (new TableBuilder(new TablePresenter()))
+                    ->column();
+            file;
 
         $lints = (new TLint)->lint(
             new RequestHelperFunctionWherePossible($file)

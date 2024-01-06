@@ -12,22 +12,22 @@ class NoRequestAllTest extends TestCase
     public function catches_request_all_with_variable()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App\Http\Controllers;
+            namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+            use Illuminate\Http\Request;
 
-class UserController
-{
-    public function store(Request $request)
-    {
-        $user = User::create($request->all());
+            class UserController
+            {
+                public function store(Request $request)
+                {
+                    $user = User::create($request->all());
 
-        return response()->json($user);
-    }
-}
-file;
+                    return response()->json($user);
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(new NoRequestAll($file));
 
@@ -38,20 +38,20 @@ file;
     public function catches_request_all_with_helper()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App\Http\Controllers;
+            namespace App\Http\Controllers;
 
-class UserController
-{
-    public function store()
-    {
-        $user = User::create(request()->all());
+            class UserController
+            {
+                public function store()
+                {
+                    $user = User::create(request()->all());
 
-        return response()->json($user);
-    }
-}
-file;
+                    return response()->json($user);
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(new NoRequestAll($file));
 
@@ -62,22 +62,22 @@ file;
     public function catches_request_all_with_facade()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App\Http\Controllers;
+            namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Request;
+            use Illuminate\Support\Facades\Request;
 
-class UserController
-{
-    public function store()
-    {
-        $user = User::create(Request::all());
+            class UserController
+            {
+                public function store()
+                {
+                    $user = User::create(Request::all());
 
-        return response()->json($user);
-    }
-}
-file;
+                    return response()->json($user);
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(new NoRequestAll($file));
 
@@ -88,16 +88,16 @@ file;
     public function allows_other_request_methods()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-Route::get('/user', function (Request $request) {
-    $user = $request->user();
-    $method = $request->method();
-    $keys = $request->keys();
+            Route::get('/user', function (Request $request) {
+                $user = $request->user();
+                $method = $request->method();
+                $keys = $request->keys();
 
-    return [$user, $method, $keys];
-});
-file;
+                return [$user, $method, $keys];
+            });
+            file;
 
         $lints = (new TLint)->lint(new NoRequestAll($file));
 

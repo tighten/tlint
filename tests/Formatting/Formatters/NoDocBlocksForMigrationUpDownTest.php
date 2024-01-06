@@ -12,62 +12,60 @@ class NoDocBlocksForMigrationUpDownTest extends TestCase
     public function removes_up_and_down_docblocks()
     {
         $file = <<<file
-<?php
+            <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+            use Illuminate\Support\Facades\Schema;
+            use Illuminate\Database\Schema\Blueprint;
+            use Illuminate\Database\Migrations\Migration;
 
-class CreateBuyRequestsTable extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        //
-    }
+            class CreateBuyRequestsTable extends Migration
+            {
+                /**
+                 * Run the migrations.
+                 *
+                 * @return void
+                 */
+                public function up()
+                {
+                    //
+                }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
-}
-
-file;
+                /**
+                 * Reverse the migrations.
+                 *
+                 * @return void
+                 */
+                public function down()
+                {
+                    //
+                }
+            }
+            file;
 
         $formatted = (new TFormat)->format(
             new NoDocBlocksForMigrationUpDown($file)
         );
 
         $correctlyFormatted = <<<file
-<?php
+            <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+            use Illuminate\Support\Facades\Schema;
+            use Illuminate\Database\Schema\Blueprint;
+            use Illuminate\Database\Migrations\Migration;
 
-class CreateBuyRequestsTable extends Migration
-{
-    public function up()
-    {
-        //
-    }
+            class CreateBuyRequestsTable extends Migration
+            {
+                public function up()
+                {
+                    //
+                }
 
-    public function down()
-    {
-        //
-    }
-}
-
-file;
+                public function down()
+                {
+                    //
+                }
+            }
+            file;
 
         $this->assertEquals($correctlyFormatted, $formatted);
     }
@@ -76,22 +74,21 @@ file;
     public function doesnt_remove_other_migration_docblocks()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-class CreateBuyRequestsTable extends Migration
-{
-    /**
-     * Do extra stuff
-     *
-     * @return void
-     */
-    public function secretExtra()
-    {
-        //
-    }
-}
-
-file;
+            class CreateBuyRequestsTable extends Migration
+            {
+                /**
+                 * Do extra stuff
+                 *
+                 * @return void
+                 */
+                public function secretExtra()
+                {
+                    //
+                }
+            }
+            file;
 
         $formatted = (new TFormat)->format(
             new NoDocBlocksForMigrationUpDown($file)

@@ -12,64 +12,64 @@ class MailableMethodsInBuildTest extends TestCase
     public function catches_mailable_methods_in_constructor()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App\Mail;
+            namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
+            use Illuminate\Bus\Queueable;
+            use Illuminate\Mail\Mailable;
+            use Illuminate\Queue\SerializesModels;
 
-class SendGarageLink extends Mailable
-{
-    use Queueable, SerializesModels;
+            class SendGarageLink extends Mailable
+            {
+                use Queueable, SerializesModels;
 
-    public $url;
+                public $url;
 
-    public function __construct($url)
-    {
-        $this->url = $url;
-        $this->from('noreply@delivermyride.com', config('name'));
-        $this->subject(config('name') . ' Garage');
-        /* Test PhpParser\Node\Stmt\Nop */
-    }
+                public function __construct($url)
+                {
+                    $this->url = $url;
+                    $this->from('noreply@delivermyride.com', config('name'));
+                    $this->subject(config('name') . ' Garage');
+                    /* Test PhpParser\Node\Stmt\Nop */
+                }
 
-    public function build()
-    {
-        return $this->view('auth.emails.email-login');
-    }
-}
-file;
+                public function build()
+                {
+                    return $this->view('auth.emails.email-login');
+                }
+            }
+            file;
 
         $expected = <<<'file'
-<?php
+            <?php
 
-namespace App\Mail;
+            namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
+            use Illuminate\Bus\Queueable;
+            use Illuminate\Mail\Mailable;
+            use Illuminate\Queue\SerializesModels;
 
-class SendGarageLink extends Mailable
-{
-    use Queueable, SerializesModels;
+            class SendGarageLink extends Mailable
+            {
+                use Queueable, SerializesModels;
 
-    public $url;
+                public $url;
 
-    public function __construct($url)
-    {
-        $this->url = $url;
-        /* Test PhpParser\Node\Stmt\Nop */
-    }
+                public function __construct($url)
+                {
+                    $this->url = $url;
+                    /* Test PhpParser\Node\Stmt\Nop */
+                }
 
-    public function build()
-    {
-        $this->from('noreply@delivermyride.com', config('name'));
-        $this->subject(config('name') . ' Garage');
-        return $this->view('auth.emails.email-login');
-    }
-}
-file;
+                public function build()
+                {
+                    $this->from('noreply@delivermyride.com', config('name'));
+                    $this->subject(config('name') . ' Garage');
+                    return $this->view('auth.emails.email-login');
+                }
+            }
+            file;
 
         $formatted = (new TFormat)->format(new MailableMethodsInBuild($file));
 
@@ -80,35 +80,34 @@ file;
     public function does_not_trigger_on_methods_in_build()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App\Mail;
+            namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
+            use Illuminate\Bus\Queueable;
+            use Illuminate\Mail\Mailable;
+            use Illuminate\Queue\SerializesModels;
 
-class SendGarageLink extends Mailable
-{
-    use Queueable, SerializesModels;
+            class SendGarageLink extends Mailable
+            {
+                use Queueable, SerializesModels;
 
-    public $url;
+                public $url;
 
-    public function __construct($url)
-    {
-        $this->url = $url;
-    }
+                public function __construct($url)
+                {
+                    $this->url = $url;
+                }
 
-    public function build()
-    {
-        $this->from('noreply@delivermyride.com', config('name'));
-        $this->subject(config('name') . ' Garage');
+                public function build()
+                {
+                    $this->from('noreply@delivermyride.com', config('name'));
+                    $this->subject(config('name') . ' Garage');
 
-        return $this->view('auth.emails.email-login');
-    }
-}
-
-file;
+                    return $this->view('auth.emails.email-login');
+                }
+            }
+            file;
 
         $formatted = (new TFormat)->format(new MailableMethodsInBuild($file));
 
@@ -119,35 +118,34 @@ file;
     public function does_not_trigger_on_non_mailable()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App\Mail;
+            namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
+            use Illuminate\Bus\Queueable;
+            use Illuminate\Mail\Mailable;
+            use Illuminate\Queue\SerializesModels;
 
-class SendGarageLink
-{
-    use Queueable, SerializesModels;
+            class SendGarageLink
+            {
+                use Queueable, SerializesModels;
 
-    public $url;
+                public $url;
 
-    public function __construct($url)
-    {
-        $this->url = $url;
-        $this->subject(config('name') . ' Garage');
-    }
+                public function __construct($url)
+                {
+                    $this->url = $url;
+                    $this->subject(config('name') . ' Garage');
+                }
 
-    public function build()
-    {
-        $this->from('noreply@delivermyride.com', config('name'));
+                public function build()
+                {
+                    $this->from('noreply@delivermyride.com', config('name'));
 
-        return $this->view('auth.emails.email-login');
-    }
-}
-
-file;
+                    return $this->view('auth.emails.email-login');
+                }
+            }
+            file;
 
         $formatted = (new TFormat)->format(new MailableMethodsInBuild($file));
 

@@ -11,39 +11,39 @@ class RemoveLeadingSlashNamespacesTest extends TestCase
     /** @test */
     public function catches_leading_slashes_in_use_statements()
     {
-        $file = <<<file
-<?php
+        $file = <<<'file'
+            <?php
 
-namespace App;
+            namespace App;
 
-use \Tighten\TLint;
-use \PHPUnit\Framework\TestCase;
+            use \Tighten\TLint;
+            use \PHPUnit\Framework\TestCase;
 
-class TestClass
-{
-    public function test()
-    {
-        echo test;
-    }
-}
-file;
+            class TestClass
+            {
+                public function test()
+                {
+                    echo test;
+                }
+            }
+            file;
 
         $correctlyFormatted = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-use Tighten\TLint;
-use PHPUnit\Framework\TestCase;
+            use Tighten\TLint;
+            use PHPUnit\Framework\TestCase;
 
-class TestClass
-{
-    public function test()
-    {
-        echo test;
-    }
-}
-file;
+            class TestClass
+            {
+                public function test()
+                {
+                    echo test;
+                }
+            }
+            file;
 
         $formatted = (new TFormat)->format(
             new RemoveLeadingSlashNamespaces($file, '.php')
@@ -56,29 +56,29 @@ file;
     public function does_not_catch_leading_slash_in_code()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\ServiceProvider;
+            use Illuminate\Support\Facades\Validator;
+            use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
-{
-    public function boot()
-    {
-        $name = \Illuminate\Support\Facades\Auth::user()->name;
+            class AppServiceProvider extends ServiceProvider
+            {
+                public function boot()
+                {
+                    $name = \Illuminate\Support\Facades\Auth::user()->name;
 
-        $zip = new \ZipArchive;
+                    $zip = new \ZipArchive;
 
-        $class = new \stdClass;
+                    $class = new \stdClass;
 
-        $model = \App\User::class;
+                    $model = \App\User::class;
 
-        Validator::extend('recaptcha', 'App\Validators\ReCaptchaValidator@validate');
-    }
-}
-file;
+                    Validator::extend('recaptcha', 'App\Validators\ReCaptchaValidator@validate');
+                }
+            }
+            file;
 
         $formatted = (new TFormat)->format(
             new RemoveLeadingSlashNamespaces($file, '.php')

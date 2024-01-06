@@ -14,7 +14,7 @@ class QualifiedNamesOnlyForClassName extends BaseLinter
 
     public function lint(Parser $parser)
     {
-        if (preg_match('/\.blade\.php$/i', $this->filename)) {
+        if ($this->filename && preg_match('/\.blade\.php$/i', $this->filename)) {
             return [];
         }
 

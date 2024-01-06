@@ -12,32 +12,32 @@ class RequestHelperFunctionWherePossibleTest extends TestCase
     public function catches_get_method_usage()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Controller
-{
-    public function index()
-    {
-        return SavedVehicle::findOrFail(request()->get('savedVehicleId'));
-    }
-}
-file;
+            class Controller
+            {
+                public function index()
+                {
+                    return SavedVehicle::findOrFail(request()->get('savedVehicleId'));
+                }
+            }
+            file;
 
         $expected = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Controller
-{
-    public function index()
-    {
-        return SavedVehicle::findOrFail(request('savedVehicleId'));
-    }
-}
-file;
+            class Controller
+            {
+                public function index()
+                {
+                    return SavedVehicle::findOrFail(request('savedVehicleId'));
+                }
+            }
+            file;
 
         $formatted = (new TFormat)->format(new RequestHelperFunctionWherePossible($file));
 
@@ -48,22 +48,22 @@ file;
     public function ignores_other_request_methods()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Controller
-{
-    public function index()
-    {
-        $validated = request()->validate(['test' => 'required']);
+            class Controller
+            {
+                public function index()
+                {
+                    $validated = request()->validate(['test' => 'required']);
 
-        if (request()->has('version') || request()->hasHeader('version')) {
-            return request()->input('version') ?? request()->header('version');
-        }
-    }
-}
-file;
+                    if (request()->has('version') || request()->hasHeader('version')) {
+                        return request()->input('version') ?? request()->header('version');
+                    }
+                }
+            }
+            file;
 
         $formatted = (new TFormat)->format(new RequestHelperFunctionWherePossible($file));
 

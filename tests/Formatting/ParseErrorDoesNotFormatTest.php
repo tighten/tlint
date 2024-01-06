@@ -19,17 +19,17 @@ class ParseErrorDoesNotFormatTest extends TestCase
         $commandTester = new CommandTester($command);
 
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
-    const OK
+            class Thing
+            {
+                const OK
 
-    retunr 1
-}
-file;
+                retunr 1
+            }
+            file;
 
         $filePath = tempnam(sys_get_temp_dir(), 'test');
 

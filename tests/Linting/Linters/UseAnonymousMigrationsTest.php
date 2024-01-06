@@ -11,25 +11,24 @@ class UseAnonymousMigrationsTest extends TestCase
     /** @test */
     public function it_catches_named_class_migrations()
     {
-        $file = <<<file
-<?php
+        $file = <<<'file'
+            <?php
 
-use Illuminate\Database\Migrations\Migration;
+            use Illuminate\Database\Migrations\Migration;
 
-class CreateBuyRequestsTable extends Migration
-{
-    public function up()
-    {
-        //
-    }
+            class CreateBuyRequestsTable extends Migration
+            {
+                public function up()
+                {
+                    //
+                }
 
-    public function down()
-    {
-        //
-    }
-}
-
-file;
+                public function down()
+                {
+                    //
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new UseAnonymousMigrations($file)
@@ -41,25 +40,24 @@ file;
     /** @test */
     public function it_allows_anonymous_migrations()
     {
-        $file = <<<file
-<?php
+        $file = <<<'file'
+            <?php
 
-use Illuminate\Database\Migrations\Migration;
+            use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
-    public function up()
-    {
-        //
-    }
+            return new class extends Migration
+            {
+                public function up()
+                {
+                    //
+                }
 
-    public function down()
-    {
-        //
-    }
-};
-
-file;
+                public function down()
+                {
+                    //
+                }
+            };
+            file;
 
         $lints = (new TLint)->lint(
             new UseAnonymousMigrations($file)

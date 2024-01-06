@@ -12,15 +12,14 @@ class NoJsonDirectiveTest extends TestCase
     public function catches_json_directive_usage()
     {
         $file = <<<'file'
-        @extends('layouts.app')
+            @extends('layouts.app')
 
-        @section('content')
-            <div>
-                <test :files='@json([['name' => "Logan's thing"], ["name" => "ok"]])"></test>
-            </div>
-        @endsection
-
-file;
+            @section('content')
+                <div>
+                    <test :files='@json([['name' => "Logan's thing"], ["name" => "ok"]])"></test>
+                </div>
+            @endsection
+            file;
 
         $lints = (new TLint)->lint(
             new NoJsonDirective($file)

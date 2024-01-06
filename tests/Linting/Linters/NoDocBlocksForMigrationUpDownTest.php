@@ -11,37 +11,36 @@ class NoDocBlocksForMigrationUpDownTest extends TestCase
     /** @test */
     public function catches_doc_blocks_on_up_and_down()
     {
-        $file = <<<file
-<?php
+        $file = <<<'file'
+            <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+            use Illuminate\Support\Facades\Schema;
+            use Illuminate\Database\Schema\Blueprint;
+            use Illuminate\Database\Migrations\Migration;
 
-class CreateBuyRequestsTable extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        //
-    }
+            class CreateBuyRequestsTable extends Migration
+            {
+                /**
+                 * Run the migrations.
+                 *
+                 * @return void
+                 */
+                public function up()
+                {
+                    //
+                }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
-}
-
-file;
+                /**
+                 * Reverse the migrations.
+                 *
+                 * @return void
+                 */
+                public function down()
+                {
+                    //
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new NoDocBlocksForMigrationUpDown($file)
