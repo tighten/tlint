@@ -12,14 +12,14 @@ class NoSpaceAfterBladeDirectivesTest extends TestCase
     public function catches_space_after_directives()
     {
         $file = <<<'file'
-        @section ('sidebar')
-            This is the master sidebar.
-        @show
+            @section ('sidebar')
+                This is the master sidebar.
+            @show
 
-        <div class="container">
-            @yield ('content')
-        </div>
-file;
+            <div class="container">
+                @yield ('content')
+            </div>
+        file;
 
         $lints = (new TLint)->lint(
             new NoSpaceAfterBladeDirectives($file)

@@ -12,13 +12,12 @@ class FullyQualifiedFacadesTest extends TestCase
     public function it_triggers_on_namespaced_file()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Cache;
-
-file;
+            use Cache;
+            file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
@@ -31,11 +30,10 @@ file;
     public function it_triggers_on_non_namespaced_file()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-use Cache;
-
-file;
+            use Cache;
+            file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
@@ -48,11 +46,10 @@ file;
     public function it_triggers_on_aliased_facade()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-use Cache as Store;
-
-file;
+            use Cache as Store;
+            file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
@@ -64,14 +61,13 @@ file;
     /** @test */
     public function does_not_trigger_on_a_fully_qualified_facade()
     {
-        $file = <<<file
-<?php
+        $file = <<<'file'
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Illuminate\Support\Facades\Hash;
-
-file;
+            use Illuminate\Support\Facades\Hash;
+            file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
@@ -83,14 +79,13 @@ file;
     /** @test */
     public function does_not_trigger_on_custom_class_aliased_to_facade_name()
     {
-        $file = <<<file
-<?php
+        $file = <<<'file'
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use MyNamespace\MyClass as Config;
-
-file;
+            use MyNamespace\MyClass as Config;
+            file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
@@ -102,14 +97,13 @@ file;
     /** @test */
     public function does_not_trigger_on_facade_usage_with_grouped_import()
     {
-        $file = <<<file
-<?php
+        $file = <<<'file'
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Illuminate\Support\Facades\{Config, Hash};
-
-file;
+            use Illuminate\Support\Facades\{Config, Hash};
+            file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
@@ -121,16 +115,15 @@ file;
     /** @test */
     public function does_not_trigger_on_facade_usage_with_grouped_import_and_renamed_imports()
     {
-        $file = <<<file
-<?php
+        $file = <<<'file'
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Illuminate\Support\Facades\{Config, Hash};
-use Some\Othere\Namespace\{Config as OtherConfig};
-use Some\Other\Namespace\File;
-
-file;
+            use Illuminate\Support\Facades\{Config, Hash};
+            use Some\Othere\Namespace\{Config as OtherConfig};
+            use Some\Other\Namespace\File;
+            file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
@@ -143,13 +136,12 @@ file;
     public function ignores_unknown_aliases_in_namespaced_file()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Shortcut;
-
-file;
+            use Shortcut;
+            file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
@@ -162,11 +154,10 @@ file;
     public function ignores_unknown_aliases_in_non_namespaced_file()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-use Shortcut;
-
-file;
+            use Shortcut;
+            file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)
@@ -179,18 +170,18 @@ file;
     public function does_not_trigger_on_alias_usage_without_import()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App\Utilities;
+            namespace App\Utilities;
 
-class Stuff
-{
-    public function doStuff()
-    {
-        return File::otherStuff();
-    }
-}
-file;
+            class Stuff
+            {
+                public function doStuff()
+                {
+                    return File::otherStuff();
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new FullyQualifiedFacades($file)

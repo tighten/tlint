@@ -19,15 +19,14 @@ class CanOutputLintsAsJsonTest extends TestCase
         $commandTester = new CommandTester($command);
 
         $file = <<<'file'
-<?php
+            <?php
 
-class Test
-{
-    public $test1;
-    private $test2;
-}
-
-file;
+            class Test
+            {
+                public $test1;
+                private $test2;
+            }
+            file;
 
         $filePath = tempnam(sys_get_temp_dir(), 'test');
 
@@ -61,11 +60,10 @@ file;
         $commandTester = new CommandTester($command);
 
         $file = <<<'file'
-<?php
+            <?php
 
-echo 'a';
-
-file;
+            echo 'a';
+            file;
 
         $filePath = tempnam(sys_get_temp_dir(), 'test');
 

@@ -12,26 +12,24 @@ class FullyQualifiedFacadesTest extends TestCase
     public function fixes_facade_aliases()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use DB;
-use Storage;
-
-file;
+            use DB;
+            use Storage;
+            file;
 
         $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-
-file;
+            use Illuminate\Support\Facades\DB;
+            use Illuminate\Support\Facades\Storage;
+            file;
 
         $this->assertSame($expected, $formatted);
     }
@@ -40,22 +38,20 @@ file;
     public function fixes_facade_aliases_when_file_not_namespaced()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-use DB;
-use Storage;
-
-file;
+            use DB;
+            use Storage;
+            file;
 
         $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
-<?php
+            <?php
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-
-file;
+            use Illuminate\Support\Facades\DB;
+            use Illuminate\Support\Facades\Storage;
+            file;
 
         $this->assertSame($expected, $formatted);
     }
@@ -64,32 +60,30 @@ file;
     public function fixes_facade_aliases_mixed_with_valid_use_statements()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use DB;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
-use Storage;
-use Tests\TestCase;
-
-file;
+            use DB;
+            use Illuminate\Http\Request;
+            use Illuminate\Support\Facades\Schema;
+            use Storage;
+            use Tests\TestCase;
+            file;
 
         $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Storage;
-use Tests\TestCase;
-
-file;
+            use Illuminate\Support\Facades\DB;
+            use Illuminate\Http\Request;
+            use Illuminate\Support\Facades\Schema;
+            use Illuminate\Support\Facades\Storage;
+            use Tests\TestCase;
+            file;
 
         $this->assertSame($expected, $formatted);
     }
@@ -98,28 +92,26 @@ file;
     public function fixes_facade_aliases_after_group_use_when_file_not_namespaced()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-use Illuminate\Support\Facades\{Config, Hash};
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
-use Storage;
-use Tests\TestCase;
-
-file;
+            use Illuminate\Support\Facades\{Config, Hash};
+            use Illuminate\Http\Request;
+            use Illuminate\Support\Facades\Schema;
+            use Storage;
+            use Tests\TestCase;
+            file;
 
         $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
-<?php
+            <?php
 
-use Illuminate\Support\Facades\{Config, Hash};
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Storage;
-use Tests\TestCase;
-
-file;
+            use Illuminate\Support\Facades\{Config, Hash};
+            use Illuminate\Http\Request;
+            use Illuminate\Support\Facades\Schema;
+            use Illuminate\Support\Facades\Storage;
+            use Tests\TestCase;
+            file;
 
         $this->assertSame($expected, $formatted);
     }
@@ -128,26 +120,24 @@ file;
     public function fixes_str_and_arr_helpers()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Arr;
-use Str;
-
-file;
+            use Arr;
+            use Str;
+            file;
 
         $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-
-file;
+            use Illuminate\Support\Arr;
+            use Illuminate\Support\Str;
+            file;
 
         $this->assertSame($expected, $formatted);
     }
@@ -156,13 +146,12 @@ file;
     public function ignores_grouped_imports()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use App\{ User, Post };
-
-file;
+            use App\{ User, Post };
+            file;
 
         $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
 
@@ -173,13 +162,12 @@ file;
     public function ignores_unknown_aliases()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Shortcut;
-
-file;
+            use Shortcut;
+            file;
 
         $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
 
@@ -190,18 +178,18 @@ file;
     public function ignores_files_in_same_directory_with_same_name_as_facade_alias()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App\Utilities;
+            namespace App\Utilities;
 
-class Stuff
-{
-    public function doStuff()
-    {
-        return File::otherStuff();
-    }
-}
-file;
+            class Stuff
+            {
+                public function doStuff()
+                {
+                    return File::otherStuff();
+                }
+            }
+            file;
 
         $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
 
@@ -212,29 +200,27 @@ file;
     public function it_does_not_cause_duplicate_import_statements()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Eloquent;
-use Exception;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-
-file;
+            use Eloquent;
+            use Exception;
+            use Illuminate\Database\Eloquent\Builder;
+            use Illuminate\Database\Eloquent\Model;
+            file;
 
         $formatted = (new TFormat)->format(new FullyQualifiedFacades($file));
 
         $expected = <<<'file'
-<?php
+            <?php
 
-namespace Test;
+            namespace Test;
 
-use Exception;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-
-file;
+            use Exception;
+            use Illuminate\Database\Eloquent\Builder;
+            use Illuminate\Database\Eloquent\Model;
+            file;
 
         $this->assertSame($expected, $formatted);
     }

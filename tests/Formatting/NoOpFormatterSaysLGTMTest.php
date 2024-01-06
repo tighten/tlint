@@ -19,16 +19,15 @@ class NoOpFormatterSaysLGTMTest extends TestCase
         $commandTester = new CommandTester($command);
 
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
+            class Thing
+            {
 
-}
-
-file;
+            }
+            file;
 
         $filePath = tempnam(sys_get_temp_dir(), 'test');
 

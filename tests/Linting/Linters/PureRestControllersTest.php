@@ -12,23 +12,23 @@ class PureRestControllersTest extends TestCase
     public function catches_non_rest_public_methods_in_an_otherwise_restful_controller()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Controller
-{
-    public function index()
-    {
-        return view('test.view', ['ok' => 'test']);
-    }
+            class Controller
+            {
+                public function index()
+                {
+                    return view('test.view', ['ok' => 'test']);
+                }
 
-    public function nonRest()
-    {
-        return 'nope';
-    }
-}
-file;
+                public function nonRest()
+                {
+                    return 'nope';
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new PureRestControllers($file)
@@ -41,23 +41,23 @@ file;
     public function does_not_trigger_on_non_restful_private_method()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Controller
-{
-    public function index()
-    {
-        return view('test.view', ['ok' => 'test']);
-    }
+            class Controller
+            {
+                public function index()
+                {
+                    return view('test.view', ['ok' => 'test']);
+                }
 
-    private function nonRest()
-    {
-        return 'nope';
-    }
-}
-file;
+                private function nonRest()
+                {
+                    return 'nope';
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new PureRestControllers($file)

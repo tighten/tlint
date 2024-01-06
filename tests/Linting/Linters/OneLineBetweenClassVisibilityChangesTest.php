@@ -12,16 +12,16 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
     public function catches_missing_line_between_visibility_changes()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
-    protected const OK = 1;
-    private $ok;
-}
-file;
+            class Thing
+            {
+                protected const OK = 1;
+                private $ok;
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
@@ -34,19 +34,19 @@ file;
     public function catches_missing_line_between_visibility_changes_with_doc_block()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
-    protected const OK = 1;
-    /**
-     * The description of something.
-     */
-    private $ok;
-}
-file;
+            class Thing
+            {
+                protected const OK = 1;
+                /**
+                 * The description of something.
+                 */
+                private $ok;
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
@@ -59,20 +59,20 @@ file;
     public function ignores_doc_block_between_visibility_changes()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
-    protected const OK = 1;
+            class Thing
+            {
+                protected const OK = 1;
 
-    /**
-     * The description of something.
-     */
-    private $ok;
-}
-file;
+                /**
+                 * The description of something.
+                 */
+                private $ok;
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
@@ -85,17 +85,17 @@ file;
     public function catches_missing_line_between_visibility_changes_with_comment()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
-    protected const OK = 1;
-    // Note to self
-    private $ok;
-}
-file;
+            class Thing
+            {
+                protected const OK = 1;
+                // Note to self
+                private $ok;
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
@@ -108,18 +108,18 @@ file;
     public function catches_missing_line_between_visibility_changes_with_two_comments()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
-    protected const OK = 1;
-    // Note to self
-    // Another
-    private $ok;
-}
-file;
+            class Thing
+            {
+                protected const OK = 1;
+                // Note to self
+                // Another
+                private $ok;
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
@@ -132,20 +132,20 @@ file;
     public function catches_missing_line_between_visibility_changes_with_many_comments()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
-    protected const OK = 1;
-    // Note to self
-    // Another
-    // And another
-    // And another one
-    private $ok;
-}
-file;
+            class Thing
+            {
+                protected const OK = 1;
+                // Note to self
+                // Another
+                // And another
+                // And another one
+                private $ok;
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
@@ -158,18 +158,18 @@ file;
     public function ignores_comment_below_space_between_visibility_changes()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
-    protected const OK = 1;
+            class Thing
+            {
+                protected const OK = 1;
 
-    // TODO
-    private $ok;
-}
-file;
+                // TODO
+                private $ok;
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
@@ -182,18 +182,18 @@ file;
     public function ignores_comment_above_space_between_visibility_changes()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
-    protected const OK = 1;
-    // public const NOT_OK = 2;
+            class Thing
+            {
+                protected const OK = 1;
+                // public const NOT_OK = 2;
 
-    private $ok;
-}
-file;
+                private $ok;
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)
@@ -206,24 +206,24 @@ file;
     public function ignores_many_comments_between_visibility_changes()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Thing
-{
-    protected const OK = 1;
-    // public const NOT_OK = 2;
+            class Thing
+            {
+                protected const OK = 1;
+                // public const NOT_OK = 2;
 
-    // another one
-    /**
-     * docblock!
-     */
-    // Hi there
-    //
-    private $ok;
-}
-file;
+                // another one
+                /**
+                 * docblock!
+                 */
+                // Hi there
+                //
+                private $ok;
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new OneLineBetweenClassVisibilityChanges($file)

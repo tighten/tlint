@@ -12,18 +12,18 @@ class ArrayParametersOverViewWithTest extends TestCase
     public function catches_view_with_method_usage_in_controller_methods()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-class Controller
-{
-    function index()
-    {
-        return view('test.view')->with('ok', 'test');
-    }
-}
-file;
+            class Controller
+            {
+                function index()
+                {
+                    return view('test.view')->with('ok', 'test');
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(
             new ArrayParametersOverViewWith($file)
@@ -35,13 +35,13 @@ file;
     /** @test */
     public function catches_view_with_method_usage_in_routes()
     {
-        $file = <<<file
-<?php
+        $file = <<<'file'
+            <?php
 
-\Route::get('test', function () {
-    return view('test')->with('test', 'test');
-});
-file;
+            \Route::get('test', function () {
+                return view('test')->with('test', 'test');
+            });
+            file;
 
         $lints = (new TLint)->lint(
             new ArrayParametersOverViewWith($file)

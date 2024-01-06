@@ -12,22 +12,22 @@ class NoDatesPropertyOnModelsTest extends TestCase
     public function lints_dates_property_on_model()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+            use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
-{
-    protected $dates = ['published_at'];
+            class Post extends Model
+            {
+                protected $dates = ['published_at'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-}
-file;
+                public function user()
+                {
+                    return $this->belongsTo(User::class);
+                }
+            }
+            file;
 
         $lints = (new TLint)->lint(new NoDatesPropertyOnModels($file));
 
@@ -38,19 +38,19 @@ file;
     public function lints_dates_property_on_pivot_model()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App;
+            namespace App;
 
-use Illuminate\Database\Eloquent\Relations\Pivot;
+            use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class AuthorPost extends Pivot
-{
-    public $incrementing = false;
+            class AuthorPost extends Pivot
+            {
+                public $incrementing = false;
 
-    protected $dates = ['reviewed_at'];
-}
-file;
+                protected $dates = ['reviewed_at'];
+            }
+            file;
 
         $lints = (new TLint)->lint(new NoDatesPropertyOnModels($file));
 
@@ -61,21 +61,21 @@ file;
     public function lints_dates_property_on_authenticatable()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App\Models;
+            namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+            use Illuminate\Foundation\Auth\User as Authenticatable;
+            use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
-{
-    use Notifiable;
+            class User extends Authenticatable
+            {
+                use Notifiable;
 
-    protected $fillable = ['name', 'email'];
-    protected $dates = ['reviewed_at'];
-}
-file;
+                protected $fillable = ['name', 'email'];
+                protected $dates = ['reviewed_at'];
+            }
+            file;
 
         $lints = (new TLint)->lint(new NoDatesPropertyOnModels($file));
 
@@ -86,15 +86,15 @@ file;
     public function ignores_dates_property_on_non_model()
     {
         $file = <<<'file'
-<?php
+            <?php
 
-namespace App\Events;
+            namespace App\Events;
 
-class Birthday
-{
-    protected $dates = ['date'];
-}
-file;
+            class Birthday
+            {
+                protected $dates = ['date'];
+            }
+            file;
 
         $this->assertEmpty((new TLint)->lint(new NoDatesPropertyOnModels($file)));
     }

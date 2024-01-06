@@ -12,12 +12,12 @@ class SpaceAfterBladeDirectivesTest extends TestCase
     public function it_catches_missing_space_if_statement()
     {
         $file = <<<'file'
-@if(true)
-    This is true.
-@elseif(false)
-    This is false.
-@endif
-file;
+            @if(true)
+                This is true.
+            @elseif(false)
+                This is false.
+            @endif
+            file;
 
         $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
@@ -31,10 +31,10 @@ file;
     public function it_catches_missing_space_unless_statement()
     {
         $file = <<<'file'
-@unless(true)
-    This isn't true.
-@endunless
-file;
+            @unless(true)
+                This isn't true.
+            @endunless
+            file;
 
         $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
@@ -47,10 +47,10 @@ file;
     public function it_catches_missing_space_for_statement()
     {
         $file = <<<'file'
-@for($i = 0; $i < 10; $i++)
-    The current value is {{ $i }}
-@endfor
-file;
+            @for($i = 0; $i < 10; $i++)
+                The current value is {{ $i }}
+            @endfor
+            file;
 
         $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
@@ -63,10 +63,10 @@ file;
     public function it_catches_missing_space_foreach_statement()
     {
         $file = <<<'file'
-@foreach($users as $user)
-    <li>{{ $user->name }}</li>
-@endforeach
-file;
+            @foreach($users as $user)
+                <li>{{ $user->name }}</li>
+            @endforeach
+            file;
 
         $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
@@ -79,12 +79,12 @@ file;
     public function it_catches_missing_space_forelse_statement()
     {
         $file = <<<'file'
-@forelse($users as $user)
-    <li>{{ $user->name }}</li>
-@empty
-    <p>No users</p>
-@endforelse
-file;
+            @forelse($users as $user)
+                <li>{{ $user->name }}</li>
+            @empty
+                <p>No users</p>
+            @endforelse
+            file;
 
         $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
@@ -97,10 +97,10 @@ file;
     public function it_catches_missing_space_while_statement()
     {
         $file = <<<'file'
-@while(true)
-    <p>I'm looping forever.</p>
-@endwhile
-file;
+            @while(true)
+                <p>I'm looping forever.</p>
+            @endwhile
+            file;
 
         $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
@@ -113,10 +113,10 @@ file;
     public function it_ignores_correctly_spaced_directives()
     {
         $file = <<<'file'
-@foreach ($users as $user)
-    <li>{{ $user->name }}</li>
-@endforeach
-file;
+            @foreach ($users as $user)
+                <li>{{ $user->name }}</li>
+            @endforeach
+            file;
 
         $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
@@ -129,38 +129,38 @@ file;
     public function it_catches_missing_space_kitchen_sink()
     {
         $file = <<<'file'
-@if(true)
-    This is true.
-@elseif(false)
-    This is false.
-@endif
+            @if(true)
+                This is true.
+            @elseif(false)
+                This is false.
+            @endif
 
-@if(true) @if($inline) Inline @endif @endif
+            @if(true) @if($inline) Inline @endif @endif
 
-@unless(true)
-    This isn't true.
-@endunless
+            @unless(true)
+                This isn't true.
+            @endunless
 
-@for($i = 0; $i < 10; $i++)
-    The current value is {{ $i }}
-@endfor
+            @for($i = 0; $i < 10; $i++)
+                The current value is {{ $i }}
+            @endfor
 
-@foreach($users as $user)
-    @foreach($user->emails as $email)
-        <li>{{ $email }}</li>
-    @endforeach
-@endforeach
+            @foreach($users as $user)
+                @foreach($user->emails as $email)
+                    <li>{{ $email }}</li>
+                @endforeach
+            @endforeach
 
-@forelse($users as $user)
-    <li>{{ $user->name }}</li>
-@empty
-    <p>No users</p>
-@endforelse
+            @forelse($users as $user)
+                <li>{{ $user->name }}</li>
+            @empty
+                <p>No users</p>
+            @endforelse
 
-@while(true)
-    <p>I'm looping forever.</p>
-@endwhile
-file;
+            @while(true)
+                <p>I'm looping forever.</p>
+            @endwhile
+            file;
 
         $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
@@ -182,14 +182,14 @@ file;
     public function it_catches_directives_spanning_multiple_lines()
     {
         $file = <<<'file'
-@foreach([
-    Laravel\Memberships\Membership::MEMBER_ROLE,
-    Laravel\Memberships\Membership::SUPERVISION_ROLE,
-    Laravel\Memberships\Membership::ADMIN_ROLE,
-    ] as $role)
-    <option value="{{ $role }}">{{ $role }}</option>
-@endforeach
-file;
+            @foreach([
+                Laravel\Memberships\Membership::MEMBER_ROLE,
+                Laravel\Memberships\Membership::SUPERVISION_ROLE,
+                Laravel\Memberships\Membership::ADMIN_ROLE,
+                ] as $role)
+                <option value="{{ $role }}">{{ $role }}</option>
+            @endforeach
+            file;
 
         $lints = (new TLint)->lint(
             new SpaceAfterBladeDirectives($file)
