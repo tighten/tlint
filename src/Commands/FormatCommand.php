@@ -44,7 +44,7 @@ class FormatCommand extends BaseCommand
             ->setHelp('This command allows you to format a php/laravel file/directory.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $fileOrDirectory = $this->resolveFileOrDirectory($input->getArgument('file or directory'));
         $finalResponseCode = self::SUCCESS;
