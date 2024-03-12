@@ -52,7 +52,7 @@ class LintCommand extends BaseCommand
             ->setHelp('This command allows you to lint a php/laravel file/directory.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $fileOrDirectory = $this->resolveFileOrDirectory($input->getArgument('file or directory'));
         $finalResponseCode = self::NO_LINTS_FOUND_OR_SUCCESS;
