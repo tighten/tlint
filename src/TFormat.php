@@ -6,6 +6,7 @@ use PhpParser\Lexer\Emulative;
 use PhpParser\Parser\Php7;
 use PhpParser\PhpVersion;
 use PHPUnit\Runner\Version;
+use PHPUnit\TextUI\XmlConfiguration\Php;
 
 class TFormat
 {
@@ -15,7 +16,7 @@ class TFormat
     public function __construct()
     {
         $this->lexer = new Emulative(phpVersion: PhpVersion::getHostVersion());
-        $this->parser = new Php7($this->lexer);
+        $this->parser = new Php7($this->lexer, PhpVersion::getHostVersion());
     }
 
     public function format(BaseFormatter $formatter)
