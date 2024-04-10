@@ -120,7 +120,7 @@ class NoDatesPropertyOnModels extends BaseFormatter
         return new class extends Standard
         {
             // Force all arrays to be printed in multiline style
-            protected function pMaybeMultiline(array $nodes, bool $trailingComma = true)
+            protected function pMaybeMultiline(array $nodes, bool $trailingComma = true): string
             {
                 return $this->pCommaSeparatedMultiline($nodes, $trailingComma) . $this->nl;
             }
