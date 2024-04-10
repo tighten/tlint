@@ -4,6 +4,8 @@ namespace Tighten\TLint;
 
 use PhpParser\Lexer\Emulative;
 use PhpParser\Parser\Php7;
+use PhpParser\PhpVersion;
+use PHPUnit\Runner\Version;
 
 class TFormat
 {
@@ -12,13 +14,7 @@ class TFormat
 
     public function __construct()
     {
-        $this->lexer = new Emulative([
-            'usedAttributes' => [
-                'comments',
-                'startLine', 'endLine',
-                'startTokenPos', 'endTokenPos',
-            ],
-        ]);
+        $this->lexer = new Emulative(phpVersion: PhpVersion::getHostVersion());
         $this->parser = new Php7($this->lexer);
     }
 
