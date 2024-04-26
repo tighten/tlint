@@ -2,7 +2,6 @@
 
 namespace Tighten\TLint\Formatters;
 
-use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Use_;

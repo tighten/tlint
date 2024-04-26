@@ -2,7 +2,6 @@
 
 namespace Tighten\TLint\Formatters;
 
-use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;

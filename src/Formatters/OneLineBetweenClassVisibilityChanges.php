@@ -3,7 +3,6 @@
 namespace Tighten\TLint\Formatters;
 
 use PhpParser\Comment;
-use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\Property;

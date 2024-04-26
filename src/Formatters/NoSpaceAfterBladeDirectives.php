@@ -3,7 +3,6 @@
 namespace Tighten\TLint\Formatters;
 
 use Illuminate\Support\Str;
-use PhpParser\Lexer;
 use PhpParser\Parser;
 use Tighten\TLint\BaseFormatter;
 use Tighten\TLint\Linters\NoSpaceAfterBladeDirectives as Linter;

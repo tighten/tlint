@@ -3,7 +3,6 @@
 namespace Tighten\TLint\Formatters;
 
 use Closure;
-use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
