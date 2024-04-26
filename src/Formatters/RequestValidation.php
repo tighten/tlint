@@ -2,7 +2,6 @@
 
 namespace Tighten\TLint\Formatters;
 
-use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
@@ -24,19 +23,21 @@ class RequestValidation extends BaseFormatter
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         $traverser = new NodeTraverser;
         $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($this->code);
+        $oldTokens = $parser->getTokens();
+
         $newStmts = $traverser->traverse($oldStmts);
 
         $traverser = new NodeTraverser;
         $traverser->addVisitor($this->visitor());
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $oldTokens));
     }
 
     private function visitor(): NodeVisitorAbstract

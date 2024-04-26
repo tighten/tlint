@@ -2,7 +2,6 @@
 
 namespace Tighten\TLint\Formatters;
 
-use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
@@ -16,7 +15,7 @@ class NoDocBlocksForMigrationUpDown extends BaseFormatter
 
     public const DESCRIPTION = 'Removes doc blocks from the up and down method in migrations.';
 
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         $oldStmts = $parser->parse($this->code);
 

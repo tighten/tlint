@@ -3,7 +3,6 @@
 namespace Tighten\TLint\Formatters;
 
 use Illuminate\Support\Str;
-use PhpParser\Lexer;
 use PhpParser\Parser;
 use Tighten\TLint\BaseFormatter;
 use Tighten\TLint\Linters\NoSpaceAfterBladeDirectives as Linter;
@@ -17,7 +16,7 @@ class NoSpaceAfterBladeDirectives extends BaseFormatter
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         foreach ($this->getCodeLines() as $index => $codeLine) {
             $matches = [];

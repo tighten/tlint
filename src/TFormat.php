@@ -2,28 +2,19 @@
 
 namespace Tighten\TLint;
 
-use PhpParser\Lexer\Emulative;
-use PhpParser\Parser\Php7;
+use PhpParser\ParserFactory;
 
 class TFormat
 {
     private $parser;
-    private $lexer;
 
     public function __construct()
     {
-        $this->lexer = new Emulative([
-            'usedAttributes' => [
-                'comments',
-                'startLine', 'endLine',
-                'startTokenPos', 'endTokenPos',
-            ],
-        ]);
-        $this->parser = new Php7($this->lexer);
+        $this->parser = (new ParserFactory)->createForHostVersion();
     }
 
     public function format(BaseFormatter $formatter)
     {
-        return $formatter->format($this->parser, $this->lexer);
+        return $formatter->format($this->parser);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Tighten\TLint\Formatters;
 
-use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\NodeTraverser;
@@ -17,7 +16,7 @@ class UseAnonymousMigrations extends BaseFormatter
 
     public const DESCRIPTION = 'Prefer anonymous class migrations.';
 
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         $traverser = new NodeTraverser;
         $traverser->addVisitor(new CloningVisitor);

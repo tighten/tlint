@@ -3,7 +3,6 @@
 namespace Tighten\TLint\Formatters;
 
 use Illuminate\Support\Str;
-use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
@@ -21,7 +20,7 @@ class RemoveLeadingSlashNamespaces extends BaseFormatter
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         $traverser = new NodeTraverser;
         $traverser->addVisitor(new CloningVisitor);
@@ -63,7 +62,7 @@ class RemoveLeadingSlashNamespaces extends BaseFormatter
 
             public function enterNode(Node $node): Node|int|null
             {
-                if (! $node instanceof Node\Stmt\UseUse) {
+                if (! $node instanceof Node\UseItem) {
                     return null;
                 }
 
