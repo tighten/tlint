@@ -40,7 +40,7 @@ class RemoveLeadingSlashNamespaces extends BaseLinter
         });
 
         $useStatementsVisitor = new FindingVisitor(function (Node $node) {
-            if (! $node instanceof Node\Stmt\UseUse) {
+            if (! $node instanceof Node\UseItem) {
                 return false;
             }
 

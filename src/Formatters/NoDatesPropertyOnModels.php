@@ -4,13 +4,14 @@ namespace Tighten\TLint\Formatters;
 
 use Closure;
 use PhpParser\Lexer;
+use PhpParser\Modifiers;
 use PhpParser\Node;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\PropertyItem;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\NodeFinder;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
@@ -27,22 +28,24 @@ class NoDatesPropertyOnModels extends BaseFormatter
 
     protected bool $model = false;
 
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         $traverser = new NodeTraverser;
         $traverser->addVisitor(new CloningVisitor);
 
-        $originalStatements = $parser->parse($this->code);
-        $statements = $traverser->traverse($originalStatements);
+        $oldStmts = $parser->parse($this->code);
+        $oldTokens = $parser->getTokens();
+
+        $newStmts = $traverser->traverse($oldStmts);
 
         $nodeFinder = new NodeFinder;
-        $dates = $nodeFinder->findFirst($statements, $this->nodeFinderForModelProperty('dates'));
-        $casts = $nodeFinder->findFirst($statements, $this->nodeFinderForModelProperty('casts'));
+        $dates = $nodeFinder->findFirst($newStmts, $this->nodeFinderForModelProperty('dates'));
+        $casts = $nodeFinder->findFirst($newStmts, $this->nodeFinderForModelProperty('casts'));
 
         if ($dates) {
             $newCasts = $this->addDatesToCasts($dates, $casts);
 
-            $statements = array_map(function (Node $node) use ($newCasts) {
+            $newStmts = array_map(function (Node $node) use ($newCasts) {
                 if ($this->extendsAny($node, ['Model', 'Pivot', 'Authenticatable'])) {
                     // Replace the dates with the new casts and remove any existing casts (necessary so
                     // that we know where to put the new casts if there weren't any already)
@@ -58,10 +61,10 @@ class NoDatesPropertyOnModels extends BaseFormatter
                 }
 
                 return $node;
-            }, $statements);
+            }, $newStmts);
         }
 
-        return preg_replace('/\r?\n/', PHP_EOL, $this->printer()->printFormatPreserving($statements, $originalStatements, $lexer->getTokens()));
+        return preg_replace('/\r?\n/', PHP_EOL, $this->printer()->printFormatPreserving($newStmts, $oldStmts, $oldTokens));
     }
 
     private function nodeFinderForModelProperty(string $attribute): Closure
@@ -110,8 +113,8 @@ class NoDatesPropertyOnModels extends BaseFormatter
 
         // We have to return a *new* Property node here (even if there was
         // already a casts property) so the printer formats it correctly
-        return new Property(Class_::MODIFIER_PROTECTED, [
-            new PropertyProperty('casts', new Array_($newCasts, ['kind' => Array_::KIND_SHORT])),
+        return new Property(Modifiers::PROTECTED, [
+            new PropertyItem('casts', new Array_($newCasts, ['kind' => Array_::KIND_SHORT])),
         ]);
     }
 
@@ -120,7 +123,7 @@ class NoDatesPropertyOnModels extends BaseFormatter
         return new class extends Standard
         {
             // Force all arrays to be printed in multiline style
-            protected function pMaybeMultiline(array $nodes, bool $trailingComma = true)
+            protected function pMaybeMultiline(array $nodes, bool $trailingComma = true): string
             {
                 return $this->pCommaSeparatedMultiline($nodes, $trailingComma) . $this->nl;
             }

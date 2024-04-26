@@ -17,7 +17,7 @@ class UseAnonymousMigrations extends BaseFormatter
 
     public const DESCRIPTION = 'Prefer anonymous class migrations.';
 
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         $traverser = new NodeTraverser;
         $traverser->addVisitor(new CloningVisitor);

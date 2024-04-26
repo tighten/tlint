@@ -24,19 +24,21 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         $traverser = new NodeTraverser;
         $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($this->code);
+        $oldTokens = $parser->getTokens();
+
         $newStmts = $traverser->traverse($oldStmts);
 
         $traverser = new NodeTraverser;
         $traverser->addVisitor($this->visitor());
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\ *\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\ *\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $oldTokens));
     }
 
     private function visitor(): NodeVisitorAbstract
@@ -103,7 +105,7 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
                     }
                 }
 
-                $node->setAttribute('comments', [new Comment("\n"), ...$node->getComments()]);
+                $node->setAttribute('comments', [new Comment(''), ...$node->getComments()]);
 
                 return $node;
             }

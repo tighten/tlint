@@ -2,12 +2,11 @@
 
 namespace Tighten\TLint;
 
-use PhpParser\Lexer;
 use PhpParser\Parser;
 
 class BaseFormatter extends AbstractBase
 {
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         return $this->code;
     }

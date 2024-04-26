@@ -32,7 +32,7 @@ class FullyQualifiedFacades extends BaseLinter
              * Check if the node is a use statement and not a group use statement
              * Return if use statement is a facade or not
              */
-            if ($node instanceof Node\Stmt\UseUse && ! in_array($node->name->toString(), $groupUse)) {
+            if ($node instanceof Node\UseItem && ! in_array($node->name->toString(), $groupUse)) {
                 return in_array($node->name->toString(), array_keys(static::$aliases));
             }
 

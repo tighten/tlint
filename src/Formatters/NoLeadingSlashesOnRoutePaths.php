@@ -25,12 +25,14 @@ class NoLeadingSlashesOnRoutePaths extends BaseFormatter
         return Linter::appliesToPath($path, $configPaths);
     }
 
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         $traverser = new NodeTraverser;
         $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($this->code);
+        $oldTokens = $parser->getTokens();
+
         $newStmts = $traverser->traverse($oldStmts);
 
         $traverser = new NodeTraverser;
@@ -38,7 +40,7 @@ class NoLeadingSlashesOnRoutePaths extends BaseFormatter
 
         $newStmts = $traverser->traverse($newStmts);
 
-        return (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens());
+        return (new Standard)->printFormatPreserving($newStmts, $oldStmts, $oldTokens);
     }
 
     private function visitor(): NodeVisitorAbstract

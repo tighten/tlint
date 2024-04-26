@@ -6,7 +6,7 @@ use PhpParser\Lexer;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Use_;
-use PhpParser\Node\Stmt\UseUse;
+use PhpParser\Node\UseItem;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\NodeVisitorAbstract;
@@ -21,12 +21,14 @@ class FullyQualifiedFacades extends BaseFormatter
 
     public const DESCRIPTION = 'Import facades using their full namespace.';
 
-    public function format(Parser $parser, Lexer $lexer): string
+    public function format(Parser $parser): string
     {
         $traverser = new NodeTraverser;
         $traverser->addVisitor(new CloningVisitor);
 
         $oldStmts = $parser->parse($this->code);
+        $oldTokens = $parser->getTokens();
+
         $newStmts = $traverser->traverse($oldStmts);
 
         $traverser = new NodeTraverser;
@@ -43,7 +45,7 @@ class FullyQualifiedFacades extends BaseFormatter
         $traverser->addVisitor($this->transformFacadesVisitor());
         $newStmts = $traverser->traverse($newStmts);
 
-        return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $lexer->getTokens()));
+        return preg_replace('/\r?\n/', PHP_EOL, (new Standard)->printFormatPreserving($newStmts, $oldStmts, $oldTokens));
     }
 
     private function currentFullyQualifiedFacadesVisitor(): NodeVisitorAbstract
@@ -111,7 +113,7 @@ class FullyQualifiedFacades extends BaseFormatter
                     return null;
                 }
 
-                return new Use_([new UseUse(new Name($facades[$useStatement]))]);
+                return new Use_([new UseItem(new Name($facades[$useStatement]))]);
             }
         };
     }
