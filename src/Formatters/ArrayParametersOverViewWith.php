@@ -78,16 +78,32 @@ class ArrayParametersOverViewWith extends BaseFormatter
                     return null;
                 }
 
+                $existingArrayItems = [];
+
+                // Check if `view` has a second argument and extract array items
+                if (isset($node->getArgs()[1])) {
+                    $secondArg = $node->getArgs()[1]->value;
+                    if ($secondArg instanceof Array_) {
+                        $existingArrayItems = $secondArg->items;
+                    }
+                }
+
+                // Merge existing array items with `with` parameters
+                $mergedItems = array_merge(
+                    $existingArrayItems,
+                    array_map(function ($viewWith) {
+                        return new ArrayItem(
+                            $viewWith[1]->value,
+                            $viewWith[0]->value,
+                        );
+                    }, array_reverse($this->viewWith))
+                );
+
                 return new FuncCall(
                     new Name('view'),
                     [
                         $node->getArgs()[0],
-                        new Arg(new Array_(array_map(function ($viewWith) {
-                            return new ArrayItem(
-                                $viewWith[1]->value,
-                                $viewWith[0]->value,
-                            );
-                        }, array_reverse($this->viewWith)), [
+                        new Arg(new Array_($mergedItems, [
                             'kind' => Array_::KIND_SHORT,
                         ])),
                     ]
