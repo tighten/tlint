@@ -208,4 +208,76 @@ class ArrayParametersOverViewWithTest extends TestCase
 
         $this->assertSame($expected, $formatted);
     }
+
+    /** @test */
+    public function it_merges_parameters_passed_using_with_and_array_parameters(): void
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App;
+
+            class Controller
+            {
+                function index()
+                {
+                    return view('test.index', ['id' => 1234])->with('first', 'yes');
+                }
+            }
+            file;
+
+        $expected = <<<'file'
+            <?php
+
+            namespace App;
+
+            class Controller
+            {
+                function index()
+                {
+                    return view('test.index', ['id' => 1234, 'first' => 'yes']);
+                }
+            }
+            file;
+
+        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
+
+        $this->assertSame($expected, $formatted);
+    }
+
+    /** @test */
+    public function it_merges_array_parameters_with_multiple_with_calls(): void
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App;
+
+            class Controller
+            {
+                function index()
+                {
+                    return view('test.index', ['id' => 1234])->with('first', 'yes')->with('second', 'yes');
+                }
+            }
+            file;
+
+        $expected = <<<'file'
+            <?php
+
+            namespace App;
+
+            class Controller
+            {
+                function index()
+                {
+                    return view('test.index', ['id' => 1234, 'first' => 'yes', 'second' => 'yes']);
+                }
+            }
+            file;
+
+        $formatted = (new TFormat)->format(new ArrayParametersOverViewWith($file));
+
+        $this->assertSame($expected, $formatted);
+    }
 }
