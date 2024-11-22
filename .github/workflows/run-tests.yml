@@ -27,6 +27,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - run: |
+          composer remove tightenco/duster --dev
           composer update --prefer-${{ matrix.dependencies }} --prefer-dist --no-interaction
           composer require illuminate/view:* --with-all-dependencies --no-interaction
       - run: vendor/bin/phpunit
