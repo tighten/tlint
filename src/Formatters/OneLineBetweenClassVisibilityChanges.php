@@ -72,8 +72,8 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
                     return null;
                 }
 
-                // Ignore nodes with exactly the same visibility
-                if ($this->previousNode->flags === $node->flags) {
+                // If the two nodes are the same type and have the same visibility skip
+                if ($this->previousNode::class === $node::class && $this->previousNode->flags === $node->flags) {
                     $this->previousNode = $node;
 
                     return null;
@@ -103,6 +103,8 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
                         return null;
                     }
                 }
+
+                $this->previousNode = $node;
 
                 $node->setAttribute('comments', [new Comment(''), ...$node->getComments()]);
 
