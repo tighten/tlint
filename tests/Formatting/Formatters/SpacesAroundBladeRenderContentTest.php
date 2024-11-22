@@ -189,4 +189,19 @@ file;
 
         $this->assertEquals($correctlyFormatted, $formatted);
     }
+
+    /** @test */
+    public function does_not_trigger_on_escaped_blade()
+    {
+        $file = <<<'file'
+            @{{NOT_BLADE}}
+            @{!!NOT_BLADE!!}
+            file;
+
+        $formatted = (new TFormat)->format(
+            new SpacesAroundBladeRenderContent($file)
+        );
+
+        $this->assertEquals($file, $formatted);
+    }
 }

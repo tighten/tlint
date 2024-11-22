@@ -121,4 +121,19 @@ class SpacesAroundBladeRenderContentTest extends TestCase
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function does_not_trigger_on_escaped_blade()
+    {
+        $file = <<<'file'
+            @{{NOT_BLADE}}
+            @{!!NOT_BLADE!!}
+            file;
+
+        $lints = (new TLint)->lint(
+            new SpacesAroundBladeRenderContent($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
