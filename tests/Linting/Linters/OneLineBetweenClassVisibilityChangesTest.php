@@ -20,6 +20,7 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
             {
                 protected const OK = 1;
                 private $ok;
+                private $dokey;
             }
             file;
 
@@ -45,6 +46,7 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
                  * The description of something.
                  */
                 private $ok;
+                private $dokey;
             }
             file;
 
@@ -71,6 +73,7 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
                  * The description of something.
                  */
                 private $ok;
+                private $dokey;
             }
             file;
 
@@ -94,6 +97,7 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
                 protected const OK = 1;
                 // Note to self
                 private $ok;
+                private $dokey;
             }
             file;
 
@@ -118,6 +122,7 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
                 // Note to self
                 // Another
                 private $ok;
+                private $dokey;
             }
             file;
 
@@ -144,6 +149,7 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
                 // And another
                 // And another one
                 private $ok;
+                private $dokey;
             }
             file;
 
@@ -168,6 +174,7 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
 
                 // TODO
                 private $ok;
+                private $dokey;
             }
             file;
 
@@ -192,6 +199,7 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
                 // public const NOT_OK = 2;
 
                 private $ok;
+                private $dokey;
             }
             file;
 
@@ -222,6 +230,7 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
                 // Hi there
                 //
                 private $ok;
+                private $dokey;
             }
             file;
 
@@ -230,5 +239,30 @@ class OneLineBetweenClassVisibilityChangesTest extends TestCase
         );
 
         $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function catches_missing_line_between_types()
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App;
+
+            class Thing
+            {
+                protected const OK = 1;
+                protected $bar;
+                private $ok;
+                private $dokey;
+            }
+            file;
+
+        $lints = (new TLint)->lint(
+            new OneLineBetweenClassVisibilityChanges($file)
+        );
+
+        $this->assertEquals(8, $lints[0]->getNode()->getLine());
+        $this->assertEquals(9, $lints[1]->getNode()->getLine());
     }
 }
