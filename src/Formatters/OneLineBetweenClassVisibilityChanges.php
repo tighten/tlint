@@ -73,7 +73,7 @@ class OneLineBetweenClassVisibilityChanges extends BaseFormatter
                 }
 
                 // If the two nodes are the same type and have the same visibility skip
-                if ($this->previousNode::class === $node::class && $this->previousNode->flags === $node->flags) {
+                if ($node::class === $this->previousNode::class && $this->previousNode->flags === $node->flags) {
                     $this->previousNode = $node;
 
                     return null;
