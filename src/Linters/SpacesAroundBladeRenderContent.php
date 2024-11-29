@@ -14,9 +14,9 @@ class SpacesAroundBladeRenderContent extends BaseLinter
     public const DESCRIPTION = 'Spaces around blade rendered content:'
         . '`{{1 + 1}}` -> `{{ 1 + 1 }}`';
 
-    public const SEARCH_NORMAL = '/\{\{\s*(.+?)\s*\}\}/';
+    public const SEARCH_NORMAL = '/(?<!@)\{\{\s*(.+?)\s*\}\}/';
 
-    public const SEARCH_RAW = '/\{\!\!\s*(.+?)\s*\!\!\}/';
+    public const SEARCH_RAW = '/(?<!@)\{\!\!\s*(.+?)\s*\!\!\}/';
 
     public function lint(Parser $parser)
     {
