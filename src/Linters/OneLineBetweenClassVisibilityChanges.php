@@ -31,8 +31,8 @@ class OneLineBetweenClassVisibilityChanges extends BaseLinter
                         continue;
                     }
 
-                    // Ignore nodes with exactly the same visibility
-                    if ($previousNode->flags === $node->flags) {
+                    // If the two nodes are the same type and have the same visibility skip
+                    if ($previousNode::class === $node::class && $previousNode->flags === $node->flags) {
                         $previousNode = $node;
 
                         continue;
