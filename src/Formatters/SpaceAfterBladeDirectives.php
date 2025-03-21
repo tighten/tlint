@@ -21,7 +21,7 @@ class SpaceAfterBladeDirectives extends BaseFormatter
             $matches = [];
 
             preg_match_all(
-                Linter::DIRECTIVE_SEARCH,
+                Linter::$directiveSearch,
                 $codeLine,
                 $matches,
                 PREG_SET_ORDER

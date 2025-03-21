@@ -32,7 +32,7 @@ class SpaceAfterBladeDirectives extends BaseLinter
             $matches = [];
 
             preg_match_all(
-                self::DIRECTIVE_SEARCH,
+                self::$directiveSearch,
                 $codeLine,
                 $matches,
                 PREG_SET_ORDER
