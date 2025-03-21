@@ -14,9 +14,6 @@ class SpaceAfterBladeDirectives extends BaseLinter
     public const DESCRIPTION = 'Put a space between blade control structure names and the opening paren:'
         . '`@if(` -> `@if (`';
 
-    // https://github.com/illuminate/view/blob/master/Compilers/BladeCompiler.php#L500
-    public const DIRECTIVE_SEARCH = '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x';
-
     public const SPACE_AFTER = [
         'if',
         'elseif',
