@@ -14,9 +14,6 @@ class NoSpaceAfterBladeDirectives extends BaseLinter
     public const DESCRIPTION = 'No space between blade template directive names and the opening paren:'
         . '`@section (` -> `@section(`';
 
-    // https://github.com/illuminate/view/blob/master/Compilers/BladeCompiler.php#L500
-    public const DIRECTIVE_SEARCH = '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x';
-
     public const NO_SPACE_AFTER = [
         'auth',
         'section',

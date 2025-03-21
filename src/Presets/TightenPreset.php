@@ -26,6 +26,8 @@ class TightenPreset implements PresetInterface
             Linters\SpaceAfterBladeDirectives::class,
             Linters\SpacesAroundBladeRenderContent::class,
             Linters\NoJsonDirective::class,
+            Linters\NoDumpDirectives::class,
+            Linters\NoRayDirective::class,
         ];
     }
 

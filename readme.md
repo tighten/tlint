@@ -229,7 +229,9 @@ This lets you define custom linting/formatting functionality, or modify the exis
 | `MailableMethodsInBuild`               | Mailable values (from and subject etc) should be set in build().                                                                                                                                                                               |
 | `NoDatesPropertyOnModels`              | The `$dates` property was deprecated in Laravel 8. Use `$casts` instead.                                                                                                                                                                       |
 | `NoDocBlocksForMigrationUpDown`        | Remove doc blocks from the up and down method in migrations.                                                                                                                                                                                   |
+| `NoDumpDirectives`                     | Do not use the `@dump` or `@dd` directives.|
 | `NoJsonDirective`                      | Use blade `{{ $model }}` auto escaping for models, and double quotes via json_encode over @json blade directive: `<vue-comp :values='@json($var)'>` -> `<vue-comp :values="{{ $model }}">` OR `<vue-comp :values="{!! json_encode($var) !!}">` |
+| `NoRayDirective`                       | Do not use the `@ray` directive.|
 | `NoLeadingSlashesOnRoutePaths`         | No leading slashes on route paths.                                                                                                                                                                                                             |
 | `NoRequestAll`                         | No `request()->all()`. Use `request()->only(...)` to retrieve specific input values.                                                                                                                                                           |
 | `NoSpaceAfterBladeDirectives`          | No space between blade template directive names and the opening paren:`@section (` -> `@section(`                                                                                                                                              |
@@ -257,7 +259,9 @@ This lets you define custom linting/formatting functionality, or modify the exis
 -   `MailableMethodsInBuild`
 -   `NoLeadingSlashesOnRoutePaths`
 -   `NoDocBlocksForMigrationUpDown`
+-   `NoDumpDirectives`
 -   `NoJsonDirective`
+-   `NoRayDirective`
 -   `NoSpaceAfterBladeDirectives`, `SpaceAfterBladeDirectives`
 -   `PureRestControllers`
 -   `RequestHelperFunctionWherePossible`

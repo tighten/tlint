@@ -19,6 +19,7 @@ class LintCommand extends BaseCommand
 {
     private const NO_LINTS_FOUND_OR_SUCCESS = 0;
     private const LINTS_FOUND_OR_ERROR = 1;
+
     private DOMElement $checkstyle;
 
     protected function configure()
