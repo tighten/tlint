@@ -22,7 +22,7 @@ class SpacesAroundBladeRenderContent extends BaseLinter
             $matchesNormal = [];
 
             preg_match_all(
-                self::SEARCH_NORMAL,
+                self::$searchNormal,
                 $codeLine,
                 $matchesNormal,
                 PREG_SET_ORDER
@@ -39,7 +39,7 @@ class SpacesAroundBladeRenderContent extends BaseLinter
             $matchesRaw = [];
 
             preg_match_all(
-                self::SEARCH_RAW,
+                self::$searchRaw,
                 $codeLine,
                 $matchesRaw,
                 PREG_SET_ORDER

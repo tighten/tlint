@@ -21,7 +21,7 @@ class SpacesAroundBladeRenderContent extends BaseFormatter
             $matchesNormal = [];
 
             preg_match_all(
-                Linter::SEARCH_NORMAL,
+                Linter::$searchNormal,
                 $codeLine,
                 $matchesNormal,
                 PREG_SET_ORDER
@@ -41,7 +41,7 @@ class SpacesAroundBladeRenderContent extends BaseFormatter
             $matchesRaw = [];
 
             preg_match_all(
-                Linter::SEARCH_RAW,
+                Linter::$searchRaw,
                 $codeLine,
                 $matchesRaw,
                 PREG_SET_ORDER
