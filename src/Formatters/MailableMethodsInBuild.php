@@ -3,7 +3,6 @@
 namespace Tighten\TLint\Formatters;
 
 use PhpParser\Node;
-use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\NodeVisitorAbstract;
@@ -87,35 +86,31 @@ class MailableMethodsInBuild extends BaseFormatter
                     return null;
                 }
 
-                $stmts = collect($node->getStmts())->filter(function ($stmt) {
+                collect($node->getStmts())->each(function ($stmt) {
                     if (! $stmt instanceof Node\Stmt\Expression) {
-                        return true;
+                        return;
                     }
 
                     if (! $stmt->expr instanceof Node\Expr\MethodCall) {
-                        return true;
+                        return;
                     }
 
                     if ($stmt->expr->var->name !== 'this') {
-                        return true;
+                        return;
                     }
 
                     $this->moveStmts[] = $stmt;
+                });
 
-                    return false;
-                })->toArray();
+                if (empty($this->moveStmts)) {
+                    return null;
+                }
 
-                return new ClassMethod(
-                    '__construct',
-                    [
-                        'flags' => $node->flags,
-                        'byRef' => $node->byRef,
-                        'params' => $node->params,
-                        'returnType' => $node->returnType,
-                        'stmts' => $stmts,
-                        'attrGroups' => $node->attrGroups,
-                    ]
-                );
+                $node->stmts = array_values(array_filter($node->getStmts(), function ($stmt) {
+                    return ! in_array($stmt, $this->moveStmts, true);
+                }));
+
+                return $node;
             }
         };
     }
@@ -165,17 +160,9 @@ class MailableMethodsInBuild extends BaseFormatter
                     return null;
                 }
 
-                return new ClassMethod(
-                    'build',
-                    [
-                        'flags' => $node->flags,
-                        'byRef' => $node->byRef,
-                        'params' => $node->params,
-                        'returnType' => $node->returnType,
-                        'stmts' => array_merge($this->moveStmts, $node->getStmts()),
-                        'attrGroups' => $node->attrGroups,
-                    ]
-                );
+                $node->stmts = array_merge($this->moveStmts, $node->getStmts());
+
+                return $node;
             }
         };
     }
