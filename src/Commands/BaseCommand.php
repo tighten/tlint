@@ -101,6 +101,7 @@ abstract class BaseCommand extends Command
         return strpos($filepath, 'vendor') !== false
             || strpos($filepath, 'node_modules') !== false
             || strpos($filepath, "storage{$DS}framework{$DS}views") !== false
+            || strpos($filepath, 'bootstrap') !== false
             || $this->isExcluded($filepath);
     }
 }
