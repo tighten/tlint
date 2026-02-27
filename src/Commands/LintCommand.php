@@ -58,7 +58,7 @@ class LintCommand extends BaseCommand
         $fileOrDirectory = $this->resolveFileOrDirectory($input->getArgument('file or directory'));
         $finalResponseCode = self::NO_LINTS_FOUND_OR_SUCCESS;
 
-        if ($this->isBlacklisted($fileOrDirectory)) {
+        if ($this->isOnExcludeList($fileOrDirectory)) {
             return self::NO_LINTS_FOUND_OR_SUCCESS;
         }
 
@@ -109,7 +109,7 @@ class LintCommand extends BaseCommand
 
     private function lintFile(InputInterface $input, OutputInterface $output, $file)
     {
-        if ($this->isBlacklisted($file)) {
+        if ($this->isOnExcludeList($file)) {
             return self::NO_LINTS_FOUND_OR_SUCCESS;
         }
 

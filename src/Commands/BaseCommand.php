@@ -94,14 +94,15 @@ abstract class BaseCommand extends Command
         return false;
     }
 
-    protected function isBlacklisted($filepath)
+    protected function isOnExcludeList($filepath)
     {
         $DS = DIRECTORY_SEPARATOR;
+        $root = realpath($this->cwd ?? getcwd());
 
-        return strpos($filepath, 'vendor') !== false
-            || strpos($filepath, 'node_modules') !== false
+        return strpos($filepath, "{$root}{$DS}vendor{$DS}") === 0
+            || strpos($filepath, "{$root}{$DS}node_modules{$DS}") === 0
+            || strpos($filepath, "{$root}{$DS}bootstrap{$DS}") === 0
             || strpos($filepath, "storage{$DS}framework{$DS}views") !== false
-            || strpos($filepath, 'bootstrap') !== false
             || $this->isExcluded($filepath);
     }
 }
