@@ -49,7 +49,7 @@ class FormatCommand extends BaseCommand
         $fileOrDirectory = $this->resolveFileOrDirectory($input->getArgument('file or directory'));
         $finalResponseCode = self::SUCCESS;
 
-        if ($this->isBlacklisted($fileOrDirectory)) {
+        if ($this->isOnExcludeList($fileOrDirectory)) {
             return self::SUCCESS;
         }
 
@@ -84,7 +84,7 @@ class FormatCommand extends BaseCommand
 
     private function formatFile(InputInterface $input, OutputInterface $output, $file)
     {
-        if ($this->isBlacklisted($file)) {
+        if ($this->isOnExcludeList($file)) {
             return self::SUCCESS;
         }
 
