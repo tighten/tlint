@@ -151,4 +151,40 @@ class MailableMethodsInBuildTest extends TestCase
 
         $this->assertSame($file, $formatted);
     }
+
+    /** @test */
+    public function does_not_alter_constructor_parameter_formatting()
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App\Mail;
+
+            use Illuminate\Bus\Queueable;
+            use Illuminate\Mail\Mailable;
+            use Illuminate\Queue\SerializesModels;
+
+            class WelcomeMail extends Mailable
+            {
+                use Queueable, SerializesModels;
+
+                public function __construct(
+                    public string $name,
+                    public string $email,
+                    public string $token,
+                ) {
+                    //
+                }
+
+                public function build()
+                {
+                    return $this->view('emails.welcome');
+                }
+            }
+            file;
+
+        $formatted = (new TFormat)->format(new MailableMethodsInBuild($file));
+
+        $this->assertSame($file, $formatted);
+    }
 }
