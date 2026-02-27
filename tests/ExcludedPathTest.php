@@ -58,23 +58,6 @@ class ExcludedPathTest extends TestCase
     }
 
     /** @test */
-    public function it_excludes_root_bootstrap_directory()
-    {
-        $DS = DIRECTORY_SEPARATOR;
-
-        $this->assertTrue($this->isOnExcludeList("{$this->root}{$DS}bootstrap{$DS}app.php"));
-    }
-
-    /** @test */
-    public function it_does_not_exclude_files_containing_bootstrap_in_name()
-    {
-        $DS = DIRECTORY_SEPARATOR;
-
-        $this->assertFalse($this->isOnExcludeList("{$this->root}{$DS}app{$DS}Http{$DS}Controllers{$DS}BootstrapController.php"));
-        $this->assertFalse($this->isOnExcludeList("{$this->root}{$DS}resources{$DS}views{$DS}bootstrap-layout.blade.php"));
-    }
-
-    /** @test */
     public function it_excludes_storage_framework_views_directory()
     {
         $DS = DIRECTORY_SEPARATOR;
