@@ -17,15 +17,6 @@ class ExcludedPathTest extends TestCase
         $this->root = realpath(sys_get_temp_dir());
     }
 
-    private function isOnExcludeList(string $filepath): bool
-    {
-        $command = new LintCommand(sys_get_temp_dir());
-
-        $method = new ReflectionMethod($command, 'isOnExcludeList');
-
-        return $method->invoke($command, $filepath);
-    }
-
     /** @test */
     public function it_excludes_root_vendor_directory()
     {
@@ -89,5 +80,14 @@ class ExcludedPathTest extends TestCase
         $DS = DIRECTORY_SEPARATOR;
 
         $this->assertTrue($this->isOnExcludeList("{$this->root}{$DS}storage{$DS}framework{$DS}views{$DS}cached.php"));
+    }
+
+    private function isOnExcludeList(string $filepath): bool
+    {
+        $command = new LintCommand(sys_get_temp_dir());
+
+        $method = new ReflectionMethod($command, 'isOnExcludeList');
+
+        return $method->invoke($command, $filepath);
     }
 }
