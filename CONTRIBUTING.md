@@ -28,7 +28,7 @@ Before submitting a pull request:
 
 ## Requirements
 
--   **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - The easiest way to apply the conventions is to install [PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSniffer).
+-   **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - The easiest way to apply the conventions is to install [PHP Code Sniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer).
 
 -   **Tlint styles** - Changes to tlint should pass tlint checks (default, tighten flavor).
 
