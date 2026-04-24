@@ -62,11 +62,11 @@ class ArrayParametersOverViewWith extends BaseFormatter
                     $this->viewWith[] = [$node->getArgs()[0], $node->getArgs()[1]];
                 });
 
-                if (! $node instanceof Node\Expr\FuncCall) {
+                if (! $node instanceof FuncCall) {
                     return null;
                 }
 
-                if (! $node->name instanceof Node\Name) {
+                if (! $node->name instanceof Name) {
                     return null;
                 }
 
@@ -132,8 +132,8 @@ class ArrayParametersOverViewWith extends BaseFormatter
                         $parent = $parent->var;
                     }
 
-                    if ($parent instanceof Node\Expr\FuncCall
-                        && $parent->name instanceof Node\Name
+                    if ($parent instanceof FuncCall
+                        && $parent->name instanceof Name
                         && $parent->name->toString() === 'view'
                     ) {
                         return $callback($node);

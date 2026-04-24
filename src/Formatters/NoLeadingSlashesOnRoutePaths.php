@@ -48,7 +48,7 @@ class NoLeadingSlashesOnRoutePaths extends BaseFormatter
         {
             public function enterNode(Node $node): Node|int|null
             {
-                if (! $node instanceof Node\Expr\StaticCall) {
+                if (! $node instanceof StaticCall) {
                     return null;
                 }
 
@@ -64,7 +64,7 @@ class NoLeadingSlashesOnRoutePaths extends BaseFormatter
                     return null;
                 }
 
-                if (! $node->args[0]->value instanceof Node\Scalar\String_) {
+                if (! $node->args[0]->value instanceof String_) {
                     return null;
                 }
 
