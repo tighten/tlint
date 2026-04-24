@@ -106,4 +106,28 @@ class RequestValidationTest extends TestCase
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function does_not_throw_on_dynamic_method_calls()
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App;
+
+            class ControllerA extends Controller
+            {
+                public function foo($item, string $p): string
+                {
+                    return (string) $this->{'get' . $p}();
+                }
+            }
+            file;
+
+        $lints = (new TLint)->lint(
+            new RequestValidation($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }

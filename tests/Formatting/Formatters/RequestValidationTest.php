@@ -136,4 +136,28 @@ class RequestValidationTest extends TestCase
 
         $this->assertSame($file, $formatted);
     }
+
+    /** @test */
+    public function does_not_throw_on_dynamic_method_calls()
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App;
+
+            use App\Http\Controllers\Controller;
+
+            class ControllerA extends Controller
+            {
+                public function foo(string $p)
+                {
+                    return $this->{'get' . $p}();
+                }
+            }
+            file;
+
+        $formatted = (new TFormat)->format(new RequestValidation($file));
+
+        $this->assertSame($file, $formatted);
+    }
 }

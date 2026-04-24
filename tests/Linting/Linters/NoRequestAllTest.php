@@ -103,4 +103,50 @@ class NoRequestAllTest extends TestCase
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function does_not_throw_on_dynamic_method_calls()
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App\Http\Controllers;
+
+            class UserController
+            {
+                public function foo($request, string $p)
+                {
+                    return $request->{'a' . $p}();
+                }
+            }
+            file;
+
+        $lints = (new TLint)->lint(new NoRequestAll($file));
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
+    public function does_not_throw_on_non_stringable_receivers()
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App\Http\Controllers;
+
+            class UserController
+            {
+                public function foo($resolver, $class, $name)
+                {
+                    $resolver()->all();
+                    $class::all();
+                    ${$name}->all();
+                }
+            }
+            file;
+
+        $lints = (new TLint)->lint(new NoRequestAll($file));
+
+        $this->assertEmpty($lints);
+    }
 }

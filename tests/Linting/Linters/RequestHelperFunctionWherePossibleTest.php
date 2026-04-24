@@ -48,4 +48,28 @@ class RequestHelperFunctionWherePossibleTest extends TestCase
 
         $this->assertEmpty($lints);
     }
+
+    /** @test */
+    public function does_not_throw_on_dynamic_method_calls()
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App;
+
+            class Probe
+            {
+                public function foo($item, string $p): string
+                {
+                    return (string) $item->{'get' . $p}();
+                }
+            }
+            file;
+
+        $lints = (new TLint)->lint(
+            new RequestHelperFunctionWherePossible($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
 }
