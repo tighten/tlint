@@ -66,7 +66,7 @@ class RequestValidation extends BaseFormatter
                     return null;
                 }
 
-                if (! $node instanceof Node\Expr\MethodCall) {
+                if (! $node instanceof MethodCall) {
                     return null;
                 }
 

@@ -78,7 +78,7 @@ class CanOutputLintsAsCheckstyleTest extends TestCase
 
         $output = $commandTester->getDisplay();
 
-        $xml = new DOMDocument;
+        $xml = new DomDocument;
         $xml->loadXML($output);
         $this->assertEquals(0, $xml->getElementsByTagName('file')->length);
         $this->assertEquals(0, $commandTester->getStatusCode());
