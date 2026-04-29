@@ -78,6 +78,10 @@ class RequestValidation extends BaseFormatter
                     return null;
                 }
 
+                if (! $node->name instanceof Node\Identifier) {
+                    return null;
+                }
+
                 if ($node->name->name !== 'validate') {
                     return null;
                 }

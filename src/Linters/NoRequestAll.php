@@ -15,10 +15,26 @@ class NoRequestAll extends BaseLinter
     protected function visitor(): Closure
     {
         return function (Node $node) {
-            $isRequestMethodCall = $node instanceof MethodCall && (string) $node->var->name === 'request';
-            $isRequestStaticCall = $node instanceof StaticCall && (string) $node->class === 'Request';
+            $isRequestCall = match (true) {
+                $node instanceof MethodCall
+                    && $node->var instanceof Node\Expr\Variable
+                    && $node->var->name === 'request',
 
-            return ($isRequestMethodCall || $isRequestStaticCall) && $node->name->name === 'all';
+                $node instanceof MethodCall
+                    && $node->var instanceof Node\Expr\FuncCall
+                    && $node->var->name instanceof Node\Name
+                    && $node->var->name->toString() === 'request',
+
+                $node instanceof StaticCall
+                    && $node->class instanceof Node\Name
+                    && $node->class->toString() === 'Request' => true,
+
+                default => false,
+            };
+
+            return $isRequestCall
+                && $node->name instanceof Node\Identifier
+                && $node->name->name === 'all';
         };
     }
 }

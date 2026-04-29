@@ -27,6 +27,7 @@ class RequestValidation extends BaseLinter
             return $node instanceof Node\Expr\MethodCall
                 && $node->var instanceof Node\Expr\Variable
                 && $node->var->name === 'this'
+                && $node->name instanceof Node\Identifier
                 && $node->name->name === 'validate';
         });
 
