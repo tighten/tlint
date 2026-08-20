@@ -115,6 +115,47 @@ class MailableMethodsInBuildTest extends TestCase
     }
 
     /** @test */
+    public function does_not_remove_constructor_statements_when_there_is_no_build_method()
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App\Mail;
+
+            use Illuminate\Bus\Queueable;
+            use Illuminate\Mail\Mailable;
+            use Illuminate\Mail\Mailables\Content;
+            use Illuminate\Mail\Mailables\Envelope;
+            use Illuminate\Queue\SerializesModels;
+
+            class ReportMail extends Mailable
+            {
+                use Queueable, SerializesModels;
+
+                public function __construct(public string $reportId)
+                {
+                    $this->onQueue('mail');
+                    $this->locale('de');
+                }
+
+                public function envelope(): Envelope
+                {
+                    return new Envelope(subject: 'Report');
+                }
+
+                public function content(): Content
+                {
+                    return new Content(markdown: 'emails.report');
+                }
+            }
+            file;
+
+        $formatted = (new TFormat)->format(new MailableMethodsInBuild($file));
+
+        $this->assertSame($file, $formatted);
+    }
+
+    /** @test */
     public function does_not_trigger_on_non_mailable()
     {
         $file = <<<'file'
