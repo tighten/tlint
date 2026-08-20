@@ -51,6 +51,8 @@ class MailableMethodsInBuild extends BaseFormatter
         {
             private bool $extendsMailable = false;
 
+            private bool $hasBuildMethod = false;
+
             public $moveStmts = [];
 
             public function getMoveStmts()
@@ -61,6 +63,7 @@ class MailableMethodsInBuild extends BaseFormatter
             public function beforeTraverse(array $nodes)
             {
                 $this->extendsMailable = false;
+                $this->hasBuildMethod = false;
 
                 return null;
             }
@@ -72,9 +75,17 @@ class MailableMethodsInBuild extends BaseFormatter
                     && $node->extends->toString() === 'Mailable'
                 ) {
                     $this->extendsMailable = true;
+                    $this->hasBuildMethod = collect($node->getMethods())
+                        ->contains(fn ($method) => $method->name->name === 'build');
                 }
 
                 if (! $this->extendsMailable) {
+                    return null;
+                }
+
+                // Without a build() method there's nowhere to move the statements
+                // to, so leave the constructor untouched rather than deleting them.
+                if (! $this->hasBuildMethod) {
                     return null;
                 }
 
