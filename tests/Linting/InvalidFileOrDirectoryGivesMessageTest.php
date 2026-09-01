@@ -14,7 +14,7 @@ class InvalidFileOrDirectoryGivesMessageTest extends TestCase
     {
         $application = new Application;
         $command = new LintCommand(__DIR__);
-        $application->add($command);
+        $application->addCommands([$command]);
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
@@ -31,7 +31,7 @@ class InvalidFileOrDirectoryGivesMessageTest extends TestCase
     {
         $application = new Application;
         $command = new LintCommand(__DIR__);
-        $application->add($command);
+        $application->addCommands([$command]);
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([

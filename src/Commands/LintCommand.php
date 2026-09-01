@@ -22,7 +22,7 @@ class LintCommand extends BaseCommand
 
     private DOMElement $checkstyle;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('lint')
