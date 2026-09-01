@@ -26,5 +26,9 @@ class NoJsonDirectiveTest extends TestCase
         );
 
         $this->assertEquals(5, $lints[0]->getNode()->getLine());
+        $this->assertStringContainsString(
+            '{!! json_encode($var, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}',
+            (string) $lints[0]
+        );
     }
 }
