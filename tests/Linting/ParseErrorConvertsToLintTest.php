@@ -14,7 +14,7 @@ class ParseErrorConvertsToLintTest extends TestCase
     {
         $application = new Application;
         $command = new LintCommand;
-        $application->add($command);
+        $application->addCommands([$command]);
         $commandTester = new CommandTester($command);
 
         $file = <<<'file'

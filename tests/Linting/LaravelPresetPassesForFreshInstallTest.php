@@ -14,7 +14,7 @@ class LaravelPresetPassesForFreshInstallTest extends TestCase
     {
         $application = new Application;
         $command = new LintCommand(__DIR__ . '/../fixtures/laravel/');
-        $application->add($command);
+        $application->addCommands([$command]);
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([

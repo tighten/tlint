@@ -28,8 +28,7 @@ use Tighten\TLint\Commands\LintCommand;
 $application = new Application('tlint', TLINT_VERSION);
 
 $lintCommand = new LintCommand;
-$application->add($lintCommand);
-$application->add(new FormatCommand);
+$application->addCommands([$lintCommand, new FormatCommand]);
 $application->setDefaultCommand($lintCommand->getName());
 
 $application->run();

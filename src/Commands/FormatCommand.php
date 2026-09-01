@@ -19,7 +19,7 @@ class FormatCommand extends BaseCommand
 
     private $thereWasChange = false;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('format')

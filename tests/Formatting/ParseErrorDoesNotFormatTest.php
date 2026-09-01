@@ -15,7 +15,7 @@ class ParseErrorDoesNotFormatTest extends TestCase
         $application = new Application;
 
         $command = new FormatCommand;
-        $application->add($command);
+        $application->addCommands([$command]);
         $commandTester = new CommandTester($command);
 
         $file = <<<'file'
