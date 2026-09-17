@@ -90,6 +90,49 @@ class MailableMethodsInBuildTest extends TestCase
     }
 
     /** @test */
+    public function does_not_trigger_on_modern_mailable_without_build_method()
+    {
+        $file = <<<'file'
+            <?php
+
+            namespace App\Mail;
+
+            use Illuminate\Bus\Queueable;
+            use Illuminate\Mail\Mailable;
+            use Illuminate\Mail\Mailables\Content;
+            use Illuminate\Mail\Mailables\Envelope;
+            use Illuminate\Queue\SerializesModels;
+
+            class ReportMail extends Mailable
+            {
+                use Queueable, SerializesModels;
+
+                public function __construct(public string $reportId)
+                {
+                    $this->onQueue('mail');
+                    $this->locale('de');
+                }
+
+                public function envelope(): Envelope
+                {
+                    return new Envelope(subject: 'Report');
+                }
+
+                public function content(): Content
+                {
+                    return new Content(markdown: 'emails.report');
+                }
+            }
+            file;
+
+        $lints = (new TLint)->lint(
+            new MailableMethodsInBuild($file)
+        );
+
+        $this->assertEmpty($lints);
+    }
+
+    /** @test */
     public function does_not_trigger_on_non_mailable()
     {
         $file = <<<'file'

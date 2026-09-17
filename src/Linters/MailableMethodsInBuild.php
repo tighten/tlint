@@ -17,14 +17,20 @@ class MailableMethodsInBuild extends BaseLinter
     {
         return function (Node $node) {
             static $extendsMailable = false;
+            static $hasBuildMethod = false;
 
             if ($node instanceof Node\Stmt\Class_
                 && ! empty($node->extends)
                 && $node->extends->toString() === 'Mailable') {
                 $extendsMailable = true;
+                // Only lint legacy build()-style Mailables. A class using the
+                // envelope()/content() API has no build() to move statements to,
+                // so leave its constructor alone.
+                $hasBuildMethod = collect($node->getMethods())
+                    ->contains(fn ($method) => $method->name->name === 'build');
             }
 
-            if ($extendsMailable && $node instanceof Node\Stmt\ClassMethod && $node->name->name === '__construct') {
+            if ($extendsMailable && $hasBuildMethod && $node instanceof Node\Stmt\ClassMethod && $node->name->name === '__construct') {
                 foreach ($node->getStmts() as $stmt) {
                     if ($stmt instanceof Node\Stmt\Expression
                         && $stmt->expr instanceof Node\Expr\MethodCall
