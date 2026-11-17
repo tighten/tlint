@@ -11,7 +11,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: "Duster"
-        uses: tighten/duster-action@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          args: lint
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Duster
+        run: ./vendor/bin/duster lint
